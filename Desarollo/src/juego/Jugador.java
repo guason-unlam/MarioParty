@@ -1,24 +1,27 @@
 package juego;
 
+import java.awt.Color;
+import java.util.Random;
+
 public class Jugador {
-	private String username;
-	private String password;
+
+	private String nombre;
 	private int puntaje;
+	private Color color;
 
-	public String getUsername() {
-		return username;
+	public Jugador(Usuario usuario) {
+		this.nombre = usuario.getUsername();
+		this.puntaje = 0;
+		Random rand = new Random(System.currentTimeMillis());
+		this.color = new Color(rand.nextInt(255), rand.nextInt(255), rand.nextInt(255));
 	}
 
-	public void setUsername(String username) {
-		this.username = username;
+	public String getNombre() {
+		return nombre;
 	}
 
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
 	}
 
 	public int getPuntaje() {
@@ -29,8 +32,16 @@ public class Jugador {
 		this.puntaje = puntaje;
 	}
 
-	public Jugador(String username, String password) {
-		this.username = username;
-		this.password = password;
+	public Color getColor() {
+		return color;
+	}
+
+	public void setColor(Color color) {
+		this.color = color;
+	}
+	
+	@Override
+	public String toString() {
+		return this.nombre + "            " + this.puntaje;
 	}
 }
