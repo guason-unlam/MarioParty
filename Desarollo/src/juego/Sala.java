@@ -4,15 +4,40 @@ import java.util.ArrayList;
 
 public class Sala {
 	private String nombre;
+	private String password;
 	private boolean salaLlena = false;
 	private int capacidadMaxima = 0;
 	private int capacidadActual;
 	private ArrayList<Usuario> jugadoresActivos = new ArrayList<Usuario>();
 	private Usuario usuarioCreador;
 
+	public Sala(String nombreSala, String passwordSala, int capacidadMaxima, Usuario usuarioCreador) {
+		this.nombre = nombreSala;
+		this.password = passwordSala;
+		this.capacidadMaxima = capacidadMaxima;
+		this.usuarioCreador = usuarioCreador;
+	}
+
 	public Sala(String nombreSala, int capacidadMaxima, Usuario usuarioCreador) {
 		this.nombre = nombreSala;
+		this.password = "";
 		this.capacidadMaxima = capacidadMaxima;
+		this.usuarioCreador = usuarioCreador;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public Usuario getUsuarioCreador() {
+		return usuarioCreador;
+	}
+
+	public void setUsuarioCreador(Usuario usuarioCreador) {
 		this.usuarioCreador = usuarioCreador;
 	}
 

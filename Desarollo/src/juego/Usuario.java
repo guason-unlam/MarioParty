@@ -8,6 +8,7 @@ public class Usuario {
 	private String password;
 	private ArrayList<Partida> partidasJugadas;
 	private int puntaje;
+	private Sala sala;
 
 	public int getId() {
 		return id;
@@ -53,4 +54,28 @@ public class Usuario {
 	public void setPartidasJugadas(ArrayList<Partida> partidasJugadas) {
 		this.partidasJugadas = partidasJugadas;
 	}
+
+	public Sala getSala() {
+		return sala;
+	}
+
+	public void setSala(Sala sala) {
+		this.sala = sala;
+	}
+
+	public Sala crearSala(String nombreSala, String password, int cantDeUsrMaximos) {
+		Sala sala = new Sala(nombreSala, cantDeUsrMaximos, this);
+		sala.conectarseALaSala(this);
+		return sala;
+	}
+
+	public void salirDeSala() {
+		this.sala = null;
+	}
+
+	public void setJugador(Jugador jugador) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

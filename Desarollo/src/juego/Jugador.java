@@ -8,10 +8,12 @@ public class Jugador {
 	private String nombre;
 	private int puntaje;
 	private Color color;
+	private int puntosEnPartida;
 
 	public Jugador(Usuario usuario) {
 		this.nombre = usuario.getUsername();
 		this.puntaje = 0;
+		this.puntosEnPartida = 0;
 		Random rand = new Random(System.currentTimeMillis());
 		this.color = new Color(rand.nextInt(255), rand.nextInt(255), rand.nextInt(255));
 	}
@@ -39,9 +41,18 @@ public class Jugador {
 	public void setColor(Color color) {
 		this.color = color;
 	}
-	
+
 	@Override
 	public String toString() {
 		return this.nombre + "            " + this.puntaje;
 	}
+
+	public int getPuntosEnPartida() {
+		return this.puntosEnPartida;
+	}
+
+	public void setPuntosEnPartida(int puntosEnPartida) {
+		this.puntosEnPartida = puntosEnPartida;
+	}
+
 }
