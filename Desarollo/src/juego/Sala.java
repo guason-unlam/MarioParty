@@ -7,13 +7,13 @@ public class Sala {
 	private boolean salaLlena = false;
 	private int capacidadMaxima = 0;
 	private int capacidadActual;
-	private ArrayList<Jugador> jugadoresActivos = new ArrayList<Jugador>();
-	private Jugador jugadorCreador;
+	private ArrayList<Usuario> jugadoresActivos = new ArrayList<Usuario>();
+	private Usuario usuarioCreador;
 
-	public Sala(String nombreSala, int capacidadMaxima, Jugador jugadorCreador) {
+	public Sala(String nombreSala, int capacidadMaxima, Usuario usuarioCreador) {
 		this.nombre = nombreSala;
 		this.capacidadMaxima = capacidadMaxima;
-		this.jugadorCreador = jugadorCreador;
+		this.usuarioCreador = usuarioCreador;
 	}
 
 	public String getNombre() {
@@ -32,11 +32,11 @@ public class Sala {
 		this.salaLlena = salaLlena;
 	}
 
-	public ArrayList<Jugador> getJugadoresActivos() {
+	public ArrayList<Usuario> getJugadoresActivos() {
 		return jugadoresActivos;
 	}
 
-	public void setJugadoresActivos(ArrayList<Jugador> jugadoresActivos) {
+	public void setJugadoresActivos(ArrayList<Usuario> jugadoresActivos) {
 		this.jugadoresActivos = jugadoresActivos;
 	}
 
@@ -56,30 +56,30 @@ public class Sala {
 		this.capacidadActual = capacidadActual;
 	}
 
-	public Jugador getJugadorCreador() {
-		return jugadorCreador;
+	public Usuario getJugadorCreador() {
+		return usuarioCreador;
 	}
 
-	public void setJugadorCreador(Jugador jugadorCreador) {
-		this.jugadorCreador = jugadorCreador;
+	public void setJugadorCreador(Usuario jugadorCreador) {
+		this.usuarioCreador = jugadorCreador;
 	}
 
-	public boolean esAdmin(Jugador user) {
-		return this.jugadorCreador.getUsername().equals(user.getUsername());
+	public boolean esAdmin(Usuario user) {
+		return this.usuarioCreador.getUsername().equals(user.getUsername());
 	}
 
-	public boolean conectarseALaSala(Jugador jugador) {
+	public boolean conectarseALaSala(Usuario usuario) {
 		if (this.capacidadActual < this.capacidadMaxima) {
-			this.jugadoresActivos.add(jugador);
+			this.jugadoresActivos.add(usuario);
 			this.capacidadActual++;
 			return true;
 		}
 		this.salaLlena = true;
 		return false;
 	}
-	
-	public boolean sacarJugadorDeSala(Jugador jugador) {
-		if (this.jugadoresActivos.remove(jugador)) {
+
+	public boolean sacarUsuarioDeSala(Usuario usuario) {
+		if (this.jugadoresActivos.remove(usuario)) {
 			this.capacidadActual--;
 			return true;
 		}
