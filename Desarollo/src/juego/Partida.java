@@ -3,17 +3,19 @@ package juego;
 import java.util.ArrayList;
 
 public class Partida {
+	//Cambiar por el estado
 	private boolean partidaEnCurso = false;
 	private ArrayList<Ronda> rondasJugadas = new ArrayList<Ronda>();
 	private ArrayList<Jugador> jugadoresEnPartida = new ArrayList<Jugador>();
 	private Ronda rondaEnCurso;
-	private int cantidadDeRondasAJugar;
 	private int numeroRonda = 0;
 	private ArrayList<Usuario> usuariosActivosEnSala;
 	private Tablero tablero;
 	private int tipoMapa;
 	private Jugador ganadorPartida;
+	//ESTO ES UNA CLASE NUEVA
 	private int puntajeMaximo;
+	private int cantidadDeRondasAJugar;
 
 	public Partida(int id, ArrayList<Usuario> usuariosActivosEnSala, int cantidadTotalRondas) {
 		this.usuariosActivosEnSala = usuariosActivosEnSala;
