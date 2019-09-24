@@ -1,8 +1,6 @@
 package juego.item;
 
 public class ModificadorPosicion extends Item {
-	private int cantidadMaxima;
-	private int multiplicador;
 
 	/*
 	 * El multiplicador puede ser cualquier numero distinto de cero, ya que me
@@ -13,23 +11,13 @@ public class ModificadorPosicion extends Item {
 	 * @return modificarPosicion
 	 */
 	public ModificadorPosicion(String nombre, String descripcion, int cantMaxima, int multiplicador) {
-		super(nombre, descripcion);
-		this.cantidadMaxima = cantMaxima;
-		this.multiplicador = multiplicador;
+		super(nombre, descripcion, cantMaxima, multiplicador);
 	}
 
 	@Override
 	public void activarItem() {
 		int cant = this.cantidadMaxima>this.carasDado?this.cantidadMaxima:this.carasDado;
 		this.dado.tirar(cant);
-	}
-
-	public int getCantidadMaxima() {
-		return cantidadMaxima;
-	}
-
-	public int getMultiplicador() {
-		return multiplicador;
 	}
 
 }
