@@ -1,7 +1,7 @@
 package juego.item;
 
-public class ModificadorDado extends Item {
-	public ModificadorDado(String nombre, String descripcion, int cantMaxima, int multiplicador) {
+public class ModificadorMonedas extends Item {
+	public ModificadorMonedas(String nombre, String descripcion, int cantMaxima, int multiplicador) {
 		super(nombre, descripcion, cantMaxima, multiplicador);
 	}
 

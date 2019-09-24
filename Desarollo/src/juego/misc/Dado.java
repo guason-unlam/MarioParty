@@ -1,4 +1,4 @@
-package juego.random_number_generator;
+package juego.misc;
 
 import java.util.Random;
 

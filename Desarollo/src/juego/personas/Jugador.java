@@ -3,8 +3,8 @@ package juego.personas;
 import java.awt.Color;
 import java.util.Random;
 
-import juego.administracion.Usuario;
 import juego.item.Inventario;
+import juego.lobby.Usuario;
 
 public class Jugador {
 

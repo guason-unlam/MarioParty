@@ -2,7 +2,7 @@ package juego;
 import org.junit.Assert;
 import org.junit.Test;
 
-import juego.random_number_generator.Dado;
+import juego.misc.Dado;
 
 public class DadoTest {
 	@Test

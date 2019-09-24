@@ -1,4 +1,4 @@
-package juego.administracion;
+package juego.lobby;
 
 import java.util.ArrayList;
 import java.util.Scanner;

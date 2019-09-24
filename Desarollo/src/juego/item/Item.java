@@ -1,6 +1,6 @@
 package juego.item;
 
-import juego.random_number_generator.Dado;
+import juego.misc.Dado;
 
 public abstract class Item {
 	protected Dado dado;

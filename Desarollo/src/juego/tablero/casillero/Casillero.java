@@ -7,6 +7,8 @@ import juego.item.Item;
 import juego.personas.Personaje;
 
 public class Casillero {
+	// Id interno
+	private int id;
 	// Color del casillero
 	private Color color;
 	// Posicion fisica en el tablero
@@ -98,6 +100,14 @@ public class Casillero {
 
 	public void setItem(Item item) {
 		this.item = item;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 }

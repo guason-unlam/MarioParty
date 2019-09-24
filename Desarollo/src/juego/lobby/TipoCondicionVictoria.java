@@ -1,4 +1,4 @@
-package juego.administracion;
+package juego.lobby;
 
 public enum TipoCondicionVictoria {
 	RONDAS, MONEDAS
