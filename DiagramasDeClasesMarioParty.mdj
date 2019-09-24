@@ -9494,7 +9494,7 @@
 											"top": 315,
 											"width": 119,
 											"height": 13,
-											"text": "-\"Pausa\"",
+											"text": "-PAUSA",
 											"horizontalAlignment": 0
 										},
 										{
@@ -9511,7 +9511,7 @@
 											"top": 330,
 											"width": 119,
 											"height": 13,
-											"text": "-\"En minijuego\"",
+											"text": "-EN_MINIJUEGO",
 											"horizontalAlignment": 0
 										},
 										{
@@ -9528,7 +9528,7 @@
 											"top": 345,
 											"width": 119,
 											"height": 13,
-											"text": "-\"En tablero\"",
+											"text": "-EN_TABLERO",
 											"horizontalAlignment": 0
 										}
 									],
@@ -10223,7 +10223,7 @@
 											"top": 843,
 											"width": 159,
 											"height": 13,
-											"text": "-\"Rondas\"",
+											"text": "-RONDAS",
 											"horizontalAlignment": 0
 										},
 										{
@@ -10240,7 +10240,7 @@
 											"top": 858,
 											"width": 159,
 											"height": 13,
-											"text": "-\"Monedas\"",
+											"text": "-MONEDAS",
 											"horizontalAlignment": 0
 										}
 									],
@@ -13134,9 +13134,8 @@
 							"_parent": {
 								"$ref": "AAAAAAFtWSfZJUr7x88="
 							},
-							"name": "\"Pausa\"",
-							"visibility": "private",
-							"type": ""
+							"name": "PAUSA",
+							"visibility": "private"
 						},
 						{
 							"_type": "UMLAttribute",
@@ -13144,9 +13143,8 @@
 							"_parent": {
 								"$ref": "AAAAAAFtWSfZJUr7x88="
 							},
-							"name": "\"En minijuego\"",
-							"visibility": "private",
-							"type": ""
+							"name": "EN_MINIJUEGO",
+							"visibility": "private"
 						},
 						{
 							"_type": "UMLAttribute",
@@ -13154,9 +13152,8 @@
 							"_parent": {
 								"$ref": "AAAAAAFtWSfZJUr7x88="
 							},
-							"name": "\"En tablero\"",
-							"visibility": "private",
-							"type": ""
+							"name": "EN_TABLERO",
+							"visibility": "private"
 						}
 					]
 				},
@@ -13269,9 +13266,8 @@
 							"_parent": {
 								"$ref": "AAAAAAFtWUYesq2jwSM="
 							},
-							"name": "\"Rondas\"",
-							"visibility": "private",
-							"type": ""
+							"name": "RONDAS",
+							"visibility": "private"
 						},
 						{
 							"_type": "UMLAttribute",
@@ -13279,9 +13275,8 @@
 							"_parent": {
 								"$ref": "AAAAAAFtWUYesq2jwSM="
 							},
-							"name": "\"Monedas\"",
-							"visibility": "private",
-							"type": ""
+							"name": "MONEDAS",
+							"visibility": "private"
 						}
 					]
 				}
