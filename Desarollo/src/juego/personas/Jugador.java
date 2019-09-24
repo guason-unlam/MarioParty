@@ -5,6 +5,7 @@ import java.util.Random;
 
 import juego.item.Inventario;
 import juego.lobby.Usuario;
+import juego.tablero.casillero.Casillero;
 
 public class Jugador {
 
@@ -14,6 +15,7 @@ public class Jugador {
 	private int puntosEnPartida;
 	private Inventario inventario;
 	private Personaje personaje;
+	private Casillero posicion;
 
 	public Jugador(Usuario usuario) {
 		this.nombre = usuario.getUsername();
@@ -75,5 +77,15 @@ public class Jugador {
 	public void setPersonaje(Personaje personaje) {
 		this.personaje = personaje;
 	}
+
+	public Casillero getPosicion() {
+		return posicion;
+	}
+
+	public void setPosicion(Casillero posicion) {
+		this.posicion = posicion;
+	}
+
+	// TODO moverse
 
 }
