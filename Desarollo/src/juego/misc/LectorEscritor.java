@@ -24,37 +24,45 @@ public class LectorEscritor {
 	 * multiplicador O tambien (En el caso de no tener nada) ID-PosicionX-PosicionY
 	 */
 	public void leerTablero(String arch, Tablero tablero) throws Exception {
+
 		Scanner sc = new Scanner(new File(arch));
 		// Si ocurre puede quedar null y kaboom
 		Item item = null;
+		String[] parts = sc.nextLine().split("\\|");
+
 		// Primer linea tiene idTablero, dimensionX, dimensionY
-		if (sc.hasNextLine()) {
-			tablero.setId(sc.nextInt());
-			tablero.setDimensionX(sc.nextInt());
-			tablero.setDimensionY(sc.nextInt());
+		if (parts.length > 0) {
+			tablero.setId(Integer.parseInt(parts[0]));
+			tablero.setDimensionX(Integer.parseInt(parts[1]));
+			tablero.setDimensionY(Integer.parseInt(parts[2]));
 		} else {
 			sc.close();
 			throw new Exception("Archivo mal configurado");
 		}
+
 		Map<Integer, Casillero> casilleros = new TreeMap<Integer, Casillero>();
 		while (sc.hasNextLine()) {
 			Casillero c = new Casillero();
+			parts = sc.nextLine().split("\\|");
+			c.setId(Integer.parseInt(parts[0]));
+			c.setPosicionX(Integer.parseInt(parts[1]));
+			c.setPosicionY(Integer.parseInt(parts[2]));
 
-			c.setId(sc.nextInt());
-			c.setPosicionX(sc.nextInt());
-			c.setPosicionY(sc.nextInt());
 			// Si tiene item asociado
-			if (sc.hasNextLine()) {
-				switch (sc.nextLine()) {
+			if (parts.length > 3) {
+				switch (parts[3]) {
 				// Modificador de posicion
 				case "MP":
-					item = new ModificadorPosicion(sc.nextLine(), sc.nextLine(), sc.nextInt(), sc.nextInt());
+					item = new ModificadorPosicion(parts[4], parts[5], Integer.parseInt(parts[6]),
+							Integer.parseInt(parts[7]));
 					break;
 				case "MM":
-					item = new ModificadorMonedas(sc.nextLine(), sc.nextLine(), sc.nextInt(), sc.nextInt());
+					item = new ModificadorMonedas(parts[4], parts[5], Integer.parseInt(parts[6]),
+							Integer.parseInt(parts[7]));
 					break;
 				case "MD":
-					item = new ModificadorDado(sc.nextLine(), sc.nextLine(), sc.nextInt(), sc.nextInt());
+					item = new ModificadorDado(parts[4], parts[5], Integer.parseInt(parts[6]),
+							Integer.parseInt(parts[7]));
 					break;
 				default:
 					throw new Exception("Ocurrio un error al cargar el archivo");
@@ -65,6 +73,7 @@ public class LectorEscritor {
 			c.setAnterior(null);
 			c.setSiguiente(null);
 			c.setPersonajes(null);
+
 			casilleros.put(c.getId(), c);
 
 		}

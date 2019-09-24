@@ -55,4 +55,16 @@ public abstract class Item {
 	public void setMultiplicador(int multiplicador) {
 		this.multiplicador = multiplicador;
 	}
+
+	public int getCarasDado() {
+		return carasDado;
+	}
+
+	public int getCantidadMaxima() {
+		return cantidadMaxima;
+	}
+
+	public int getMultiplicador() {
+		return multiplicador;
+	}
 }
