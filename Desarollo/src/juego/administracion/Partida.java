@@ -2,7 +2,7 @@ package juego.administracion;
 
 import java.util.ArrayList;
 
-import juego.Jugador;
+import juego.personas.Jugador;
 import juego.tablero.Tablero;
 
 public class Partida {

@@ -3,8 +3,8 @@ package juego.tablero.casillero;
 import java.awt.Color;
 import java.util.ArrayList;
 
-import juego.Personaje;
 import juego.item.Item;
+import juego.personas.Personaje;
 
 public class Casillero {
 	// Color del casillero
