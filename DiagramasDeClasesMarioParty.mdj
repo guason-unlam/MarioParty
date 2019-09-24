@@ -2233,13 +2233,30 @@
 											"height": 13,
 											"text": "-usuarioCreador: Usuario",
 											"horizontalAlignment": 0
+										},
+										{
+											"_type": "UMLAttributeView",
+											"_id": "AAAAAAFtYN7O/DBO7gg=",
+											"_parent": {
+												"$ref": "AAAAAAFtF6zzU8KFX3M="
+											},
+											"model": {
+												"$ref": "AAAAAAFtYN7OszBLim8="
+											},
+											"font": "Arial;13;0",
+											"left": 509,
+											"top": 159,
+											"width": 240.296875,
+											"height": 13,
+											"text": "-partidaActual: Partida",
+											"horizontalAlignment": 0
 										}
 									],
 									"font": "Arial;13;0",
 									"left": 504,
 									"top": 49,
 									"width": 250.296875,
-									"height": 113
+									"height": 128
 								},
 								{
 									"_type": "UMLOperationCompartmentView",
@@ -2262,27 +2279,10 @@
 											},
 											"font": "Arial;13;0",
 											"left": 509,
-											"top": 167,
-											"width": 240.296875,
-											"height": 13,
-											"text": "+conectarseALaSala(): boolean",
-											"horizontalAlignment": 0
-										},
-										{
-											"_type": "UMLOperationView",
-											"_id": "AAAAAAFtGCf35k6dnvs=",
-											"_parent": {
-												"$ref": "AAAAAAFtF6zzU8KGprk="
-											},
-											"model": {
-												"$ref": "AAAAAAFtGCf3sk6az48="
-											},
-											"font": "Arial;13;0",
-											"left": 509,
 											"top": 182,
 											"width": 240.296875,
 											"height": 13,
-											"text": "+invitarALaSala(): String",
+											"text": "+conectarseALaSala(): boolean",
 											"horizontalAlignment": 0
 										},
 										{
@@ -2322,9 +2322,9 @@
 									],
 									"font": "Arial;13;0",
 									"left": 504,
-									"top": 162,
+									"top": 177,
 									"width": 250.296875,
-									"height": 68
+									"height": 53
 								},
 								{
 									"_type": "UMLReceptionCompartmentView",
@@ -5665,7 +5665,7 @@
 											"top": 161,
 											"width": 201.22705078125,
 											"height": 13,
-											"text": "-Jugador: Jugador",
+											"text": "-jugador: Jugador",
 											"horizontalAlignment": 0
 										}
 									],
@@ -5699,7 +5699,7 @@
 											"top": 184,
 											"width": 201.22705078125,
 											"height": 13,
-											"text": "+crearSala(String, String, int): Sala",
+											"text": "+crearSala(): Sala",
 											"horizontalAlignment": 0
 										},
 										{
@@ -10874,20 +10874,6 @@
 						},
 						{
 							"_type": "UMLNoteView",
-							"_id": "AAAAAAFtWUrS7xvEugk=",
-							"_parent": {
-								"$ref": "AAAAAAFF+qBtyKM79qY="
-							},
-							"fillColor": "#ff0202",
-							"font": "Arial;13;0",
-							"left": 1144,
-							"top": 96,
-							"width": 121,
-							"height": 57,
-							"text": "El jugador esta asociado al usuario?"
-						},
-						{
-							"_type": "UMLNoteView",
 							"_id": "AAAAAAFtWVl2jQ2BMec=",
 							"_parent": {
 								"$ref": "AAAAAAFF+qBtyKM79qY="
@@ -12055,6 +12041,18 @@
 							"type": {
 								"$ref": "AAAAAAFtHM3YU5VWjuQ="
 							}
+						},
+						{
+							"_type": "UMLAttribute",
+							"_id": "AAAAAAFtYN7OszBLim8=",
+							"_parent": {
+								"$ref": "AAAAAAFtF6zzT8J9d70="
+							},
+							"name": "partidaActual",
+							"visibility": "private",
+							"type": {
+								"$ref": "AAAAAAFtF6hef8HKgnU="
+							}
 						}
 					],
 					"operations": [
@@ -12073,25 +12071,6 @@
 										"$ref": "AAAAAAFtGCeaOEz59Jk="
 									},
 									"type": "boolean",
-									"direction": "return"
-								}
-							]
-						},
-						{
-							"_type": "UMLOperation",
-							"_id": "AAAAAAFtGCf3sk6az48=",
-							"_parent": {
-								"$ref": "AAAAAAFtF6zzT8J9d70="
-							},
-							"name": "invitarALaSala",
-							"parameters": [
-								{
-									"_type": "UMLParameter",
-									"_id": "AAAAAAFtGCgoLU8ZzsY=",
-									"_parent": {
-										"$ref": "AAAAAAFtGCf3sk6az48="
-									},
-									"type": "String",
 									"direction": "return"
 								}
 							]
@@ -12623,7 +12602,7 @@
 							"_parent": {
 								"$ref": "AAAAAAFtHM3YU5VWjuQ="
 							},
-							"name": "Jugador",
+							"name": "jugador",
 							"visibility": "private",
 							"type": {
 								"$ref": "AAAAAAFtF6SGBME+qy0="
@@ -12649,33 +12628,6 @@
 										"$ref": "AAAAAAFtF6zzT8J9d70="
 									},
 									"direction": "return"
-								},
-								{
-									"_type": "UMLParameter",
-									"_id": "AAAAAAFtHPSgDdsnVA4=",
-									"_parent": {
-										"$ref": "AAAAAAFtHPMX49hvXxE="
-									},
-									"name": "String",
-									"type": ""
-								},
-								{
-									"_type": "UMLParameter",
-									"_id": "AAAAAAFtHPSgDdso5tA=",
-									"_parent": {
-										"$ref": "AAAAAAFtHPMX49hvXxE="
-									},
-									"name": "String",
-									"type": ""
-								},
-								{
-									"_type": "UMLParameter",
-									"_id": "AAAAAAFtHPSgDdsp6z8=",
-									"_parent": {
-										"$ref": "AAAAAAFtHPMX49hvXxE="
-									},
-									"name": "int",
-									"type": ""
 								}
 							]
 						},

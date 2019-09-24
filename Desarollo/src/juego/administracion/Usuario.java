@@ -1,6 +1,7 @@
 package juego.administracion;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 import juego.personas.Jugador;
 
@@ -11,6 +12,7 @@ public class Usuario {
 	private ArrayList<Partida> partidasJugadas;
 	private int puntaje;
 	private Sala sala;
+	private Jugador jugador;
 
 	public int getId() {
 		return id;
@@ -65,8 +67,29 @@ public class Usuario {
 		this.sala = sala;
 	}
 
-	public Sala crearSala(String nombreSala, String password, int cantDeUsrMaximos) {
-		Sala sala = new Sala(nombreSala, cantDeUsrMaximos, this);
+	public Sala crearSala() {
+		Scanner lector = new Scanner(System.in);
+		String nombreSala;
+		String password;
+		int cantDeUsrMaximos;
+
+		// Voy ingresando los parametros
+		System.out.println("Ingrese el nombre de la sala: ");
+		nombreSala = lector.nextLine();
+		// Voy ingresando la pw, PUEDE SER VACIA
+		System.out.println("Ingrese la contraseña de la sala: ");
+		password = lector.nextLine();
+
+		do {
+			// Por ahora salas entre 2 y 5
+			System.out.println("Ingrese la cantidad maxima de usuarios: ");
+			cantDeUsrMaximos = lector.nextInt();
+		} while (cantDeUsrMaximos < 2 && cantDeUsrMaximos > 5);
+
+		lector.close();
+		// Creo la sala
+		Sala sala = new Sala(nombreSala, password, cantDeUsrMaximos, this);
+		// Conecto al usuario a la misma
 		sala.conectarseALaSala(this);
 		return sala;
 	}
@@ -75,9 +98,21 @@ public class Usuario {
 		this.sala = null;
 	}
 
+	public Jugador getJugador() {
+		if (this.jugador != null) {
+			return this.jugador;
+		}
+
+		if (this.sala != null && this.sala.getPartidaActual() != null
+				&& this.sala.getPartidaActual().getUsuariosActivosEnSala() != null) {
+			// TO DO: Revisar bien que no quede asi
+			return this.sala.getPartidaActual().getUsuariosActivosEnSala().get(0).getJugador();
+		}
+		return null;
+	}
+
 	public void setJugador(Jugador jugador) {
-		// TODO Auto-generated method stub
-		
+		this.jugador = jugador;
 	}
 
 }

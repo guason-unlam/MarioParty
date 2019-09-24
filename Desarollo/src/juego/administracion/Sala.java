@@ -8,14 +8,16 @@ public class Sala {
 	private boolean salaLlena = false;
 	private int capacidadMaxima = 0;
 	private int capacidadActual;
-	private ArrayList<Usuario> jugadoresActivos = new ArrayList<Usuario>();
+	private ArrayList<Usuario> usuariosActivos = new ArrayList<Usuario>();
 	private Usuario usuarioCreador;
+	private Partida partidaActual;
 
 	public Sala(String nombreSala, String passwordSala, int capacidadMaxima, Usuario usuarioCreador) {
 		this.nombre = nombreSala;
 		this.password = passwordSala;
 		this.capacidadMaxima = capacidadMaxima;
 		this.usuarioCreador = usuarioCreador;
+		this.partidaActual = null;
 	}
 
 	public Sala(String nombreSala, int capacidadMaxima, Usuario usuarioCreador) {
@@ -58,11 +60,11 @@ public class Sala {
 	}
 
 	public ArrayList<Usuario> getJugadoresActivos() {
-		return jugadoresActivos;
+		return usuariosActivos;
 	}
 
 	public void setJugadoresActivos(ArrayList<Usuario> jugadoresActivos) {
-		this.jugadoresActivos = jugadoresActivos;
+		this.usuariosActivos = jugadoresActivos;
 	}
 
 	public int getCapacidadMaxima() {
@@ -95,7 +97,8 @@ public class Sala {
 
 	public boolean conectarseALaSala(Usuario usuario) {
 		if (this.capacidadActual < this.capacidadMaxima) {
-			this.jugadoresActivos.add(usuario);
+			usuario.setSala(this);
+			this.usuariosActivos.add(usuario);
 			this.capacidadActual++;
 			return true;
 		}
@@ -104,8 +107,9 @@ public class Sala {
 	}
 
 	public boolean sacarUsuarioDeSala(Usuario usuario) {
-		if (this.jugadoresActivos.remove(usuario)) {
+		if (this.usuariosActivos.remove(usuario)) {
 			this.capacidadActual--;
+			usuario.setSala(null);
 			return true;
 		}
 		if (this.salaLlena) {
@@ -114,6 +118,25 @@ public class Sala {
 
 		return false;
 
+	}
+
+	public ArrayList<Usuario> getUsuariosActivos() {
+		return usuariosActivos;
+	}
+
+	public void setUsuariosActivos(ArrayList<Usuario> usuariosActivos) {
+		this.usuariosActivos = usuariosActivos;
+	}
+
+	/*
+	 * Para llevar un control de que estoy jugando
+	 */
+	public Partida getPartidaActual() {
+		return partidaActual;
+	}
+
+	public void setPartidaActual(Partida partidaActual) {
+		this.partidaActual = partidaActual;
 	}
 
 }
