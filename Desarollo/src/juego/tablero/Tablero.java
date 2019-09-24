@@ -1,8 +1,10 @@
 package juego.tablero;
 
+import java.io.FileNotFoundException;
 import java.util.Map;
 import java.util.TreeMap;
 
+import juego.misc.ExcepcionArchivos;
 import juego.misc.LectorEscritor;
 import juego.tablero.casillero.Casillero;
 
@@ -14,12 +16,12 @@ public class Tablero {
 	private int dimensionX;
 	private int dimensionY;
 
-	public Tablero(String arch) throws Exception {
+	public Tablero(String arch) throws ExcepcionArchivos, FileNotFoundException {
 		this.casilleros = new TreeMap<Integer, Casillero>();
 		crearCasillerosYCrearTablero(arch);
 	}
 
-	private void crearCasillerosYCrearTablero(String arch) throws Exception {
+	private void crearCasillerosYCrearTablero(String arch) throws ExcepcionArchivos, FileNotFoundException {
 		// Por ahora voy a usar un .txt para levantar los casilleros
 		LectorEscritor le = new LectorEscritor();
 		le.leerTablero(arch, this);

@@ -23,7 +23,7 @@ public class LectorEscritor {
 	 * IDPosicionX-PosicionY-TipoItem-Nombre-Descripcion-CantidadMaxima-
 	 * multiplicador O tambien (En el caso de no tener nada) ID-PosicionX-PosicionY
 	 */
-	public void leerTablero(String arch, Tablero tablero) throws Exception {
+	public void leerTablero(String arch, Tablero tablero) throws ExcepcionArchivos, FileNotFoundException {
 
 		Scanner sc = new Scanner(new File(arch));
 		// Si ocurre puede quedar null y kaboom
@@ -31,51 +31,53 @@ public class LectorEscritor {
 		String[] parts = sc.nextLine().split("\\|");
 
 		// Primer linea tiene idTablero, dimensionX, dimensionY
-		if (parts.length > 0) {
+		if (parts.length > 2) {
 			tablero.setId(Integer.parseInt(parts[0]));
 			tablero.setDimensionX(Integer.parseInt(parts[1]));
 			tablero.setDimensionY(Integer.parseInt(parts[2]));
 		} else {
 			sc.close();
-			throw new Exception("Archivo mal configurado");
+			throw new ExcepcionArchivos("Archivo mal configurado");
 		}
 
 		Map<Integer, Casillero> casilleros = new TreeMap<Integer, Casillero>();
 		while (sc.hasNextLine()) {
 			Casillero c = new Casillero();
 			parts = sc.nextLine().split("\\|");
-			c.setId(Integer.parseInt(parts[0]));
-			c.setPosicionX(Integer.parseInt(parts[1]));
-			c.setPosicionY(Integer.parseInt(parts[2]));
+			if (parts.length == 3 || parts.length == 8) {
 
-			// Si tiene item asociado
-			if (parts.length > 3) {
-				switch (parts[3]) {
-				// Modificador de posicion
-				case "MP":
-					item = new ModificadorPosicion(parts[4], parts[5], Integer.parseInt(parts[6]),
-							Integer.parseInt(parts[7]));
-					break;
-				case "MM":
-					item = new ModificadorMonedas(parts[4], parts[5], Integer.parseInt(parts[6]),
-							Integer.parseInt(parts[7]));
-					break;
-				case "MD":
-					item = new ModificadorDado(parts[4], parts[5], Integer.parseInt(parts[6]),
-							Integer.parseInt(parts[7]));
-					break;
-				default:
-					throw new Exception("Ocurrio un error al cargar el archivo");
+				c.setId(Integer.parseInt(parts[0]));
+				c.setPosicionX(Integer.parseInt(parts[1]));
+				c.setPosicionY(Integer.parseInt(parts[2]));
+
+				// Si tiene item asociado
+				if (parts.length > 3 && parts.length != 7) {
+					switch (parts[3]) {
+					// Modificador de posicion
+					case "MP":
+						item = new ModificadorPosicion(parts[4], parts[5], Integer.parseInt(parts[6]),
+								Integer.parseInt(parts[7]));
+						break;
+					case "MM":
+						item = new ModificadorMonedas(parts[4], parts[5], Integer.parseInt(parts[6]),
+								Integer.parseInt(parts[7]));
+						break;
+					case "MD":
+						item = new ModificadorDado(parts[4], parts[5], Integer.parseInt(parts[6]),
+								Integer.parseInt(parts[7]));
+						break;
+					default:
+						throw new ExcepcionArchivos("Ocurrio un error al cargar el archivo");
+					}
 				}
+				c.setItem(item);
+				c.setPrimeraVez(true);
+				c.setAnterior(null);
+				c.setSiguiente(null);
+				c.setPersonajes(null);
+
+				casilleros.put(c.getId(), c);
 			}
-			c.setItem(item);
-			c.setPrimeraVez(true);
-			c.setAnterior(null);
-			c.setSiguiente(null);
-			c.setPersonajes(null);
-
-			casilleros.put(c.getId(), c);
-
 		}
 
 		tablero.setCasilleros(casilleros);
