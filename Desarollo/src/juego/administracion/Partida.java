@@ -15,7 +15,7 @@ public class Partida {
 	private ArrayList<Usuario> usuariosActivosEnSala;
 	private Tablero tablero;
 	private int tipoMapa;
-	private Jugador ganadorPartida;
+	private Jugador ganador;
 	//ESTO ES UNA CLASE NUEVA
 	private int puntajeMaximo;
 	private int cantidadDeRondasAJugar;
@@ -32,7 +32,7 @@ public class Partida {
 		}
 		this.cantidadDeRondasAJugar = cantidadTotalRondas;
 		this.puntajeMaximo = 0;
-		this.ganadorPartida = null;
+		this.ganador = null;
 	}
 
 	public boolean isPartidaEnCurso() {
@@ -108,11 +108,11 @@ public class Partida {
 	}
 
 	public Jugador getGanadorPartida() {
-		return ganadorPartida;
+		return ganador;
 	}
 
 	public void setGanadorPartida(Jugador ganadorPartida) {
-		this.ganadorPartida = ganadorPartida;
+		this.ganador = ganadorPartida;
 	}
 
 	public int getPuntajeMaximo() {
@@ -126,7 +126,7 @@ public class Partida {
 	public void calcularGanadorPartida() {
 		for (Jugador jug : this.jugadoresEnPartida) {
 			if (jug.getPuntosEnPartida() > this.puntajeMaximo) {
-				this.ganadorPartida = jug;
+				this.ganador = jug;
 				this.puntajeMaximo = jug.getPuntosEnPartida();
 			}
 		}

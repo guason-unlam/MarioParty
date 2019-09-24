@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.util.Random;
 
 import juego.administracion.Usuario;
+import juego.item.Inventario;
 
 public class Jugador {
 
@@ -11,6 +12,8 @@ public class Jugador {
 	private int puntaje;
 	private Color color;
 	private int puntosEnPartida;
+	private Inventario inventario;
+	private Personaje personaje;
 
 	public Jugador(Usuario usuario) {
 		this.nombre = usuario.getUsername();
@@ -55,6 +58,22 @@ public class Jugador {
 
 	public void setPuntosEnPartida(int puntosEnPartida) {
 		this.puntosEnPartida = puntosEnPartida;
+	}
+
+	public Inventario getInventario() {
+		return inventario;
+	}
+
+	public void setInventario(Inventario inventario) {
+		this.inventario = inventario;
+	}
+
+	public Personaje getPersonaje() {
+		return personaje;
+	}
+
+	public void setPersonaje(Personaje personaje) {
+		this.personaje = personaje;
 	}
 
 }
