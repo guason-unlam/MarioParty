@@ -1,6 +1,8 @@
-package juego;
+package juego.administracion;
 
 import java.util.ArrayList;
+
+import juego.Jugador;
 
 public class Usuario {
 	private int id;

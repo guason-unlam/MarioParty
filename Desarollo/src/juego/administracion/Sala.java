@@ -1,4 +1,4 @@
-package juego;
+package juego.administracion;
 
 import java.util.ArrayList;
 

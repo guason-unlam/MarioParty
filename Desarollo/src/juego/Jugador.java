@@ -3,6 +3,8 @@ package juego;
 import java.awt.Color;
 import java.util.Random;
 
+import juego.administracion.Usuario;
+
 public class Jugador {
 
 	private String nombre;
