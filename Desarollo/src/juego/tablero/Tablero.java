@@ -22,7 +22,7 @@ public class Tablero {
 	private void crearCasillerosYCrearTablero(String arch) throws Exception {
 		// Por ahora voy a usar un .txt para levantar los casilleros
 		LectorEscritor le = new LectorEscritor();
-		le.leer(arch, this);
+		le.leerTablero(arch, this);
 	}
 
 	public Map<Integer, Casillero> getCasilleros() {

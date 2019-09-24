@@ -1,6 +1,7 @@
 package juego.misc;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.TreeMap;
@@ -16,12 +17,13 @@ import juego.tablero.casillero.Casillero;
  * TODO validar archivos
  */
 public class LectorEscritor {
+
 	/*
 	 * Mi estructura de archivo va a ser,
 	 * IDPosicionX-PosicionY-TipoItem-Nombre-Descripcion-CantidadMaxima-
 	 * multiplicador O tambien (En el caso de no tener nada) ID-PosicionX-PosicionY
 	 */
-	public void leer(String arch, Tablero tablero) throws Exception {
+	public void leerTablero(String arch, Tablero tablero) throws Exception {
 		Scanner sc = new Scanner(new File(arch));
 		// Si ocurre puede quedar null y kaboom
 		Item item = null;
