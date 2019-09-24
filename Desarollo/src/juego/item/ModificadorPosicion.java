@@ -20,7 +20,8 @@ public class ModificadorPosicion extends Item {
 
 	@Override
 	public void activarItem() {
-
+		int cant = this.cantidadMaxima>this.carasDado?this.cantidadMaxima:this.carasDado;
+		this.dado.tirar(cant);
 	}
 
 	public int getCantidadMaxima() {
