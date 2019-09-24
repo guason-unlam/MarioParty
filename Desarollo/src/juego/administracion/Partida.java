@@ -3,8 +3,7 @@ package juego.administracion;
 import java.util.ArrayList;
 
 import juego.Jugador;
-import juego.Ronda;
-import juego.Tablero;
+import juego.tablero.Tablero;
 
 public class Partida {
 	//Cambiar por el estado
