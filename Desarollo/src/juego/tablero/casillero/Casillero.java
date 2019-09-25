@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.util.ArrayList;
 
 import juego.item.Item;
+import juego.personas.Jugador;
 import juego.personas.Personaje;
 
 public class Casillero {
@@ -21,7 +22,7 @@ public class Casillero {
 	private Casillero siguiente;
 	private Casillero anterior;
 	// Personajes actualmente en el casillero
-	private ArrayList<Personaje> personajes;
+	private ArrayList<Jugador> jugadores;
 	// El casillero puede, o no, tener un item
 	private Item item;
 
@@ -32,8 +33,9 @@ public class Casillero {
 	 * 
 	 * @return void
 	 */
-	public boolean agregarPersonaje(Personaje p) {
-		this.personajes.add(p);
+
+	public boolean agregarJugador(Jugador j) {
+		this.jugadores.add(j);
 		return true;
 	}
 
@@ -86,12 +88,12 @@ public class Casillero {
 		this.anterior = anterior;
 	}
 
-	public ArrayList<Personaje> getPersonajes() {
-		return personajes;
+	public ArrayList<Jugador> getJugadores() {
+		return jugadores;
 	}
 
-	public void setPersonajes(ArrayList<Personaje> personajes) {
-		this.personajes = personajes;
+	public void setJugadores(ArrayList<Jugador> jugadores) {
+		this.jugadores = jugadores;
 	}
 
 	public Item getItem() {
