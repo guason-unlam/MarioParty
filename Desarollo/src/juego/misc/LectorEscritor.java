@@ -74,7 +74,7 @@ public class LectorEscritor {
 				c.setPrimeraVez(true);
 				c.setAnterior(null);
 				c.setSiguiente(null);
-				c.setPersonajes(null);
+				c.setJugadores(null);
 
 				casilleros.put(c.getId(), c);
 			}
