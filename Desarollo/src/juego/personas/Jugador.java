@@ -46,13 +46,13 @@ public class Jugador {
 			// Si llego a una bifurcacion, tengo que ver que hago
 			// IMPORTANTE: que no sea el ultimo casillero!
 			if (i < d - 1 && this.posicion.getItem() instanceof Item) {
-				this.posicion.getItem().activarItem();
+				this.posicion.getItem().activarItem(this);
 			}
 		}
 
 		// Una vez que "termine", ejecuto el item
 		if (this.posicion.getItem() instanceof Item)
-			this.posicion.getItem().activarItem();
+			this.posicion.getItem().activarItem(this);
 
 		return 0;
 	}

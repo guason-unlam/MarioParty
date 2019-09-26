@@ -1,5 +1,7 @@
 package juego.item;
 
+import juego.personas.Jugador;
+
 public class ModificadorPosicion extends Item {
 
 	/*
@@ -15,7 +17,7 @@ public class ModificadorPosicion extends Item {
 	}
 
 	@Override
-	public void activarItem() {
+	public void activarItem(Jugador jugador) {
 		int cant = this.cantidadMaxima>this.carasDado?this.cantidadMaxima:this.carasDado;
 		this.dado.tirar(cant);
 	}

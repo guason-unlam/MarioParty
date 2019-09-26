@@ -3,6 +3,7 @@ package juego.item;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import juego.personas.Jugador;
 import juego.tablero.casillero.Casillero;
 
 public class ItemBifurcacion extends Item {
@@ -14,8 +15,10 @@ public class ItemBifurcacion extends Item {
 	}
 
 	@Override
-	public void activarItem() {
+	public void activarItem(Jugador jugador) {
 		Casillero destino = this.seleccionarCamino();
+		jugador.setPosicion(destino);
+		System.out.println("Usted avanzo por el casillero #" + destino.getId());
 	}
 
 	/*

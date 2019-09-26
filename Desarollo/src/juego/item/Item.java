@@ -1,6 +1,7 @@
 package juego.item;
 
 import juego.misc.Dado;
+import juego.personas.Jugador;
 
 public abstract class Item {
 	protected Dado dado;
@@ -18,7 +19,8 @@ public abstract class Item {
 		this.dado = new Dado(this.carasDado); // Lo uso como default, hace un random en 6
 	}
 
-	public abstract void activarItem();
+	//El efecto se activa siempre sobre un jugador
+	public abstract void activarItem(Jugador jugador);
 
 	public Dado getDado() {
 		return dado;
