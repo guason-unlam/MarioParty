@@ -2305,23 +2305,6 @@
 									"subViews": [
 										{
 											"_type": "UMLOperationView",
-											"_id": "AAAAAAFtGCeab0z8nhY=",
-											"_parent": {
-												"$ref": "AAAAAAFtF6zzU8KGprk="
-											},
-											"model": {
-												"$ref": "AAAAAAFtGCeaOEz59Jk="
-											},
-											"font": "Arial;13;0",
-											"left": 509,
-											"top": 182,
-											"width": 240.296875,
-											"height": 13,
-											"text": "+conectarseALaSala(): boolean",
-											"horizontalAlignment": 0
-										},
-										{
-											"_type": "UMLOperationView",
 											"_id": "AAAAAAFtHMTOjnGEYJc=",
 											"_parent": {
 												"$ref": "AAAAAAFtF6zzU8KGprk="
@@ -2331,7 +2314,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 509,
-											"top": 197,
+											"top": 182,
 											"width": 240.296875,
 											"height": 13,
 											"text": "+esAdmin(Usuario): boolean",
@@ -2348,7 +2331,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 509,
-											"top": 212,
+											"top": 197,
 											"width": 240.296875,
 											"height": 13,
 											"text": "+sacarUsuarioDeSala(Usuario): boolean",
@@ -2359,7 +2342,7 @@
 									"left": 504,
 									"top": 177,
 									"width": 250.296875,
-									"height": 53
+									"height": 38
 								},
 								{
 									"_type": "UMLReceptionCompartmentView",
@@ -5787,13 +5770,30 @@
 											"height": 13,
 											"text": "+SalirDeSala()",
 											"horizontalAlignment": 0
+										},
+										{
+											"_type": "UMLOperationView",
+											"_id": "AAAAAAFtbuDP32KZhHY=",
+											"_parent": {
+												"$ref": "AAAAAAFtHM3YVZVfckc="
+											},
+											"model": {
+												"$ref": "AAAAAAFtbuDPo2J7rfA="
+											},
+											"font": "Arial;13;0",
+											"left": 901,
+											"top": 214,
+											"width": 201.22705078125,
+											"height": 13,
+											"text": "+conectarseALaSala(): boolean",
+											"horizontalAlignment": 0
 										}
 									],
 									"font": "Arial;13;0",
 									"left": 896,
 									"top": 179,
 									"width": 211.22705078125,
-									"height": 38
+									"height": 53
 								},
 								{
 									"_type": "UMLReceptionCompartmentView",
@@ -5833,7 +5833,7 @@
 							"left": 896,
 							"top": 56,
 							"width": 211.22705078125,
-							"height": 161,
+							"height": 176,
 							"nameCompartment": {
 								"$ref": "AAAAAAFtHM3YVJVZT9Y="
 							},
@@ -11557,7 +11557,8 @@
 								"$ref": "AAAAAAFtF6STHcFn4zI="
 							},
 							"name": "casilleros",
-							"visibility": "private"
+							"visibility": "private",
+							"type": ""
 						},
 						{
 							"_type": "UMLAttribute",
@@ -12342,25 +12343,6 @@
 					"operations": [
 						{
 							"_type": "UMLOperation",
-							"_id": "AAAAAAFtGCeaOEz59Jk=",
-							"_parent": {
-								"$ref": "AAAAAAFtF6zzT8J9d70="
-							},
-							"name": "conectarseALaSala",
-							"parameters": [
-								{
-									"_type": "UMLParameter",
-									"_id": "AAAAAAFtGCflck4I06c=",
-									"_parent": {
-										"$ref": "AAAAAAFtGCeaOEz59Jk="
-									},
-									"type": "boolean",
-									"direction": "return"
-								}
-							]
-						},
-						{
-							"_type": "UMLOperation",
 							"_id": "AAAAAAFtHMTN5XGBfnQ=",
 							"_parent": {
 								"$ref": "AAAAAAFtF6zzT8J9d70="
@@ -12944,6 +12926,25 @@
 								"$ref": "AAAAAAFtHM3YU5VWjuQ="
 							},
 							"name": "SalirDeSala"
+						},
+						{
+							"_type": "UMLOperation",
+							"_id": "AAAAAAFtbuDPo2J7rfA=",
+							"_parent": {
+								"$ref": "AAAAAAFtHM3YU5VWjuQ="
+							},
+							"name": "conectarseALaSala",
+							"parameters": [
+								{
+									"_type": "UMLParameter",
+									"_id": "AAAAAAFtbuDyCmYTpe4=",
+									"_parent": {
+										"$ref": "AAAAAAFtbuDPo2J7rfA="
+									},
+									"type": "boolean",
+									"direction": "return"
+								}
+							]
 						}
 					]
 				},
@@ -13096,7 +13097,8 @@
 								"$ref": "AAAAAAFtHd6Jg7DxbJY="
 							},
 							"name": "cantidadMaxima",
-							"visibility": "protected"
+							"visibility": "protected",
+							"type": ""
 						},
 						{
 							"_type": "UMLAttribute",
@@ -13105,7 +13107,8 @@
 								"$ref": "AAAAAAFtHd6Jg7DxbJY="
 							},
 							"name": "multiplicador",
-							"visibility": "protected"
+							"visibility": "protected",
+							"type": ""
 						}
 					],
 					"operations": [
@@ -13393,7 +13396,8 @@
 								"$ref": "AAAAAAFtWSfZJUr7x88="
 							},
 							"name": "PAUSA",
-							"visibility": "private"
+							"visibility": "private",
+							"type": ""
 						},
 						{
 							"_type": "UMLAttribute",
@@ -13402,7 +13406,8 @@
 								"$ref": "AAAAAAFtWSfZJUr7x88="
 							},
 							"name": "EN_MINIJUEGO",
-							"visibility": "private"
+							"visibility": "private",
+							"type": ""
 						},
 						{
 							"_type": "UMLAttribute",
@@ -13411,7 +13416,8 @@
 								"$ref": "AAAAAAFtWSfZJUr7x88="
 							},
 							"name": "EN_TABLERO",
-							"visibility": "private"
+							"visibility": "private",
+							"type": ""
 						}
 					]
 				},
@@ -13525,7 +13531,8 @@
 								"$ref": "AAAAAAFtWUYesq2jwSM="
 							},
 							"name": "RONDAS",
-							"visibility": "private"
+							"visibility": "private",
+							"type": ""
 						},
 						{
 							"_type": "UMLAttribute",
@@ -13534,7 +13541,8 @@
 								"$ref": "AAAAAAFtWUYesq2jwSM="
 							},
 							"name": "MONEDAS",
-							"visibility": "private"
+							"visibility": "private",
+							"type": ""
 						}
 					]
 				},
