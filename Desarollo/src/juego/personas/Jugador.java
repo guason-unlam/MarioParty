@@ -59,7 +59,7 @@ public class Jugador {
 
 	private void avanzarUnCasillero() {
 		// Aca modifico la posicion del chabon
-		this.posicion = partida.getTablero().getCasilleros().get(this.posicion.getSiguiente().getId());
+		this.posicion = partida.getTablero().getCasilleros().get(this.posicion.getSiguiente().get(0).getId());
 	}
 
 	/*

@@ -67,8 +67,8 @@ public class Tablero {
 	 */
 	public int casillerosRestantes(Casillero actual) {
 		int pos = 0;
-		if (actual.getBifurcacion()) {
-
+		if (actual.esBifurcacion()) {
+			//Tratamiento especial
 		} else {
 			for (Integer i : this.casilleros.keySet()) {
 				if (i > actual.getId())

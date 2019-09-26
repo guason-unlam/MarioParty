@@ -32,7 +32,7 @@ public class Casillero {
 	public Casillero() {
 		// Significa que tengo una bifurcacion, entonces le asigno el tipo especial
 		if (siguientes.size() > 1)
-			this.setItem(new ItemBifurcacion(sig));
+			this.setItem(new ItemBifurcacion(this.siguientes));
 	}
 	/*
 	 * Permite agregar un personaje al actual casillero
@@ -80,12 +80,12 @@ public class Casillero {
 		this.primeraVez = primeraVez;
 	}
 
-	public Casillero getSiguiente() {
-		return siguiente;
+	public ArrayList<Casillero> getSiguiente() {
+		return siguientes;
 	}
 
-	public void setSiguiente(Casillero siguiente) {
-		this.siguiente = siguiente;
+	public void setSiguiente(ArrayList<Casillero> siguiente) {
+		this.siguientes = siguiente;
 	}
 
 	public Casillero getAnterior() {
@@ -121,7 +121,7 @@ public class Casillero {
 	}
 
 	public boolean esBifurcacion() {
-		return this.bifurcacion;
+		return this.bifurcacion != null;
 	}
 
 }
