@@ -15,6 +15,7 @@ public class Sala {
 	public Sala(String nombreSala, String passwordSala, int capacidadMaxima, Usuario usuarioCreador) {
 		this.nombre = nombreSala;
 		this.password = passwordSala;
+		this.capacidadActual = 0;
 		this.capacidadMaxima = capacidadMaxima;
 		this.usuarioCreador = usuarioCreador;
 		this.partidaActual = null;
@@ -23,6 +24,7 @@ public class Sala {
 	public Sala(String nombreSala, int capacidadMaxima, Usuario usuarioCreador) {
 		this.nombre = nombreSala;
 		this.password = "";
+		this.capacidadActual = 0;
 		this.capacidadMaxima = capacidadMaxima;
 		this.usuarioCreador = usuarioCreador;
 	}
@@ -95,17 +97,6 @@ public class Sala {
 		return this.usuarioCreador.getUsername().equals(user.getUsername());
 	}
 
-	public boolean conectarseALaSala(Usuario usuario) {
-		if (this.capacidadActual < this.capacidadMaxima) {
-			usuario.setSala(this);
-			this.usuariosActivos.add(usuario);
-			this.capacidadActual++;
-			return true;
-		}
-		this.salaLlena = true;
-		return false;
-	}
-
 	public boolean sacarUsuarioDeSala(Usuario usuario) {
 		if (this.usuariosActivos.remove(usuario)) {
 			this.capacidadActual--;
@@ -124,8 +115,8 @@ public class Sala {
 		return usuariosActivos;
 	}
 
-	public void setUsuariosActivos(ArrayList<Usuario> usuariosActivos) {
-		this.usuariosActivos = usuariosActivos;
+	public void setUsuariosActivos(Usuario usuariosActivos) {
+		this.usuariosActivos.add(usuariosActivos);
 	}
 
 	/*
