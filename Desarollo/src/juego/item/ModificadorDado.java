@@ -10,6 +10,8 @@ public class ModificadorDado extends Item {
 	@Override
 	public void activarItem(Jugador jugador) {
 		// TODO Auto-generated method stub
-
+		if(this.cantidadMaxima != jugador.getDado().getCantidadCaras()) {
+			jugador.getDado().setCantidadCaras(this.cantidadMaxima);
+		}
 	}
 }

@@ -37,4 +37,15 @@ public class Dado {
 	private int obtenerAleatorioMenorQue(int maximo) {
 		return new Random().nextInt(maximo);
 	}
+
+	public int getCantidadCaras() {
+		return cantidadCaras;
+	}
+
+	public void setCantidadCaras(int cantidadCaras) {
+		this.cantidadCaras = cantidadCaras;
+	}
+	
+	
+	
 }
