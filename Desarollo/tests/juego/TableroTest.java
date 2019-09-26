@@ -1,6 +1,9 @@
 package juego;
 
+import static org.junit.Assert.assertTrue;
+
 import java.io.FileNotFoundException;
+import java.util.Map;
 import java.util.Map.Entry;
 
 import org.junit.Before;
@@ -75,4 +78,5 @@ public class TableroTest {
 	public void crearTableroArchivoItemIncorrectoTest() throws ExcepcionArchivos, FileNotFoundException {
 		tablero = new Tablero("./tests/juego/files/tablero03.txt");
 	}
+
 }

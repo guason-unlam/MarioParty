@@ -10,14 +10,28 @@ public class Dado {
 	}
 
 	public int tirar() {
-		return this.obtenerAleatorioMenorQue(this.cantidadCaras);
+		
+		int resultado = 0;
+		
+		do {
+			resultado = this.obtenerAleatorioMenorQue(this.cantidadCaras);
+		} while (resultado == 0);
+		
+		return resultado;
 	}
 
 	/*
 	 * Metodo que acepta un numero distinto de cantidad caras
 	 */
 	public int tirar(int cant) {
-		return this.obtenerAleatorioMenorQue(cant);
+		
+		int resultado = 0;
+		
+		do {
+			resultado = this.obtenerAleatorioMenorQue(this.cantidadCaras);
+		} while (resultado == 0);
+		
+		return resultado;
 	}
 
 	private int obtenerAleatorioMenorQue(int maximo) {
