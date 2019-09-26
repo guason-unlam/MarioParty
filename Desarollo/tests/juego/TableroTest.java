@@ -78,15 +78,5 @@ public class TableroTest {
 	public void crearTableroArchivoItemIncorrectoTest() throws ExcepcionArchivos, FileNotFoundException {
 		tablero = new Tablero("./tests/juego/files/tablero03.txt");
 	}
-	
-	@Test
-	public void hayId() throws FileNotFoundException, ExcepcionArchivos {
-		
-		tablero = new Tablero("./tests/juego/files/tablero01.txt");
-		
-		tablero.setId(1);
-		
-		assertTrue(1 == tablero.getId());
-	}
 
 }
