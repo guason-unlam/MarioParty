@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.util.ArrayList;
 
 import juego.item.Item;
+import juego.item.ItemBifurcacion;
 import juego.personas.Jugador;
 import juego.personas.Personaje;
 
@@ -19,13 +20,20 @@ public class Casillero {
 	private boolean primeraVez;
 
 	// Para el movimiento
-	private Casillero siguiente;
+	private ArrayList<Casillero> siguientes;
 	private Casillero anterior;
 	// Personajes actualmente en el casillero
 	private ArrayList<Jugador> jugadores;
 	// El casillero puede, o no, tener un item
 	private Item item;
 	private Bifurcacion bifurcacion;
+
+	// Constructor
+	public Casillero() {
+		// Significa que tengo una bifurcacion, entonces le asigno el tipo especial
+		if (siguientes.size() > 1)
+			this.setItem(new ItemBifurcacion(sig));
+	}
 	/*
 	 * Permite agregar un personaje al actual casillero
 	 * 
@@ -110,6 +118,10 @@ public class Casillero {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	public boolean esBifurcacion() {
+		return this.bifurcacion;
 	}
 
 }

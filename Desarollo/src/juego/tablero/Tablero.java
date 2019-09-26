@@ -61,15 +61,19 @@ public class Tablero {
 	}
 
 	/*
-	 * Me devuelve la cantidad de casilleros que me puedo mover hasta terminar
-	 * Para no pasarme de rango, voy a ir recorriendo cada rama
-	 * y me quedo con la mas pequeña
+	 * Me devuelve la cantidad de casilleros que me puedo mover hasta terminar Para
+	 * no pasarme de rango, voy a ir recorriendo cada rama y me quedo con la mas
+	 * pequeña
 	 */
 	public int casillerosRestantes(Casillero actual) {
 		int pos = 0;
-		for (Integer i : this.casilleros.keySet()) {
-			if (i > actual.getId())
-				pos++;
+		if (actual.getBifurcacion()) {
+
+		} else {
+			for (Integer i : this.casilleros.keySet()) {
+				if (i > actual.getId())
+					pos++;
+			}
 		}
 		return pos;
 	}

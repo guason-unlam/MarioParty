@@ -2,11 +2,13 @@ package juego.misc;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.TreeMap;
 
 import juego.item.Item;
+import juego.item.ItemBifurcacion;
 import juego.item.ModificadorDado;
 import juego.item.ModificadorMonedas;
 import juego.item.ModificadorPosicion;
@@ -66,6 +68,14 @@ public class LectorEscritor {
 						item = new ModificadorDado(parts[4], parts[5], Integer.parseInt(parts[6]),
 								Integer.parseInt(parts[7]));
 						break;
+					case "BI":
+						ArrayList<Casillero> sig = new ArrayList<Casillero>();
+						// Tengo que ir creando los distintos casilleros
+						// No salgo de aca dentro para no perder mi referencia
+						for (int i = 0; i < Integer.parseInt(parts[8]); i++) {
+
+						}
+						item = new ItemBifurcacion(sig);
 					default:
 						throw new ExcepcionArchivos("Ocurrio un error al cargar el archivo");
 					}
