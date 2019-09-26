@@ -22,6 +22,7 @@ public class Jugador {
 	private Inventario inventario;
 	private Personaje personaje;
 	private Casillero posicion;
+	private Dado dado;
 
 	public Jugador(Usuario usuario, Tablero tablero) {
 		this.nombre = usuario.getUsername();
@@ -30,14 +31,19 @@ public class Jugador {
 		// Mi seed
 		Random rand = new Random(System.currentTimeMillis());
 		this.color = new Color(rand.nextInt(255), rand.nextInt(255), rand.nextInt(255));
+		dado = new Dado(6);
 	}
 
 	public int tirarDado() {
 		// Recupero mi referencia a Tablero
+		/*
+		 * Creo que para tirar el dado y avanzar como no tiene fin el mapa 
+		 * no hace falta la referencia a la posicion
+		 * porque no me puedo salir del mapa, ya que este no tiene bordes
+		 * así que se puede sacar
 		int casillerosRestantes = this.partida.getTablero().casillerosRestantes(this.posicion);
-		Dado d = new Dado(casillerosRestantes);
-
-		return avanzar(d.tirar());
+		 */
+		return avanzar(dado.tirar());
 	}
 
 	private int avanzar(int d) {
@@ -128,4 +134,13 @@ public class Jugador {
 		this.posicion = posicion;
 	}
 
+
+	public Dado getDado() {
+		return dado;
+	}
+
+	public void setDado(Dado dado) {
+		this.dado = dado;
+	}
+	
 }
