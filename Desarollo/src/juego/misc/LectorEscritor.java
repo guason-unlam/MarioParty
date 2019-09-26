@@ -56,8 +56,9 @@ public class LectorEscritor {
 						int valorNumerico = Integer.valueOf(valorP);
 						if (valorNumerico > 0 && casilleros.containsKey(valorNumerico)) {
 							padres.add(casilleros.get(valorNumerico));
-							System.out.println("Agregue el padre " + casilleros.get(valorNumerico).getId() + " al nodo "
-									+ Integer.valueOf(partes[0]));
+							casilleros.get(valorNumerico).getSiguiente().add(casillero);
+							//System.out.println("Agregue el padre " + casilleros.get(valorNumerico).getId() + " al nodo "
+							//		+ Integer.valueOf(partes[0]));
 						}
 					}
 
@@ -84,8 +85,8 @@ public class LectorEscritor {
 										.contains(casilleros.get(valorNumerico))) {
 							casilleros.get(Integer.valueOf(partes[0])).getAnteriores()
 									.add(casilleros.get(valorNumerico));
-							System.out.println("Agregue el padre " + casilleros.get(valorNumerico).getId() + " al nodo "
-									+ Integer.valueOf(partes[0]));
+							//System.out.println("Agregue el padre " + casilleros.get(valorNumerico).getId() + " al nodo "
+							//		+ Integer.valueOf(partes[0]));
 						}
 					}
 

@@ -21,7 +21,7 @@ public class TableroTest {
 		for (Entry<Integer, Casillero> m : tablero.getCasilleros().entrySet()) {
 			// System.out.println(m.getKey() + " " + m.getValue().getPosicionX() + " " +
 			// m.getValue().getPosicionY());
-			System.out.println("NODO N° " + m.getKey());
+			/*System.out.println("NODO N° " + m.getKey());
 			System.out.println("Padres");
 
 			if (m.getValue().getAnteriores().size() > 0) {
@@ -33,14 +33,14 @@ public class TableroTest {
 
 			if (m.getValue().getSiguiente().size() > 0) {
 				for (Casillero element : m.getValue().getSiguiente()) {
-					System.out.print(element.getId() + "-");
+					System.out.println(element.getId() + "-");
 				}
 			}
 			if (m.getValue().getItem() != null) {
 				System.out.println("\t" + m.getValue().getItem().getNombre() + " "
 						+ m.getValue().getItem().getDescripcion() + " " + m.getValue().getItem().getCantidadMaxima()
 						+ " " + m.getValue().getItem().getMultiplicador());
-			}
+			}*/
 		}
 	}
 
