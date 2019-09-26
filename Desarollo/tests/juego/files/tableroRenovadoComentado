@@ -1,0 +1,68 @@
+//Estructura
+
+ID|posicionX|posicionY|padres|hijos
+
+
+
+
+
+#Cantidad casilleros
+13
+
+//La A y la B
+1|10|20|1   //Primer nodo, ubicado en x = 10 e y = 20, tiene 1 hijo
+2|10|25|2   //Es el hijo del de arriba, pero tiene dos hijos!!
+
+//Este nodo ya existe, entonces solamente hago un get
+//Estoy en B
+//Tengo hijos C y J
+//Es el hijo del de arriba, pero tiene dos hijos!!
+2|10|25|2  
+//IZQ, tengo 3 hijos ESTE ES C
+3|15|25|1   
+//Aca termina el hijo del id 2 //DERECHA //Tengo un hijo ESTE ES J
+4|15|30|1   
+
+//PRIMER NIVEL
+
+//ME FIJO QUE TENGO EN C
+3|15|25|1
+//ESTE ES D
+5|20|25|3
+
+//ME FIJO QUE TENGO EN J
+4|15|30|1   
+//ESTE ES D
+10|20|25|1
+
+//SEGUNDO NIVEL
+5|20|25|3
+6|20|25|1
+7|20|25|1
+8|20|25|1
+
+10|20|25|1
+11|20|25|1
+
+//AHORA HAGO E Y F
+6|20|25|1
+9|20|25|1
+
+7|20|25|1
+9|20|25|1
+
+11|20|25|1
+12|20|25|1
+
+9|20|25|1
+12|20|25|1
+
+8|20|25|1
+12|20|25|1
+
+//ULTIMO NODO
+12|20|25|1
+13|20|25|0
+
+//VERIFICO SI LA CANTIDAD DE KEYS ES IGUAL AL NUMERO INICIAL, CASO CORRECTO, LECTURA CORRECTA
+//EL CERO INDICA EL FINAL

@@ -21,7 +21,7 @@ public class Casillero {
 
 	// Para el movimiento
 	private ArrayList<Casillero> siguientes;
-	private Casillero anterior;
+	private ArrayList<Casillero> anteriores;
 	// Personajes actualmente en el casillero
 	private ArrayList<Jugador> jugadores;
 	// El casillero puede, o no, tener un item
@@ -31,8 +31,9 @@ public class Casillero {
 	// Constructor
 	public Casillero() {
 		// Significa que tengo una bifurcacion, entonces le asigno el tipo especial
-		if (siguientes.size() > 1)
+		if (this.siguientes != null && this.siguientes.size() > 1) {
 			this.setItem(new ItemBifurcacion(this.siguientes));
+		}
 	}
 	/*
 	 * Permite agregar un personaje al actual casillero
@@ -88,12 +89,12 @@ public class Casillero {
 		this.siguientes = siguiente;
 	}
 
-	public Casillero getAnterior() {
-		return anterior;
+	public ArrayList<Casillero> getAnteriores() {
+		return anteriores;
 	}
 
-	public void setAnterior(Casillero anterior) {
-		this.anterior = anterior;
+	public void setAnterior(ArrayList<Casillero> anteriores) {
+		this.anteriores = anteriores;
 	}
 
 	public ArrayList<Jugador> getJugadores() {

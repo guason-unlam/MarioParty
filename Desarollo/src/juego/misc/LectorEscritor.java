@@ -3,6 +3,7 @@ package juego.misc;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.TreeMap;
@@ -28,69 +29,90 @@ public class LectorEscritor {
 	public void leerTablero(String arch, Tablero tablero) throws ExcepcionArchivos, FileNotFoundException {
 
 		Scanner sc = new Scanner(new File(arch));
-		// Si ocurre puede quedar null y kaboom
-		Item item = null;
-		String[] parts = sc.nextLine().split("\\|");
 
-		// Primer linea tiene idTablero, dimensionX, dimensionY
-		if (parts.length > 2) {
-			tablero.setId(Integer.parseInt(parts[0]));
-			tablero.setDimensionX(Integer.parseInt(parts[1]));
-			tablero.setDimensionY(Integer.parseInt(parts[2]));
-		} else {
-			sc.close();
-			throw new ExcepcionArchivos("Archivo mal configurado");
-		}
-
+		int cantidadCasilleros = sc.nextInt();
+		// System.out.println(cantidadCasilleros);
 		Map<Integer, Casillero> casilleros = new TreeMap<Integer, Casillero>();
 		while (sc.hasNextLine()) {
-			Casillero c = new Casillero();
-			parts = sc.nextLine().split("\\|");
-			if (parts.length == 3 || parts.length == 8) {
+			String[] partes = sc.nextLine().split("\\|");
+			// Si entro aca, es porque tengo algo de texto
+			// Y no es una linea vacia
+			if (partes.length > 1) {
 
-				c.setId(Integer.parseInt(parts[0]));
-				c.setPosicionX(Integer.parseInt(parts[1]));
-				c.setPosicionY(Integer.parseInt(parts[2]));
+				String[] partesPadres = partes[3].split(",");
+				String[] partesHijos = partes[4].split(",");
+				ArrayList<Casillero> padres = new ArrayList<Casillero>();
+				ArrayList<Casillero> hijos = new ArrayList<Casillero>();
 
-				// Si tiene item asociado
-				if (parts.length > 3 && parts.length != 7) {
-					switch (parts[3]) {
-					// Modificador de posicion
-					case "MP":
-						item = new ModificadorPosicion(parts[4], parts[5], Integer.parseInt(parts[6]),
-								Integer.parseInt(parts[7]));
-						break;
-					case "MM":
-						item = new ModificadorMonedas(parts[4], parts[5], Integer.parseInt(parts[6]),
-								Integer.parseInt(parts[7]));
-						break;
-					case "MD":
-						item = new ModificadorDado(parts[4], parts[5], Integer.parseInt(parts[6]),
-								Integer.parseInt(parts[7]));
-						break;
-					case "BI":
-						ArrayList<Casillero> sig = new ArrayList<Casillero>();
-						// Tengo que ir creando los distintos casilleros
-						// No salgo de aca dentro para no perder mi referencia
-						for (int i = 0; i < Integer.parseInt(parts[8]); i++) {
+				// Si no contiene ese casillero, entonces debo crearlo
+				if (!casilleros.containsKey(Integer.valueOf(partes[0]))) {
+					Casillero casillero = new Casillero();
+					// Seteo x e y
+					casillero.setPosicionX(Integer.valueOf(partes[1]));
+					casillero.setPosicionY(Integer.valueOf(partes[2]));
+					System.out.println("Estoy en " + partes[0] + "\tpadres: " + partes[3] + "\thijos:" + partes[4]);
 
+					for (String valorP : partesPadres) {
+						int valorNumerico = Integer.valueOf(valorP);
+						if (valorNumerico > 0 && casilleros.containsKey(valorNumerico)) {
+							padres.add(casilleros.get(valorNumerico));
+							System.out.println("Agregue el padre " + casilleros.get(valorNumerico).getId() + " al nodo "
+									+ Integer.valueOf(partes[0]));
 						}
-						item = new ItemBifurcacion(sig);
-					default:
-						throw new ExcepcionArchivos("Ocurrio un error al cargar el archivo");
 					}
-				}
-				c.setItem(item);
-				c.setPrimeraVez(true);
-				c.setAnterior(null);
-				c.setSiguiente(null);
-				c.setJugadores(null);
 
-				casilleros.put(c.getId(), c);
+					for (String valorH : partesHijos) {
+						int valorNumerico = Integer.valueOf(valorH);
+						if (valorNumerico > 0 && casilleros.containsKey(valorNumerico)) {
+
+							hijos.add(casilleros.get(valorNumerico));
+							System.out.println("Agregue el hijo " + casilleros.get(valorNumerico).getId() + " al nodo "
+									+ Integer.valueOf(partes[0]));
+						}
+					}
+					casillero.setAnterior(padres);
+					casillero.setSiguiente(hijos);
+					casillero.setId(Integer.valueOf(partes[0]));
+					casilleros.put(Integer.valueOf(partes[0]), casillero);
+				} else {
+					// System.out.println("Estoy en " + partes[0] + "\tpadres: " + partes[3] +
+					// "\thijos:" + partes[4]);
+					for (String valorP : partesPadres) {
+						int valorNumerico = Integer.valueOf(valorP);
+						if (valorNumerico > 0 && casilleros.containsKey(valorNumerico)
+								&& !casilleros.get(Integer.valueOf(partes[0])).getAnteriores()
+										.contains(casilleros.get(valorNumerico))) {
+							casilleros.get(Integer.valueOf(partes[0])).getAnteriores()
+									.add(casilleros.get(valorNumerico));
+							System.out.println("Agregue el padre " + casilleros.get(valorNumerico).getId() + " al nodo "
+									+ Integer.valueOf(partes[0]));
+						}
+					}
+
+					for (String valorH : partesHijos) {
+						int valorNumerico = Integer.valueOf(valorH);
+						if (valorNumerico > 0 && casilleros.containsKey(valorNumerico)
+								&& !casilleros.get(Integer.valueOf(partes[0])).getSiguiente()
+										.contains(casilleros.get(valorNumerico))) {
+							casilleros.get(Integer.valueOf(partes[0])).getSiguiente()
+									.add(casilleros.get(valorNumerico));
+							System.out.println("Agregue el hijo " + casilleros.get(valorNumerico).getId() + " al nodo "
+									+ Integer.valueOf(partes[0]));
+						}
+					}
+
+				}
 			}
 		}
-
-		tablero.setCasilleros(casilleros);
 		sc.close();
+
+		if (casilleros.size() == cantidadCasilleros) {
+			tablero.setCasilleros(casilleros);
+			System.out.println(cantidadCasilleros + " casilleros agregados");
+		} else {
+			System.out.println(cantidadCasilleros);
+			System.out.println(casilleros.keySet());
+			throw new ExcepcionArchivos("No coincide el numero de casilleros con el final");
+		}
 	}
 }
