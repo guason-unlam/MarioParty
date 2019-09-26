@@ -1,6 +1,7 @@
 package juego.tablero;
 
 import java.io.FileNotFoundException;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -57,5 +58,19 @@ public class Tablero {
 
 	public void setDimensionY(int dimensionY) {
 		this.dimensionY = dimensionY;
+	}
+
+	/*
+	 * Me devuelve la cantidad de casilleros que me puedo mover hasta terminar
+	 * Para no pasarme de rango, voy a ir recorriendo cada rama
+	 * y me quedo con la mas pequeña
+	 */
+	public int casillerosRestantes(Casillero actual) {
+		int pos = 0;
+		for (Integer i : this.casilleros.keySet()) {
+			if (i > actual.getId())
+				pos++;
+		}
+		return pos;
 	}
 }

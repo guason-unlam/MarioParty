@@ -4,11 +4,17 @@ import java.awt.Color;
 import java.util.Random;
 
 import juego.item.Inventario;
+import juego.item.Item;
 import juego.lobby.Usuario;
+import juego.lobby.Partida;
+
+import juego.misc.Dado;
+import juego.tablero.Tablero;
 import juego.tablero.casillero.Casillero;
 
 public class Jugador {
-
+	// Necesito tener una referencia a la partida, es el objeto padre de todo
+	private Partida partida;
 	private String nombre;
 	private int puntaje;
 	private Color color;
@@ -17,13 +23,49 @@ public class Jugador {
 	private Personaje personaje;
 	private Casillero posicion;
 
-	public Jugador(Usuario usuario) {
+	public Jugador(Usuario usuario, Tablero tablero) {
 		this.nombre = usuario.getUsername();
 		this.puntaje = 0;
 		this.puntosEnPartida = 0;
+		// Mi seed
 		Random rand = new Random(System.currentTimeMillis());
 		this.color = new Color(rand.nextInt(255), rand.nextInt(255), rand.nextInt(255));
 	}
+
+	public int tirarDado() {
+		// Recupero mi referencia a Tablero
+		int casillerosRestantes = this.partida.getTablero().casillerosRestantes(this.posicion);
+		Dado d = new Dado(casillerosRestantes);
+
+		return avanzar(d.tirar());
+	}
+
+	private int avanzar(int d) {
+		for (int i = 0; i < d; i++) {
+			avanzarUnCasillero();
+			// Si llego a una bifurcacion, tengo que ver que hago
+			// IMPORTANTE: que no sea el ultimo casillero!
+			if (i < d - 1 && this.posicion.getItem() instanceof Item) {
+				this.posicion.getItem().activarItem();
+			}
+		}
+
+		// Una vez que "termine", ejecuto el item
+		if (this.posicion.getItem() instanceof Item)
+			this.posicion.getItem().activarItem();
+
+		return 0;
+	}
+
+	private void avanzarUnCasillero() {
+		// Aca modifico la posicion del chabon
+		this.posicion = partida.getTablero().getCasilleros().get(this.posicion.getSiguiente().getId());
+	}
+
+	/*
+	 * SETTERS Y GETTERS
+	 * 
+	 */
 
 	public String getNombre() {
 		return nombre;
@@ -85,7 +127,5 @@ public class Jugador {
 	public void setPosicion(Casillero posicion) {
 		this.posicion = posicion;
 	}
-
-	// TODO moverse
 
 }

@@ -25,7 +25,7 @@ public class Casillero {
 	private ArrayList<Jugador> jugadores;
 	// El casillero puede, o no, tener un item
 	private Item item;
-
+	private Bifurcacion bifurcacion;
 	/*
 	 * Permite agregar un personaje al actual casillero
 	 * 

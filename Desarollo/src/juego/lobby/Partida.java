@@ -25,7 +25,7 @@ public class Partida {
 		for (Usuario usuario : usuariosActivosEnSala) {
 			Jugador jugador;
 
-			jugador = new Jugador(usuario);
+			jugador = new Jugador(usuario, tablero);
 			this.jugadoresEnPartida.add(jugador);
 
 			usuario.setJugador(jugador);

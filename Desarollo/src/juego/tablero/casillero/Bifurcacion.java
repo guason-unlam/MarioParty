@@ -3,9 +3,11 @@ package juego.tablero.casillero;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import juego.item.ItemBifurcacion;
+
 public class Bifurcacion extends Casillero {
 	private Casillero anterior;
-	
+
 	/*
 	 * Pueden existir una bifurcacion triple, por ejemplo, por eso hay varios
 	 */
@@ -14,16 +16,8 @@ public class Bifurcacion extends Casillero {
 	public Bifurcacion(ArrayList<Casillero> sig) {
 		super();
 		this.siguientes = sig;
+		// Necesito esto, para tener mi accion
+		this.setItem(new ItemBifurcacion(sig));
 	}
 
-	public Casillero seleccionarCamino() {
-		Scanner lector = new Scanner(System.in);
-		int camino;
-		do {
-			System.out.println("Ingrese un camino: ");
-			camino = lector.nextInt();
-		} while (camino <= this.siguientes.size());
-		lector.close();
-		return this.siguientes.get(camino);
-	}
 }
