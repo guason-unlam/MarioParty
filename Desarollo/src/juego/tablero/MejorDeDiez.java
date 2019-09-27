@@ -8,12 +8,16 @@ import juego.misc.Dado;
 public class MejorDeDiez extends MiniJuego {
 	private String []nombreJugadores;
 	private Dado dado;
+	private boolean enPartida;
+	String resultados = ""; // Solo es para saber que estaba funcionando bien, ya que aca guardo los totales de cada uno
 	TreeSet<JugadorMinijuego> resumen = new TreeSet<JugadorMinijuego>();
 	public MejorDeDiez(String nombre[]) {
-		super.setDescripcion("Cada jugador lanza 10 veces 1 dado, el que saque la mayor suma gana.");
+		super.setDescripcion("Cada jugador lanza 10 veces 1 dado,"
+				+ " el que saque la mayor suma gana.");
 		super.setNombre("MejorDeDiez");
 		this.nombreJugadores = nombre;
 		dado = new Dado(6);
+		enPartida = false;
 	}
 	@Override
 	public void iniciar() {
@@ -21,31 +25,53 @@ public class MejorDeDiez extends MiniJuego {
 		JugadorMinijuego nuevoJugador;
 		for(String nombre: nombreJugadores) {
 			nuevoJugador = new JugadorMinijuego(nombre);
-			System.out.println("Juega: " + nombre + ": ");
+			resultados += nuevoJugador.getNombre() + "\t";
 			nuevoJugador.setRes(jugar());
 			resumen.add(nuevoJugador);
 		}
-		Iterator it = resumen.descendingIterator();
-		while(it.hasNext()) {
-			System.out.println(((JugadorMinijuego)it.next()).getNombre());
-		}
+		guardarResultados();
 	}
 	
 	
-	public int jugar() {
-		int res = 0, num;
-		for(int i = 0; i < 10; i++) {
-			num = dado.tirar();
-			System.out.println("\tTiro nro: " + i + " salio un: " + num);
-			res +=num;
+	private void guardarResultados() {
+
+		int i = 0;
+		String nombreRes = "";
+		for(String nombre: getResumen()) {
+			i++;
+			nombreRes += i + ") " + nombre + "\n";
 		}
-		System.out.println("\tTotal: " + res);
+		//Hay que escribirlo en algun archivo
+		System.out.println(resultados);
+		
+	}
+	
+	public int jugar() {
+		int res = 0;
+		for(int i = 0; i < 10; i++) {
+			res +=dado.tirar();;
+		}
+		resultados += "" + res + "\n";
 		return res;
 	}
 	
 	private void muestraInstrucciones() {
 		// TODO Auto-generated method stub
-		System.out.println();
+		String instruciones = "El juego consta de varios jugadores, los cuales tirarán 10 veces,"
+				+ "un dado, al final la suma de todos los tiros, sera el resultado por jugador,"
+				+ "a más puntuación, mejor.";
+		System.out.println("Instrucciones:\n" +instruciones);
+	}
+	
+
+	public String[] getResumen(){
+		int i=0;
+		String[]nombresOrdenados = new String[resumen.size()];
+		Iterator it = resumen.descendingIterator();
+		while(it.hasNext()) {
+			nombresOrdenados[i++] = ((JugadorMinijuego)(it.next())).getNombre();
+		}
+		return nombresOrdenados;
 	}
 
 }
@@ -53,6 +79,7 @@ public class MejorDeDiez extends MiniJuego {
 class JugadorMinijuego implements Comparable{
 	private String nombre;
 	private int res;
+	
 	public JugadorMinijuego(String nombre) {
 		this.nombre = nombre;
 		res = 0;
@@ -80,6 +107,7 @@ class JugadorMinijuego implements Comparable{
 		return this.res;
 	}
 
+	
 	@Override
 	public int compareTo(Object jugadorMJ) {
 		/*
