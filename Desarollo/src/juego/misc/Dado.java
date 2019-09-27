@@ -1,40 +1,21 @@
 package juego.misc;
 
-import java.util.Random;
 
 public class Dado {
 	private int cantidadCaras;
 
-	public Dado(int cantidadCaras) {
-		this.cantidadCaras = cantidadCaras;
+	public Dado(int cantCaras) {
+		this.cantidadCaras = cantCaras;
 	}
 
 	public int tirar() {
-		
-		int resultado = 0;
-		
-		do {
-			resultado = this.obtenerAleatorioMenorQue(this.cantidadCaras);
-		} while (resultado == 0);
-		
-		return resultado;
+		return (int)(Math.random() * this.cantidadCaras + 1);
 	}
 
-	/*
-	 * Metodo que acepta un numero distinto de cantidad caras
-	 */
-	public int tirar(int cant) {
-		
-		int resultado = 0;
-		
-		do {
-			resultado = this.obtenerAleatorioMenorQue(this.cantidadCaras);
-		} while (resultado == 0);
-		
-		return resultado;
+	public void setCantidadCaras(int cant) {
+		this.cantidadCaras = cant;
 	}
-
-	private int obtenerAleatorioMenorQue(int maximo) {
-		return new Random().nextInt(maximo);
+	public int getCantidadCaras() {
+		return this.cantidadCaras;
 	}
 }

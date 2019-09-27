@@ -10,7 +10,6 @@ import org.junit.Test;
 
 import juego.lobby.Usuario;
 import juego.personas.Jugador;
-import juego.tablero.casillero.Bifurcacion;
 import juego.tablero.casillero.Casillero;
 import junit.framework.Assert;
 

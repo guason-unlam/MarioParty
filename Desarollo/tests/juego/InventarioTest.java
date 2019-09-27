@@ -17,7 +17,7 @@ public class InventarioTest {
 	@Before
 	public void inicio() {
 		inventario = new Inventario(3);
-		item = new ModificadorDado("+2 dados", "Le agrega dos al resultado del dado", 10, 1);
+		item = new ModificadorDado();
 	}
 
 	@Test

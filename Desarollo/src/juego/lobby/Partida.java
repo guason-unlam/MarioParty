@@ -19,13 +19,16 @@ public class Partida {
 	//ESTO ES UNA CLASE NUEVA
 	private int puntajeMaximo;
 	private int cantidadDeRondasAJugar;
+	private int precioDolar = 60;
+	//Los dolares son las estrellas del mario party, el q mas dolares tiene gana la partida, de momento hardcodeo el precio aca
+	
 
 	public Partida(int id, ArrayList<Usuario> usuariosActivosEnSala, int cantidadTotalRondas) {
 		this.usuariosActivosEnSala = usuariosActivosEnSala;
 		for (Usuario usuario : usuariosActivosEnSala) {
 			Jugador jugador;
 
-			jugador = new Jugador(usuario, tablero);
+			jugador = new Jugador(usuario, tablero, this);
 			this.jugadoresEnPartida.add(jugador);
 
 			usuario.setJugador(jugador);
@@ -122,14 +125,9 @@ public class Partida {
 	public void setPuntajeMaximo(int puntajeMaximo) {
 		this.puntajeMaximo = puntajeMaximo;
 	}
-	
-	public void calcularGanadorPartida() {
-		for (Jugador jug : this.jugadoresEnPartida) {
-			if (jug.getPuntosEnPartida() > this.puntajeMaximo) {
-				this.ganador = jug;
-				this.puntajeMaximo = jug.getPuntosEnPartida();
-			}
-		}
+
+	public int getPrecioDolar() {
+		return precioDolar;
 	}
 
 }
