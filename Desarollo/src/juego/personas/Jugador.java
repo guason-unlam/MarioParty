@@ -5,9 +5,8 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import juego.item.Inventario;
-import juego.lobby.Usuario;
 import juego.lobby.Partida;
-
+import juego.lobby.Usuario;
 import juego.misc.Dado;
 import juego.tablero.Tablero;
 import juego.tablero.casillero.Casillero;

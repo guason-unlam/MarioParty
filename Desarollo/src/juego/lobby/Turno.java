@@ -3,8 +3,8 @@ package juego.lobby;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import juego.personas.Jugador;
-import juego.item.Item;;
+import juego.item.Item;
+import juego.personas.Jugador;;
 
 public class Turno {
 

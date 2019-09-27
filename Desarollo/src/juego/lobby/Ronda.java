@@ -3,7 +3,6 @@ package juego.lobby;
 import java.util.ArrayList;
 
 import juego.personas.Jugador;
-import juego.tablero.MiniJuego;
 /*
  * Esta clase igual se podría reemplazar por el loop en la clase partida y 
  * lanzar después del loop el minijuego, pero bueno, ya estaba 
