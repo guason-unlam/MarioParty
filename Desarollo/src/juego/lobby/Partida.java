@@ -56,7 +56,10 @@ public class Partida {
 		this.ganador = null;
 	}
 
-	public int iniciarPartida() {
+	public int iniciarPartida() throws ExcepcionJugadoresInsuficientes {
+		if(jugadoresEnPartida.size() < 2) {
+			throw new ExcepcionJugadoresInsuficientes(0);
+		}
 		/*
 		 * >> Falta validar aca, o en la sala, si se cumplen las condiciones para
 		 * iniciar una partida >> Hay que definir como interpretar la condicion de

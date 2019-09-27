@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.junit.Before;
 import org.junit.Test;
 
+import juego.lobby.ExcepcionJugadoresInsuficientes;
 import juego.lobby.Partida;
 import juego.lobby.Usuario;
 
@@ -27,6 +28,10 @@ public class PartidaTest {
 
 	@Test
 	public void partidaTest() {
-		partida.iniciarPartida();
+		try {
+			partida.iniciarPartida();
+		}catch(ExcepcionJugadoresInsuficientes e) {
+			Main.mostrar(e.getMessage());
+		}
 	}
 }
