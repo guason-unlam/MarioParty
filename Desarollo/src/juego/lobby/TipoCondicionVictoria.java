@@ -1,5 +1,5 @@
 package juego.lobby;
 
 public enum TipoCondicionVictoria {
-	RONDAS, MONEDAS
+	RONDAS, MONEDAS, ESTRELLAS
 }

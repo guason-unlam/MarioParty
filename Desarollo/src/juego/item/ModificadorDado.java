@@ -1,15 +1,18 @@
 package juego.item;
 
+import juego.misc.Dado;
 import juego.personas.Jugador;
 
 public class ModificadorDado extends Item {
-	public ModificadorDado(String nombre, String descripcion, int cantMaxima, int multiplicador) {
-		super(nombre, descripcion, cantMaxima, multiplicador);
+	
+	
+	public ModificadorDado() {
+		super("Modificador de dado", "Aumenta en 1 la cantidad de caras del dado del jugador");
 	}
 
 	@Override
 	public void activarItem(Jugador jugador) {
-		// TODO Auto-generated method stub
-
+		Dado dado = jugador.getDado();
+		dado.setCantidadCaras(dado.getCantidadCaras()+1);
 	}
 }

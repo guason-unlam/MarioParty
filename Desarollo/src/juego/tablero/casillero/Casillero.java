@@ -2,11 +2,13 @@ package juego.tablero.casillero;
 
 import java.awt.Color;
 import java.util.ArrayList;
+import java.util.Set;
+import java.util.TreeSet;
 
-import juego.item.Item;
-import juego.item.ItemBifurcacion;
+import juego.item.ModificadorDado;
+import juego.item.Pesos;
+import juego.item.Recompensa;
 import juego.personas.Jugador;
-import juego.personas.Personaje;
 
 public class Casillero {
 	// Id interno
@@ -18,23 +20,18 @@ public class Casillero {
 	private int posicionY;
 	// En caso de ser verdadero, le da las recompensas
 	private boolean primeraVez;
+	
+	// Para saber si la estrella esta en este casillero
+	private boolean tieneArbolito;
+	private boolean tieneRecompensa;
 
 	// Para el movimiento
 	private ArrayList<Casillero> siguientes;
 	private ArrayList<Casillero> anteriores;
 	// Personajes actualmente en el casillero
-	private ArrayList<Jugador> jugadores;
-	// El casillero puede, o no, tener un item
-	private Item item;
-	private Bifurcacion bifurcacion;
-
-	// Constructor
-	public Casillero() {
-		// Significa que tengo una bifurcacion, entonces le asigno el tipo especial
-		if (this.siguientes != null && this.siguientes.size() > 1) {
-			this.setItem(new ItemBifurcacion(this.siguientes));
-		}
-	}
+	private Set<Jugador> jugadores = new TreeSet<Jugador>();
+	
+	private Recompensa recompensa;
 	/*
 	 * Permite agregar un personaje al actual casillero
 	 * 
@@ -43,9 +40,25 @@ public class Casillero {
 	 * @return void
 	 */
 
-	public boolean agregarJugador(Jugador j) {
+	public Casillero() {
+		tieneArbolito = false;
+		tieneRecompensa = false;
+		primeraVez = true;
+		double ran = Math.random();
+		if(ran > 0.5) { // 50% de prob de que el casillero no tenga recompensa
+			tieneRecompensa = true;
+			if(ran > 0.85) // 15% de prob de q la recompensa sea un item
+				recompensa = new ModificadorDado(); // de momento el unico item que tenemos es ModificadorDado, cuando haya mas se modificara aca
+			else
+				recompensa = new Pesos(50); // 35% de prob de que la recompensa sean 50p, de momento hardcodeado
+		}
+	}
+	
+	public void removerJugador(Jugador j) {
+		this.jugadores.remove(j);
+	}
+	public void agregarJugador(Jugador j) {
 		this.jugadores.add(j);
-		return true;
 	}
 
 	// Setters y getters default
@@ -96,23 +109,7 @@ public class Casillero {
 	public void setAnterior(ArrayList<Casillero> anteriores) {
 		this.anteriores = anteriores;
 	}
-
-	public ArrayList<Jugador> getJugadores() {
-		return jugadores;
-	}
-
-	public void setJugadores(ArrayList<Jugador> jugadores) {
-		this.jugadores = jugadores;
-	}
-
-	public Item getItem() {
-		return item;
-	}
-
-	public void setItem(Item item) {
-		this.item = item;
-	}
-
+	
 	public int getId() {
 		return id;
 	}
@@ -120,9 +117,19 @@ public class Casillero {
 	public void setId(int id) {
 		this.id = id;
 	}
+	
+	public Recompensa getRecompensa() {
+		return this.recompensa;
+	}
+	public boolean isTieneArbolito() {
+		return tieneArbolito;
+	}
+	public void setTieneArbolito(boolean tieneArbolito) {
+		this.tieneArbolito = tieneArbolito;
+	}
 
-	public boolean esBifurcacion() {
-		return this.bifurcacion != null;
+	public boolean isTieneRecompensa() {
+		return tieneRecompensa;
 	}
 
 }

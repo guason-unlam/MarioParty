@@ -1,12 +1,14 @@
 package juego.lobby;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
+import juego.misc.ExcepcionArchivos;
 import juego.personas.Jugador;
 import juego.tablero.Tablero;
 
 public class Partida {
-	//Cambiar por el estado
+	// Cambiar por el estado
 	private boolean partidaEnCurso = false;
 	private ArrayList<Ronda> rondasJugadas = new ArrayList<Ronda>();
 	private ArrayList<Jugador> jugadoresEnPartida = new ArrayList<Jugador>();
@@ -16,23 +18,58 @@ public class Partida {
 	private Tablero tablero;
 	private int tipoMapa;
 	private Jugador ganador;
-	//ESTO ES UNA CLASE NUEVA
+	// ESTO ES UNA CLASE NUEVA
 	private int puntajeMaximo;
 	private int cantidadDeRondasAJugar;
+	private int precioDolar = 60;
+	// Los dolares son las estrellas del mario party, el q mas dolares tiene gana la
+	// partida, de momento hardcodeo el precio aca
 
-	public Partida(int id, ArrayList<Usuario> usuariosActivosEnSala, int cantidadTotalRondas) {
+//	Para saber cuando terminó una Partida, por defecto, es por estrellas, a cinco.
+	private CondicionVictoria condicionVictoria = new CondicionVictoria(TipoCondicionVictoria.RONDAS, 5);
+
+	public Partida(ArrayList<Usuario> usuariosActivosEnSala, int cantidadTotalRondas) {
 		this.usuariosActivosEnSala = usuariosActivosEnSala;
+		try {
+			this.tablero = new Tablero("./tests/juego/files/tableroRenovado.txt");
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (ExcepcionArchivos e) {
+			e.printStackTrace();
+		}
+
 		for (Usuario usuario : usuariosActivosEnSala) {
 			Jugador jugador;
 
-			jugador = new Jugador(usuario, tablero);
+			jugador = new Jugador(usuario, tablero, this);
+			// Lo seteo al primer casillero
+			jugador.setPosicion(this.tablero.getCasilleros().get(0));
 			this.jugadoresEnPartida.add(jugador);
 
 			usuario.setJugador(jugador);
 		}
-		this.cantidadDeRondasAJugar = cantidadTotalRondas;
+		if (cantidadTotalRondas != 0) {
+			condicionVictoria = new CondicionVictoria(TipoCondicionVictoria.RONDAS, cantidadTotalRondas);
+		}
 		this.puntajeMaximo = 0;
 		this.ganador = null;
+	}
+
+	public int iniciarPartida() {
+		/*
+		 * >> Falta validar aca, o en la sala, si se cumplen las condiciones para
+		 * iniciar una partida >> Hay que definir como interpretar la condicion de
+		 * victoria, y en caso de que sea como en el juego por estrellas, hay que ver si
+		 * considerarlas como items o de alguna otra forma.
+		 */
+		do {
+			numeroRonda++;
+			rondaEnCurso = new Ronda(jugadoresEnPartida);
+			rondaEnCurso.iniciar();
+			rondasJugadas.add(rondaEnCurso);
+			evaluarEstadoPartida();
+		} while (this.ganador == null && this.partidaEnCurso == true);
+		return 0;
 	}
 
 	public boolean isPartidaEnCurso() {
@@ -122,14 +159,44 @@ public class Partida {
 	public void setPuntajeMaximo(int puntajeMaximo) {
 		this.puntajeMaximo = puntajeMaximo;
 	}
-	
-	public void calcularGanadorPartida() {
+
+	public int getPrecioDolar() {
+		return precioDolar;
+	}
+
+	public void calcularGanadorPartidaPorRondas() {
 		for (Jugador jug : this.jugadoresEnPartida) {
-			if (jug.getPuntosEnPartida() > this.puntajeMaximo) {
+			if (jug.getDolares() > this.puntajeMaximo) {
 				this.ganador = jug;
-				this.puntajeMaximo = jug.getPuntosEnPartida();
+				this.puntajeMaximo = jug.getDolares();
 			}
 		}
 	}
 
+	/*
+	 * Depende de como decidamos tratar las estrellas
+	 */
+	public boolean calcularGanadorPorEstrellas() {
+		return false;
+	}
+
+	public CondicionVictoria getCondicionVictoria() {
+		return condicionVictoria;
+	}
+
+	public void setCondicionVictoria(CondicionVictoria condicionVictoria) {
+		this.condicionVictoria = condicionVictoria;
+	}
+
+	public void evaluarEstadoPartida() {
+
+		if (condicionVictoria.getTipo() == TipoCondicionVictoria.RONDAS) {
+			if (this.numeroRonda == condicionVictoria.getCantidad()) {
+				calcularGanadorPartidaPorRondas();
+				this.partidaEnCurso = false;
+			}
+		} else if (condicionVictoria.getTipo() == TipoCondicionVictoria.ESTRELLAS) {
+			this.partidaEnCurso = calcularGanadorPorEstrellas();
+		}
+	}
 }
