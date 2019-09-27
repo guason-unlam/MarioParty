@@ -1,6 +1,5 @@
 package juego.lobby;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 
 import juego.item.Item;
@@ -15,13 +14,16 @@ public class Turno {
 	}
 	
 	public void iniciarTurno() {
-		char respuesta;
-		int numeroIngresado;
 		juego.Main.mostrar("Turno de " + jugador.getNombre());
 		jugador.tirarDado();
-		
 		if(jugador.getInventario().getCantItems() == 0) //Si el jugador no tiene items, termina su turno
 			return;
+		
+		etapaAccion();
+	}
+	
+	private void etapaAccion() {
+		char respuesta;
 		
 		juego.Main.mostrar("Quiere usar un objeto? (S/N)");
 		do
@@ -31,8 +33,11 @@ public class Turno {
 		if(respuesta == 'N') //Si el jugador no quiere usar ningun item, termina su turno
 			return;
 		
-		
-		int i = 1; //Llego aca cuando el jugador quiere usar algun item
+		elegirItem().usarItem();
+	}
+	
+	private Item elegirItem() {
+		int i = 1,numeroIngresado;
 		juego.Main.mostrar("Elije item a usar:");
 		Iterator<Item> iteradorItems = jugador.getInventario().listarItems();
 		while(iteradorItems.hasNext()) { // Muestro los items del jugador
@@ -44,20 +49,6 @@ public class Turno {
 			numeroIngresado = juego.Main.leer(); //El jugador elije q item usar
 		}while(numeroIngresado<1 || numeroIngresado>i);
 		
-		Item item = jugador.getInventario().getItems().get(numeroIngresado); //Guardo el item seleccionado
-		ArrayList<Jugador> listaJugadores = jugador.getPartida().getJugadoresEnPartida();
-		Iterator<Jugador> iteradorJugadores = listaJugadores.iterator();
-		
-		i=1;
-		while(iteradorJugadores.hasNext()) {//Muestro todos los jugadores para que elija el objetivo
-			juego.Main.mostrar(i + "- " + iteradorJugadores.next().getNombre());
-			i++;
-		}
-		do {
-			numeroIngresado = juego.Main.leer(); //El jugador elije el jugador objetivo
-		}while(numeroIngresado<1 || numeroIngresado>i);
-		
-		item.activarItem(listaJugadores.get(numeroIngresado)); //se activa el item seleccionado en el objetivo seleccionado
-		
+		return jugador.getInventario().getItems().get(numeroIngresado); //devuelvo el item seleccionado
 	}
 }

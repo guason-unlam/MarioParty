@@ -1,5 +1,7 @@
 package juego.item;
 
+import java.util.Iterator;
+
 import juego.personas.Jugador;
 
 public abstract class Item extends Recompensa {
@@ -12,7 +14,18 @@ public abstract class Item extends Recompensa {
 		this.descripcion = descripcion;
 	}
 
-	public abstract void activarItem(Jugador objetivo);
+	protected abstract void activarItem();
+	
+	public void usarItem() {
+		activarItem();
+		int posicionEnInventario=0;
+		Iterator<Item> i = this.dueño.getInventario().getItems().iterator();
+		while(i.hasNext() && !i.next().equals(this))
+			posicionEnInventario++;
+		this.dueño.getInventario().getItems().remove(posicionEnInventario);
+	}
+	
+	public abstract Jugador elegirObjetivo();
 	
 	public Jugador getDueño(){
 		return this.dueño;
