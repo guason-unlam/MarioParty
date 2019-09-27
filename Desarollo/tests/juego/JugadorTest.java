@@ -9,6 +9,7 @@ import org.junit.Test;
 import juego.lobby.Partida;
 import juego.lobby.Usuario;
 import juego.personas.Jugador;
+import juego.tablero.casillero.Casillero;
 
 public class JugadorTest {
 	private Usuario user1;
@@ -38,7 +39,9 @@ public class JugadorTest {
 	}
 
 	@Test
-	public void tirarDadoTest() {
+	public void avanzarTest() {
+		Casillero posicionOriginal = jugador1.getPosicion();
 		jugador1.tirarDado();
+		Assert.assertNotEquals(posicionOriginal, jugador1.getPosicion());
 	}
 }

@@ -37,7 +37,6 @@ public class Partida {
 		} catch (ExcepcionArchivos e) {
 			e.printStackTrace();
 		}
-		//System.out.println(this.tablero.getCasilleros().get(0));
 
 		for (Usuario usuario : usuariosActivosEnSala) {
 			Jugador jugador;

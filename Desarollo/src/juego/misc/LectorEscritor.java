@@ -107,7 +107,7 @@ public class LectorEscritor {
 
 		if (casilleros.size() == cantidadCasilleros) {
 			tablero.setCasilleros(casilleros);
-			System.out.println(cantidadCasilleros + " casilleros agregados");
+			// System.out.println(cantidadCasilleros + " casilleros agregados");
 			// System.out.println(cantidadCasilleros + " casilleros agregados");
 		} else {
 			// System.out.println(cantidadCasilleros);

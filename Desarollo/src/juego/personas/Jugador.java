@@ -31,7 +31,7 @@ public class Jugador implements Comparable<Jugador> {
 		Random rand = new Random(System.currentTimeMillis());
 		this.color = new Color(rand.nextInt(255), rand.nextInt(255), rand.nextInt(255));
 		this.dado = new Dado(6);
-		this.inventario = new Inventario(10); //10 items maximos
+		this.inventario = new Inventario(10); // 10 items maximos
 	}
 
 	public void tirarDado() {
@@ -43,7 +43,7 @@ public class Jugador implements Comparable<Jugador> {
 
 	private void avanzar(int d) {
 		this.posicion.removerJugador(this);
-		System.out.println("POSICIONES DADO: "+d);
+		System.out.println("Debo avanzar " + d + " posicion(es)");
 		for (int i = 0; i < d; i++) {
 			avanzarUnCasillero();
 			if (this.posicion.isTieneArbolito() == true) { // Si el casillero por el q acabo de pasar tiene un arbolito,
@@ -75,7 +75,6 @@ public class Jugador implements Comparable<Jugador> {
 		Casillero seleccionado = null;
 		boolean flagCasillero = false;
 		int caminoElegido;
-		if(siguiente.size() == 1) //si solo hay 1 camino, avanzo
 		if (siguiente.size() == 1) // si solo hay 1 camino, avanzo
 		{
 			this.posicion = siguiente.get(0);
@@ -85,24 +84,20 @@ public class Jugador implements Comparable<Jugador> {
 				System.out.println(casillero.getId());
 			}
 			do {
-				System.out.println(siguiente.get(0));
-
 				System.out.println("");
 				System.out.println("Elije un camino"); // cuando hay mas de 1 camino, el jugador elije
 
-				// Esta leyendo un ASCII, entonces tengo que restarle ''
 				caminoElegido = juego.Main.leerInt();
 
 				for (Casillero casillero : siguiente) {
 					if (casillero.getId() == caminoElegido) {
-						System.out.println("Entre");
 						flagCasillero = true;
 						seleccionado = casillero;
 						break;
 					}
 				}
 			} while (flagCasillero == false);
-			// System.out.println(caminoElegido);
+
 			this.posicion = seleccionado;
 		}
 	}
