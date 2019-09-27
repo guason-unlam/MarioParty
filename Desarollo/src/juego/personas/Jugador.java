@@ -59,8 +59,13 @@ public class Jugador implements Comparable<Jugador> {
 					if (this.pesos >= partida.getPrecioDolar()) {
 						this.dolares++;
 						this.pesos -= partida.getPrecioDolar();
+						this.partida.cambioArbolito(this.posicion);
+						juego.Main.mostrar("Gracias.");
+					}else {
 						juego.Main.mostrar("No te alcanza");
 					}
+				}else {
+					juego.Main.mostrar("Nos volveremos a ver...");
 				}
 			}
 		}
@@ -182,15 +187,6 @@ public class Jugador implements Comparable<Jugador> {
 
 	public void setDado(Dado dado) {
 		this.dado = dado;
-	}
-
-	/*
-	 * Hay que ver como encaramos la etapa de accion para que un jugador use un
-	 * item.
-	 */
-	public void etapaAccion() {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override

@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import juego.misc.ExcepcionArchivos;
 import juego.personas.Jugador;
 import juego.tablero.Tablero;
+import juego.tablero.casillero.Casillero;
 
 public class Partida {
 	// Cambiar por el estado
@@ -176,8 +177,17 @@ public class Partida {
 	/*
 	 * Depende de como decidamos tratar las estrellas
 	 */
-	public boolean calcularGanadorPorEstrellas() {
-		return false;
+	public Jugador calcularGanadorPorEstrellas() {
+		for(Jugador jug: jugadoresEnPartida) {
+			if( (jug.getDolares() == this.condicionVictoria.getCantidad())) {
+				/* Si aún nadie cumple condicionVictoria ganador es jug
+				 * Si alguien ya cumple la condiciónVictoria desempato por
+				 * cantidad de pesos que tiene cada uno.
+				 * */
+				ganador = ((ganador==null)?jug:((jug.getPesos()>ganador.getPesos())?jug:ganador));
+			}
+		}
+		return ganador;
 	}
 
 	public CondicionVictoria getCondicionVictoria() {
@@ -196,7 +206,23 @@ public class Partida {
 				this.partidaEnCurso = false;
 			}
 		} else if (condicionVictoria.getTipo() == TipoCondicionVictoria.ESTRELLAS) {
-			this.partidaEnCurso = calcularGanadorPorEstrellas();
+			this.partidaEnCurso = (calcularGanadorPorEstrellas() == null);
 		}
 	}
+	/*
+	 * Saco el arbolito del casillero en que estaba
+	 * Elijo uno nuevo, distinto del anterior y pongo el arbolito ahí
+	 * */
+	public void cambioArbolito(Casillero pos) {
+		if( pos != null ) {
+			pos.setTieneArbolito(false);
+		}
+		int nuevaPos;
+		do {
+			nuevaPos = (int)(Math.random() * this.tablero.getCasilleros().size()) + 1;
+		}while(pos.getId() == nuevaPos);
+		
+		this.tablero.getCasilleros().get(nuevaPos).setTieneArbolito(true);
+	}
+	
 }

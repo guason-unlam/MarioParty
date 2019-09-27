@@ -24,7 +24,6 @@ public class Ronda {
 			Turno t = new Turno(jug);
 			t.iniciarTurno();
 			//jug.tirarDado();
-			jug.etapaAccion();
 		}
 //		Lanzo minijuego cuando lo tenga
 		return 0;
