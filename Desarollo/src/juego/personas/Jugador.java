@@ -11,7 +11,7 @@ import juego.misc.Dado;
 import juego.tablero.Tablero;
 import juego.tablero.casillero.Casillero;
 
-public class Jugador {
+public class Jugador implements Comparable<Jugador> {
 	// Necesito tener una referencia a la partida, es el objeto padre de todo
 	private Partida partida;
 	private String nombre;
@@ -23,7 +23,7 @@ public class Jugador {
 	private Casillero posicion;
 	private Dado dado;
 
-	public Jugador(Usuario usuario, Tablero tablero,Partida partida) {
+	public Jugador(Usuario usuario, Tablero tablero, Partida partida) {
 		this.partida = partida;
 		this.nombre = usuario.getUsername();
 		this.pesos = 100;
@@ -31,6 +31,7 @@ public class Jugador {
 		Random rand = new Random(System.currentTimeMillis());
 		this.color = new Color(rand.nextInt(255), rand.nextInt(255), rand.nextInt(255));
 		this.dado = new Dado(6);
+		this.inventario = new Inventario(10); //10 items maximos
 	}
 
 	public void tirarDado() {
@@ -42,27 +43,28 @@ public class Jugador {
 
 	private void avanzar(int d) {
 		this.posicion.removerJugador(this);
+		System.out.println("POSICIONES DADO: "+d);
 		for (int i = 0; i < d; i++) {
 			avanzarUnCasillero();
-			if(this.posicion.isTieneArbolito() == true ){ //Si el casillero por el q acabo de pasar tiene un arbolito, puedo comprar un dolar
-				juego.Main.mostrar("Desea comprar un dolar por "+partida.getPrecioDolar()+" pesos?");
+			if (this.posicion.isTieneArbolito() == true) { // Si el casillero por el q acabo de pasar tiene un arbolito,
+															// puedo comprar un dolar
+				juego.Main.mostrar("Desea comprar un dolar por " + partida.getPrecioDolar() + " pesos?");
 				char respuesta;
-				
+
 				do
 					respuesta = (char) juego.Main.leer();
-				while(respuesta != 'S' && respuesta != 'N');
-				
-				if(respuesta == 'S') {
-					if(this.pesos >= partida.getPrecioDolar()) {
+				while (respuesta != 'S' && respuesta != 'N');
+
+				if (respuesta == 'S') {
+					if (this.pesos >= partida.getPrecioDolar()) {
 						this.dolares++;
-						this.pesos-=partida.getPrecioDolar();
+						this.pesos -= partida.getPrecioDolar();
 						juego.Main.mostrar("No te alcanza");
 					}
 				}
 			}
 		}
-		if(this.posicion.isTieneRecompensa() && this.posicion.isPrimeraVez())
-		{
+		if (this.posicion.isTieneRecompensa() && this.posicion.isPrimeraVez()) {
 			this.posicion.getRecompensa().darRecompensa(this);
 		}
 		this.posicion.agregarJugador(this);
@@ -70,14 +72,39 @@ public class Jugador {
 
 	private void avanzarUnCasillero() {
 		ArrayList<Casillero> siguiente = this.posicion.getSiguiente();
+		Casillero seleccionado = null;
+		boolean flagCasillero = false;
 		int caminoElegido;
 		if(siguiente.size() == 1) //si solo hay 1 camino, avanzo
+		if (siguiente.size() == 1) // si solo hay 1 camino, avanzo
 		{
 			this.posicion = siguiente.get(0);
+		} else {
+			System.out.println("Posibles opciones: "); // cuando hay mas de 1 camino, el jugador elije
+			for (Casillero casillero : siguiente) {
+				System.out.println(casillero.getId());
+			}
+			do {
+				System.out.println(siguiente.get(0));
+
+				System.out.println("");
+				System.out.println("Elije un camino"); // cuando hay mas de 1 camino, el jugador elije
+
+				// Esta leyendo un ASCII, entonces tengo que restarle ''
+				caminoElegido = juego.Main.leerInt();
+
+				for (Casillero casillero : siguiente) {
+					if (casillero.getId() == caminoElegido) {
+						System.out.println("Entre");
+						flagCasillero = true;
+						seleccionado = casillero;
+						break;
+					}
+				}
+			} while (flagCasillero == false);
+			// System.out.println(caminoElegido);
+			this.posicion = seleccionado;
 		}
-		System.out.println("Elije un camino"); //cuando hay mas de 1 camino, el jugador elije
-		caminoElegido = juego.Main.leer(); 
-		this.posicion = siguiente.get(caminoElegido);
 	}
 
 	/*
@@ -149,11 +176,11 @@ public class Jugador {
 	public void setPosicion(Casillero posicion) {
 		this.posicion = posicion;
 	}
-	
+
 	public Dado getDado() {
 		return this.dado;
 	}
-	
+
 	public Partida getPartida() {
 		return this.partida;
 	}
@@ -161,12 +188,22 @@ public class Jugador {
 	public void setDado(Dado dado) {
 		this.dado = dado;
 	}
-/*
- * Hay que ver como encaramos la etapa de accion para que un jugador use un item.
- * */
+
+	/*
+	 * Hay que ver como encaramos la etapa de accion para que un jugador use un
+	 * item.
+	 */
 	public void etapaAccion() {
 		// TODO Auto-generated method stub
-		
+
 	}
-	
+
+	@Override
+	public int compareTo(Jugador o) {
+		if (this.partida == o.partida && this.nombre == o.nombre) {
+			return 0;
+		}
+		return 1;
+	}
+
 }

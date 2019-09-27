@@ -1,6 +1,7 @@
 package juego;
 
 import java.io.IOException;
+import java.util.Scanner;
 
 public class Main {
 	public static void main(String[] args) {
@@ -23,6 +24,12 @@ public class Main {
 			e.printStackTrace();
 			return -1;
 		}
+	}
+	public static int leerInt() {
+		Scanner in = new Scanner(System.in);
+		int valor =  in.nextInt();
+		in.close();
+		return valor;
 	}
 	
 }
