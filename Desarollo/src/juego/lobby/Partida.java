@@ -42,13 +42,15 @@ public class Partida {
 			Jugador jugador;
 
 			jugador = new Jugador(usuario, tablero, this);
-			//Lo seteo al primer casillero
-			jugador.setPosicion(this.tablero.getCasilleros().get(1));
+			// Lo seteo al primer casillero
+			jugador.setPosicion(this.tablero.getCasilleros().get(0));
 			this.jugadoresEnPartida.add(jugador);
 
 			usuario.setJugador(jugador);
 		}
-		this.cantidadDeRondasAJugar = cantidadTotalRondas;
+		if (cantidadTotalRondas != 0) {
+			condicionVictoria = new CondicionVictoria(TipoCondicionVictoria.RONDAS, cantidadTotalRondas);
+		}
 		this.puntajeMaximo = 0;
 		this.ganador = null;
 		iniciarPartida();
@@ -61,13 +63,13 @@ public class Partida {
 		 * victoria, y en caso de que sea como en el juego por estrellas, hay que ver si
 		 * considerarlas como items o de alguna otra forma.
 		 */
-		while (this.ganador == null) {
+		do {
 			numeroRonda++;
 			rondaEnCurso = new Ronda(jugadoresEnPartida);
 			rondaEnCurso.iniciar();
 			rondasJugadas.add(rondaEnCurso);
 			evaluarEstadoPartida();
-		}
+		} while (this.ganador == null && this.partidaEnCurso == true);
 		return 0;
 	}
 

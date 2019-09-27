@@ -4,12 +4,12 @@ import java.util.ArrayList;
 
 import juego.personas.Jugador;
 /*
- * Esta clase igual se podría reemplazar por el loop en la clase partida y 
- * lanzar después del loop el minijuego, pero bueno, ya estaba 
+ * Esta clase igual se podrï¿½a reemplazar por el loop en la clase partida y 
+ * lanzar despuï¿½s del loop el minijuego, pero bueno, ya estaba 
  * implementada por algo supongo.
  * */
 public class Ronda {
-//	Falta la referencia al minijuego, pero como aun no esta creado no lo pongo, pero debería ser un
+//	Falta la referencia al minijuego, pero como aun no esta creado no lo pongo, pero deberï¿½a ser un
 //	ArrayList de minijuegos, y elejis uno al azar que no haya salido
 	private ArrayList<Jugador> jugadoresEnPartida;
 	public Ronda(ArrayList<Jugador> jugadoresEnPartida) {

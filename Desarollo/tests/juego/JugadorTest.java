@@ -27,7 +27,7 @@ public class JugadorTest {
 		usuarios.add(user1);
 		usuarios.add(user2);
 		// 3 Rondas
-		partida = new Partida(usuarios, 3);
+		partida = new Partida(usuarios, 1);
 		jugador1 = user1.getJugador();
 		jugador2 = user2.getJugador();
 
@@ -36,12 +36,5 @@ public class JugadorTest {
 	@Test
 	public void tieneJugadorAsignadoTest() {
 		Assert.assertNotEquals(null, jugador1);
-	}
-
-	@Test
-	public void avanzarTest() {
-		Casillero posicionOriginal = jugador1.getPosicion();
-		jugador1.tirarDado();
-		Assert.assertNotEquals(posicionOriginal, jugador1.getPosicion());
 	}
 }
