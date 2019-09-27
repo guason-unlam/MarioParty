@@ -91,6 +91,7 @@ public class Usuario {
 		Sala sala = new Sala(nombreSala, password, cantDeUsrMaximos, this);
 		// Conecto al usuario a la misma
 		conectarseALaSala(sala);
+		lector.close();
 		return sala;
 	}
 

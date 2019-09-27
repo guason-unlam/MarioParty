@@ -1,5 +1,6 @@
 package juego.item;
 
+
 import juego.misc.Dado;
 import juego.personas.Jugador;
 
@@ -11,8 +12,13 @@ public class ModificadorDado extends Item {
 	}
 
 	@Override
-	public void activarItem(Jugador jugador) {
-		Dado dado = jugador.getDado();
+	public void activarItem() {
+		Dado dado = elegirObjetivo().getDado();
 		dado.setCantidadCaras(dado.getCantidadCaras()+1);
+	}
+
+	@Override
+	public Jugador elegirObjetivo() {
+		return this.dueño;
 	}
 }

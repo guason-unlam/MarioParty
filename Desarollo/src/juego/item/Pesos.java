@@ -12,7 +12,7 @@ public class Pesos extends Recompensa {
 	
 	@Override
 	public void darRecompensa(Jugador jugador) {
-		jugador.setPesos(jugador.getPesos()+this.cantidad);
+		jugador.darPesos(cantidad);
 	}
 
 }

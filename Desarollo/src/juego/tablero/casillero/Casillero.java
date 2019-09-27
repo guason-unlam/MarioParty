@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Set;
 import java.util.TreeSet;
 
+import juego.item.ItemRobar;
 import juego.item.ModificadorDado;
 import juego.item.Pesos;
 import juego.item.Recompensa;
@@ -47,8 +48,12 @@ public class Casillero {
 		double ran = Math.random();
 		if(ran > 0.5) { // 50% de prob de que el casillero no tenga recompensa
 			tieneRecompensa = true;
-			if(ran > 0.85) // 15% de prob de q la recompensa sea un item
-				recompensa = new ModificadorDado(); // de momento el unico item que tenemos es ModificadorDado, cuando haya mas se modificara aca
+			if(ran > 0.85) {// 15% de prob de q la recompensa sea un item
+				if(ran>0.9)
+					recompensa = new ItemRobar(); //10% de que sea un Robar
+				else
+					recompensa = new ModificadorDado(); //5% de que sea modificadorDado
+			}
 			else
 				recompensa = new Pesos(50); // 35% de prob de que la recompensa sean 50p, de momento hardcodeado
 		}
