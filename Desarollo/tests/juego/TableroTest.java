@@ -13,8 +13,8 @@ public class TableroTest {
 
 	@Test
 	public void crearTableroTest() throws ExcepcionArchivos, FileNotFoundException {
-		tablero = new Tablero("./tests/juego/files/tableroRenovado.txt");
-		Assert.assertEquals(13, this.tablero.getCasilleros().size());
+		tablero = new Tablero("./tests/juego/files/tablero71.txt");
+		Assert.assertEquals(71, this.tablero.getCasilleros().size());
 		//for (Entry<Integer, Casillero> m : tablero.getCasilleros().entrySet()) {
 			// System.out.println(m.getKey() + " " + m.getValue().getPosicionX() + " " +
 			// m.getValue().getPosicionY());
