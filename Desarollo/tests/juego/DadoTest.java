@@ -11,7 +11,6 @@ public class DadoTest {
 		for(int i=0; i<100; i++)
 		{
 			int resultado = d.tirar();
-			System.out.println(resultado);
 			Assert.assertTrue("Error, valor excede el maximo", 6 >= resultado);
 			Assert.assertTrue("Error, valor excede el minimo", 1 <= resultado);
 		}

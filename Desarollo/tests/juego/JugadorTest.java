@@ -26,11 +26,10 @@ public class JugadorTest {
 		ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
 		usuarios.add(user1);
 		usuarios.add(user2);
-		// 3 Rondas
+		// 1 Ronda
 		partida = new Partida(usuarios, 1);
 		jugador1 = user1.getJugador();
 		jugador2 = user2.getJugador();
-
 	}
 
 	@Test
