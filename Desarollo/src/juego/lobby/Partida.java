@@ -51,6 +51,7 @@ public class Partida {
 		this.cantidadDeRondasAJugar = cantidadTotalRondas;
 		this.puntajeMaximo = 0;
 		this.ganador = null;
+		iniciarPartida();
 	}
 
 	public int iniciarPartida() {

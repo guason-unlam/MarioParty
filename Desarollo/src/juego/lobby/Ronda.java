@@ -21,7 +21,9 @@ public class Ronda {
 	 * */
 	public int iniciar() {
 		for(Jugador jug:jugadoresEnPartida) {
-			jug.tirarDado();
+			Turno t = new Turno(jug);
+			t.iniciarTurno();
+			//jug.tirarDado();
 			jug.etapaAccion();
 		}
 //		Lanzo minijuego cuando lo tenga

@@ -3,6 +3,7 @@ package juego.misc;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.TreeMap;
@@ -48,7 +49,7 @@ public class LectorEscritor {
 
 					for (String valorP : partesPadres) {
 						int valorNumerico = Integer.valueOf(valorP);
-						if (valorNumerico > 0 && casilleros.containsKey(valorNumerico)) {
+						if (valorNumerico > -1 && casilleros.containsKey(valorNumerico)) {
 							padres.add(casilleros.get(valorNumerico));
 							casilleros.get(valorNumerico).getSiguiente().add(casillero);
 							// System.out.println("Agregue el padre " +
@@ -59,7 +60,7 @@ public class LectorEscritor {
 
 					for (String valorH : partesHijos) {
 						int valorNumerico = Integer.valueOf(valorH);
-						if (valorNumerico > 0 && casilleros.containsKey(valorNumerico)) {
+						if (valorNumerico > -1 && casilleros.containsKey(valorNumerico)) {
 
 							hijos.add(casilleros.get(valorNumerico));
 							// System.out.println("Agregue el hijo " + casilleros.get(valorNumerico).getId()
@@ -76,7 +77,7 @@ public class LectorEscritor {
 					// "\thijos:" + partes[4]);
 					for (String valorP : partesPadres) {
 						int valorNumerico = Integer.valueOf(valorP);
-						if (valorNumerico > 0 && casilleros.containsKey(valorNumerico)
+						if (valorNumerico > -1 && casilleros.containsKey(valorNumerico)
 								&& !casilleros.get(Integer.valueOf(partes[0])).getAnteriores()
 										.contains(casilleros.get(valorNumerico))) {
 							casilleros.get(Integer.valueOf(partes[0])).getAnteriores()
@@ -89,7 +90,7 @@ public class LectorEscritor {
 
 					for (String valorH : partesHijos) {
 						int valorNumerico = Integer.valueOf(valorH);
-						if (valorNumerico > 0 && casilleros.containsKey(valorNumerico)
+						if (valorNumerico > -1 && casilleros.containsKey(valorNumerico)
 								&& !casilleros.get(Integer.valueOf(partes[0])).getSiguiente()
 										.contains(casilleros.get(valorNumerico))) {
 							casilleros.get(Integer.valueOf(partes[0])).getSiguiente()
@@ -106,6 +107,15 @@ public class LectorEscritor {
 		sc.close();
 
 		if (casilleros.size() == cantidadCasilleros) {
+			// Pero antes, debo enlazar el primero y el ultimo
+			ArrayList<Casillero> padres = new ArrayList<Casillero>();
+			ArrayList<Casillero> hijos = new ArrayList<Casillero>();
+
+			padres.add(casilleros.get(Collections.max(casilleros.keySet())));
+			casilleros.get(0).setAnterior(padres);
+
+			hijos.add(casilleros.get(0));
+			casilleros.get(Collections.max(casilleros.keySet())).setSiguiente(hijos);
 			tablero.setCasilleros(casilleros);
 			// System.out.println(cantidadCasilleros + " casilleros agregados");
 			// System.out.println(cantidadCasilleros + " casilleros agregados");
