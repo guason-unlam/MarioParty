@@ -18,11 +18,11 @@ public class Jugador {
 	private String nombre;
 	private int pesos;
 	private Color color;
-	private Dado dado;
 	private int dolares;
 	private Inventario inventario;
 	private Personaje personaje;
 	private Casillero posicion;
+	private Dado dado;
 
 	public Jugador(Usuario usuario, Tablero tablero,Partida partida) {
 		this.partida = partida;
@@ -38,13 +38,14 @@ public class Jugador {
 		int numero = this.dado.tirar();
 		System.out.println("Sali");
 		avanzar(numero);
+		dado = new Dado(6);
 	}
 
 	private void avanzar(int d) {
 		this.posicion.removerJugador(this);
 		for (int i = 0; i < d; i++) {
 			avanzarUnCasillero();
-			if(this.posicion.isTieneArbolito() == true ){ //Si el casillero por el q acabo de pasar tiene un arbolito, puedo un dolar
+			if(this.posicion.isTieneArbolito() == true ){ //Si el casillero por el q acabo de pasar tiene un arbolito, puedo comprar un dolar
 				juego.Main.mostrar("Desea comprar un dolar por "+partida.getPrecioDolar()+" pesos?");
 				char respuesta;
 				
@@ -158,4 +159,15 @@ public class Jugador {
 		return this.partida;
 	}
 
+	public void setDado(Dado dado) {
+		this.dado = dado;
+	}
+/*
+ * Hay que ver como encaramos la etapa de accion para que un jugador use un item.
+ * */
+	public void etapaAccion() {
+		// TODO Auto-generated method stub
+		
+	}
+	
 }

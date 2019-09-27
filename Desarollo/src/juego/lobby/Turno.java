@@ -33,28 +33,31 @@ public class Turno {
 		
 		
 		int i = 1; //Llego aca cuando el jugador quiere usar algun item
-			juego.Main.mostrar("Elije item a usar:");
-			Iterator<Item> iteradorItems = jugador.getInventario().listarItems();
-			while(iteradorItems.hasNext()) {
-				juego.Main.mostrar(i + "- "+iteradorItems.next().getNombre());
-				i++;
-			}
+		juego.Main.mostrar("Elije item a usar:");
+		Iterator<Item> iteradorItems = jugador.getInventario().listarItems();
+		while(iteradorItems.hasNext()) {
+			juego.Main.mostrar(i + "- "+iteradorItems.next().getNombre());
+			i++;
+		}
 
 		do {
 			numeroIngresado = juego.Main.leer(); //El jugador elije q item usar
 		}while(numeroIngresado<1 || numeroIngresado>i);
+		
 		Item item = jugador.getInventario().getItems().get(numeroIngresado);
 		ArrayList<Jugador> listaJugadores = jugador.getPartida().getJugadoresEnPartida();
 		Iterator<Jugador> iteradorJugadores = listaJugadores.iterator();
+		
 		i=1;
 		while(iteradorJugadores.hasNext()) {//Muestro todos los jugadores para que elija el objetivo
 			juego.Main.mostrar(i + "- " + iteradorJugadores.next().getNombre());
 			i++;
 		}
 		do {
-			numeroIngresado = juego.Main.leer(); //El jugador elije q item usar
+			numeroIngresado = juego.Main.leer(); //El jugador elije el jugador objetivo
 		}while(numeroIngresado<1 || numeroIngresado>i);
-		item.activarItem(listaJugadores.get(numeroIngresado));
+		
+		item.activarItem(listaJugadores.get(numeroIngresado)); //se activa el item seleccionado en el objetivo seleccionado
 		
 	}
 }

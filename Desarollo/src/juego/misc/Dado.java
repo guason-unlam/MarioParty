@@ -18,4 +18,5 @@ public class Dado {
 	public int getCantidadCaras() {
 		return this.cantidadCaras;
 	}
+	
 }

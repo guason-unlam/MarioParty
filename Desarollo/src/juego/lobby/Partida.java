@@ -6,7 +6,7 @@ import juego.personas.Jugador;
 import juego.tablero.Tablero;
 
 public class Partida {
-	//Cambiar por el estado
+	// Cambiar por el estado
 	private boolean partidaEnCurso = false;
 	private ArrayList<Ronda> rondasJugadas = new ArrayList<Ronda>();
 	private ArrayList<Jugador> jugadoresEnPartida = new ArrayList<Jugador>();
@@ -16,12 +16,14 @@ public class Partida {
 	private Tablero tablero;
 	private int tipoMapa;
 	private Jugador ganador;
-	//ESTO ES UNA CLASE NUEVA
+	// ESTO ES UNA CLASE NUEVA
 	private int puntajeMaximo;
 	private int cantidadDeRondasAJugar;
 	private int precioDolar = 60;
 	//Los dolares son las estrellas del mario party, el q mas dolares tiene gana la partida, de momento hardcodeo el precio aca
 	
+//	Para saber cuando terminó una Partida, por defecto, es por estrellas, a cinco.
+	private CondicionVictoria condicionVictoria = new CondicionVictoria(TipoCondicionVictoria.RONDAS, 5);
 
 	public Partida(int id, ArrayList<Usuario> usuariosActivosEnSala, int cantidadTotalRondas) {
 		this.usuariosActivosEnSala = usuariosActivosEnSala;
@@ -36,6 +38,22 @@ public class Partida {
 		this.cantidadDeRondasAJugar = cantidadTotalRondas;
 		this.puntajeMaximo = 0;
 		this.ganador = null;
+	}
+
+public int iniciarPartida() {
+		/*
+		 * >> Falta validar aca, o en la sala, si se cumplen las condiciones para iniciar una partida
+		 * >> Hay que definir como interpretar la condicion de victoria, y en caso de que sea como en el
+		 *    juego por estrellas, hay que ver si considerarlas como items o de alguna otra forma. 
+		 */
+		while(this.ganador == null) {
+			numeroRonda++;
+			rondaEnCurso = new Ronda(jugadoresEnPartida);
+			rondaEnCurso.iniciar();
+			rondasJugadas.add(rondaEnCurso);
+			evaluarEstadoPartida();
+		}
+		return 0;
 	}
 
 	public boolean isPartidaEnCurso() {
@@ -129,5 +147,39 @@ public class Partida {
 	public int getPrecioDolar() {
 		return precioDolar;
 	}
+	public void calcularGanadorPartidaPorRondas() {
+		for (Jugador jug : this.jugadoresEnPartida) {
+			if (jug.getDolares() > this.puntajeMaximo) {
+				this.ganador = jug;
+				this.puntajeMaximo = jug.getDolares();
+			}
+		}
+	}
+	/*
+	 * Depende de como decidamos tratar las estrellas
+	 * */
+	public boolean calcularGanadorPorEstrellas() {
+		return false;
+	}
 
+	public CondicionVictoria getCondicionVictoria() {
+		return condicionVictoria;
+	}
+
+	public void setCondicionVictoria(CondicionVictoria condicionVictoria) {
+		this.condicionVictoria = condicionVictoria;
+	}
+	
+	public void evaluarEstadoPartida() {
+		
+		if(condicionVictoria.getTipo() == TipoCondicionVictoria.RONDAS) {
+			if(this.numeroRonda == condicionVictoria.getCantidad()) {
+				calcularGanadorPartidaPorRondas();
+				this.partidaEnCurso = false;
+			}
+		}else if(condicionVictoria.getTipo() == TipoCondicionVictoria.ESTRELLAS) {
+			this.partidaEnCurso = calcularGanadorPorEstrellas();
+		}
+	}
 }
+		
