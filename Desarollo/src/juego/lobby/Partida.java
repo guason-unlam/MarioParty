@@ -20,7 +20,7 @@ public class Partida {
 	private int puntajeMaximo;
 	private int cantidadDeRondasAJugar;
 //	Para saber cuando terminó una Partida, por defecto, es por estrellas, a cinco.
-	private CondicionVictoria condicionVictoria = new CondicionVictoria(TipoCondicionVictoria.ESTRELLAS, 5);
+	private CondicionVictoria condicionVictoria = new CondicionVictoria(TipoCondicionVictoria.RONDAS, 5);
 
 	public Partida(int id, ArrayList<Usuario> usuariosActivosEnSala, int cantidadTotalRondas) {
 		this.usuariosActivosEnSala = usuariosActivosEnSala;
@@ -37,7 +37,7 @@ public class Partida {
 		this.ganador = null;
 	}
 
-	public int iniciarPartida() {
+public int iniciarPartida() {
 		/*
 		 * >> Falta validar aca, o en la sala, si se cumplen las condiciones para iniciar una partida
 		 * >> Hay que definir como interpretar la condicion de victoria, y en caso de que sea como en el
@@ -45,7 +45,7 @@ public class Partida {
 		 */
 		while(this.ganador == null) {
 			numeroRonda++;
-			rondaEnCurso = new Ronda();
+			rondaEnCurso = new Ronda(jugadoresEnPartida);
 			rondaEnCurso.iniciar();
 			rondasJugadas.add(rondaEnCurso);
 			evaluarEstadoPartida();
@@ -149,6 +149,12 @@ public class Partida {
 			}
 		}
 	}
+	/*
+	 * Depende de como decidamos tratar las estrellas
+	 * */
+	public boolean calcularGanadorPorEstrellas() {
+		return false;
+	}
 
 	public CondicionVictoria getCondicionVictoria() {
 		return condicionVictoria;
@@ -160,7 +166,14 @@ public class Partida {
 	
 	public void evaluarEstadoPartida() {
 		
-		
+		if(condicionVictoria.getTipo() == TipoCondicionVictoria.RONDAS) {
+			if(this.numeroRonda == condicionVictoria.getCantidad()) {
+				calcularGanadorPartidaPorRondas();
+				this.partidaEnCurso = false;
+			}
+		}else if(condicionVictoria.getTipo() == TipoCondicionVictoria.ESTRELLAS) {
+			this.partidaEnCurso = calcularGanadorPorEstrellas();
+		}
 	}
-
 }
+		

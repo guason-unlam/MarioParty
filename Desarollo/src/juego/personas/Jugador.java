@@ -142,5 +142,12 @@ public class Jugador {
 	public void setDado(Dado dado) {
 		this.dado = dado;
 	}
+/*
+ * Hay que ver como encaramos la etapa de accion para que un jugador use un item.
+ * */
+	public void etapaAccion() {
+		// TODO Auto-generated method stub
+		
+	}
 	
 }
