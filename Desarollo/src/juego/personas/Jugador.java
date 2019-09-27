@@ -101,7 +101,21 @@ public class Jugador implements Comparable<Jugador> {
 			this.posicion = seleccionado;
 		}
 	}
-
+	
+	public void darPesos(int cant) {
+		this.pesos+=cant;
+	}
+	
+	public int quitarPesos(int cant) {
+		if(this.pesos<cant) {
+			int ret = this.pesos;
+			this.pesos = 0;
+			return ret;
+		}
+		this.pesos -= cant;
+		return cant;
+	}
+	
 	/*
 	 * SETTERS Y GETTERS
 	 * 
