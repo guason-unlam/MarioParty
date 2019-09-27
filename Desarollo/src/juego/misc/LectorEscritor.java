@@ -3,16 +3,10 @@ package juego.misc;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.TreeMap;
 
-import juego.item.Item;
-import juego.item.ItemBifurcacion;
-import juego.item.ModificadorDado;
-import juego.item.ModificadorMonedas;
-import juego.item.ModificadorPosicion;
 import juego.tablero.Tablero;
 import juego.tablero.casillero.Casillero;
 

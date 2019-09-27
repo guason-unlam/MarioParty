@@ -7,19 +7,13 @@ import juego.misc.Dado;
 public class DadoTest {
 	@Test
 	public void numeroEnRango() {
-		Dado d = new Dado(10);
-		int resultado = d.tirar();
-		System.out.println(resultado);
-		Assert.assertTrue("Error, valor excede el maximo", 10 > resultado);
-		Assert.assertTrue("Error, valor excede el minimo", 1 < resultado);
-	}
-	
-	@Test
-	public void numeroEnRangoTirarConParametros() {
-		Dado d = new Dado(10);
-		int resultado = d.tirar(15);
-		System.out.println(resultado);
-		Assert.assertTrue("Error, valor excede el maximo", 15 > resultado);
-		Assert.assertTrue("Error, valor excede el minimo", 1 < resultado);
+		Dado d = new Dado(6);
+		for(int i=0; i<100; i++)
+		{
+			int resultado = d.tirar();
+			System.out.println(resultado);
+			Assert.assertTrue("Error, valor excede el maximo", 6 >= resultado);
+			Assert.assertTrue("Error, valor excede el minimo", 1 <= resultado);
+		}
 	}
 }

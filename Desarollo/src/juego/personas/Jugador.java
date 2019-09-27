@@ -1,10 +1,10 @@
 package juego.personas;
 
 import java.awt.Color;
+import java.util.ArrayList;
 import java.util.Random;
 
 import juego.item.Inventario;
-import juego.item.Item;
 import juego.lobby.Usuario;
 import juego.lobby.Partida;
 
@@ -16,56 +16,69 @@ public class Jugador {
 	// Necesito tener una referencia a la partida, es el objeto padre de todo
 	private Partida partida;
 	private String nombre;
-	private int puntaje;
+	private int pesos;
 	private Color color;
-	private int puntosEnPartida;
+	private int dolares;
 	private Inventario inventario;
 	private Personaje personaje;
 	private Casillero posicion;
 	private Dado dado;
 
-	public Jugador(Usuario usuario, Tablero tablero) {
+	public Jugador(Usuario usuario, Tablero tablero,Partida partida) {
+		this.partida = partida;
 		this.nombre = usuario.getUsername();
-		this.puntaje = 0;
-		this.puntosEnPartida = 0;
-		// Mi seed
+		this.pesos = 100;
+		this.dolares = 0;
 		Random rand = new Random(System.currentTimeMillis());
 		this.color = new Color(rand.nextInt(255), rand.nextInt(255), rand.nextInt(255));
+		this.dado = new Dado(6);
+	}
+
+	public void tirarDado() {
+		int numero = this.dado.tirar();
+		System.out.println("Sali");
+		avanzar(numero);
 		dado = new Dado(6);
 	}
 
-	public int tirarDado() {
-		// Recupero mi referencia a Tablero
-		/*
-		 * Creo que para tirar el dado y avanzar como no tiene fin el mapa 
-		 * no hace falta la referencia a la posicion
-		 * porque no me puedo salir del mapa, ya que este no tiene bordes
-		 * así que se puede sacar
-		int casillerosRestantes = this.partida.getTablero().casillerosRestantes(this.posicion);
-		 */
-		return avanzar(dado.tirar());
-	}
-
-	private int avanzar(int d) {
+	private void avanzar(int d) {
+		this.posicion.removerJugador(this);
 		for (int i = 0; i < d; i++) {
 			avanzarUnCasillero();
-			// Si llego a una bifurcacion, tengo que ver que hago
-			// IMPORTANTE: que no sea el ultimo casillero!
-			if (i < d - 1 && this.posicion.getItem() instanceof Item) {
-				this.posicion.getItem().activarItem(this);
+			if(this.posicion.isTieneArbolito() == true ){ //Si el casillero por el q acabo de pasar tiene un arbolito, puedo comprar un dolar
+				juego.Main.mostrar("Desea comprar un dolar por "+partida.getPrecioDolar()+" pesos?");
+				char respuesta;
+				
+				do
+					respuesta = (char) juego.Main.leer();
+				while(respuesta != 'S' && respuesta != 'N');
+				
+				if(respuesta == 'S') {
+					if(this.pesos >= partida.getPrecioDolar()) {
+						this.dolares++;
+						this.pesos-=partida.getPrecioDolar();
+						juego.Main.mostrar("No te alcanza");
+					}
+				}
 			}
 		}
-
-		// Una vez que "termine", ejecuto el item
-		if (this.posicion.getItem() instanceof Item)
-			this.posicion.getItem().activarItem(this);
-
-		return 0;
+		if(this.posicion.isTieneRecompensa() && this.posicion.isPrimeraVez())
+		{
+			this.posicion.getRecompensa().darRecompensa(this);
+		}
+		this.posicion.agregarJugador(this);
 	}
 
 	private void avanzarUnCasillero() {
-		// Aca modifico la posicion del chabon
-		this.posicion = partida.getTablero().getCasilleros().get(this.posicion.getSiguiente().get(0).getId());
+		ArrayList<Casillero> siguiente = this.posicion.getSiguiente();
+		int caminoElegido;
+		if(siguiente.size() == 1) //si solo hay 1 camino, avanzo
+		{
+			this.posicion = siguiente.get(0);
+		}
+		System.out.println("Elije un camino"); //cuando hay mas de 1 camino, el jugador elije
+		caminoElegido = juego.Main.leer(); 
+		this.posicion = siguiente.get(caminoElegido);
 	}
 
 	/*
@@ -81,12 +94,16 @@ public class Jugador {
 		this.nombre = nombre;
 	}
 
-	public int getPuntaje() {
-		return puntaje;
+	public int getPesos() {
+		return pesos;
 	}
 
-	public void setPuntaje(int puntaje) {
-		this.puntaje = puntaje;
+	public void setPesos(int pesos) {
+		this.pesos = pesos;
+	}
+
+	public void setPuntaje(int pesos) {
+		this.pesos = pesos;
 	}
 
 	public Color getColor() {
@@ -99,15 +116,15 @@ public class Jugador {
 
 	@Override
 	public String toString() {
-		return this.nombre + "            " + this.puntaje;
+		return this.nombre + "            " + this.pesos;
 	}
 
-	public int getPuntosEnPartida() {
-		return this.puntosEnPartida;
+	public int getDolares() {
+		return this.dolares;
 	}
 
-	public void setPuntosEnPartida(int puntosEnPartida) {
-		this.puntosEnPartida = puntosEnPartida;
+	public void setPuntosEnPartida(int dolares) {
+		this.dolares = dolares;
 	}
 
 	public Inventario getInventario() {
@@ -133,14 +150,24 @@ public class Jugador {
 	public void setPosicion(Casillero posicion) {
 		this.posicion = posicion;
 	}
-
-
+	
 	public Dado getDado() {
-		return dado;
+		return this.dado;
+	}
+	
+	public Partida getPartida() {
+		return this.partida;
 	}
 
 	public void setDado(Dado dado) {
 		this.dado = dado;
+	}
+/*
+ * Hay que ver como encaramos la etapa de accion para que un jugador use un item.
+ * */
+	public void etapaAccion() {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }

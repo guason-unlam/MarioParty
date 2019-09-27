@@ -47,19 +47,19 @@ public class TableroTest {
 		}
 	}
 
-	@Test
-	@Ignore
-	public void crearTablero2Test() throws ExcepcionArchivos, FileNotFoundException {
-		tablero = new Tablero("./tests/juego/files/tablero01.txt");
-		for (Entry<Integer, Casillero> m : tablero.getCasilleros().entrySet()) {
-			System.out.println(m.getKey() + " " + m.getValue().getPosicionX() + " " + m.getValue().getPosicionY());
-			if (m.getValue().getItem() != null) {
-				System.out.println("\t" + m.getValue().getItem().getNombre() + " "
-						+ m.getValue().getItem().getDescripcion() + " " + m.getValue().getItem().getCantidadMaxima()
-						+ " " + m.getValue().getItem().getMultiplicador());
-			}
-		}
-	}
+//	@Test
+//	@Ignore
+//	public void crearTablero2Test() throws ExcepcionArchivos, FileNotFoundException {
+//		tablero = new Tablero("./tests/juego/files/tablero01.txt");
+//		for (Entry<Integer, Casillero> m : tablero.getCasilleros().entrySet()) {
+//			System.out.println(m.getKey() + " " + m.getValue().getPosicionX() + " " + m.getValue().getPosicionY());
+//			if (m.getValue().getItem() != null) {
+//				System.out.println("\t" + m.getValue().getItem().getNombre() + " "
+//						+ m.getValue().getItem().getDescripcion() + " " + m.getValue().getItem().getCantidadMaxima()
+//						+ " " + m.getValue().getItem().getMultiplicador());
+//			}
+//		}
+//	}
 
 	@Test(expected = FileNotFoundException.class)
 	@Ignore
