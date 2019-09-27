@@ -59,6 +59,7 @@ public class Tablero {
 		this.dimensionY = dimensionY;
 	}
 
+	
 	/*
 	 * Me devuelve la cantidad de casilleros que me puedo mover hasta terminar Para
 	 * no pasarme de rango, voy a ir recorriendo cada rama y me quedo con la mas
