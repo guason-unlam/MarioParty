@@ -2,20 +2,16 @@ package juego;
 
 import java.util.ArrayList;
 
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
 import juego.lobby.Partida;
 import juego.lobby.Usuario;
-import juego.personas.Jugador;
 
-public class JugadorTest {
+public class PartidaTest {
 	private Usuario user1;
 	private Usuario user2;
 	private Partida partida;
-	private Jugador jugador1;
-	private Jugador jugador2;
 
 	@Before
 	public void inicio() {
@@ -27,12 +23,10 @@ public class JugadorTest {
 		usuarios.add(user2);
 		// 1 Ronda
 		partida = new Partida(usuarios, 1);
-		jugador1 = user1.getJugador();
-		jugador2 = user2.getJugador();
 	}
 
 	@Test
-	public void tieneJugadorAsignadoTest() {
-		Assert.assertNotEquals(null, jugador1);
+	public void partidaTest() {
+		partida.iniciarPartida();
 	}
 }
