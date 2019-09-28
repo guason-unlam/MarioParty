@@ -108,7 +108,7 @@ public class Jugador implements Comparable<Jugador> {
 	}
 	
 	public void darPesos(int cant) {
-		this.pesos+=cant;
+		this.pesos += cant;
 	}
 	
 	public int quitarPesos(int cant) {
