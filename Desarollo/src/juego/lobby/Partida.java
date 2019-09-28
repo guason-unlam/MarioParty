@@ -25,7 +25,7 @@ public class Partida {
 	// Los dolares son las estrellas del mario party, el q mas dolares tiene gana la
 	// partida, de momento hardcodeo el precio aca
 
-//	Para saber cuando terminó una Partida, por defecto, es por estrellas, a cinco.
+//	Para saber cuando terminï¿½ una Partida, por defecto, es por estrellas, a cinco.
 	private CondicionVictoria condicionVictoria = new CondicionVictoria(TipoCondicionVictoria.RONDAS, 5);
 
 	public Partida(ArrayList<Usuario> usuariosActivosEnSala, int cantidadTotalRondas) {
@@ -56,9 +56,12 @@ public class Partida {
 	}
 
 	public int iniciarPartida() throws ExcepcionJugadoresInsuficientes {
-		if(jugadoresEnPartida.size() < 2) {
+		if (jugadoresEnPartida.size() < 2) {
 			throw new ExcepcionJugadoresInsuficientes(0);
 		}
+		// Inicio
+		this.partidaEnCurso = true;
+
 		/*
 		 * >> Falta validar aca, o en la sala, si se cumplen las condiciones para
 		 * iniciar una partida >> Hay que definir como interpretar la condicion de
@@ -68,10 +71,15 @@ public class Partida {
 		do {
 			numeroRonda++;
 			rondaEnCurso = new Ronda(jugadoresEnPartida);
+			System.out.println("RONDA " + numeroRonda);
+			System.out.println("===========");
 			rondaEnCurso.iniciar();
 			rondasJugadas.add(rondaEnCurso);
 			evaluarEstadoPartida();
+			System.out.println("");
 		} while (this.ganador == null && this.partidaEnCurso == true);
+		System.out.println("Con un total de $" + this.ganador.getPesos() + " el ganador es .... "
+				+ this.ganador.getNombre() + "!!!");
 		return 0;
 	}
 
@@ -169,9 +177,9 @@ public class Partida {
 
 	public void calcularGanadorPartidaPorRondas() {
 		for (Jugador jug : this.jugadoresEnPartida) {
-			if (jug.getDolares() > this.puntajeMaximo) {
+			if (jug.getPesos() > this.puntajeMaximo) {
 				this.ganador = jug;
-				this.puntajeMaximo = jug.getDolares();
+				this.puntajeMaximo = jug.getPesos();
 			}
 		}
 	}
@@ -180,13 +188,13 @@ public class Partida {
 	 * Depende de como decidamos tratar las estrellas
 	 */
 	public Jugador calcularGanadorPorEstrellas() {
-		for(Jugador jug: jugadoresEnPartida) {
-			if( (jug.getDolares() == this.condicionVictoria.getCantidad())) {
-				/* Si aún nadie cumple condicionVictoria ganador es jug
-				 * Si alguien ya cumple la condiciónVictoria desempato por
-				 * cantidad de pesos que tiene cada uno.
-				 * */
-				ganador = ((ganador==null)?jug:((jug.getPesos()>ganador.getPesos())?jug:ganador));
+		for (Jugador jug : jugadoresEnPartida) {
+			if ((jug.getDolares() == this.condicionVictoria.getCantidad())) {
+				/*
+				 * Si aï¿½n nadie cumple condicionVictoria ganador es jug Si alguien ya cumple
+				 * la condiciï¿½nVictoria desempato por cantidad de pesos que tiene cada uno.
+				 */
+				ganador = ((ganador == null) ? jug : ((jug.getPesos() > ganador.getPesos()) ? jug : ganador));
 			}
 		}
 		return ganador;
@@ -201,7 +209,6 @@ public class Partida {
 	}
 
 	public void evaluarEstadoPartida() {
-
 		if (condicionVictoria.getTipo() == TipoCondicionVictoria.RONDAS) {
 			if (this.numeroRonda == condicionVictoria.getCantidad()) {
 				calcularGanadorPartidaPorRondas();
@@ -211,20 +218,21 @@ public class Partida {
 			this.partidaEnCurso = (calcularGanadorPorEstrellas() == null);
 		}
 	}
+
 	/*
-	 * Saco el arbolito del casillero en que estaba
-	 * Elijo uno nuevo, distinto del anterior y pongo el arbolito ahí
-	 * */
+	 * Saco el arbolito del casillero en que estaba Elijo uno nuevo, distinto del
+	 * anterior y pongo el arbolito ahï¿½
+	 */
 	public void cambioArbolito(Casillero pos) {
-		if( pos != null ) {
+		if (pos != null) {
 			pos.setTieneArbolito(false);
 		}
 		int nuevaPos;
 		do {
-			nuevaPos = (int)(Math.random() * this.tablero.getCasilleros().size()) + 1;
-		}while(pos.getId() == nuevaPos);
-		
+			nuevaPos = (int) (Math.random() * this.tablero.getCasilleros().size()) + 1;
+		} while (pos.getId() == nuevaPos);
+
 		this.tablero.getCasilleros().get(nuevaPos).setTieneArbolito(true);
 	}
-	
+
 }
