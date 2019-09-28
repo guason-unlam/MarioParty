@@ -9,6 +9,11 @@ public class Inventario {
 	private int capacidad;
 	private int cantItems;
 
+	public void setCantItems(int cantItems) {
+		this.cantItems = cantItems;
+	}
+
+
 	public Inventario(int capacidad) {
 		items = new ArrayList<Item>();
 		this.capacidad = capacidad;

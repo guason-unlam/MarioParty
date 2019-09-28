@@ -14,22 +14,22 @@ public abstract class Item extends Recompensa {
 		this.descripcion = descripcion;
 	}
 
+	public abstract void activarItem(Jugador objetivo);// Es PROTECTED, pero lo paso a public para que permita el
+														// testeo.
 
-	public abstract void activarItem(Jugador objetivo);// Es PROTECTED, pero lo paso a public para que permita el testeo.
-	
 	public void usarItem() {
-		
 		activarItem(elegirObjetivo());
-		int posicionEnInventario=0;
+		int posicionEnInventario = 0;
 		Iterator<Item> i = this.duenio.getInventario().getItems().iterator();
-		while(i.hasNext() && !i.next().equals(this))
+		while (i.hasNext() && !i.next().equals(this))
 			posicionEnInventario++;
 		this.duenio.getInventario().getItems().remove(posicionEnInventario);
+		this.duenio.getInventario().setCantItems(this.duenio.getInventario().getCantItems() - 1);
 	}
-	
+
 	protected abstract Jugador elegirObjetivo();
-	
-	public Jugador getDuenio(){
+
+	public Jugador getDuenio() {
 		return this.duenio;
 	}
 
@@ -48,7 +48,6 @@ public abstract class Item extends Recompensa {
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
-	
 
 	@Override
 	public void darRecompensa(Jugador jugador) {
