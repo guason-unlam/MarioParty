@@ -35,7 +35,6 @@ public class Main {
 			}
 		});
 		int valor = in.nextInt();
-		in.close();
 		return valor;
 	}
 
