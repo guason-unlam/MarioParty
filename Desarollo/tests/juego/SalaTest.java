@@ -60,4 +60,5 @@ public class SalaTest {
 		Assert.assertTrue(sala.sacarUsuarioDeSala(usuarioParticipante1));
 		Assert.assertFalse(sala.sacarUsuarioDeSala(usuarioParticipante1));
 		Assert.assertTrue(sala.getCapacidadActual() == 0);
+	}
 }
