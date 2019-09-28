@@ -113,6 +113,7 @@ public class Usuario {
 		 * */
 		if(this.jugador != null) {
 			this.sala.getJugadoresActivos().remove(this.jugador);
+			this.setJugador(null);
 		}
 		this.sala.getUsuariosActivos().remove(this);
 		this.sala = null;
