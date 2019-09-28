@@ -8,6 +8,7 @@ import org.junit.Test;
 import juego.lobby.ExcepcionJugadoresInsuficientes;
 import juego.lobby.Partida;
 import juego.lobby.Usuario;
+import junit.framework.Assert;
 
 public class PartidaTest {
 	private Usuario user1;
@@ -33,5 +34,6 @@ public class PartidaTest {
 		}catch(ExcepcionJugadoresInsuficientes e) {
 			Main.mostrar(e.getMessage());
 		}
+		Assert.assertFalse(partida.getGanadorPartida() != null);
 	}
 }

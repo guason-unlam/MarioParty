@@ -43,7 +43,7 @@ public class Jugador implements Comparable<Jugador> {
 
 	private void avanzar(int d) {
 		this.posicion.removerJugador(this);
-		System.out.println("Debo avanzar " + d + " posicion(es)");
+		juego.Main.mostrar("Debo avanzar " + d + " posicion(es)");
 		for (int i = 0; i < d; i++) {
 			avanzarUnCasillero();
 			if (this.posicion.isTieneArbolito() == true) { // Si el casillero por el q acabo de pasar tiene un arbolito,
@@ -84,13 +84,13 @@ public class Jugador implements Comparable<Jugador> {
 		{
 			this.posicion = siguiente.get(0);
 		} else {
-			System.out.println("Posibles opciones: "); // cuando hay mas de 1 camino, el jugador elije
+			juego.Main.mostrar("Posibles opciones: "); // cuando hay mas de 1 camino, el jugador elije
 			for (Casillero casillero : siguiente) {
-				System.out.println(casillero.getId());
+				juego.Main.mostrar(""+casillero.getId());
 			}
 			do {
-				System.out.println("");
-				System.out.println("Elije un camino"); // cuando hay mas de 1 camino, el jugador elije
+				juego.Main.mostrar("");
+				juego.Main.mostrar("Elije un camino"); // cuando hay mas de 1 camino, el jugador elije
 
 				caminoElegido = juego.Main.leerInt();
 

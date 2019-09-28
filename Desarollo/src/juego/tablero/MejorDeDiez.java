@@ -43,7 +43,7 @@ public class MejorDeDiez extends MiniJuego {
 			nombreRes += i + ") " + nombre + "\n";
 		}
 		//Hay que escribirlo en algun archivo
-		System.out.println(resultados);
+		juego.Main.mostrar(resultados);
 		
 	}
 	
@@ -61,7 +61,7 @@ public class MejorDeDiez extends MiniJuego {
 		String instruciones = "El juego consta de varios jugadores, los cuales tirarán 10 veces,"
 				+ "un dado, al final la suma de todos los tiros, sera el resultado por jugador,"
 				+ "a más puntuación, mejor.";
-		System.out.println("Instrucciones:\n" +instruciones);
+		juego.Main.mostrar("Instrucciones:\n" +instruciones);
 	}
 	
 
