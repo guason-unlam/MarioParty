@@ -9,7 +9,6 @@ import juego.lobby.Sala;
 import juego.lobby.Usuario;
 import juego.personas.Jugador;
 import juego.tablero.Tablero;
-import junit.framework.Assert;
 
 public class UsuarioTest {
 	
