@@ -13,20 +13,19 @@ public class ItemRobar extends Item {
 	}
 
 	@Override
-	public void activarItem(Jugador objetivo) { // Cambio la selección manual de objetivo por un parametro para permitir testeo.
-		//Jugador objetivo = elegirObjetivo();
-		this.dueño.darPesos(objetivo.quitarPesos(50));
-		
+
+	public void activarItem(Jugador objetivo) {
+		this.duenio.darPesos(objetivo.quitarPesos(50));
 	}
 
 	@Override
-	public Jugador elegirObjetivo() {
-		Iterator<Jugador> iterador = this.dueño.getPartida().getJugadoresEnPartida().iterator();
+	protected Jugador elegirObjetivo() {
+		Iterator<Jugador> iterador = this.duenio.getPartida().getJugadoresEnPartida().iterator();
 		List<Jugador> oponentes = new ArrayList<Jugador>(); //Una lista con los jugadores oponentes
 		
 		while(iterador.hasNext()) {
 			Jugador jugador = iterador.next();
-			if(!jugador.equals(this.dueño))
+			if(!jugador.equals(this.duenio))
 				oponentes.add(jugador);
 		}
 		
