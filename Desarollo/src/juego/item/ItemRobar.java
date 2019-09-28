@@ -15,17 +15,17 @@ public class ItemRobar extends Item {
 	@Override
 
 	public void activarItem(Jugador objetivo) {
-		this.dueño.darPesos(objetivo.quitarPesos(50));
+		this.duenio.darPesos(objetivo.quitarPesos(50));
 	}
 
 	@Override
 	protected Jugador elegirObjetivo() {
-		Iterator<Jugador> iterador = this.dueño.getPartida().getJugadoresEnPartida().iterator();
+		Iterator<Jugador> iterador = this.duenio.getPartida().getJugadoresEnPartida().iterator();
 		List<Jugador> oponentes = new ArrayList<Jugador>(); //Una lista con los jugadores oponentes
 		
 		while(iterador.hasNext()) {
 			Jugador jugador = iterador.next();
-			if(!jugador.equals(this.dueño))
+			if(!jugador.equals(this.duenio))
 				oponentes.add(jugador);
 		}
 		

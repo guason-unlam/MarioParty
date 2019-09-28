@@ -19,6 +19,6 @@ public class ModificadorDado extends Item {
 
 	@Override
 	public Jugador elegirObjetivo() {
-		return this.dueño; //el objetivo de este item siempre sera el dueño
+		return this.duenio; //el objetivo de este item siempre sera el dueño
 	}
 }

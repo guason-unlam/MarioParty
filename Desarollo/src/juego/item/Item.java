@@ -7,7 +7,7 @@ import juego.personas.Jugador;
 public abstract class Item extends Recompensa {
 	protected String nombre;
 	protected String descripcion;
-	protected Jugador dueño;
+	protected Jugador duenio;
 
 	public Item(String nombre, String descripcion) {
 		this.nombre = nombre;
@@ -20,16 +20,16 @@ public abstract class Item extends Recompensa {
 		
 		activarItem(elegirObjetivo());
 		int posicionEnInventario=0;
-		Iterator<Item> i = this.dueño.getInventario().getItems().iterator();
+		Iterator<Item> i = this.duenio.getInventario().getItems().iterator();
 		while(i.hasNext() && !i.next().equals(this))
 			posicionEnInventario++;
-		this.dueño.getInventario().getItems().remove(posicionEnInventario);
+		this.duenio.getInventario().getItems().remove(posicionEnInventario);
 	}
 	
 	protected abstract Jugador elegirObjetivo();
 	
-	public Jugador getDueño(){
-		return this.dueño;
+	public Jugador getDuenio(){
+		return this.duenio;
 	}
 
 	public String getNombre() {
@@ -51,8 +51,8 @@ public abstract class Item extends Recompensa {
 
 	@Override
 	public void darRecompensa(Jugador jugador) {
-		this.dueño = jugador;
+		this.duenio = jugador;
 		jugador.getInventario().agregarItem(this);
-		this.due�o = jugador;
+		this.duenio = jugador;
 	}
 }
