@@ -31,10 +31,10 @@ public class ItemTest {
 		Item item;
 		item = new ItemRobar();
 		item.darRecompensa(jugador1);
-		int cantidadMonedasDuenioItemOriginal = item.getDueÃ±o().getPesos();
+		int cantidadMonedasDuenioItemOriginal = item.getDueño().getPesos();
 		item.activarItem(jugador2);
 		
-		Assert.assertEquals(cantidadMonedasDuenioItemOriginal+50, item.getDueÃ±o().getPesos());
+		Assert.assertEquals(cantidadMonedasDuenioItemOriginal+50, item.getDueño().getPesos());
 	}
 	@Test
 	public void restoDeMonedasCorrecto(){
@@ -55,9 +55,9 @@ public class ItemTest {
 		item = new ModificadorDado();
 		Jugador jugador = new Jugador(usuario,tablero,partida);
 		item.darRecompensa(jugador);
-		int cantidadCaras = item.getDueÃ±o().getDado().getCantidadCaras();
+		int cantidadCaras = item.getDueño().getDado().getCantidadCaras();
 		item.activarItem(jugador);
 		
-		Assert.assertEquals(cantidadCaras+1, item.getDueÃ±o().getDado().getCantidadCaras());
+		Assert.assertEquals(cantidadCaras+1, item.getDueño().getDado().getCantidadCaras());
 	}
 }

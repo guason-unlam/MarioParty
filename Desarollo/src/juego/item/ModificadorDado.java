@@ -12,13 +12,13 @@ public class ModificadorDado extends Item {
 	}
 
 	@Override
-	public void activarItem() {
-		Dado dado = elegirObjetivo().getDado();
+	public void activarItem(Jugador objetivo) {
+		Dado dado = objetivo.getDado();
 		dado.setCantidadCaras(dado.getCantidadCaras()+1);
 	}
 
 	@Override
 	public Jugador elegirObjetivo() {
-		return this.dueño;
+		return this.dueño; //el objetivo de este item siempre sera el dueño
 	}
 }

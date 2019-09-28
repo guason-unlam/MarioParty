@@ -14,10 +14,11 @@ public abstract class Item extends Recompensa {
 		this.descripcion = descripcion;
 	}
 
-	protected abstract void activarItem();
+	public abstract void activarItem(Jugador objetivo);
 	
 	public void usarItem() {
-		activarItem();
+		
+		activarItem(elegirObjetivo());
 		int posicionEnInventario=0;
 		Iterator<Item> i = this.dueño.getInventario().getItems().iterator();
 		while(i.hasNext() && !i.next().equals(this))
@@ -25,7 +26,7 @@ public abstract class Item extends Recompensa {
 		this.dueño.getInventario().getItems().remove(posicionEnInventario);
 	}
 	
-	public abstract Jugador elegirObjetivo();
+	protected abstract Jugador elegirObjetivo();
 	
 	public Jugador getDueño(){
 		return this.dueño;
@@ -52,6 +53,6 @@ public abstract class Item extends Recompensa {
 	public void darRecompensa(Jugador jugador) {
 		this.dueño = jugador;
 		jugador.getInventario().agregarItem(this);
-		
+		this.due�o = jugador;
 	}
 }
