@@ -14,7 +14,8 @@ public abstract class Item extends Recompensa {
 		this.descripcion = descripcion;
 	}
 
-	protected abstract void activarItem();
+	public abstract void activarItem(Jugador objetivo);// Es PROTECTED, pero lo paso a public para que permita el testeo.
+	
 	
 	public void usarItem() {
 		activarItem();
