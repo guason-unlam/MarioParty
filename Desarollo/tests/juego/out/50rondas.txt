@@ -1,0 +1,1221 @@
+RONDA 1
+===========
+Turno de usuario
+Sali
+Debo avanzar 6 posicion(es)
+usuario esta en el casillero 1
+Posibles opciones: 
+2
+3
+
+Elije un camino
+
+2
+usuario esta en el casillero 2
+usuario esta en el casillero 4
+Posibles opciones: 
+5
+6
+7
+
+Elije un camino
+6
+usuario esta en el casillero 6
+usuario esta en el casillero 8
+usuario esta en el casillero 11
+Turno de usuario2
+Sali
+Debo avanzar 1 posicion(es)
+usuario2 esta en el casillero 1
+Quiere usar un objeto? (S/N)
+S
+Elije item a usar:
+1- Robar
+1
+1- usuario
+1
+Instrucciones:
+El juego consta de varios jugadores, los cuales tirarán 10 veces,un dado, al final la suma de todos los tiros, sera el resultado por jugador,a más puntuación, mejor.
+usuario        38
+usuario2       35
+
+
+RONDA 2
+===========
+Turno de usuario
+Sali
+Debo avanzar 4 posicion(es)
+usuario esta en el casillero 12
+usuario esta en el casillero 13
+usuario esta en el casillero 14
+usuario esta en el casillero 15
+Turno de usuario2
+Sali
+Debo avanzar 3 posicion(es)
+Posibles opciones: 
+2
+3
+
+Elije un camino
+3
+usuario2 esta en el casillero 3
+usuario2 esta en el casillero 9
+usuario2 esta en el casillero 10
+Instrucciones:
+El juego consta de varios jugadores, los cuales tirarán 10 veces,un dado, al final la suma de todos los tiros, sera el resultado por jugador,a más puntuación, mejor.
+usuario        41
+usuario2       38
+
+
+RONDA 3
+===========
+Turno de usuario
+Sali
+Debo avanzar 6 posicion(es)
+usuario esta en el casillero 16
+usuario esta en el casillero 17
+usuario esta en el casillero 18
+usuario esta en el casillero 19
+usuario esta en el casillero 20
+usuario esta en el casillero 21
+Turno de usuario2
+Sali
+Debo avanzar 2 posicion(es)
+usuario2 esta en el casillero 11
+usuario2 esta en el casillero 12
+Instrucciones:
+El juego consta de varios jugadores, los cuales tirarán 10 veces,un dado, al final la suma de todos los tiros, sera el resultado por jugador,a más puntuación, mejor.
+usuario        49
+usuario2       33
+
+
+RONDA 4
+===========
+Turno de usuario
+Sali
+Debo avanzar 2 posicion(es)
+usuario esta en el casillero 22
+usuario esta en el casillero 23
+Turno de usuario2
+Sali
+Debo avanzar 2 posicion(es)
+usuario2 esta en el casillero 13
+usuario2 esta en el casillero 14
+Instrucciones:
+El juego consta de varios jugadores, los cuales tirarán 10 veces,un dado, al final la suma de todos los tiros, sera el resultado por jugador,a más puntuación, mejor.
+usuario        38
+usuario2       42
+
+
+RONDA 5
+===========
+Turno de usuario
+Sali
+Debo avanzar 3 posicion(es)
+usuario esta en el casillero 24
+usuario esta en el casillero 25
+usuario esta en el casillero 26
+Turno de usuario2
+Sali
+Debo avanzar 3 posicion(es)
+usuario2 esta en el casillero 15
+usuario2 esta en el casillero 16
+usuario2 esta en el casillero 17
+Instrucciones:
+El juego consta de varios jugadores, los cuales tirarán 10 veces,un dado, al final la suma de todos los tiros, sera el resultado por jugador,a más puntuación, mejor.
+usuario        33
+usuario2       27
+
+
+RONDA 6
+===========
+Turno de usuario
+Sali
+Debo avanzar 4 posicion(es)
+usuario esta en el casillero 27
+usuario esta en el casillero 28
+usuario esta en el casillero 29
+usuario esta en el casillero 30
+Turno de usuario2
+Sali
+Debo avanzar 1 posicion(es)
+usuario2 esta en el casillero 18
+Instrucciones:
+El juego consta de varios jugadores, los cuales tirarán 10 veces,un dado, al final la suma de todos los tiros, sera el resultado por jugador,a más puntuación, mejor.
+usuario        42
+usuario2       37
+
+
+RONDA 7
+===========
+Turno de usuario
+Sali
+Debo avanzar 3 posicion(es)
+usuario esta en el casillero 31
+usuario esta en el casillero 32
+usuario esta en el casillero 33
+Turno de usuario2
+Sali
+Debo avanzar 1 posicion(es)
+usuario2 esta en el casillero 19
+Instrucciones:
+El juego consta de varios jugadores, los cuales tirarán 10 veces,un dado, al final la suma de todos los tiros, sera el resultado por jugador,a más puntuación, mejor.
+usuario        30
+usuario2       38
+
+
+RONDA 8
+===========
+Turno de usuario
+Sali
+Debo avanzar 6 posicion(es)
+usuario esta en el casillero 34
+usuario esta en el casillero 35
+usuario esta en el casillero 36
+usuario esta en el casillero 37
+usuario esta en el casillero 38
+usuario esta en el casillero 39
+Turno de usuario2
+Sali
+Debo avanzar 6 posicion(es)
+usuario2 esta en el casillero 20
+usuario2 esta en el casillero 21
+usuario2 esta en el casillero 22
+usuario2 esta en el casillero 23
+usuario2 esta en el casillero 24
+usuario2 esta en el casillero 25
+Instrucciones:
+El juego consta de varios jugadores, los cuales tirarán 10 veces,un dado, al final la suma de todos los tiros, sera el resultado por jugador,a más puntuación, mejor.
+usuario        27
+usuario2       32
+
+
+RONDA 9
+===========
+Turno de usuario
+Sali
+Debo avanzar 3 posicion(es)
+usuario esta en el casillero 40
+usuario esta en el casillero 41
+usuario esta en el casillero 42
+Turno de usuario2
+Sali
+Debo avanzar 3 posicion(es)
+usuario2 esta en el casillero 26
+usuario2 esta en el casillero 27
+usuario2 esta en el casillero 28
+Quiere usar un objeto? (S/N)
+S
+Elije item a usar:
+1- Modificador de dado
+1
+Instrucciones:
+El juego consta de varios jugadores, los cuales tirarán 10 veces,un dado, al final la suma de todos los tiros, sera el resultado por jugador,a más puntuación, mejor.
+usuario        34
+usuario2       42
+
+
+RONDA 10
+===========
+Turno de usuario
+Sali
+Debo avanzar 6 posicion(es)
+usuario esta en el casillero 43
+usuario esta en el casillero 44
+usuario esta en el casillero 45
+usuario esta en el casillero 46
+usuario esta en el casillero 47
+usuario esta en el casillero 48
+Turno de usuario2
+Sali
+Debo avanzar 1 posicion(es)
+usuario2 esta en el casillero 29
+Instrucciones:
+El juego consta de varios jugadores, los cuales tirarán 10 veces,un dado, al final la suma de todos los tiros, sera el resultado por jugador,a más puntuación, mejor.
+usuario        29
+usuario2       32
+
+
+RONDA 11
+===========
+Turno de usuario
+Sali
+Debo avanzar 2 posicion(es)
+usuario esta en el casillero 49
+usuario esta en el casillero 50
+Turno de usuario2
+Sali
+Debo avanzar 2 posicion(es)
+usuario2 esta en el casillero 30
+usuario2 esta en el casillero 31
+Instrucciones:
+El juego consta de varios jugadores, los cuales tirarán 10 veces,un dado, al final la suma de todos los tiros, sera el resultado por jugador,a más puntuación, mejor.
+usuario        39
+usuario2       24
+
+
+RONDA 12
+===========
+Turno de usuario
+Sali
+Debo avanzar 6 posicion(es)
+usuario esta en el casillero 51
+usuario esta en el casillero 52
+usuario esta en el casillero 53
+usuario esta en el casillero 54
+usuario esta en el casillero 55
+usuario esta en el casillero 56
+Turno de usuario2
+Sali
+Debo avanzar 6 posicion(es)
+usuario2 esta en el casillero 32
+usuario2 esta en el casillero 33
+usuario2 esta en el casillero 34
+usuario2 esta en el casillero 35
+usuario2 esta en el casillero 36
+usuario2 esta en el casillero 37
+Instrucciones:
+El juego consta de varios jugadores, los cuales tirarán 10 veces,un dado, al final la suma de todos los tiros, sera el resultado por jugador,a más puntuación, mejor.
+usuario        34
+usuario2       42
+
+
+RONDA 13
+===========
+Turno de usuario
+Sali
+Debo avanzar 5 posicion(es)
+usuario esta en el casillero 57
+usuario esta en el casillero 58
+usuario esta en el casillero 59
+usuario esta en el casillero 60
+usuario esta en el casillero 61
+Turno de usuario2
+Sali
+Debo avanzar 1 posicion(es)
+usuario2 esta en el casillero 38
+Instrucciones:
+El juego consta de varios jugadores, los cuales tirarán 10 veces,un dado, al final la suma de todos los tiros, sera el resultado por jugador,a más puntuación, mejor.
+usuario        36
+usuario2       28
+
+
+RONDA 14
+===========
+Turno de usuario
+Sali
+Debo avanzar 3 posicion(es)
+usuario esta en el casillero 62
+usuario esta en el casillero 63
+usuario esta en el casillero 64
+Turno de usuario2
+Sali
+Debo avanzar 4 posicion(es)
+usuario2 esta en el casillero 39
+usuario2 esta en el casillero 40
+usuario2 esta en el casillero 41
+usuario2 esta en el casillero 42
+Instrucciones:
+El juego consta de varios jugadores, los cuales tirarán 10 veces,un dado, al final la suma de todos los tiros, sera el resultado por jugador,a más puntuación, mejor.
+usuario        35
+usuario2       30
+
+
+RONDA 15
+===========
+Turno de usuario
+Sali
+Debo avanzar 5 posicion(es)
+usuario esta en el casillero 65
+usuario esta en el casillero 66
+usuario esta en el casillero 67
+usuario esta en el casillero 68
+usuario esta en el casillero 69
+Quiere usar un objeto? (S/N)
+S
+Elije item a usar:
+1- Modificador de dado
+1
+Turno de usuario2
+Sali
+Debo avanzar 3 posicion(es)
+usuario2 esta en el casillero 43
+usuario2 esta en el casillero 44
+usuario2 esta en el casillero 45
+Instrucciones:
+El juego consta de varios jugadores, los cuales tirarán 10 veces,un dado, al final la suma de todos los tiros, sera el resultado por jugador,a más puntuación, mejor.
+usuario        27
+usuario2       31
+
+
+RONDA 16
+===========
+Turno de usuario
+Sali
+Debo avanzar 6 posicion(es)
+usuario esta en el casillero 70
+usuario esta en el casillero 0
+usuario esta en el casillero 1
+Posibles opciones: 
+2
+3
+
+Elije un camino
+3
+usuario esta en el casillero 3
+usuario esta en el casillero 9
+usuario esta en el casillero 10
+Turno de usuario2
+Sali
+Debo avanzar 6 posicion(es)
+usuario2 esta en el casillero 46
+usuario2 esta en el casillero 47
+usuario2 esta en el casillero 48
+usuario2 esta en el casillero 49
+usuario2 esta en el casillero 50
+usuario2 esta en el casillero 51
+Instrucciones:
+El juego consta de varios jugadores, los cuales tirarán 10 veces,un dado, al final la suma de todos los tiros, sera el resultado por jugador,a más puntuación, mejor.
+usuario        38
+usuario2       27
+
+
+RONDA 17
+===========
+Turno de usuario
+Sali
+Debo avanzar 1 posicion(es)
+usuario esta en el casillero 11
+Turno de usuario2
+Sali
+Debo avanzar 3 posicion(es)
+usuario2 esta en el casillero 52
+usuario2 esta en el casillero 53
+usuario2 esta en el casillero 54
+Quiere usar un objeto? (S/N)
+S
+Elije item a usar:
+1- Robar
+1
+1- usuario
+1
+Instrucciones:
+El juego consta de varios jugadores, los cuales tirarán 10 veces,un dado, al final la suma de todos los tiros, sera el resultado por jugador,a más puntuación, mejor.
+usuario        42
+usuario2       38
+
+
+RONDA 18
+===========
+Turno de usuario
+Sali
+Debo avanzar 1 posicion(es)
+usuario esta en el casillero 12
+Turno de usuario2
+Sali
+Debo avanzar 6 posicion(es)
+usuario2 esta en el casillero 55
+usuario2 esta en el casillero 56
+usuario2 esta en el casillero 57
+usuario2 esta en el casillero 58
+usuario2 esta en el casillero 59
+usuario2 esta en el casillero 60
+Instrucciones:
+El juego consta de varios jugadores, los cuales tirarán 10 veces,un dado, al final la suma de todos los tiros, sera el resultado por jugador,a más puntuación, mejor.
+usuario        37
+usuario2       37
+
+
+RONDA 19
+===========
+Turno de usuario
+Sali
+Debo avanzar 6 posicion(es)
+usuario esta en el casillero 13
+usuario esta en el casillero 14
+usuario esta en el casillero 15
+usuario esta en el casillero 16
+usuario esta en el casillero 17
+usuario esta en el casillero 18
+Turno de usuario2
+Sali
+Debo avanzar 3 posicion(es)
+usuario2 esta en el casillero 61
+usuario2 esta en el casillero 62
+usuario2 esta en el casillero 63
+Instrucciones:
+El juego consta de varios jugadores, los cuales tirarán 10 veces,un dado, al final la suma de todos los tiros, sera el resultado por jugador,a más puntuación, mejor.
+usuario        32
+usuario2       35
+
+
+RONDA 20
+===========
+Turno de usuario
+Sali
+Debo avanzar 4 posicion(es)
+usuario esta en el casillero 19
+usuario esta en el casillero 20
+usuario esta en el casillero 21
+usuario esta en el casillero 22
+Turno de usuario2
+Sali
+Debo avanzar 1 posicion(es)
+usuario2 esta en el casillero 64
+Instrucciones:
+El juego consta de varios jugadores, los cuales tirarán 10 veces,un dado, al final la suma de todos los tiros, sera el resultado por jugador,a más puntuación, mejor.
+usuario        35
+usuario2       23
+
+
+RONDA 21
+===========
+Turno de usuario
+Sali
+Debo avanzar 2 posicion(es)
+usuario esta en el casillero 23
+usuario esta en el casillero 24
+Turno de usuario2
+Sali
+Debo avanzar 5 posicion(es)
+usuario2 esta en el casillero 65
+usuario2 esta en el casillero 66
+usuario2 esta en el casillero 67
+usuario2 esta en el casillero 68
+usuario2 esta en el casillero 69
+Quiere usar un objeto? (S/N)
+S
+Elije item a usar:
+1- Modificador de dado
+1
+Instrucciones:
+El juego consta de varios jugadores, los cuales tirarán 10 veces,un dado, al final la suma de todos los tiros, sera el resultado por jugador,a más puntuación, mejor.
+usuario        32
+usuario2       26
+
+
+RONDA 22
+===========
+Turno de usuario
+Sali
+Debo avanzar 3 posicion(es)
+usuario esta en el casillero 25
+usuario esta en el casillero 26
+usuario esta en el casillero 27
+Turno de usuario2
+Sali
+Debo avanzar 7 posicion(es)
+usuario2 esta en el casillero 70
+usuario2 esta en el casillero 0
+usuario2 esta en el casillero 1
+Posibles opciones: 
+2
+3
+
+Elije un camino
+3
+usuario2 esta en el casillero 3
+usuario2 esta en el casillero 9
+usuario2 esta en el casillero 10
+usuario2 esta en el casillero 11
+Instrucciones:
+El juego consta de varios jugadores, los cuales tirarán 10 veces,un dado, al final la suma de todos los tiros, sera el resultado por jugador,a más puntuación, mejor.
+usuario        40
+usuario2       34
+
+
+RONDA 23
+===========
+Turno de usuario
+Sali
+Debo avanzar 1 posicion(es)
+usuario esta en el casillero 28
+Quiere usar un objeto? (S/N)
+S
+Elije item a usar:
+1- Modificador de dado
+1
+Turno de usuario2
+Sali
+Debo avanzar 6 posicion(es)
+usuario2 esta en el casillero 12
+usuario2 esta en el casillero 13
+usuario2 esta en el casillero 14
+usuario2 esta en el casillero 15
+usuario2 esta en el casillero 16
+usuario2 esta en el casillero 17
+Instrucciones:
+El juego consta de varios jugadores, los cuales tirarán 10 veces,un dado, al final la suma de todos los tiros, sera el resultado por jugador,a más puntuación, mejor.
+usuario        37
+usuario2       39
+
+
+RONDA 24
+===========
+Turno de usuario
+Sali
+Debo avanzar 5 posicion(es)
+usuario esta en el casillero 29
+usuario esta en el casillero 30
+usuario esta en el casillero 31
+usuario esta en el casillero 32
+usuario esta en el casillero 33
+Turno de usuario2
+Sali
+Debo avanzar 2 posicion(es)
+usuario2 esta en el casillero 18
+usuario2 esta en el casillero 19
+Instrucciones:
+El juego consta de varios jugadores, los cuales tirarán 10 veces,un dado, al final la suma de todos los tiros, sera el resultado por jugador,a más puntuación, mejor.
+usuario        33
+usuario2       31
+
+
+RONDA 25
+===========
+Turno de usuario
+Sali
+Debo avanzar 2 posicion(es)
+usuario esta en el casillero 34
+usuario esta en el casillero 35
+Turno de usuario2
+Sali
+Debo avanzar 6 posicion(es)
+usuario2 esta en el casillero 20
+usuario2 esta en el casillero 21
+usuario2 esta en el casillero 22
+usuario2 esta en el casillero 23
+usuario2 esta en el casillero 24
+usuario2 esta en el casillero 25
+Instrucciones:
+El juego consta de varios jugadores, los cuales tirarán 10 veces,un dado, al final la suma de todos los tiros, sera el resultado por jugador,a más puntuación, mejor.
+usuario        40
+usuario2       32
+
+
+RONDA 26
+===========
+Turno de usuario
+Sali
+Debo avanzar 5 posicion(es)
+usuario esta en el casillero 36
+usuario esta en el casillero 37
+usuario esta en el casillero 38
+usuario esta en el casillero 39
+usuario esta en el casillero 40
+Turno de usuario2
+Sali
+Debo avanzar 6 posicion(es)
+usuario2 esta en el casillero 26
+usuario2 esta en el casillero 27
+usuario2 esta en el casillero 28
+usuario2 esta en el casillero 29
+usuario2 esta en el casillero 30
+usuario2 esta en el casillero 31
+Instrucciones:
+El juego consta de varios jugadores, los cuales tirarán 10 veces,un dado, al final la suma de todos los tiros, sera el resultado por jugador,a más puntuación, mejor.
+usuario        29
+usuario2       35
+
+
+RONDA 27
+===========
+Turno de usuario
+Sali
+Debo avanzar 1 posicion(es)
+usuario esta en el casillero 41
+Quiere usar un objeto? (S/N)
+S
+Elije item a usar:
+1- Robar
+1
+1- usuario2
+1
+Turno de usuario2
+Sali
+Debo avanzar 1 posicion(es)
+usuario2 esta en el casillero 32
+Instrucciones:
+El juego consta de varios jugadores, los cuales tirarán 10 veces,un dado, al final la suma de todos los tiros, sera el resultado por jugador,a más puntuación, mejor.
+usuario        32
+usuario2       36
+
+
+RONDA 28
+===========
+Turno de usuario
+Sali
+Debo avanzar 2 posicion(es)
+usuario esta en el casillero 42
+usuario esta en el casillero 43
+Turno de usuario2
+Sali
+Debo avanzar 2 posicion(es)
+usuario2 esta en el casillero 33
+usuario2 esta en el casillero 34
+Quiere usar un objeto? (S/N)
+N
+Instrucciones:
+El juego consta de varios jugadores, los cuales tirarán 10 veces,un dado, al final la suma de todos los tiros, sera el resultado por jugador,a más puntuación, mejor.
+usuario        38
+usuario2       26
+
+
+RONDA 29
+===========
+Turno de usuario
+Sali
+Debo avanzar 6 posicion(es)
+usuario esta en el casillero 44
+usuario esta en el casillero 45
+usuario esta en el casillero 46
+usuario esta en el casillero 47
+usuario esta en el casillero 48
+usuario esta en el casillero 49
+Turno de usuario2
+Sali
+Debo avanzar 3 posicion(es)
+usuario2 esta en el casillero 35
+usuario2 esta en el casillero 36
+usuario2 esta en el casillero 37
+Quiere usar un objeto? (S/N)
+N
+Instrucciones:
+El juego consta de varios jugadores, los cuales tirarán 10 veces,un dado, al final la suma de todos los tiros, sera el resultado por jugador,a más puntuación, mejor.
+usuario        39
+usuario2       36
+
+
+RONDA 30
+===========
+Turno de usuario
+Sali
+Debo avanzar 5 posicion(es)
+usuario esta en el casillero 50
+usuario esta en el casillero 51
+usuario esta en el casillero 52
+usuario esta en el casillero 53
+usuario esta en el casillero 54
+Quiere usar un objeto? (S/N)
+S
+Elije item a usar:
+1- Robar
+1
+1- usuario2
+1
+Turno de usuario2
+Sali
+Debo avanzar 6 posicion(es)
+usuario2 esta en el casillero 38
+usuario2 esta en el casillero 39
+usuario2 esta en el casillero 40
+usuario2 esta en el casillero 41
+usuario2 esta en el casillero 42
+usuario2 esta en el casillero 43
+Quiere usar un objeto? (S/N)
+S
+Elije item a usar:
+1- Modificador de dado
+1
+Instrucciones:
+El juego consta de varios jugadores, los cuales tirarán 10 veces,un dado, al final la suma de todos los tiros, sera el resultado por jugador,a más puntuación, mejor.
+usuario        34
+usuario2       37
+
+
+RONDA 31
+===========
+Turno de usuario
+Sali
+Debo avanzar 3 posicion(es)
+usuario esta en el casillero 55
+usuario esta en el casillero 56
+usuario esta en el casillero 57
+Turno de usuario2
+Sali
+Debo avanzar 7 posicion(es)
+usuario2 esta en el casillero 44
+usuario2 esta en el casillero 45
+usuario2 esta en el casillero 46
+usuario2 esta en el casillero 47
+usuario2 esta en el casillero 48
+usuario2 esta en el casillero 49
+usuario2 esta en el casillero 50
+Instrucciones:
+El juego consta de varios jugadores, los cuales tirarán 10 veces,un dado, al final la suma de todos los tiros, sera el resultado por jugador,a más puntuación, mejor.
+usuario        27
+usuario2       35
+
+
+RONDA 32
+===========
+Turno de usuario
+Sali
+Debo avanzar 6 posicion(es)
+usuario esta en el casillero 58
+usuario esta en el casillero 59
+usuario esta en el casillero 60
+usuario esta en el casillero 61
+usuario esta en el casillero 62
+usuario esta en el casillero 63
+Turno de usuario2
+Sali
+Debo avanzar 4 posicion(es)
+usuario2 esta en el casillero 51
+usuario2 esta en el casillero 52
+usuario2 esta en el casillero 53
+usuario2 esta en el casillero 54
+Quiere usar un objeto? (S/N)
+S
+Elije item a usar:
+1- Robar
+1
+1- usuario
+1
+Instrucciones:
+El juego consta de varios jugadores, los cuales tirarán 10 veces,un dado, al final la suma de todos los tiros, sera el resultado por jugador,a más puntuación, mejor.
+usuario        32
+usuario2       31
+
+
+RONDA 33
+===========
+Turno de usuario
+Sali
+Debo avanzar 6 posicion(es)
+usuario esta en el casillero 64
+usuario esta en el casillero 65
+usuario esta en el casillero 66
+usuario esta en el casillero 67
+usuario esta en el casillero 68
+usuario esta en el casillero 69
+Quiere usar un objeto? (S/N)
+S
+Elije item a usar:
+1- Modificador de dado
+1
+Turno de usuario2
+Sali
+Debo avanzar 1 posicion(es)
+usuario2 esta en el casillero 55
+Instrucciones:
+El juego consta de varios jugadores, los cuales tirarán 10 veces,un dado, al final la suma de todos los tiros, sera el resultado por jugador,a más puntuación, mejor.
+usuario        38
+usuario2       30
+
+
+RONDA 34
+===========
+Turno de usuario
+Sali
+Debo avanzar 2 posicion(es)
+usuario esta en el casillero 70
+usuario esta en el casillero 0
+Quiere usar un objeto? (S/N)
+S
+Elije item a usar:
+1- Robar
+1
+1- usuario2
+1
+Turno de usuario2
+Sali
+Debo avanzar 2 posicion(es)
+usuario2 esta en el casillero 56
+usuario2 esta en el casillero 57
+Instrucciones:
+El juego consta de varios jugadores, los cuales tirarán 10 veces,un dado, al final la suma de todos los tiros, sera el resultado por jugador,a más puntuación, mejor.
+usuario        31
+usuario2       33
+
+
+RONDA 35
+===========
+Turno de usuario
+Sali
+Debo avanzar 3 posicion(es)
+usuario esta en el casillero 1
+Posibles opciones: 
+2
+3
+
+Elije un camino
+3
+usuario esta en el casillero 3
+usuario esta en el casillero 9
+Turno de usuario2
+Sali
+Debo avanzar 5 posicion(es)
+usuario2 esta en el casillero 58
+usuario2 esta en el casillero 59
+usuario2 esta en el casillero 60
+usuario2 esta en el casillero 61
+usuario2 esta en el casillero 62
+Instrucciones:
+El juego consta de varios jugadores, los cuales tirarán 10 veces,un dado, al final la suma de todos los tiros, sera el resultado por jugador,a más puntuación, mejor.
+usuario        37
+usuario2       44
+
+
+RONDA 36
+===========
+Turno de usuario
+Sali
+Debo avanzar 4 posicion(es)
+usuario esta en el casillero 10
+usuario esta en el casillero 11
+usuario esta en el casillero 12
+usuario esta en el casillero 13
+Turno de usuario2
+Sali
+Debo avanzar 3 posicion(es)
+usuario2 esta en el casillero 63
+usuario2 esta en el casillero 64
+usuario2 esta en el casillero 65
+Instrucciones:
+El juego consta de varios jugadores, los cuales tirarán 10 veces,un dado, al final la suma de todos los tiros, sera el resultado por jugador,a más puntuación, mejor.
+usuario        34
+usuario2       32
+
+
+RONDA 37
+===========
+Turno de usuario
+Sali
+Debo avanzar 5 posicion(es)
+usuario esta en el casillero 14
+usuario esta en el casillero 15
+usuario esta en el casillero 16
+usuario esta en el casillero 17
+usuario esta en el casillero 18
+Turno de usuario2
+Sali
+Debo avanzar 6 posicion(es)
+usuario2 esta en el casillero 66
+usuario2 esta en el casillero 67
+usuario2 esta en el casillero 68
+usuario2 esta en el casillero 69
+usuario2 esta en el casillero 70
+usuario2 esta en el casillero 0
+Quiere usar un objeto? (S/N)
+S
+Elije item a usar:
+1- Robar
+1
+1- usuario
+1
+Instrucciones:
+El juego consta de varios jugadores, los cuales tirarán 10 veces,un dado, al final la suma de todos los tiros, sera el resultado por jugador,a más puntuación, mejor.
+usuario        48
+usuario2       34
+
+
+RONDA 38
+===========
+Turno de usuario
+Sali
+Debo avanzar 4 posicion(es)
+usuario esta en el casillero 19
+usuario esta en el casillero 20
+usuario esta en el casillero 21
+usuario esta en el casillero 22
+Turno de usuario2
+Sali
+Debo avanzar 5 posicion(es)
+usuario2 esta en el casillero 1
+Posibles opciones: 
+2
+3
+
+Elije un camino
+3
+usuario2 esta en el casillero 3
+usuario2 esta en el casillero 9
+usuario2 esta en el casillero 10
+usuario2 esta en el casillero 11
+Instrucciones:
+El juego consta de varios jugadores, los cuales tirarán 10 veces,un dado, al final la suma de todos los tiros, sera el resultado por jugador,a más puntuación, mejor.
+usuario        33
+usuario2       38
+
+
+RONDA 39
+===========
+Turno de usuario
+Sali
+Debo avanzar 5 posicion(es)
+usuario esta en el casillero 23
+usuario esta en el casillero 24
+usuario esta en el casillero 25
+usuario esta en el casillero 26
+usuario esta en el casillero 27
+Turno de usuario2
+Sali
+Debo avanzar 3 posicion(es)
+usuario2 esta en el casillero 12
+usuario2 esta en el casillero 13
+usuario2 esta en el casillero 14
+Instrucciones:
+El juego consta de varios jugadores, los cuales tirarán 10 veces,un dado, al final la suma de todos los tiros, sera el resultado por jugador,a más puntuación, mejor.
+usuario        33
+usuario2       39
+
+
+RONDA 40
+===========
+Turno de usuario
+Sali
+Debo avanzar 2 posicion(es)
+usuario esta en el casillero 28
+usuario esta en el casillero 29
+Turno de usuario2
+Sali
+Debo avanzar 2 posicion(es)
+usuario2 esta en el casillero 15
+usuario2 esta en el casillero 16
+Instrucciones:
+El juego consta de varios jugadores, los cuales tirarán 10 veces,un dado, al final la suma de todos los tiros, sera el resultado por jugador,a más puntuación, mejor.
+usuario        24
+usuario2       29
+
+
+RONDA 41
+===========
+Turno de usuario
+Sali
+Debo avanzar 2 posicion(es)
+usuario esta en el casillero 30
+usuario esta en el casillero 31
+Turno de usuario2
+Sali
+Debo avanzar 6 posicion(es)
+usuario2 esta en el casillero 17
+usuario2 esta en el casillero 18
+usuario2 esta en el casillero 19
+usuario2 esta en el casillero 20
+usuario2 esta en el casillero 21
+usuario2 esta en el casillero 22
+Instrucciones:
+El juego consta de varios jugadores, los cuales tirarán 10 veces,un dado, al final la suma de todos los tiros, sera el resultado por jugador,a más puntuación, mejor.
+usuario        33
+usuario2       37
+
+
+RONDA 42
+===========
+Turno de usuario
+Sali
+Debo avanzar 2 posicion(es)
+usuario esta en el casillero 32
+usuario esta en el casillero 33
+Turno de usuario2
+Sali
+Debo avanzar 2 posicion(es)
+usuario2 esta en el casillero 23
+usuario2 esta en el casillero 24
+Instrucciones:
+El juego consta de varios jugadores, los cuales tirarán 10 veces,un dado, al final la suma de todos los tiros, sera el resultado por jugador,a más puntuación, mejor.
+usuario        30
+usuario2       19
+
+
+RONDA 43
+===========
+Turno de usuario
+Sali
+Debo avanzar 3 posicion(es)
+usuario esta en el casillero 34
+usuario esta en el casillero 35
+usuario esta en el casillero 36
+Quiere usar un objeto? (S/N)
+S
+Elije item a usar:
+1- Robar
+1
+1- usuario2
+1
+Turno de usuario2
+Sali
+Debo avanzar 2 posicion(es)
+usuario2 esta en el casillero 25
+usuario2 esta en el casillero 26
+Instrucciones:
+El juego consta de varios jugadores, los cuales tirarán 10 veces,un dado, al final la suma de todos los tiros, sera el resultado por jugador,a más puntuación, mejor.
+usuario        40
+usuario2       32
+
+
+RONDA 44
+===========
+Turno de usuario
+Sali
+Debo avanzar 5 posicion(es)
+usuario esta en el casillero 37
+usuario esta en el casillero 38
+usuario esta en el casillero 39
+usuario esta en el casillero 40
+usuario esta en el casillero 41
+Quiere usar un objeto? (S/N)
+S
+Elije item a usar:
+1- Robar
+1
+1- usuario2
+1
+Turno de usuario2
+Sali
+Debo avanzar 1 posicion(es)
+usuario2 esta en el casillero 27
+Instrucciones:
+El juego consta de varios jugadores, los cuales tirarán 10 veces,un dado, al final la suma de todos los tiros, sera el resultado por jugador,a más puntuación, mejor.
+usuario        38
+usuario2       45
+
+
+RONDA 45
+===========
+Turno de usuario
+Sali
+Debo avanzar 2 posicion(es)
+usuario esta en el casillero 42
+usuario esta en el casillero 43
+Turno de usuario2
+Sali
+Debo avanzar 5 posicion(es)
+usuario2 esta en el casillero 28
+usuario2 esta en el casillero 29
+usuario2 esta en el casillero 30
+usuario2 esta en el casillero 31
+usuario2 esta en el casillero 32
+Instrucciones:
+El juego consta de varios jugadores, los cuales tirarán 10 veces,un dado, al final la suma de todos los tiros, sera el resultado por jugador,a más puntuación, mejor.
+usuario        31
+usuario2       38
+
+
+RONDA 46
+===========
+Turno de usuario
+Sali
+Debo avanzar 2 posicion(es)
+usuario esta en el casillero 44
+usuario esta en el casillero 45
+Turno de usuario2
+Sali
+Debo avanzar 5 posicion(es)
+usuario2 esta en el casillero 33
+usuario2 esta en el casillero 34
+usuario2 esta en el casillero 35
+usuario2 esta en el casillero 36
+usuario2 esta en el casillero 37
+Instrucciones:
+El juego consta de varios jugadores, los cuales tirarán 10 veces,un dado, al final la suma de todos los tiros, sera el resultado por jugador,a más puntuación, mejor.
+usuario        40
+usuario2       39
+
+
+RONDA 47
+===========
+Turno de usuario
+Sali
+Debo avanzar 3 posicion(es)
+usuario esta en el casillero 46
+usuario esta en el casillero 47
+usuario esta en el casillero 48
+Turno de usuario2
+Sali
+Debo avanzar 4 posicion(es)
+usuario2 esta en el casillero 38
+usuario2 esta en el casillero 39
+usuario2 esta en el casillero 40
+usuario2 esta en el casillero 41
+Quiere usar un objeto? (S/N)
+S
+Elije item a usar:
+1- Robar
+1
+1- usuario
+1
+Instrucciones:
+El juego consta de varios jugadores, los cuales tirarán 10 veces,un dado, al final la suma de todos los tiros, sera el resultado por jugador,a más puntuación, mejor.
+usuario        40
+usuario2       34
+
+
+RONDA 48
+===========
+Turno de usuario
+Sali
+Debo avanzar 5 posicion(es)
+usuario esta en el casillero 49
+usuario esta en el casillero 50
+usuario esta en el casillero 51
+usuario esta en el casillero 52
+usuario esta en el casillero 53
+Quiere usar un objeto? (S/N)
+S
+Elije item a usar:
+1- Robar
+1
+1- usuario2
+1
+Turno de usuario2
+Sali
+Debo avanzar 3 posicion(es)
+usuario2 esta en el casillero 42
+usuario2 esta en el casillero 43
+usuario2 esta en el casillero 44
+Instrucciones:
+El juego consta de varios jugadores, los cuales tirarán 10 veces,un dado, al final la suma de todos los tiros, sera el resultado por jugador,a más puntuación, mejor.
+usuario        31
+usuario2       31
+
+
+RONDA 49
+===========
+Turno de usuario
+Sali
+Debo avanzar 5 posicion(es)
+usuario esta en el casillero 54
+usuario esta en el casillero 55
+usuario esta en el casillero 56
+usuario esta en el casillero 57
+usuario esta en el casillero 58
+Turno de usuario2
+Sali
+Debo avanzar 5 posicion(es)
+usuario2 esta en el casillero 45
+usuario2 esta en el casillero 46
+usuario2 esta en el casillero 47
+usuario2 esta en el casillero 48
+usuario2 esta en el casillero 49
+Instrucciones:
+El juego consta de varios jugadores, los cuales tirarán 10 veces,un dado, al final la suma de todos los tiros, sera el resultado por jugador,a más puntuación, mejor.
+usuario        40
+usuario2       36
+
+
+RONDA 50
+===========
+Turno de usuario
+Sali
+Debo avanzar 3 posicion(es)
+usuario esta en el casillero 59
+usuario esta en el casillero 60
+usuario esta en el casillero 61
+Turno de usuario2
+Sali
+Debo avanzar 6 posicion(es)
+usuario2 esta en el casillero 50
+usuario2 esta en el casillero 51
+usuario2 esta en el casillero 52
+usuario2 esta en el casillero 53
+usuario2 esta en el casillero 54
+usuario2 esta en el casillero 55
+Instrucciones:
+El juego consta de varios jugadores, los cuales tirarán 10 veces,un dado, al final la suma de todos los tiros, sera el resultado por jugador,a más puntuación, mejor.
+usuario        36
+usuario2       46
+
+
+Con un total de $1100 el ganador es .... usuario!!!

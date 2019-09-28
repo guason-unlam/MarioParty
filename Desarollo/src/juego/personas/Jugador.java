@@ -36,7 +36,7 @@ public class Jugador implements Comparable<Jugador> {
 
 	public void tirarDado() {
 		int numero = this.dado.tirar();
-		System.out.println("Sali");
+		// System.out.println("Sali");
 		avanzar(numero);
 		dado = new Dado(6);
 	}

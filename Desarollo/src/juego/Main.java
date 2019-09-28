@@ -31,6 +31,7 @@ public class Main {
 		// Se usa esta forma especial ya que si cierro System.in, luego falla
 		// https://stackoverflow.com/a/32353284/7844735
 		Scanner in = new Scanner(new FilterInputStream(System.in) {
+			@Override
 			public void close() {
 			}
 		});

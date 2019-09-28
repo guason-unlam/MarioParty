@@ -38,6 +38,7 @@ public class Ronda {
 		for (Jugador jug : jugadoresEnPartida) {
 			Turno t = new Turno(jug);
 			t.iniciarTurno();
+			System.out.println("");
 			// jug.tirarDado();
 		}
 		((MejorDeDiez) minijuego).iniciar();
