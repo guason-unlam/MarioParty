@@ -25,7 +25,7 @@ public class MejorDeDiez extends MiniJuego {
 		JugadorMinijuego nuevoJugador;
 		for(String nombre: nombreJugadores) {
 			nuevoJugador = new JugadorMinijuego(nombre);
-			resultados += nuevoJugador.getNombre() + "\t";
+			resultados += String.format("%-15s", nuevoJugador.getNombre());
 			nuevoJugador.setRes(jugar());
 			resumen.add(nuevoJugador);
 		}

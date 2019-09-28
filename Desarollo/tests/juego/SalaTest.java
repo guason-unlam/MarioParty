@@ -1,6 +1,8 @@
 package juego;
 
-import org.junit.*;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
 
 import juego.lobby.Sala;
 import juego.lobby.Usuario;
