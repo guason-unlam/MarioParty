@@ -1,8 +1,0 @@
-100|800|600
-1|10|20
-7|30|30|MP|"Aumenta 2 casilleros"|"Aumenta dos casilleros"|2|1
-8|39|30|MJ|"Monedas!"|"Resta monedas"|100|-1
-9|30|35|BI|3|"Aumenta 2 casilleros"|"Aumenta dos casilleros"|2|1
-10|10|40
-11|17|35
-12|15|47

@@ -19,7 +19,6 @@ public class Partida {
 	private Tablero tablero;
 	private int tipoMapa;
 	private Jugador ganador;
-	// ESTO ES UNA CLASE NUEVA
 	private int puntajeMaximo;
 	private int cantidadDeRondasAJugar;
 	private int precioDolar = 60;
@@ -32,7 +31,7 @@ public class Partida {
 	public Partida(ArrayList<Usuario> usuariosActivosEnSala, int cantidadTotalRondas) {
 		this.usuariosActivosEnSala = usuariosActivosEnSala;
 		try {
-			this.tablero = new Tablero("./tests/juego/files/tableroRenovado.txt");
+			this.tablero = new Tablero("../Mapas/tablero02.txt");
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (ExcepcionArchivos e) {
