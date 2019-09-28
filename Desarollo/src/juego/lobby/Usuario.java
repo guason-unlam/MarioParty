@@ -107,6 +107,14 @@ public class Usuario {
 	}
 
 	public void salirDeSala() {
+		/*
+		 * Si no lo saco, queda el usuario sin sala, pero 
+		 * figura como usuario activo, en al sala
+		 * */
+		if(this.jugador != null) {
+			this.sala.getJugadoresActivos().remove(this.jugador);
+		}
+		this.sala.getUsuariosActivos().remove(this);
 		this.sala = null;
 	}
 

@@ -11,16 +11,16 @@ public class MejorDeDiez extends MiniJuego {
 	private boolean enPartida;
 	String resultados = ""; // Solo es para saber que estaba funcionando bien, ya que aca guardo los totales de cada uno
 	TreeSet<JugadorMinijuego> resumen = new TreeSet<JugadorMinijuego>();
-	public MejorDeDiez(String nombre[]) {
+	public MejorDeDiez() {
 		super.setDescripcion("Cada jugador lanza 10 veces 1 dado,"
 				+ " el que saque la mayor suma gana.");
 		super.setNombre("MejorDeDiez");
-		this.nombreJugadores = nombre;
 		dado = new Dado(6);
 		enPartida = false;
 	}
 	@Override
 	public void iniciar() {
+		enPartida = true;
 		muestraInstrucciones();
 		JugadorMinijuego nuevoJugador;
 		for(String nombre: nombreJugadores) {
@@ -30,6 +30,7 @@ public class MejorDeDiez extends MiniJuego {
 			resumen.add(nuevoJugador);
 		}
 		guardarResultados();
+		enPartida = false;
 	}
 	
 	
@@ -72,6 +73,10 @@ public class MejorDeDiez extends MiniJuego {
 			nombresOrdenados[i++] = ((JugadorMinijuego)(it.next())).getNombre();
 		}
 		return nombresOrdenados;
+	}
+	
+	public void setJugadores(String []nombres){
+		this.nombreJugadores = nombres;
 	}
 
 }
