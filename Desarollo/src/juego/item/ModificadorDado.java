@@ -12,7 +12,7 @@ public class ModificadorDado extends Item {
 	}
 
 	@Override
-	public void activarItem(Jugador objetivo) {
+	public void activarItem(Jugador objetivo) {// agrego el parametro Jugador objetivo para permitir su correcto testeo.
 		Dado dado = objetivo.getDado();
 		dado.setCantidadCaras(dado.getCantidadCaras()+1);
 	}
