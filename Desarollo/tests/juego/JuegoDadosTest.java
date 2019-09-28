@@ -16,7 +16,7 @@ public class JuegoDadosTest {
 		JuegoDados minijuego = new JuegoDados();
 		
 		minijuego.iniciar();
-		
+		//Si cierro System.in, despues no puedo volver a usarlo
 		Scanner sc = new Scanner(System.in);
 		
 		
@@ -25,7 +25,7 @@ public class JuegoDadosTest {
 		
 		assertEquals(puntaje, minijuego.getPuntajeMinijuego(), 0.1);
 		
-		sc.close();
+		//sc.close();
 	}
 	
 }

@@ -1,11 +1,7 @@
 package juego.tablero;
 
-import java.io.IOException;
-import java.io.Reader;
 import java.util.Scanner;
 
-import juego.lobby.Partida;
-import juego.lobby.Sala;
 import juego.misc.Dado;
 
 public class JuegoDados extends MiniJuego{
@@ -58,8 +54,8 @@ public class JuegoDados extends MiniJuego{
 		if(valorIngresado == tiroDado)
 			puntajeTotal+=tiroDado;
 		
-		
-		sc.close();
+		//Si cierro System.in, despues no puedo volver a usarlo
+		//sc.close();
 		
 		System.out.println("Puntaje total jugador " + puntajeTotal);
 		setPuntajeMinijuego(puntajeTotal);
