@@ -1,11 +1,10 @@
 package juego.lobby;
 
-import juego.tablero.MejorDeDiez;
-import juego.tablero.MiniJuego;
-
 import java.util.ArrayList;
 
 import juego.personas.Jugador;
+import juego.tablero.MejorDeDiez;
+import juego.tablero.MiniJuego;
 /*
  * Esta clase igual se podr�a reemplazar por el loop en la clase partida y 
  * lanzar despu�s del loop el minijuego, pero bueno, ya estaba 
@@ -22,6 +21,7 @@ public class Ronda {
 		int i = 0;
 		for(Jugador j: this.jugadoresEnPartida) {
 			nombres[i] = j.getNombre();
+			i++;
 		}
 		minijuego = new MejorDeDiez();
 		((MejorDeDiez)minijuego).setJugadores(nombres);
