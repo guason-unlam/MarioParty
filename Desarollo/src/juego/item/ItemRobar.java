@@ -21,25 +21,24 @@ public class ItemRobar extends Item {
 	@Override
 	protected Jugador elegirObjetivo() {
 		Iterator<Jugador> iterador = this.duenio.getPartida().getJugadoresEnPartida().iterator();
-		List<Jugador> oponentes = new ArrayList<Jugador>(); //Una lista con los jugadores oponentes
-		
-		while(iterador.hasNext()) {
+		List<Jugador> oponentes = new ArrayList<Jugador>(); // Una lista con los jugadores oponentes
+
+		while (iterador.hasNext()) {
 			Jugador jugador = iterador.next();
-			if(!jugador.equals(this.duenio))
+			if (!jugador.equals(this.duenio))
 				oponentes.add(jugador);
 		}
-		
-		
+
 		iterador = oponentes.iterator();
-		int i=1,numeroIngresado;
-		while(iterador.hasNext()) {//Muestro todos los oponentes para que elija el objetivo
+		int i = 1, numeroIngresado;
+		while (iterador.hasNext()) {// Muestro todos los oponentes para que elija el objetivo
 			juego.Main.mostrar(i + "- " + iterador.next().getNombre());
 			i++;
 		}
 		do {
-			numeroIngresado = juego.Main.leer(); //El jugador elije el oponente objetivo
-		}while(numeroIngresado<1 || numeroIngresado>i);
-		return  oponentes.get(numeroIngresado);
+			numeroIngresado = juego.Main.leerInt(); // El jugador elije el oponente objetivo
+		} while (numeroIngresado < 1 || numeroIngresado > i);
+		return oponentes.get(numeroIngresado - 1);
 	}
 
 }

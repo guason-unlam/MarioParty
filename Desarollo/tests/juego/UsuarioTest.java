@@ -2,13 +2,14 @@ package juego;
 
 import java.util.ArrayList;
 
-import org.junit.*;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
 
 import juego.lobby.Partida;
 import juego.lobby.Sala;
 import juego.lobby.Usuario;
 import juego.personas.Jugador;
-import juego.tablero.Tablero;
 
 public class UsuarioTest {
 	

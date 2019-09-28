@@ -2,13 +2,13 @@ package juego;
 
 import java.util.ArrayList;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
 import juego.lobby.ExcepcionJugadoresInsuficientes;
 import juego.lobby.Partida;
 import juego.lobby.Usuario;
-import junit.framework.Assert;
 
 public class PartidaTest {
 	private Usuario user1;
@@ -23,8 +23,8 @@ public class PartidaTest {
 		ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
 		usuarios.add(user1);
 		usuarios.add(user2);
-		// 1 Ronda
-		partida = new Partida(usuarios, 1);
+		// 5 Rondas
+		partida = new Partida(usuarios, 5);
 	}
 
 	@Test
@@ -34,6 +34,6 @@ public class PartidaTest {
 		}catch(ExcepcionJugadoresInsuficientes e) {
 			Main.mostrar(e.getMessage());
 		}
-		Assert.assertFalse(partida.getGanadorPartida() != null);
+		Assert.assertTrue(partida.getGanadorPartida() != null);
 	}
 }

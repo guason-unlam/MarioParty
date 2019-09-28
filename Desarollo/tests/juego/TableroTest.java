@@ -17,14 +17,22 @@ public class TableroTest {
 		Assert.assertEquals(71, this.tablero.getCasilleros().size());
 	}
 
-	@Test(expected = FileNotFoundException.class)
-	public void crearTableroArchivoNoExisteTest() throws ExcepcionArchivos, FileNotFoundException {
-		tablero = new Tablero("../Mapas/tablero_inexistente.txt");
+	@Test
+	public void crearTableroArchivoNoExisteTest() {
+		try {
+			tablero = new Tablero("../Mapas/tablero_inexistente.txt");
+		} catch (FileNotFoundException |ExcepcionArchivos ex) {
+			Assert.assertEquals(FileNotFoundException.class, ex.getClass());
+		}
 	}
 
-	@Test(expected = ExcepcionArchivos.class)
-	public void crearTableroArchivoVacioTest() throws ExcepcionArchivos, FileNotFoundException {
-		tablero = new Tablero("../Mapas/tableroVacio.txt");
+	@Test
+	public void crearTableroArchivoVacioTest() {
+		try {
+			tablero = new Tablero("../Mapas/tableroVacio.txt");
+		} catch (FileNotFoundException | ExcepcionArchivos ex) {
+			Assert.assertEquals(ExcepcionArchivos.class, ex.getClass());
+		}
 	}
 
 }

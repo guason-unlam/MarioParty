@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import juego.personas.Jugador;
 import juego.tablero.MejorDeDiez;
 import juego.tablero.MiniJuego;
+
 /*
  * Esta clase igual se podria reemplazar por el loop en la clase partida y 
  * lanzar despues del loop el minijuego, pero bueno, ya estaba 
@@ -16,29 +17,31 @@ public class Ronda {
 	private int id;
 	private MiniJuego minijuego;
 	private ArrayList<Jugador> jugadoresEnPartida;
+
 	public Ronda(ArrayList<Jugador> jugadoresEnPartida) {
 		this.jugadoresEnPartida = jugadoresEnPartida;
-		String []nombres = new String[this.jugadoresEnPartida.size()];
+		String[] nombres = new String[this.jugadoresEnPartida.size()];
 		int i = 0;
-		for(Jugador j: this.jugadoresEnPartida) {
+		for (Jugador j : this.jugadoresEnPartida) {
 			nombres[i] = j.getNombre();
 			i++;
 		}
 		minijuego = new MejorDeDiez();
-		((MejorDeDiez)minijuego).setJugadores(nombres);
+		((MejorDeDiez) minijuego).setJugadores(nombres);
 	}
+
 	/*
-	 * Devuelve un int para devolver distintos tipos de error se puede cambiar a void
-	 * y lanzar excepciones
-	 * */
+	 * Devuelve un int para devolver distintos tipos de error se puede cambiar a
+	 * void y lanzar excepciones
+	 */
 	public void iniciar() {
-		for(Jugador jug:jugadoresEnPartida) {
+		for (Jugador jug : jugadoresEnPartida) {
 			Turno t = new Turno(jug);
 			t.iniciarTurno();
-			//jug.tirarDado();
+			// jug.tirarDado();
 		}
-		((MejorDeDiez)minijuego).iniciar();
+		((MejorDeDiez) minijuego).iniciar();
 //		Lanzo minijuego cuando lo tenga
 	}
-	
+
 }

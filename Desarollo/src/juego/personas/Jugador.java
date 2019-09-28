@@ -61,10 +61,10 @@ public class Jugador implements Comparable<Jugador> {
 						this.pesos -= partida.getPrecioDolar();
 						this.partida.cambioArbolito(this.posicion);
 						juego.Main.mostrar("Gracias.");
-					}else {
+					} else {
 						juego.Main.mostrar("No te alcanza");
 					}
-				}else {
+				} else {
 					juego.Main.mostrar("Nos volveremos a ver...");
 				}
 			}
@@ -86,7 +86,7 @@ public class Jugador implements Comparable<Jugador> {
 		} else {
 			juego.Main.mostrar("Posibles opciones: "); // cuando hay mas de 1 camino, el jugador elije
 			for (Casillero casillero : siguiente) {
-				juego.Main.mostrar(""+casillero.getId());
+				juego.Main.mostrar("" + casillero.getId());
 			}
 			do {
 				juego.Main.mostrar("");
@@ -105,14 +105,15 @@ public class Jugador implements Comparable<Jugador> {
 
 			this.posicion = seleccionado;
 		}
+		System.out.println(this.nombre + " esta en el casillero " + this.posicion.getId());
 	}
-	
+
 	public void darPesos(int cant) {
 		this.pesos += cant;
 	}
-	
+
 	public int quitarPesos(int cant) {
-		if(this.pesos<cant) {
+		if (this.pesos < cant) {
 			int ret = this.pesos;
 			this.pesos = 0;
 			return ret;
@@ -120,7 +121,7 @@ public class Jugador implements Comparable<Jugador> {
 		this.pesos -= cant;
 		return cant;
 	}
-	
+
 	/*
 	 * SETTERS Y GETTERS
 	 * 
