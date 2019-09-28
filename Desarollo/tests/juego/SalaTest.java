@@ -26,4 +26,27 @@ public class SalaTest {
 		Sala sala = usuarioCreador.crearSala();
 		Assert.assertEquals(usuarioCreador, sala.getUsuarioCreador());
 	}
+
+	@Test
+	public void TestCreadorSalaSinPw() {
+		Usuario usuarioCreador = new Usuario("prueba", "1234");
+		Sala sala = new Sala("Sala 1", 10, usuarioCreador);
+		Assert.assertEquals(usuarioCreador, sala.getUsuarioCreador());
+		Assert.assertEquals(10, sala.getCapacidadMaxima());
+	}
+
+	@Test
+	public void esCreadorAdminTest() {
+		Usuario usuarioCreador = new Usuario("prueba", "1234");
+		Sala sala = new Sala("Sala 1", 10, usuarioCreador);
+		Assert.assertEquals(true, sala.esAdmin(usuarioCreador));
+	}
+	
+	@Test
+	public void sacarUsuarioDeSalaTest() {
+		Usuario usuarioCreador = new Usuario("prueba", "1234");
+		Sala sala = new Sala("Sala 1", 10, usuarioCreador);
+		sala.sacarUsuarioDeSala(usuarioCreador);
+		Assert.assertEquals(null, usuarioCreador.getSala());
+	}
 }

@@ -68,7 +68,7 @@ public class MejorDeDiez extends MiniJuego {
 	public String[] getResumen(){
 		int i=0;
 		String[]nombresOrdenados = new String[resumen.size()];
-		Iterator it = resumen.descendingIterator();
+		Iterator<JugadorMinijuego> it = resumen.descendingIterator();
 		while(it.hasNext()) {
 			nombresOrdenados[i++] = ((JugadorMinijuego)(it.next())).getNombre();
 		}

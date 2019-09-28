@@ -125,8 +125,11 @@ public class Usuario {
 
 		if (this.sala != null && this.sala.getPartidaActual() != null
 				&& this.sala.getPartidaActual().getUsuariosActivosEnSala() != null) {
-			// TO DO: Revisar bien que no quede asi
-			return this.sala.getPartidaActual().getUsuariosActivosEnSala().get(0).getJugador();
+			for (Usuario user : this.sala.getPartidaActual().getUsuariosActivosEnSala()) {
+				if(user == this) {
+					return user.getJugador();
+				}
+			}
 		}
 		return null;
 	}
