@@ -47,11 +47,29 @@ public class JugadorTest {
 	
 	@Test
 	public void pruebaAvanzar() {
-		Casillero cas = jugador2.getPosicion();
-		Assert.assertEquals(jugador2.getPosicion(), jugador1.getPosicion());
-		jugador1.tirarDado();
-		Assert.assertFalse(jugador2.getPosicion() == jugador1.getPosicion());
-		jugador2.tirarDado();
-		Assert.assertFalse(cas == jugador2.getPosicion());
+		//al comienzo, los jugadores estan en la misma posicion
+		Casillero cas = jugador2.getPosicion(); //guardo la posicion inicial de los jugadores
+		moverJugador(jugador1);
+		Assert.assertFalse(jugador2.getPosicion() == jugador1.getPosicion());//verifico q el jugador 1 se haya movido
+		
+		moverJugador(jugador2);
+		Assert.assertFalse(cas == jugador2.getPosicion());//verifico q el jugador 2 se hay amovido
+	}
+	
+	//metodo auxiliar para avanzar varios casilleros, esta logica se va a implementar mas adelante
+	//cuando el juego ya sea interactivo
+	private void moverJugador(Jugador jugador) {
+		for(int i = jugador.tirarDado(); i>0; i--)
+		{
+			if(jugador.caminosDisponibles()==1)
+				jugador.avanzarUnCasillero();
+			else
+				jugador.avanzarUnCasillero(1); //si hay mas de un camino, avanzo por el primer camino
+			if(jugador.getPosicion().isTieneArbolito()) { // si hay arbolito, intento comprar un dolar
+				jugador.comprarDolar();
+			}
+		}
+		if(jugador1.getPosicion().isTieneRecompensa())
+			jugador1.getPosicion().getRecompensa().darRecompensa(jugador1);
 	}
 }
