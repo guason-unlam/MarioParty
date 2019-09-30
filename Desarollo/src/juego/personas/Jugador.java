@@ -41,7 +41,7 @@ public class Jugador implements Comparable<Jugador> {
 		dado = new Dado(6);
 	}
 
-	private void avanzar(int d) {
+	public void avanzar(int d) {
 		this.posicion.removerJugador(this);
 		juego.Main.mostrar("Debo avanzar " + d + " posicion(es)");
 		for (int i = 0; i < d; i++) {
@@ -84,6 +84,7 @@ public class Jugador implements Comparable<Jugador> {
 		{
 			this.posicion = siguiente.get(0);
 		} else {
+			this.posicion = elejirCamino(siguiente);
 			juego.Main.mostrar("Posibles opciones: "); // cuando hay mas de 1 camino, el jugador elije
 			for (Casillero casillero : siguiente) {
 				juego.Main.mostrar("" + casillero.getId());
@@ -107,7 +108,11 @@ public class Jugador implements Comparable<Jugador> {
 		}
 		System.out.println(this.nombre + " esta en el casillero " + this.posicion.getId());
 	}
-
+	
+	private Casillero elejirCamino(ArrayList<Casillero> siguiente) {
+		return siguiente.get(0);
+	}
+	
 	public void darPesos(int cant) {
 		this.pesos += cant;
 	}
