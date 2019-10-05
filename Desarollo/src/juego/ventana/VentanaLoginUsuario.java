@@ -3,6 +3,9 @@ package juego.ventana;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
@@ -15,7 +18,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.ImageIcon;
 
-public class VentanaLoginUsuario extends JFrame {
+public class VentanaLoginUsuario extends JFrame implements ActionListener {
 	/**
 	 * 
 	 */
@@ -24,13 +27,65 @@ public class VentanaLoginUsuario extends JFrame {
 	private JTextField password;
 	private JButton btnRegistrarse;
 	private JButton btnCrearUsuario;
+	private JMenuBar javaMenuBar = null;
+	private JMenu jmFile = null;
+	private JMenu jmOptions = null;
 
 	public VentanaLoginUsuario() {
 		this.setResizable(false);
 		this.setLocationRelativeTo(null);
 		this.getContentPane().setLayout(null);
 		setTitle("Mario Party");
+		javaMenuBar = new JMenuBar();
 
+		jmFile = new JMenu("Archivo");
+
+		// Se crean los items de la pantalla
+		JMenuItem jmiOpen = new JMenuItem("Abrir");
+		JMenuItem jmiClose = new JMenuItem("Cerrar");
+		JMenuItem jmiSave = new JMenuItem("Guardar");
+		JMenuItem jmiExit = new JMenuItem("Salir");
+
+		// Se agregan los items al archivo
+		jmFile.add(jmiOpen);
+		jmFile.add(jmiClose);
+		jmFile.add(jmiSave);
+		jmFile.addSeparator();
+		jmFile.add(jmiExit);
+		javaMenuBar.add(jmFile);
+
+		jmOptions = new JMenu("Opciones");
+		JMenu a = new JMenu("A");
+		JMenuItem b = new JMenuItem("B");
+		JMenuItem c = new JMenuItem("C");
+		JMenuItem d = new JMenuItem("D");
+		a.add(b);
+		a.add(c);
+		a.add(d);
+		jmOptions.add(a);
+
+		JMenu e = new JMenu("E");
+		e.add(new JMenuItem("F"));
+		e.add(new JMenuItem("G"));
+		jmOptions.add(e);
+
+		javaMenuBar.add(jmOptions);
+
+		JMenu jmHelp = new JMenu("Ayuda");
+		JMenuItem jmiHelp = new JMenuItem("Ayuda de Mario Party");
+		jmHelp.add(jmiHelp);
+		javaMenuBar.add(jmHelp);
+
+		jmiOpen.addActionListener(this);
+		jmiClose.addActionListener(this);
+		jmiSave.addActionListener(this);
+		jmiExit.addActionListener(this);
+		b.addActionListener(this);
+		c.addActionListener(this);
+		d.addActionListener(this);
+		jmiHelp.addActionListener(this);
+
+		this.setJMenuBar(javaMenuBar);
 		JLabel usernameLabel = new JLabel("Usuario");
 		usernameLabel.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		usernameLabel.setToolTipText("");
@@ -71,7 +126,8 @@ public class VentanaLoginUsuario extends JFrame {
 		this.btnRegistrarse.setBounds(257, 206, 129, 23);
 		getContentPane().add(this.btnRegistrarse);
 
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		// Sin esto, el yes/no dialog no sirve
+		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		this.setBounds(0, 0, Constantes.LOGIN_WIDTH, Constantes.LOGIN_HEIGHT);
 		this.setLocationRelativeTo(null);
 		addListener();
@@ -83,8 +139,10 @@ public class VentanaLoginUsuario extends JFrame {
 		this.addWindowListener(new java.awt.event.WindowAdapter() {
 			@Override
 			public void windowClosing(java.awt.event.WindowEvent windowEvent) {
-				if (JOptionPane.showConfirmDialog(getContentPane(), "Desea cerrar la ventana?", "Atención!",
-						JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
+				int opcion = JOptionPane.showConfirmDialog(getContentPane(), "Desea cerrar la ventana?", "Atención!",
+						JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+
+				if (opcion == JOptionPane.YES_OPTION) {
 					System.exit(0);
 				}
 			}
@@ -95,7 +153,7 @@ public class VentanaLoginUsuario extends JFrame {
 				// registrar();
 			}
 		});
-		
+
 		btnCrearUsuario.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				new VentanaJuego().setVisible(true);
@@ -105,5 +163,23 @@ public class VentanaLoginUsuario extends JFrame {
 
 	public static void main(String[] args) {
 		new VentanaLoginUsuario().setVisible(true);
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent ae) {
+		String comStr = ae.getActionCommand();
+
+		if (comStr == "Salir") {
+			int opcion = JOptionPane.showConfirmDialog(getContentPane(), "Desea cerrar la ventana?", "Atención!",
+					JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+			System.out.println(opcion);
+			if (opcion == JOptionPane.YES_OPTION) {
+				System.exit(0);
+			}
+		} else if (comStr == "Ayuda de Mario Party") {
+			new Ayuda().setVisible(true);
+		}
+
+		System.out.println(comStr + " Selected");
 	}
 }
