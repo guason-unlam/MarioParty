@@ -121,6 +121,16 @@ public class Jugador implements Comparable<Jugador> {
 		this.pesos -= cant;
 		return cant;
 	}
+	
+	public void usarItem(Item item) {
+		item.activarItem(item.elegirObjetivo());
+		int posicionEnInventario=0;
+		Iterator<Item> i = this.getInventario().getItems().iterator();
+		while(i.hasNext() && !i.next().equals(item))
+			posicionEnInventario++;
+		this.getInventario().getItems().remove(posicionEnInventario);
+		this.getInventario().setCantItems(this.getInventario().getCantItems() - 1);
+	}
 
 	/*
 	 * SETTERS Y GETTERS
