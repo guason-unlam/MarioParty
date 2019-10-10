@@ -54,4 +54,25 @@ public class InventarioTest {
 		}
 		Assert.assertEquals(0, i);
 	}
+	
+		@Test
+	public void seSumaItemAInventarioTest(){
+		Jugador jugador1 = new Jugador(usuario, tablero, partida);
+		Item item;
+		item = new ModificadorDado();
+		int cantidadItems = jugador1.getInventario().getCantItems();
+		item.darRecompensa(jugador1);
+		Assert.assertEquals(cantidadItems+1, jugador1.getInventario().getCantItems());
+	}
+	
+	@Test
+	public void capacidadMaximaInventarioTest(){
+		Jugador jugador1 = new Jugador(usuario, tablero, partida);
+		Item item;
+		item = new ModificadorDado();
+		for (int i=0; i<200; i++){
+			item.darRecompensa(jugador1);
+		}
+		Assert.assertEquals(jugador1.getInventario().getCapacidad(), jugador1.getInventario().getCantItems());
+	}
 }
