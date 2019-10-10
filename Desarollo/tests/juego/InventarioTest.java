@@ -13,6 +13,13 @@ import juego.item.ModificadorDado;
 public class InventarioTest {
 	private Inventario inventario;
 	private Item item;
+	// Necesario para los últimos 2 test.
+	private Usuario usuario = new Usuario("asd","asd");
+	private Usuario usuario2 = new Usuario("asd","asd");
+	ArrayList <Usuario> vec = new ArrayList <Usuario>();
+	private Tablero tablero;
+	Partida partida = new Partida(vec, 0);
+	Jugador jugador2;
 
 	@Before
 	public void inicio() {
