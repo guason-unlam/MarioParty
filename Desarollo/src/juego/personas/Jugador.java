@@ -34,78 +34,18 @@ public class Jugador implements Comparable<Jugador> {
 		this.inventario = new Inventario(10); // 10 items maximos
 	}
 
-	public void tirarDado() {
-		int numero = this.dado.tirar();
-		// System.out.println("Sali");
-		avanzar(numero);
-		dado = new Dado(6);
+	public int tirarDado() {
+		return this.dado.tirar();
 	}
 
-	private void avanzar(int d) {
-		this.posicion.removerJugador(this);
-		juego.Main.mostrar("Debo avanzar " + d + " posicion(es)");
-		for (int i = 0; i < d; i++) {
-			avanzarUnCasillero();
-			if (this.posicion.isTieneArbolito() == true) { // Si el casillero por el q acabo de pasar tiene un arbolito,
-															// puedo comprar un dolar
-				juego.Main.mostrar("Desea comprar un dolar por " + partida.getPrecioDolar() + " pesos?");
-				char respuesta;
-
-				do
-					respuesta = (char) juego.Main.leer();
-				while (respuesta != 'S' && respuesta != 'N');
-
-				if (respuesta == 'S') {
-					if (this.pesos >= partida.getPrecioDolar()) {
-						this.dolares++;
-						this.pesos -= partida.getPrecioDolar();
-						this.partida.cambioArbolito(this.posicion);
-						juego.Main.mostrar("Gracias.");
-					} else {
-						juego.Main.mostrar("No te alcanza");
-					}
-				} else {
-					juego.Main.mostrar("Nos volveremos a ver...");
-				}
-			}
-		}
-		if (this.posicion.isTieneRecompensa() && this.posicion.isPrimeraVez()) {
-			this.posicion.getRecompensa().darRecompensa(this);
-		}
-		this.posicion.agregarJugador(this);
+	public int avanzarUnCasillero() {//este metodo avanza un casillero y devuelve la cantidad de caminos disponibles
+		this.posicion = this.posicion.getSiguiente().get(0);
+		return this.posicion.getSiguiente().size();
 	}
-
-	private void avanzarUnCasillero() {
-		ArrayList<Casillero> siguiente = this.posicion.getSiguiente();
-		Casillero seleccionado = null;
-		boolean flagCasillero = false;
-		int caminoElegido;
-		if (siguiente.size() == 1) // si solo hay 1 camino, avanzo
-		{
-			this.posicion = siguiente.get(0);
-		} else {
-			juego.Main.mostrar("Posibles opciones: "); // cuando hay mas de 1 camino, el jugador elije
-			for (Casillero casillero : siguiente) {
-				juego.Main.mostrar("" + casillero.getId());
-			}
-			do {
-				juego.Main.mostrar("");
-				juego.Main.mostrar("Elije un camino"); // cuando hay mas de 1 camino, el jugador elije
-
-				caminoElegido = juego.Main.leerInt();
-
-				for (Casillero casillero : siguiente) {
-					if (casillero.getId() == caminoElegido) {
-						flagCasillero = true;
-						seleccionado = casillero;
-						break;
-					}
-				}
-			} while (flagCasillero == false);
-
-			this.posicion = seleccionado;
-		}
-		System.out.println(this.nombre + " esta en el casillero " + this.posicion.getId());
+	
+	public int avanzarUnCasillero(int camino) {
+		this.posicion = this.posicion.getSiguiente().get(camino);
+		return this.posicion.getSiguiente().size();
 	}
 
 	public void darPesos(int cant) {
@@ -130,6 +70,24 @@ public class Jugador implements Comparable<Jugador> {
 			posicionEnInventario++;
 		this.getInventario().getItems().remove(posicionEnInventario);
 		this.getInventario().setCantItems(this.getInventario().getCantItems() - 1);
+	}
+	
+	public boolean comprarDolar() {
+		if(!this.posicion.isTieneArbolito())
+				return false;
+		if (this.pesos < partida.getPrecioDolar()) {
+			return false;
+		}
+		
+		this.dolares++;
+		this.pesos -= partida.getPrecioDolar();
+		this.partida.cambioArbolito(this.posicion);
+		this.posicion.setTieneArbolito(false);
+		return true;
+	}
+	
+	public int caminosDisponibles() {
+		return this.posicion.getSiguiente().size();
 	}
 
 	/*
