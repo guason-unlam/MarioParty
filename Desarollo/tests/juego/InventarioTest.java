@@ -1,5 +1,6 @@
 package juego;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 
 import org.junit.Assert;
@@ -9,6 +10,10 @@ import org.junit.Test;
 import juego.item.Inventario;
 import juego.item.Item;
 import juego.item.ModificadorDado;
+import juego.lobby.Partida;
+import juego.lobby.Usuario;
+import juego.personas.Jugador;
+import juego.tablero.Tablero;
 
 public class InventarioTest {
 	private Inventario inventario;

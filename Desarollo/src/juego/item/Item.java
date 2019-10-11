@@ -17,7 +17,7 @@ public abstract class Item extends Recompensa {
 	public abstract void activarItem(Jugador objetivo);
 
 
-	protected abstract Jugador elegirObjetivo();
+	public abstract Jugador elegirObjetivo();
 
 	public Jugador getDuenio() {
 		return this.duenio;

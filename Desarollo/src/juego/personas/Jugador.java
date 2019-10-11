@@ -2,9 +2,11 @@ package juego.personas;
 
 import java.awt.Color;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Random;
 
 import juego.item.Inventario;
+import juego.item.Item;
 import juego.lobby.Partida;
 import juego.lobby.Usuario;
 import juego.misc.Dado;
