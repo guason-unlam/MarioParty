@@ -1,5 +1,11 @@
 package juego.ventana;
 
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -11,27 +17,24 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import juego.Constantes;
+import juego.lobby.Partida;
+import juego.lobby.Usuario;
 
-import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.Color;
 
-import javax.swing.ImageIcon;
-
-public class VentanaLoginUsuario extends JFrame implements ActionListener {
+public class VentanaLobby extends JFrame implements ActionListener {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 9099821102113802071L;
-	private JTextField username;
-	private JTextField password;
-	private JButton btnRegistrarse;
-	private JButton btnCrearUsuario;
+	private JButton btnSalir;
+	private JButton btnEmpezar;
 	private JMenuBar javaMenuBar = null;
 	private JMenu jmFile = null;
 	private JMenu jmOptions = null;
+	private Usuario usuario;
 
-	public VentanaLoginUsuario() {
+	public VentanaLobby() {
 		this.setResizable(false);
 		this.setLocationRelativeTo(null);
 		this.getContentPane().setLayout(null);
@@ -86,51 +89,37 @@ public class VentanaLoginUsuario extends JFrame implements ActionListener {
 		jmiHelp.addActionListener(this);
 
 		this.setJMenuBar(javaMenuBar);
-		JLabel usernameLabel = new JLabel("Usuario");
-		usernameLabel.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		usernameLabel.setToolTipText("");
-		usernameLabel.setBounds(114, 133, 92, 14);
-		this.getContentPane().add(usernameLabel);
 
-		JLabel passwordLabel = new JLabel("Contrase\u00F1a");
-		passwordLabel.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		passwordLabel.setBounds(99, 167, 92, 14);
-		this.getContentPane().add(passwordLabel);
+		this.btnEmpezar = new JButton("INICIAR PARTIDA");
+		btnEmpezar.setForeground(Color.BLACK);
+		btnEmpezar.setBackground(Color.GREEN);
 
-		this.username = new JTextField();
+		this.btnEmpezar.setBounds(121, 66, 194, 84);
+		this.getContentPane().add(this.btnEmpezar);
 
-		this.username.setToolTipText("Ingrese su usuario aqu\u00ED. Maximo 20 caracteres.");
-		this.username.setBounds(257, 130, 129, 20);
-		this.username.setColumns(10);
-		this.getContentPane().add(this.username);
-
-		this.password = new JPasswordField();
-
-		this.password.setToolTipText("Ingrese su contrase\u00F1a aqu\u00ED. Maximo 10 caracteres.");
-		this.password.setBounds(257, 161, 129, 20);
-		this.password.setColumns(10);
-		this.getContentPane().add(this.password);
-
-		this.btnCrearUsuario = new JButton("Iniciar Sesi\u00F3n");
-
-		this.btnCrearUsuario.setBounds(77, 206, 129, 23);
-		this.getContentPane().add(this.btnCrearUsuario);
-
-		JLabel labelJuego = new JLabel("");
-		labelJuego.setIcon(new ImageIcon(Constantes.LOGO_PATH));
-		labelJuego.setFont(new Font("Tahoma", Font.BOLD, 17));
-		labelJuego.setBounds(10, 11, 428, 139);
-		this.getContentPane().add(labelJuego);
-
-		this.btnRegistrarse = new JButton("Registrarse");
-		this.btnRegistrarse.setBounds(257, 206, 129, 23);
-		getContentPane().add(this.btnRegistrarse);
+		this.btnSalir = new JButton("Salir");
+		btnSalir.setForeground(Color.WHITE);
+		btnSalir.setBackground(Color.RED);
+		this.btnSalir.setBounds(257, 206, 129, 23);
+		getContentPane().add(this.btnSalir);
+		
 
 		// Sin esto, el yes/no dialog no sirve
 		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		this.setBounds(0, 0, Constantes.LOGIN_WIDTH, Constantes.LOGIN_HEIGHT);
 		this.setLocationRelativeTo(null);
 		addListener();
+
+		// Voy a crear mi usuario
+		// Por ahora hardcodeado
+		usuario = new Usuario("admin", "admin");
+		//Creo la sala
+		usuario.crearSala();
+		
+		//Seteo el nombre
+		JLabel nombreSala = new JLabel(usuario.getSala().getNombre());
+		nombreSala.setBounds(10, 11, 46, 14);
+		getContentPane().add(nombreSala);
 
 	}
 
@@ -148,21 +137,20 @@ public class VentanaLoginUsuario extends JFrame implements ActionListener {
 			}
 		});
 
-		this.btnRegistrarse.addActionListener(new ActionListener() {
+		this.btnSalir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				// registrar();
 			}
 		});
 
-		btnCrearUsuario.addActionListener(new ActionListener() {
+		btnEmpezar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				new VentanaLobby().setVisible(true);
+				//Aca debo iniciar la partida
+				//Por ahora es un single player
+				Partida p = new Partida(usuario.getSala().getUsuariosActivos(),1);
+				new VentanaJuego(p).setVisible(true);
 			}
 		});
-	}
-
-	public static void main(String[] args) {
-		new VentanaLoginUsuario().setVisible(true);
 	}
 
 	@Override
