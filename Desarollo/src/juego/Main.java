@@ -10,6 +10,7 @@ public class Main {
 	public static void main(String[] args) {
 		iniciarJuego();
 		VentanaLoginUsuario n = new VentanaLoginUsuario();
+		n.setVisible(true);
 	}
 
 	public static void iniciarJuego() {
