@@ -19,7 +19,7 @@ public class ItemRobar extends Item {
 	}
 
 	@Override
-	protected Jugador elegirObjetivo() {
+	public Jugador elegirObjetivo() {
 		Iterator<Jugador> iterador = this.duenio.getPartida().getJugadoresEnPartida().iterator();
 		List<Jugador> oponentes = new ArrayList<Jugador>(); // Una lista con los jugadores oponentes
 

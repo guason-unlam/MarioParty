@@ -33,7 +33,7 @@ public class Turno {
 		if (respuesta == 'N') // Si el jugador no quiere usar ningun item, termina su turno
 			return;
 
-		elegirItem().usarItem();
+		jugador.usarItem(elegirItem());
 	}
 
 	private Item elegirItem() {

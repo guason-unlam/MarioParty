@@ -1,5 +1,6 @@
 package juego;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 
 import org.junit.Assert;
@@ -9,10 +10,21 @@ import org.junit.Test;
 import juego.item.Inventario;
 import juego.item.Item;
 import juego.item.ModificadorDado;
+import juego.lobby.Partida;
+import juego.lobby.Usuario;
+import juego.personas.Jugador;
+import juego.tablero.Tablero;
 
 public class InventarioTest {
 	private Inventario inventario;
 	private Item item;
+	// Necesario para los últimos 2 test.
+	private Usuario usuario = new Usuario("asd","asd");
+	private Usuario usuario2 = new Usuario("asd","asd");
+	ArrayList <Usuario> vec = new ArrayList <Usuario>();
+	private Tablero tablero;
+	Partida partida = new Partida(vec, 0);
+	Jugador jugador2;
 
 	@Before
 	public void inicio() {
@@ -53,5 +65,26 @@ public class InventarioTest {
 			iterator.next();
 		}
 		Assert.assertEquals(0, i);
+	}
+	
+		@Test
+	public void seSumaItemAInventarioTest(){
+		Jugador jugador1 = new Jugador(usuario, tablero, partida);
+		Item item;
+		item = new ModificadorDado();
+		int cantidadItems = jugador1.getInventario().getCantItems();
+		item.darRecompensa(jugador1);
+		Assert.assertEquals(cantidadItems+1, jugador1.getInventario().getCantItems());
+	}
+	
+	@Test
+	public void capacidadMaximaInventarioTest(){
+		Jugador jugador1 = new Jugador(usuario, tablero, partida);
+		Item item;
+		item = new ModificadorDado();
+		for (int i=0; i<200; i++){
+			item.darRecompensa(jugador1);
+		}
+		Assert.assertEquals(jugador1.getInventario().getCapacidad(), jugador1.getInventario().getCantItems());
 	}
 }
