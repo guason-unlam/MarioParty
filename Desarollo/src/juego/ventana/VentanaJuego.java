@@ -15,8 +15,10 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import graphics.Texture;
 import juego.Constantes;
 import juego.lobby.Partida;
+import juego.personas.Jugador;
 import juego.tablero.Tablero;
 import juego.tablero.casillero.Casillero;
 import javax.swing.JButton;
@@ -34,6 +36,7 @@ public class VentanaJuego extends JFrame implements ImageObserver {
 	 */
 	private static final long serialVersionUID = 3849520346687736542L;
 	private Partida p;
+	private static Texture tex;
 
 	/*
 	 * public void paint(Graphics g) { g.fillRect(100, 50, Constantes.MAPA_WIDTH,
@@ -56,7 +59,7 @@ public class VentanaJuego extends JFrame implements ImageObserver {
 		JPanel panelJuego = new JPanel();
 		panelJuego.setBounds(103, 21, Constantes.MAPA_WIDTH, Constantes.MAPA_HEIGHT);
 		getContentPane().add(panelJuego);
-
+		tex = new Texture();
 		JButton btnAbrirMinijuego = new JButton("Abrir Minijuego");
 		btnAbrirMinijuego.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -65,6 +68,7 @@ public class VentanaJuego extends JFrame implements ImageObserver {
 				setVisible(false);
 			}
 		});
+		
 		btnAbrirMinijuego.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -97,9 +101,15 @@ public class VentanaJuego extends JFrame implements ImageObserver {
 			g.setColor(Color.black);
 			for (Casillero sig : casilleroActual.getSiguiente()) {
 				g.drawLine(	casilleroActual.getPosicionX() + ((Constantes.CASILLERO_WIDTH) / 2),
-							(casilleroActual.getPosicionY())+ ((Constantes.CASILLERO_HEIGHT) / 2), 
-							sig.getPosicionX() + Constantes.CASILLERO_WIDTH,
-							(sig.getPosicionY()) + Constantes.CASILLERO_HEIGHT);
+							(casilleroActual.getPosicionY())+((Constantes.CASILLERO_HEIGHT) / 2), 
+							sig.getPosicionX() + Constantes.CASILLERO_WIDTH/2,
+							(casilleroActual.getPosicionY()+((Constantes.CASILLERO_HEIGHT) / 2)));
+			}
+			for (Casillero sig : casilleroActual.getSiguiente()) {
+				g.drawLine(	sig.getPosicionX() + Constantes.CASILLERO_WIDTH/2,
+						(casilleroActual.getPosicionY())+ ((Constantes.CASILLERO_HEIGHT) / 2), 
+						sig.getPosicionX() + Constantes.CASILLERO_WIDTH/2,
+						(sig.getPosicionY()) + Constantes.CASILLERO_HEIGHT/2);
 			}
 			
 			Color c = Color.getHSBColor(h, s, b);
@@ -114,16 +124,33 @@ public class VentanaJuego extends JFrame implements ImageObserver {
 			
 		}
 	}
+	
+	public void dibujarPersonajes(Graphics g) {
+		int x, y;
+		for(int i = 0; i < p.getJugadoresEnPartida().size(); i++) {
+			Jugador tempPlayer = p.getJugadoresEnPartida().get(i);
+			x = tempPlayer.getPosicion().getPosicionX();
+			y = tempPlayer.getPosicion().getPosicionY();
+			g.drawImage(tex.characters[0/*tempPlayer.getPersonaje().getIdCharacter()*/], x, y, null);
+			//eso hay que descomentarlo cuando este bien implementado el registro y logeo de usuario y sacar el 0
+	
+		}
+	}
 
 	public void paint(Graphics g) {
 		super.paint(g);
 
 		// Creo los casilleros
 		this.dibujarCasilleros(g);
+		this.dibujarPersonajes(g);
 	}
 
 	public void cargarMapa() {
 
+	}
+	
+	public static Texture getInstance() {
+		return tex;
 	}
 
 }
