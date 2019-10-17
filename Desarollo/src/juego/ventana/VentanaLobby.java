@@ -139,7 +139,13 @@ public class VentanaLobby extends JFrame implements ActionListener {
 
 		this.btnSalir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				// registrar();
+				int opcion = JOptionPane.showConfirmDialog(getContentPane(), "Desea cerrar la ventana?", "Atención!",
+						JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+
+				if (opcion == JOptionPane.YES_OPTION) {
+					System.exit(0);
+				}
+			
 			}
 		});
 
@@ -149,6 +155,8 @@ public class VentanaLobby extends JFrame implements ActionListener {
 				//Por ahora es un single player
 				Partida p = new Partida(usuario.getSala().getUsuariosActivos(),1);
 				new VentanaJuego(p).setVisible(true);
+				setVisible(false);
+
 			}
 		});
 	}

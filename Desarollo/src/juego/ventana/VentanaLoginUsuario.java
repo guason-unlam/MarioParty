@@ -150,13 +150,15 @@ public class VentanaLoginUsuario extends JFrame implements ActionListener {
 
 		this.btnRegistrarse.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				// registrar();
+				
 			}
 		});
 
 		btnCrearUsuario.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				new VentanaLobby().setVisible(true);
+				//Sigue corriendo en background, deberia cerrarlo?
+				setVisible(false);
 			}
 		});
 	}
