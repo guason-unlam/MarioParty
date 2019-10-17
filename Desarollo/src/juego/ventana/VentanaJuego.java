@@ -7,8 +7,10 @@ import java.awt.GridBagLayout;
 import java.awt.image.ImageObserver;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Map.Entry;
 import java.util.Random;
+import java.util.Set;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -85,17 +87,14 @@ public class VentanaJuego extends JFrame implements ImageObserver {
 
 	}
 
-	private void dibujarCasilleros(Graphics g) {
+	private void dibujarCasillerosYPersonajes(Graphics g) {
 		int i = 0;
-		Random r = new Random();
+//		Random r = new Random();
 		for (Entry<Integer, Casillero> elemento : this.p.getTablero().getCasilleros().entrySet()) {
 
 			Casillero casilleroActual = elemento.getValue();
 			g.drawString(String.valueOf(elemento.getKey()), (casilleroActual.getPosicionX()),
 					(casilleroActual.getPosicionY()));
-			float h = r.nextFloat();
-			float s = r.nextFloat();
-			float b = 0.8f + ((1f - 0.8f) * r.nextFloat());
 			
 			/* Caminos */
 			g.setColor(Color.black);
@@ -112,7 +111,7 @@ public class VentanaJuego extends JFrame implements ImageObserver {
 						(sig.getPosicionY()) + Constantes.CASILLERO_HEIGHT/2);
 			}
 			
-			Color c = Color.getHSBColor(h, s, b);
+			Color c = casilleroActual.getColor();
 			g.setColor(c);
 			
 			g.fillRect(	casilleroActual.getPosicionX(), casilleroActual.getPosicionY(),
@@ -121,19 +120,12 @@ public class VentanaJuego extends JFrame implements ImageObserver {
 
 			g.drawRect( casilleroActual.getPosicionX(), casilleroActual.getPosicionY(),
 						Constantes.CASILLERO_WIDTH, Constantes.CASILLERO_HEIGHT);
+			int desplazamiento=0;
+			for (Jugador jugador : casilleroActual.getJugadores()) {
+				g.drawImage(tex.characters[0/*jugador.getPersonaje().getIdCharacter()*/],jugador.getPosicion().getPosicionX()+desplazamiento, jugador.getPosicion().getPosicionY(), null);
+				desplazamiento+=20;
+			}
 			
-		}
-	}
-	
-	public void dibujarPersonajes(Graphics g) {
-		int x, y;
-		for(int i = 0; i < p.getJugadoresEnPartida().size(); i++) {
-			Jugador tempPlayer = p.getJugadoresEnPartida().get(i);
-			x = tempPlayer.getPosicion().getPosicionX();
-			y = tempPlayer.getPosicion().getPosicionY();
-			g.drawImage(tex.characters[0/*tempPlayer.getPersonaje().getIdCharacter()*/], x, y, null);
-			//eso hay que descomentarlo cuando este bien implementado el registro y logeo de usuario y sacar el 0
-	
 		}
 	}
 
@@ -141,8 +133,8 @@ public class VentanaJuego extends JFrame implements ImageObserver {
 		super.paint(g);
 
 		// Creo los casilleros
-		this.dibujarCasilleros(g);
-		this.dibujarPersonajes(g);
+		this.dibujarCasillerosYPersonajes(g);
+//		this.dibujarPersonajes(g);
 	}
 
 	public void cargarMapa() {

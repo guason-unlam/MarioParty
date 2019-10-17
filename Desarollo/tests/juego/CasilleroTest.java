@@ -14,9 +14,8 @@ public class CasilleroTest {
 	@Test
 	public void hayId() {
 		
-		Casillero cas = new Casillero();
+		Casillero cas = new Casillero(15);
 		
-		cas.setId(15);
 		
 		assertTrue(15 == cas.getId());
 	}
@@ -24,9 +23,8 @@ public class CasilleroTest {
 	@Test
 	public void noHayId() {
 		
-		Casillero cas = new Casillero();
+		Casillero cas = new Casillero(14);
 		
-		cas.setId(14);
 		
 		assertFalse(15 == cas.getId());
 	}
@@ -34,7 +32,7 @@ public class CasilleroTest {
 	@Test
 	public void hayColor() {
 		
-		Casillero cas = new Casillero();
+		Casillero cas = new Casillero(0);
 		
 		Color col = new Color(255);
 		
@@ -50,7 +48,7 @@ public class CasilleroTest {
 	@Test
 	public void noHayColor() {
 		
-		Casillero cas = new Casillero();
+		Casillero cas = new Casillero(0);
 		
 		Color col = new Color(123);
 		
@@ -67,7 +65,7 @@ public class CasilleroTest {
 	
 	@Test 
 	public void hayPosicionX() {
-		Casillero cas = new Casillero();
+		Casillero cas = new Casillero(0);
 		
 		cas.setPosicionX(10);
 		
@@ -77,7 +75,7 @@ public class CasilleroTest {
 
 	@Test 
 	public void noHayPosicionX() {
-		Casillero cas = new Casillero();
+		Casillero cas = new Casillero(0);
 		
 		cas.setPosicionX(10);
 		
@@ -86,7 +84,7 @@ public class CasilleroTest {
 	
 	@Test 
 	public void hayPosicionY() {
-		Casillero cas = new Casillero();
+		Casillero cas = new Casillero(0);
 		
 		cas.setPosicionY(10);
 		
@@ -95,7 +93,7 @@ public class CasilleroTest {
 	
 	@Test 
 	public void noHayPosicionY() {
-		Casillero cas = new Casillero();
+		Casillero cas = new Casillero(0);
 		
 		cas.setPosicionY(10);
 		
@@ -104,7 +102,7 @@ public class CasilleroTest {
 	
 	@Test 
 	public void esPrimeraVez() {
-		Casillero cas = new Casillero();
+		Casillero cas = new Casillero(0);
 		
 		cas.setPrimeraVez(true);
 		
@@ -113,7 +111,7 @@ public class CasilleroTest {
 	
 	@Test 
 	public void noEsPrimeraVez() {
-		Casillero cas = new Casillero();
+		Casillero cas = new Casillero(0);
 		
 		cas.setPrimeraVez(false);
 		

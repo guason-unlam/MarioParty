@@ -160,6 +160,7 @@ public class Jugador implements Comparable<Jugador> {
 
 	public void setPosicion(Casillero posicion) {
 		this.posicion = posicion;
+		posicion.agregarJugador(this);
 	}
 
 	public Dado getDado() {

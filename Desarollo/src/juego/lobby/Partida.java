@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import juego.misc.ExcepcionArchivos;
 import juego.personas.Jugador;
+import juego.personas.Personaje;
 import juego.tablero.Tablero;
 import juego.tablero.casillero.Casillero;
 
@@ -45,7 +46,9 @@ public class Partida {
 			// Lo seteo al primer casillero
 			jugador.setPosicion(this.tablero.getCasilleros().get(0));
 			this.jugadoresEnPartida.add(jugador);
-
+			//aca se estan creando los personajes, hardcodeado todos con el mismo personaje
+			jugador.setPersonaje(new Personaje("Mario","este es mario(?",1));
+			jugador.setPosicion(tablero.getCasilleros().get(0)); // pongo los personajes en el primer casillero
 			usuario.setJugador(jugador);
 		}
 		if (cantidadTotalRondas != 0) {
