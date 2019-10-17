@@ -19,6 +19,13 @@ import juego.Constantes;
 import juego.lobby.Partida;
 import juego.tablero.Tablero;
 import juego.tablero.casillero.Casillero;
+import javax.swing.JButton;
+import javax.swing.AbstractAction;
+import java.awt.event.ActionEvent;
+import javax.swing.Action;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.ActionListener;
 
 public class VentanaJuego extends JFrame implements ImageObserver {
 
@@ -49,6 +56,21 @@ public class VentanaJuego extends JFrame implements ImageObserver {
 		JPanel panelJuego = new JPanel();
 		panelJuego.setBounds(103, 21, Constantes.MAPA_WIDTH, Constantes.MAPA_HEIGHT);
 		getContentPane().add(panelJuego);
+
+		JButton btnAbrirMinijuego = new JButton("Abrir Minijuego");
+		btnAbrirMinijuego.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				new VentanaMiniJuego();
+				setVisible(false);
+			}
+		});
+		btnAbrirMinijuego.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+			}
+		});
+
+		panelJuego.add(btnAbrirMinijuego);
 
 		JLabel lblNewLabel = new JLabel("");
 		lblNewLabel.setIcon(new ImageIcon(Constantes.TABLERO1_PATH));
@@ -92,4 +114,5 @@ public class VentanaJuego extends JFrame implements ImageObserver {
 	public void cargarMapa() {
 
 	}
+
 }
