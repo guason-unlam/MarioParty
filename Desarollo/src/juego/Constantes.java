@@ -15,5 +15,9 @@ public abstract class Constantes {
 	public static final int LOGIN_HEIGHT = 290;
 	public static final String LOGO_PATH = ASSETS_PATH + "logo.png";
 	public static final String TABLERO1_PATH = ASSETS_PATH + "tablero01.jpg";
+	
+	// Casilleros
+	public static final int CASILLERO_WIDTH = 50;
+	public static final int CASILLERO_HEIGHT = 50;
 
 }

@@ -92,16 +92,26 @@ public class VentanaJuego extends JFrame implements ImageObserver {
 			float h = r.nextFloat();
 			float s = r.nextFloat();
 			float b = 0.8f + ((1f - 0.8f) * r.nextFloat());
+			
+			/* Caminos */
+			g.setColor(Color.black);
+			for (Casillero sig : casilleroActual.getSiguiente()) {
+				g.drawLine(	casilleroActual.getPosicionX() + ((Constantes.CASILLERO_WIDTH) / 2),
+							(casilleroActual.getPosicionY())+ ((Constantes.CASILLERO_HEIGHT) / 2), 
+							sig.getPosicionX() + Constantes.CASILLERO_WIDTH,
+							(sig.getPosicionY()) + Constantes.CASILLERO_HEIGHT);
+			}
+			
 			Color c = Color.getHSBColor(h, s, b);
 			g.setColor(c);
-			g.fillRect(casilleroActual.getPosicionX(), casilleroActual.getPosicionY(), 100, 100);
+			
+			g.fillRect(	casilleroActual.getPosicionX(), casilleroActual.getPosicionY(),
+					  	Constantes.CASILLERO_WIDTH, Constantes.CASILLERO_HEIGHT);
 			g.setColor(Color.black);
 
-			g.drawRect(casilleroActual.getPosicionX(), casilleroActual.getPosicionY(), 100, 100);
-			for (Casillero sig : casilleroActual.getSiguiente()) {
-				g.drawLine(casilleroActual.getPosicionX(), (casilleroActual.getPosicionY()), sig.getPosicionX(),
-						(sig.getPosicionY()));
-			}
+			g.drawRect( casilleroActual.getPosicionX(), casilleroActual.getPosicionY(),
+						Constantes.CASILLERO_WIDTH, Constantes.CASILLERO_HEIGHT);
+			
 		}
 	}
 
