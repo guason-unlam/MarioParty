@@ -102,7 +102,6 @@ public class VentanaLobby extends JFrame implements ActionListener {
 		btnSalir.setBackground(Color.RED);
 		this.btnSalir.setBounds(257, 206, 129, 23);
 		getContentPane().add(this.btnSalir);
-		
 
 		// Sin esto, el yes/no dialog no sirve
 		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
@@ -113,11 +112,15 @@ public class VentanaLobby extends JFrame implements ActionListener {
 		// Voy a crear mi usuario
 		// Por ahora hardcodeado
 		usuario = new Usuario("admin", "admin");
-		//Creo la sala
+		// Creo la sala
 		usuario.crearSala();
-		
-		//Seteo el nombre
+
+		// Seteo el nombre
 		JLabel nombreSala = new JLabel(usuario.getSala().getNombre());
+
+		// Creo un bot
+		Usuario bot = new Usuario("bot", "bot");
+		bot.conectarseALaSala(usuario.getSala());
 		nombreSala.setBounds(10, 11, 46, 14);
 		getContentPane().add(nombreSala);
 
@@ -145,15 +148,15 @@ public class VentanaLobby extends JFrame implements ActionListener {
 				if (opcion == JOptionPane.YES_OPTION) {
 					System.exit(0);
 				}
-			
+
 			}
 		});
 
 		btnEmpezar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//Aca debo iniciar la partida
-				//Por ahora es un single player
-				Partida p = new Partida(usuario.getSala().getUsuariosActivos(),1);
+				// Aca debo iniciar la partida
+				// Por ahora es un single player
+				Partida p = new Partida(usuario.getSala().getUsuariosActivos(), 1);
 				new VentanaJuego(p).setVisible(true);
 				setVisible(false);
 

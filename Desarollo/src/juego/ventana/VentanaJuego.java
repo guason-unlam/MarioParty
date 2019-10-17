@@ -61,6 +61,7 @@ public class VentanaJuego extends JFrame implements ImageObserver {
 		btnAbrirMinijuego.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				new VentanaMiniJuego();
+				VentanaMiniJuego.ejecutar(p.getJugadoresEnPartida());
 				setVisible(false);
 			}
 		});

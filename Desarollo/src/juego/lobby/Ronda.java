@@ -26,8 +26,7 @@ public class Ronda {
 			nombres[i] = j.getNombre();
 			i++;
 		}
-		minijuego = new MejorDeDiez();
-		((MejorDeDiez) minijuego).setJugadores(nombres);
+		minijuego = new MejorDeDiez(this.jugadoresEnPartida);
 	}
 
 	/*
