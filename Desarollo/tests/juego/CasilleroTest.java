@@ -1,15 +1,45 @@
 package juego;
 
+
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import java.awt.Color;
 
+import java.awt.Color;
+import java.util.ArrayList;
+import java.util.Iterator;
+
+import org.junit.Before;
 import org.junit.Test;
 
+
+import juego.lobby.Partida;
+import juego.lobby.Usuario;
+import juego.personas.Jugador;
 import juego.tablero.casillero.Casillero;
 
 public class CasilleroTest {
+
+	private Usuario user1;
+	private Usuario user2;
+	private Partida partida;
+	private Jugador jugador1;
+	private Jugador jugador2;
+
+	@Before
+	public void inicio() {
+		// Uso dos usuarios, condicion necesaria para arrancar una partida
+		user1 = new Usuario("usuario", "contrasena");
+		user2 = new Usuario("usuario2", "contrasena2");
+		ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
+		usuarios.add(user1);
+		usuarios.add(user2);
+		// 1 Ronda
+		partida = new Partida(usuarios, 1);
+		jugador1 = user1.getJugador();
+		jugador2 = user2.getJugador();
+	}
+	
 
 	@Test
 	public void hayId() {
@@ -118,6 +148,32 @@ public class CasilleroTest {
 		cas.setPrimeraVez(false);
 		
 		assertFalse(true == cas.isPrimeraVez());
+	}
+	
+	@Test
+	public void moverJugadorNoActivaPrimeraVezAnterioresTest() {
+		Casillero cas = jugador2.getPosicion();
+		Casillero casillero = new Casillero();
+		for (int i = jugador2.tirarDado(); i > 0; i--) {
+			if (jugador2.caminosDisponibles() == 1)
+				jugador2.avanzarUnCasillero();
+			else
+				jugador2.avanzarUnCasillero(1); // si hay mas de un camino,
+												// avanzo por el primer camino
+			if (jugador2.getPosicion().isTieneArbolito()) { // si hay arbolito,
+										// intento comprar
+											// un dolar
+				jugador2.comprarDolar();
+			}
+		}
+		Iterator<Casillero> iterator = jugador2.getPosicion().getAnteriores().iterator();
+		
+
+		while (iterator.hasNext()) {
+			casillero = iterator.next();
+			assertTrue(casillero.isPrimeraVez());	// Comprueba que los casilleros 
+									//no hayan sido ocupados solo porque el personaje pasó por arriba.
+		}
 	}
 
 }
