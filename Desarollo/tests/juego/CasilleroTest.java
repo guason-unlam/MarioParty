@@ -154,7 +154,8 @@ public class CasilleroTest {
 	public void moverJugadorNoActivaPrimeraVezAnterioresTest() {
 		Casillero cas = jugador2.getPosicion();
 		Casillero casillero = new Casillero();
-		for (int i = jugador2.tirarDado(); i > 0; i--) {
+		int aAvanzar;
+		for (int i = (aAvanzar = jugador2.tirarDado()); i > 0; i--) {
 			if (jugador2.caminosDisponibles() == 1)
 				jugador2.avanzarUnCasillero();
 			else
@@ -166,13 +167,14 @@ public class CasilleroTest {
 				jugador2.comprarDolar();
 			}
 		}
-		Iterator<Casillero> iterator = jugador2.getPosicion().getAnteriores().iterator();
-		
-
-		while (iterator.hasNext()) {
-			casillero = iterator.next();
-			assertTrue(casillero.isPrimeraVez());	// Comprueba que los casilleros 
+		if ( aAvanzar>1){ //Esta condición es porque si avanza sólo un casillero estaría comprobando que la posicion anterior sea isPrimeraVez, lo que es ilógico
+			Iterator<Casillero> iterator = jugador2.getPosicion().getAnteriores().iterator();
+			
+			while (iterator.hasNext()) {
+				casillero = iterator.next();
+				assertTrue(casillero.isPrimeraVez());	// Comprueba que los casilleros 
 									//no hayan sido ocupados solo porque el personaje pasó por arriba.
+			}
 		}
 	}
 
