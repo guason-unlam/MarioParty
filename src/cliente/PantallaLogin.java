@@ -13,13 +13,15 @@ import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class PantallaLogin extends JFrame {
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 3600863531059714430L;
+	private static final long serialVersionUID = -3673971401919801676L;
 	private JFrame frame;
 	private JTextField textUsuario;
 	private JPasswordField textPassword;
@@ -46,6 +48,8 @@ public class PantallaLogin extends JFrame {
 	 * Create the application.
 	 */
 	public PantallaLogin() {
+		// Nombre de la ventana.
+		super("Login");
 		initialize();
 	}
 
@@ -77,31 +81,49 @@ public class PantallaLogin extends JFrame {
 
 		// Se crea el socket para conectar con el Servidor del juego.
 		try {
-			this.socket = new Socket("0.0.0.0", 1234);
+			this.socket = new Socket("0.0.0.0", 7777);
 		} catch (UnknownHostException ex) {
 			System.out.println("No se ha podido conectar con el servidor (" + ex.getMessage() + ").");
 		} catch (IOException ex) {
 			System.out.println("No se ha podido conectar con el servidor (" + ex.getMessage() + ").");
 		}
+		// Creo la conexion al servidor.
+		ConexionServidor con = new ConexionServidor(socket);
+		// La conexion al servidor se ejecuta paralelamente en otro thread.
+		Thread escucha = new Thread(con);
+		escucha.start();
 
 		JButton btnIngresar = new JButton("Ingresar");
-		// Clickear sobre el boton ingresar.
-		btnIngresar.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				ConexionServidor con = new ConexionServidor(socket);
+		btnIngresar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
 				String usuario = textUsuario.getText();
 				String contrasena = String.valueOf(textPassword.getPassword());
+				// Intento logear.
 				con.logear(usuario, contrasena);
-				// Empiezo a escuchar del servidor.
-				con.recibirMensajesServidor();
 			}
 		});
-		btnIngresar.setBounds(156, 212, 117, 25);
+		btnIngresar.setBounds(12, 221, 117, 25);
 		frame.getContentPane().add(btnIngresar);
 
 		lblEstado = new JLabel("");
 		lblEstado.setBounds(12, 245, 426, 15);
 		frame.getContentPane().add(lblEstado);
+
+		JButton btnRegistrar = new JButton("Registrar");
+		btnRegistrar.setBounds(321, 221, 117, 25);
+		frame.getContentPane().add(btnRegistrar);
+		// Clickear sobre el boton registrar.
+//		btnRegistrar.addMouseListener(new MouseAdapter() 
+//		{
+//			@Override
+//			public void mouseClicked(MouseEvent e) 
+//			{
+//				//Encripto ambos campos.
+//				String usuario = textUsuario.getText();
+//				String contrasena = String.valueOf(textPassword.getPassword();
+//				//Intento registrar.
+//				con.registrar(usuario, contrasena);
+//			}
+//		});
 	}
 }

@@ -4,6 +4,10 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
+
 public class Servidor {
 	private static final int PUERTO = 7777;
 	private static final int MAXIMASCONEXIONESIMULTANEAS = 2;
@@ -13,6 +17,11 @@ public class Servidor {
 		Socket socket = null;
 
 		try {
+			Configuration cfg = new Configuration();
+			cfg.configure("hibernate.cfg.xml");
+
+			SessionFactory factory = cfg.buildSessionFactory();
+			Session session = factory.openSession();
 			// Se crea el serverSocket para empezar a escuchar a los clientes.
 			servidor = new ServerSocket(PUERTO, MAXIMASCONEXIONESIMULTANEAS);
 			System.out.println("Servidor corriendo en " + servidor.getInetAddress() + ":" + servidor.getLocalPort());
@@ -24,7 +33,7 @@ public class Servidor {
 				String mensajeNuevaConexion = "IP " + socket.getInetAddress().getHostName();
 				System.out.println(mensajeNuevaConexion);
 				// Cada cliente tendra un thread dedicado
-				Cliente conexionCliente = new Cliente(socket);
+				Cliente conexionCliente = new Cliente(socket, session);
 
 				// Arranco a ejecutar el thread
 				conexionCliente.start();

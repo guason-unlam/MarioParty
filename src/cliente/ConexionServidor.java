@@ -4,8 +4,11 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
-public class ConexionServidor {
+public class ConexionServidor extends Thread {
 	private Socket socket;
 	private DataOutputStream salidaDatos;
 
@@ -20,15 +23,39 @@ public class ConexionServidor {
 		}
 	}
 
+	//Ya mando la pw encriptada
+	
 	public void logear(String usuario, String password) {
+		MessageDigest digest = null;
+		try {
+			digest = MessageDigest.getInstance("SHA-256");
+		} catch (NoSuchAlgorithmException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		byte[] hash = digest.digest(password.getBytes(StandardCharsets.UTF_8));
+
 		// Intento escribir en el buffer de salida.
 		try {
-			salidaDatos.writeUTF("0;" + usuario + ";" + password);
+			salidaDatos.writeUTF("0;" + usuario + ";" + bytesToHex(hash));
 			// Al realizar salidaDatos.writeUTF estaria "llamando" al
 			// entradaDatos.readUTF(); del servidor.
 		} catch (IOException ex) {
 			System.out.println("Error al intentar enviar un mensaje: " + ex.getMessage());
 		}
+	}
+
+	// Para pasar la pw a sha
+	private static String bytesToHex(byte[] hash) {
+		StringBuffer hexString = new StringBuffer();
+		for (int i = 0; i < hash.length; i++) {
+			String hex = Integer.toHexString(0xff & hash[i]);
+			if (hex.length() == 1)
+				hexString.append('0');
+			hexString.append(hex);
+		}
+		return hexString.toString();
 	}
 
 	public void recibirMensajesServidor() {
@@ -46,25 +73,11 @@ public class ConexionServidor {
 		boolean conectado = true;
 		while (conectado) {
 			try {
-				String mensajeRecibido = entradaDatos.readUTF();
-				// Siempre voy a recibir un string separados por ; donde el primer valor me
-				// indica a que corresponde el mensaje.
-				String[] recepcion = mensajeRecibido.split(";");
-				int tipoMensaje = Integer.valueOf(recepcion[0]);
-				// Intento de login.
-				if (tipoMensaje == 0) {
-					String respuesta = recepcion[1];
-					if (respuesta.equals("ok")) {
-						PantallaLogin.lblEstado.setText("Conectado");
-						conectado = false;
-					} else {
-						PantallaLogin.lblEstado.setText("Usuario y/o contrasena invalido");
-						conectado = false;
-					}
-
+				// Chequea si hay datos provenientes del servidor a traves del socket.
+				if (entradaDatos.available() != 0) {
+					String mensajeRecibido = entradaDatos.readUTF();
+					System.out.println(mensajeRecibido);
 				}
-				if (mensajeRecibido != null)
-					conectado = false;
 			} catch (IOException ex) {
 				System.out.println("Error al leer del stream de entrada: " + ex.getMessage());
 				conectado = false;
@@ -73,5 +86,10 @@ public class ConexionServidor {
 				conectado = false;
 			}
 		}
+	}
+
+	@Override
+	public void run() {
+		this.recibirMensajesServidor();
 	}
 }

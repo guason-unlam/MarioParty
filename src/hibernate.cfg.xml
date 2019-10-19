@@ -6,11 +6,11 @@
 <hibernate-configuration>
 	<session-factory>
 		<property name="hibernate.connection.driver_class">org.sqlite.JDBC</property>
-		<property name="hibernate.connection.url">jdbc:sqlite:./prueba.sqlite</property>
+		<property name="hibernate.connection.url">jdbc:sqlite:./usuarios.sqlite</property>
 		<property name="hibernate.dialect">com.enigmabridge.hibernate.dialect.SQLiteDialect</property>
 		<property name="show_sql">true</property>
 		<property name="format_sql">true</property>
-		<mapping resource="hibernate/persona.hbm.xml" />
-		<mapping resource="hibernate/departamento.hbm.xml" />
+		<mapping resource="hibernate/usuario.hbm.xml" />
+		<mapping class="hibernate.Usuario" package="hibernate" resource="/hibernate.Usuario.hbm.xml"/>
 	</session-factory>
 </hibernate-configuration>

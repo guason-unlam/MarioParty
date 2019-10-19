@@ -4,19 +4,29 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.List;
+
+import org.hibernate.Session;
+import org.hibernate.query.Query;
+
+import hibernate.Usuario;
 
 public class Cliente extends Thread {
 	private Socket socket;
 	private DataInputStream entrada;
 	private DataOutputStream salida;
+	private static Session session;
 
-	public Cliente(Socket socket) {
+	public Cliente(Socket socket, Session session) {
 		this.socket = socket;
+		Cliente.session = session;
 		try {
 			entrada = new DataInputStream(socket.getInputStream());
 
 			salida = new DataOutputStream(socket.getOutputStream());
-			System.out.println(entrada.readUTF());
 
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -35,12 +45,13 @@ public class Cliente extends Thread {
 				mensajeRecibido = entrada.readUTF();
 				String[] recepcion = mensajeRecibido.split(";");
 				int tipoMensaje = Integer.valueOf(recepcion[0]);
+				System.out.println(tipoMensaje);
 				// Intento de login.
 				if (tipoMensaje == 0) {
 					String usuario = recepcion[1];
 					String contrasena = recepcion[2];
+					boolean resultado = login(usuario, contrasena);
 
-					boolean resultado = true;
 					salida.writeUTF("0;" + ((resultado) ? "ok" : "nok"));
 				}
 			} catch (IOException ex) {
@@ -57,5 +68,18 @@ public class Cliente extends Thread {
 				}
 			}
 		}
+	}
+
+	public static boolean login(String usuario, String contrasena) {
+		boolean acceso = false;
+		Query q = session.createQuery(
+				"SELECT p.id FROM Usuario p WHERE user = '" + usuario + "' AND password = '" + contrasena + "'");
+		List<Usuario> listaDePersonas = q.getResultList();
+		if (listaDePersonas.size() > 0) {
+			System.out.println("Usuario: " + usuario + " logeado");
+			acceso = true;
+		}
+
+		return acceso;
 	}
 }
