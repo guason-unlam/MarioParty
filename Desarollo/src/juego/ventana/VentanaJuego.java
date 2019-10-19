@@ -1,6 +1,7 @@
 package juego.ventana;
 
 import java.awt.Color;
+import java.awt.Container;
 import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -56,13 +57,12 @@ public class VentanaJuego extends JFrame implements ImageObserver {
 		JPanel panelJuego = new JPanel();
 		panelJuego.setBounds(103, 21, Constantes.MAPA_WIDTH, Constantes.MAPA_HEIGHT);
 		getContentPane().add(panelJuego);
-
+		Container frame = this.getContentPane();
 		JButton btnAbrirMinijuego = new JButton("Abrir Minijuego");
 		btnAbrirMinijuego.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				new VentanaMiniJuego();
-				VentanaMiniJuego.ejecutar(p.getJugadoresEnPartida());
-				setVisible(false);
+				VentanaMiniJuego.ejecutar(p.getJugadoresEnPartida(), frame);
 			}
 		});
 		btnAbrirMinijuego.addMouseListener(new MouseAdapter() {
