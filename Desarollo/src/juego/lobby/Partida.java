@@ -31,7 +31,7 @@ public class Partida {
 	public Partida(ArrayList<Usuario> usuariosActivosEnSala, int cantidadTotalRondas) {
 		this.usuariosActivosEnSala = usuariosActivosEnSala;
 		try {
-			this.tablero = new Tablero("../Mapas/tablero01.txt");
+			this.tablero = new Tablero("../Mapas/tablero03.txt");
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (ExcepcionArchivos e) {
