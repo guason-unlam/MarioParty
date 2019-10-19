@@ -4,55 +4,97 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.util.List;
+import java.util.Properties;
 
-import org.hibernate.Session;
-import org.hibernate.query.Query;
+import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
 
-import hibernate.Usuario;
+import juego.Constantes;
+import lobby.Sala;
+import lobby.Usuario;
+import lobby.UsuarioDAO;
 
 public class Cliente extends Thread {
 	private Socket socket;
 	private DataInputStream entrada;
 	private DataOutputStream salida;
-	private static Session session;
+	private Usuario usuario;
+	private Sala sala;
 
-	public Cliente(Socket socket, Session session) {
+	public Cliente(Socket socket) {
 		this.socket = socket;
-		Cliente.session = session;
 		try {
 			entrada = new DataInputStream(socket.getInputStream());
 
 			salida = new DataOutputStream(socket.getOutputStream());
 
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		} catch (IOException ex) {
+			System.out.println("Error al crear los stream de entrada y salida : " + ex.getMessage());
+
 		}
 	}
 
 	@Override
 	public void run() {
-		String mensajeRecibido;
 		boolean conectado = true;
+		Properties properties;
 
 		while (conectado) {
 			try {
-				// Lee un mensaje enviado por el cliente
-				mensajeRecibido = entrada.readUTF();
-				String[] recepcion = mensajeRecibido.split(";");
-				int tipoMensaje = Integer.valueOf(recepcion[0]);
-				System.out.println(tipoMensaje);
-				// Intento de login.
-				if (tipoMensaje == 0) {
-					String usuario = recepcion[1];
-					String contrasena = recepcion[2];
-					boolean resultado = login(usuario, contrasena);
+				Message message = (Message) new Gson().fromJson(this.entrada.readUTF(), Message.class);
+				switch (message.getType()) {
+				// LOGIN
+				case Constantes.LOGIN_REQUEST:
+					properties = new Gson().fromJson((String) message.getData(), Properties.class);
 
-					salida.writeUTF("0;" + ((resultado) ? "ok" : "nok"));
+					usuario = UsuarioDAO.loguear(properties.getProperty("username"),
+							properties.getProperty("hashPassword"));
+
+					if (usuario == null) {
+						this.salida.flush();
+						this.salida.writeUTF(new Message(Constantes.INCORRECT_LOGIN, null).toJson());
+					} else {
+						boolean usuarioDuplicado = false;
+						for (Usuario usuarioActivo : Servidor.getUsuariosActivos()) {
+
+							if (usuarioActivo.getId() == usuario.getId()) {
+								this.salida.flush();
+								this.salida.writeUTF(new Message(Constantes.DUPLICATED_LOGIN, null).toJson());
+								usuarioDuplicado = true;
+								break;
+							}
+
+						}
+						if (!usuarioDuplicado) {
+							Servidor.agregarAUsuariosActivos(usuario);
+							this.salida.flush();
+							this.salida.writeUTF(
+									new Message(Constantes.CORRECT_LOGIN, new Gson().toJson(usuario)).toJson());
+						}
+					}
+					break;
+				// REGISTRO
+				case Constantes.REGISTER_REQUEST:
+					properties = new Gson().fromJson((String) message.getData(), Properties.class);
+
+					int resultado = UsuarioDAO.registrar(properties.getProperty("username"),
+							properties.getProperty("hashPassword"));
+
+					switch (resultado) {
+					case -1:
+						this.salida.writeUTF(new Message(Constantes.REGISTER_INCORRECT, null).toJson());
+						break;
+					case 0:
+						this.salida.writeUTF(new Message(Constantes.REGISTER_CORRECT, null).toJson());
+						break;
+					case 1:
+						this.salida.writeUTF(new Message(Constantes.REGISTER_DUPLICATED, null).toJson());
+						break;
+					}
+
+					break;
+				default:
+					break;
 				}
 			} catch (IOException ex) {
 				String mensaje = "Cliente con la IP " + socket.getInetAddress().getHostName() + " desconectado.";
@@ -66,20 +108,19 @@ public class Cliente extends Thread {
 					String mensajeError2 = "Error al cerrar los stream de entrada y salida :" + ex2.getMessage();
 					System.out.println(mensajeError2);
 				}
+			} catch (JsonSyntaxException e) {
+				System.out.println("Error de sintaxis en el json " + e.getMessage());
 			}
 		}
+		Servidor.desconectar(this);
 	}
 
-	public static boolean login(String usuario, String contrasena) {
-		boolean acceso = false;
-		Query q = session.createQuery(
-				"SELECT p.id FROM Usuario p WHERE user = '" + usuario + "' AND password = '" + contrasena + "'");
-		List<Usuario> listaDePersonas = q.getResultList();
-		if (listaDePersonas.size() > 0) {
-			System.out.println("Usuario: " + usuario + " logeado");
-			acceso = true;
-		}
-
-		return acceso;
+	public DataOutputStream getSalida() {
+		return this.salida;
 	}
+
+	public Usuario getUsuario() {
+		return this.usuario;
+	}
+
 }

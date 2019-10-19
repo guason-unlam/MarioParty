@@ -1,20 +1,21 @@
 package cliente;
 
 import java.awt.EventQueue;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.IOException;
 
-import javax.swing.JFrame;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
-import javax.swing.JPasswordField;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.io.IOException;
-import java.net.Socket;
-import java.net.UnknownHostException;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+import juego.Constantes;
+import lobby.Usuario;
 
 public class PantallaLogin extends JFrame {
 
@@ -23,9 +24,10 @@ public class PantallaLogin extends JFrame {
 	 */
 	private static final long serialVersionUID = -3673971401919801676L;
 	private JFrame frame;
-	private JTextField textUsuario;
-	private JPasswordField textPassword;
-	private Socket socket;
+	private JTextField username;
+	private JTextField password;
+	private JButton btnRegistrarse;
+	private JButton btnCrearUsuario;
 	public static JLabel lblEstado;
 
 	/**
@@ -58,72 +60,137 @@ public class PantallaLogin extends JFrame {
 	 */
 	private void initialize() {
 		frame = new JFrame();
+		frame.setTitle("Mario Party");
+
 		frame.setBounds(100, 100, 450, 300);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
+		frame.setResizable(false);
+		frame.setLocationRelativeTo(null);
+		frame.getContentPane().setLayout(null);
+		JLabel usernameLabel = new JLabel("Usuario");
+		usernameLabel.setFont(new Font("Tahoma", Font.PLAIN, 17));
+		usernameLabel.setToolTipText("");
+		usernameLabel.setBounds(114, 133, 92, 14);
+		frame.getContentPane().add(usernameLabel);
 
-		JLabel lblUsuario = new JLabel("Usuario");
-		lblUsuario.setBounds(12, 25, 70, 15);
-		frame.getContentPane().add(lblUsuario);
+		JLabel passwordLabel = new JLabel("Contrase\u00F1a");
+		passwordLabel.setFont(new Font("Tahoma", Font.PLAIN, 17));
+		passwordLabel.setBounds(99, 167, 92, 14);
+		frame.getContentPane().add(passwordLabel);
 
-		JLabel lblContrasena = new JLabel("Contrasena");
-		lblContrasena.setBounds(12, 89, 83, 15);
-		frame.getContentPane().add(lblContrasena);
+		this.username = new JTextField();
+		this.username.setToolTipText("Ingrese su usuario");
+        this.username.setBounds(257, 130, 129, 20);
+        this.username.setColumns(10);
+		frame.getContentPane().add(this.username);
 
-		textUsuario = new JTextField();
-		textUsuario.setBounds(117, 23, 114, 19);
-		frame.getContentPane().add(textUsuario);
-		textUsuario.setColumns(10);
+		this.password = new JPasswordField();
 
-		textPassword = new JPasswordField();
-		textPassword.setBounds(113, 87, 118, 19);
-		frame.getContentPane().add(textPassword);
+		this.password.setToolTipText("Ingrese su contrase\u00F1a");
+        this.password.setBounds(257, 161, 129, 20);
+        this.password.setColumns(10);
+		frame.getContentPane().add(this.password);
 
-		// Se crea el socket para conectar con el Servidor del juego.
-		try {
-			this.socket = new Socket("0.0.0.0", 7777);
-		} catch (UnknownHostException ex) {
-			System.out.println("No se ha podido conectar con el servidor (" + ex.getMessage() + ").");
-		} catch (IOException ex) {
-			System.out.println("No se ha podido conectar con el servidor (" + ex.getMessage() + ").");
+		this.btnCrearUsuario = new JButton("Iniciar sesi\u00F3n");
+		this.btnCrearUsuario.setBounds(257, 206, 129, 23);
+
+		frame.getContentPane().add(this.btnCrearUsuario);
+
+		JLabel labelJuego = new JLabel("");
+		labelJuego.setIcon(new ImageIcon(Constantes.LOGO_PATH));
+		labelJuego.setFont(new Font("Tahoma", Font.BOLD, 17));
+		labelJuego.setBounds(10, 11, 428, 139);
+		frame.getContentPane().add(labelJuego);
+
+		this.btnRegistrarse = new JButton("Registrarse");
+		this.btnRegistrarse.setBounds(77, 206, 129, 23);
+
+		frame.getContentPane().add(this.btnRegistrarse);
+
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setBounds(0, 0, Constantes.LOGIN_WIDTH, Constantes.LOGIN_HEIGHT);
+		frame.setLocationRelativeTo(null);
+
+		addListener();
+	}
+
+	protected void iniciarSession() throws IOException {
+
+		if (this.username.getText().isEmpty()) {
+			JOptionPane.showMessageDialog(null, "Falta ingresar el usuario!", "Error login",
+					JOptionPane.WARNING_MESSAGE);
+			this.username.setFocusable(true);
+			this.password.setText("");
+			return;
 		}
-		// Creo la conexion al servidor.
-		ConexionServidor con = new ConexionServidor(socket);
-		// La conexion al servidor se ejecuta paralelamente en otro thread.
-		Thread escucha = new Thread(con);
-		escucha.start();
 
-		JButton btnIngresar = new JButton("Ingresar");
-		btnIngresar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				String usuario = textUsuario.getText();
-				String contrasena = String.valueOf(textPassword.getPassword());
-				// Intento logear.
-				con.logear(usuario, contrasena);
+		if (this.password.getText().isEmpty()) {
+			JOptionPane.showMessageDialog(null, "Falta ingresar la contrase\u00F1a!", "Error login",
+					JOptionPane.WARNING_MESSAGE);
+			this.password.setFocusable(true);
+			return;
+		}
+System.out.println(this.username.getText());
+System.out.println(this.password.getText());
+		Usuario usuario = Cliente.getConexionServidor().logear(this.username.getText(), this.password.getText());
+
+		if (usuario != null && usuario.getId() != -1) {
+			EventQueue.invokeLater(new Runnable() {
+				public void run() {
+					try {
+						VentanaLobby frame = new VentanaLobby();
+						frame.setVisible(true);
+						dispose();
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+			});
+
+		} else if (usuario != null && usuario.getId() == -1) {
+			JOptionPane.showMessageDialog(null, "Usuario ya logeado", "Error login", JOptionPane.ERROR_MESSAGE);
+			this.username.setText("");
+			this.password.setText("");
+			this.username.setFocusable(true);
+		} else {
+			JOptionPane.showMessageDialog(null, "Usted ha introducido un usuario y/o clave incorrecta", "Error login",
+					JOptionPane.ERROR_MESSAGE);
+			this.username.setText("");
+			this.password.setText("");
+			this.username.setFocusable(true);
+		}
+	}
+
+	private void addListener() {
+
+		this.addWindowListener(new java.awt.event.WindowAdapter() {
+			@Override
+			public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+				if (JOptionPane.showConfirmDialog(getContentPane(), "Desea cerrar la ventana?", "Atención!",
+						JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
+					System.exit(0);
+				}
 			}
 		});
-		btnIngresar.setBounds(12, 221, 117, 25);
-		frame.getContentPane().add(btnIngresar);
 
-		lblEstado = new JLabel("");
-		lblEstado.setBounds(12, 245, 426, 15);
-		frame.getContentPane().add(lblEstado);
+		this.username.addActionListener(iniciarSessionPerformed());
 
-		JButton btnRegistrar = new JButton("Registrar");
-		btnRegistrar.setBounds(321, 221, 117, 25);
-		frame.getContentPane().add(btnRegistrar);
-		// Clickear sobre el boton registrar.
-//		btnRegistrar.addMouseListener(new MouseAdapter() 
-//		{
-//			@Override
-//			public void mouseClicked(MouseEvent e) 
-//			{
-//				//Encripto ambos campos.
-//				String usuario = textUsuario.getText();
-//				String contrasena = String.valueOf(textPassword.getPassword();
-//				//Intento registrar.
-//				con.registrar(usuario, contrasena);
-//			}
-//		});
+		this.password.addActionListener(iniciarSessionPerformed());
+
+		this.btnCrearUsuario.addActionListener(iniciarSessionPerformed());
+
+	}
+
+	private ActionListener iniciarSessionPerformed() {
+		return new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				try {
+					iniciarSession();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		};
 	}
 }

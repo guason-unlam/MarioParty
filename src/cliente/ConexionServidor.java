@@ -4,18 +4,30 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
+
+import javax.json.Json;
+
+import com.google.gson.Gson;
+
+import juego.Constantes;
+import lobby.Usuario;
+import servidor.Message;
+import servidor.Seguridad;
 
 public class ConexionServidor extends Thread {
-	private Socket socket;
+	private Socket socketIn;
+	private Socket socketOut;
+	private Usuario usuario;
+	private Message message;
 	private DataOutputStream salidaDatos;
+	private DataInputStream entradaDatos;
 
-	public ConexionServidor(Socket socket) {
-		this.socket = socket;
+	public ConexionServidor(Socket socketOut, Socket socketIn) {
+		this.socketOut = socketOut;
+		this.socketIn = socketIn;
 		try {
-			this.salidaDatos = new DataOutputStream(this.socket.getOutputStream());
+			this.salidaDatos = new DataOutputStream(this.socketOut.getOutputStream());
+			this.entradaDatos = new DataInputStream(this.socketIn.getInputStream());
 		} catch (IOException ex) {
 			System.out.println("Error al crear el stream de salida : " + ex.getMessage());
 		} catch (NullPointerException ex) {
@@ -23,73 +35,32 @@ public class ConexionServidor extends Thread {
 		}
 	}
 
-	//Ya mando la pw encriptada
-	
-	public void logear(String usuario, String password) {
-		MessageDigest digest = null;
+	// Ya mando la pw encriptada
+
+	public Usuario logear(String usuario, String password) {
+
 		try {
-			digest = MessageDigest.getInstance("SHA-256");
-		} catch (NoSuchAlgorithmException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+			String request = Json.createObjectBuilder().add("username", usuario)
+					.add("hashPassword", Seguridad.encriptarContrasena(password)).build().toString();
 
-		byte[] hash = digest.digest(password.getBytes(StandardCharsets.UTF_8));
+			this.salidaDatos.writeUTF(new Message(Constantes.LOGIN_REQUEST, request).toJson());
 
-		// Intento escribir en el buffer de salida.
-		try {
-			salidaDatos.writeUTF("0;" + usuario + ";" + bytesToHex(hash));
-			// Al realizar salidaDatos.writeUTF estaria "llamando" al
-			// entradaDatos.readUTF(); del servidor.
-		} catch (IOException ex) {
-			System.out.println("Error al intentar enviar un mensaje: " + ex.getMessage());
-		}
-	}
-
-	// Para pasar la pw a sha
-	private static String bytesToHex(byte[] hash) {
-		StringBuffer hexString = new StringBuffer();
-		for (int i = 0; i < hash.length; i++) {
-			String hex = Integer.toHexString(0xff & hash[i]);
-			if (hex.length() == 1)
-				hexString.append('0');
-			hexString.append(hex);
-		}
-		return hexString.toString();
-	}
-
-	public void recibirMensajesServidor() {
-		// Obtiene el flujo de entrada del socket
-		DataInputStream entradaDatos = null;
-		try {
-			entradaDatos = new DataInputStream(socket.getInputStream());
-		} catch (IOException ex) {
-			System.out.println("Error al crear el stream de entrada: " + ex.getMessage());
-		} catch (NullPointerException ex) {
-			System.out.println("El socket no se creo correctamente. ");
-		}
-
-		// Bucle infinito que recibe mensajes del servidor
-		boolean conectado = true;
-		while (conectado) {
-			try {
-				// Chequea si hay datos provenientes del servidor a traves del socket.
-				if (entradaDatos.available() != 0) {
-					String mensajeRecibido = entradaDatos.readUTF();
-					System.out.println(mensajeRecibido);
-				}
-			} catch (IOException ex) {
-				System.out.println("Error al leer del stream de entrada: " + ex.getMessage());
-				conectado = false;
-			} catch (NullPointerException ex) {
-				System.out.println("El socket no se creo correctamente. ");
-				conectado = false;
+			this.message = (Message) new Gson().fromJson((String) entradaDatos.readUTF(), Message.class);
+			switch (this.message.getType()) {
+			case Constantes.CORRECT_LOGIN:
+				this.usuario = new Gson().fromJson((String) message.getData(), Usuario.class);
+				return this.usuario;
+			case Constantes.INCORRECT_LOGIN:
+				return null;
+			case Constantes.DUPLICATED_LOGIN:
+				return new Usuario(-1);
+			default:
+				return null;
 			}
+		} catch (Exception e) {
+			System.out.println("Error login " + e.getMessage());
 		}
+		return null;
 	}
 
-	@Override
-	public void run() {
-		this.recibirMensajesServidor();
-	}
 }
