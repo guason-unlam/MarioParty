@@ -41,7 +41,7 @@ public class ConexionInterna extends Thread {
 
 		try {
 			String request = Json.createObjectBuilder().add("username", usuario)
-					.add("hashPassword", Seguridad.encriptarContrasena(password)).build().toString();
+					.add("password", Seguridad.encriptarContrasena(password)).build().toString();
 
 			this.salidaDatos.writeUTF(new Message(Constantes.LOGIN_REQUEST, request).toJson());
 
@@ -61,6 +61,23 @@ public class ConexionInterna extends Thread {
 			System.out.println("Error login " + e.getMessage());
 		}
 		return null;
+	}
+
+	public Message registrar(String username, String password) {
+		try {
+			String request = Json.createObjectBuilder().add("username", username)
+					.add("password", Seguridad.encriptarContrasena(password)).build().toString();
+
+			this.salidaDatos.writeUTF(new Message(Constantes.REGISTER_REQUEST, request).toJson());
+
+			this.message = (Message) new Gson().fromJson((String) entradaDatos.readUTF(), Message.class);
+			return this.message;
+
+		} catch (Exception e) {
+			System.out.println("[ERROR] Registro Usuario - " + e.getMessage());
+		}
+		
+		return new Message(Constantes.REGISTER_REQUEST_INCORRECT, null);
 	}
 
 }

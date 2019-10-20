@@ -13,16 +13,16 @@ import servidor.Servidor;
 public class UsuarioDAO {
 
 	@SuppressWarnings("unused")
-	public static Usuario loguear(String username, String hashPassword) {
+	public static Usuario loguear(String username, String password) {
 		Transaction tx = null;
 
 		try {
 			String query = "SELECT u FROM Usuario u WHERE u.username = '" + username + "' AND u.password = '"
-					+ hashPassword + "'";
+					+ password + "'";
 			Query queryLogueo = Servidor.getSessionHibernate().createQuery(query);
 			try {
 				Usuario user = (Usuario) queryLogueo.getSingleResult();
-				return new Usuario(user.getId(), username, hashPassword);
+				return new Usuario(user.getId(), username, password);
 			} catch (NoResultException e) {
 				return null;
 			}

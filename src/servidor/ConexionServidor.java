@@ -56,20 +56,21 @@ public class ConexionServidor extends Thread {
 					if (this.usuario != null) {
 						String respuestaLogueoOk = Json.createObjectBuilder()
 								.add("type", Constantes.LOGIN_REQUEST_SERVER_CORRECT).build().toString();
+						System.out.println("[LOGIN]Usuario " + this.usuario.getUsername() + " se logeo correctamente.");
 						this.salida.writeUTF(respuestaLogueoOk);
 					}
 				}
 
 			} catch (IOException ex) {
-				System.out.println(ex.getMessage() + " Cliente con la IP " + socket.getInetAddress().getHostAddress()
-						+ " desconectado del backOff.");
+//				System.out.println(ex.getMessage() + "[ConexionServidor] Cliente con la IP "
+//						+ socket.getInetAddress().getHostAddress() + " desconectado.");
 				conectado = false;
+
 				try {
 					this.entrada.close();
 					this.salida.close();
 				} catch (IOException ex2) {
-					System.out
-							.println("Error al cerrar los stream de entrada y salida del backoff:" + ex2.getMessage());
+					System.out.println("Error al cerrar los stream de entrada y salida:" + ex2.getMessage());
 				}
 			}
 		}

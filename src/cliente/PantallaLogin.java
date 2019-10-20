@@ -105,8 +105,7 @@ public class PantallaLogin extends JFrame {
 			this.password.setFocusable(true);
 			return;
 		}
-		System.out.println(this.username.getText());
-		System.out.println(this.password.getText());
+		
 		Usuario usuario = Cliente.getConexionInterna().logear(this.username.getText(), this.password.getText());
 		Cliente.getconexionServidor().enviarAlServidor(Json.createObjectBuilder()
 				.add("type", Constantes.LOGIN_REQUEST_SV_CLIENTE).add("username", this.username.getText()).build());
@@ -149,12 +148,22 @@ public class PantallaLogin extends JFrame {
 			}
 		});
 
+		this.btnRegistrarse.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				registrarUsuario();
+			}
+		});
+
 		this.username.addActionListener(iniciarSessionPerformed());
 
 		this.password.addActionListener(iniciarSessionPerformed());
 
 		this.btnCrearUsuario.addActionListener(iniciarSessionPerformed());
 
+	}
+
+	private void registrarUsuario() {
+		new VentanaRegistro(this).setVisible(true);
 	}
 
 	private ActionListener iniciarSessionPerformed() {

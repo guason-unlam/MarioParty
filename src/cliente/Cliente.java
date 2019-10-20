@@ -31,7 +31,6 @@ public class Cliente {
 
 			conexionServidor.start();
 			
-			System.out.println(clienteOut.getLocalAddress());
 			PantallaLogin login = new PantallaLogin();
 			login.setVisible(true);
 

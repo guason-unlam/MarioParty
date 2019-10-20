@@ -1,7 +1,5 @@
 package juego;
 
-import javax.json.JsonValue;
-
 public abstract class Constantes {
 	public static final String ASSETS_PATH = "assets/img/";
 	public static final int VENTANA_WIDTH = 800;
@@ -40,15 +38,15 @@ public abstract class Constantes {
 	public static final String IP = "0.0.0.0";
 	public static final int PUERTO = 7777;
 	public static final int MAXIMAS_CONEXIONES_SIMULTANEAS = 2;
-	
-	//PAR CLIENTE->SERVIDOR
+
+	// PAR CLIENTE->SERVIDOR
 	public static final int PUERTO_SALIDA_CLIENTE = 7775;
 	public static final int PUERTO_ENTRADA_SERVIDOR = 7777;
-	
-	//PAR SERVIDOR->CLIENTE
+
+	// PAR SERVIDOR->CLIENTE
 	public static final int PUERTO_ENTRADA_CLIENTE = 7774;
 	public static final int PUERTO_SALIDA_SERVIDOR = 7776;
 
-	
 	public static final String LOGIN_REQUEST_SV_CLIENTE = "loginRequestSvCliente";
+	public static final String REGISTER_REQUEST_INCORRECT = "registerRequestIncorrect";
 }

@@ -72,7 +72,7 @@ public class Servidor {
 				conexionServidor.start();
 				servidoresConectados.add(conexionServidor);
 
-				String mensajeNuevaConexion = "Cliente con IP " + clienteIn.getInetAddress().getHostAddress();
+				String mensajeNuevaConexion = "[NUEVA CONEXION] Cliente con IP " + clienteIn.getInetAddress().getHostAddress();
 
 				System.out.println(mensajeNuevaConexion);
 			}

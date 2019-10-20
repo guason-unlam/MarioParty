@@ -47,11 +47,13 @@ public class Cliente extends Thread {
 					properties = new Gson().fromJson((String) message.getData(), Properties.class);
 
 					usuario = UsuarioDAO.loguear(properties.getProperty("username"),
-							properties.getProperty("hashPassword"));
+							properties.getProperty("password"));
 
 					if (usuario == null) {
 						this.salida.flush();
 						this.salida.writeUTF(new Message(Constantes.INCORRECT_LOGIN, null).toJson());
+						System.out.println("[LOGIN] El usuario " + properties.getProperty("username")
+								+ " fracaso en su inicio de sesion.");
 					} else {
 						boolean usuarioDuplicado = false;
 						for (Usuario usuarioActivo : Servidor.getUsuariosActivos()) {
@@ -60,6 +62,8 @@ public class Cliente extends Thread {
 								this.salida.flush();
 								this.salida.writeUTF(new Message(Constantes.DUPLICATED_LOGIN, null).toJson());
 								usuarioDuplicado = true;
+								System.out.println("[LOGIN] El usuario " + properties.getProperty("username")
+										+ " intento loguearse sin haber cerrado sesion.");
 								break;
 							}
 
@@ -69,6 +73,8 @@ public class Cliente extends Thread {
 							this.salida.flush();
 							this.salida.writeUTF(
 									new Message(Constantes.CORRECT_LOGIN, new Gson().toJson(usuario)).toJson());
+							System.out.println("[LOGIN] El usuario " + properties.getProperty("username")
+									+ " ingreso correctamente.");
 						}
 					}
 					break;
@@ -77,17 +83,23 @@ public class Cliente extends Thread {
 					properties = new Gson().fromJson((String) message.getData(), Properties.class);
 
 					int resultado = UsuarioDAO.registrar(properties.getProperty("username"),
-							properties.getProperty("hashPassword"));
+							properties.getProperty("password"));
 
 					switch (resultado) {
 					case -1:
 						this.salida.writeUTF(new Message(Constantes.REGISTER_INCORRECT, null).toJson());
+						System.out.println("[REGISTRO] Se intento registrar el usuario "
+								+ properties.getProperty("username") + "y ocurrio un error.");
 						break;
 					case 0:
 						this.salida.writeUTF(new Message(Constantes.REGISTER_CORRECT, null).toJson());
+						System.out.println("[REGISTRO] Se registro correctamente el usuario "
+								+ properties.getProperty("username"));
 						break;
 					case 1:
 						this.salida.writeUTF(new Message(Constantes.REGISTER_DUPLICATED, null).toJson());
+						System.out.println("[REGISTRO] Se intento registrar el usuario "
+								+ properties.getProperty("username") + ", pero el nombre esta duplicado en la DB.");
 						break;
 					}
 
@@ -96,10 +108,23 @@ public class Cliente extends Thread {
 					break;
 				}
 			} catch (IOException ex) {
-				String mensaje = "Cliente con la IP " + socket.getInetAddress().getHostName() + " desconectado.";
+				String mensaje = "";
+				if (this.usuario != null) {
+					mensaje = "[CLIENTE] El usuario " + this.usuario.getUsername() + " se ha desconectado.";
+				} else {
+					mensaje = "[CLIENTE] Cliente con la IP " + socket.getInetAddress().getHostName() + " desconectado.";
+				}
+
 				System.out.println(mensaje);
 				conectado = false;
+				for (Usuario usuarioActivo : Servidor.getUsuariosActivos()) {
 
+					if (usuarioActivo.getId() == usuario.getId()) {
+						Servidor.getUsuariosActivos().remove(usuario);
+						break;
+					}
+
+				}
 				try {
 					entrada.close();
 					salida.close();
