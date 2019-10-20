@@ -12,23 +12,23 @@ import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
-import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 
 import juego.Constantes;
 import juego.personas.Jugador;
 import juego.tablero.MejorDeDiez;
-import juego.tablero.MiniJuego;
 
 class VentanaMiniJuego implements ActionListener {
+
 	JPanel cards; // a panel that uses CardLayout
 	final static String BUTTONPANEL = "Card with JButtons";
 	final static String TEXTPANEL = "Card with JTextField";
 	final static String GANADORES = "ganadores";
+	private static JFrame frame = new JFrame("CardLayoutDemo");
+	private static JFrame pantallaJuego;
 
 	/**
 	 * @param ganadores
@@ -64,7 +64,7 @@ class VentanaMiniJuego implements ActionListener {
 
 		JPanel card2 = new JPanel();
 		JTextArea ganadores = new JTextArea();
-System.out.println(resultadoGanadores);
+
 		ganadores.setFont(new Font("Dialog", Font.PLAIN, 22));
 		ganadores.setText(resultadoGanadores);
 		ganadores.setEditable(false);
@@ -75,12 +75,16 @@ System.out.println(resultadoGanadores);
 		ganadores.setBorder(BorderFactory.createEmptyBorder());
 		ganadores.setSize(400, 100);
 		card2.add(ganadores, BorderLayout.PAGE_END);
+		JButton btnCerrar = new JButton("Cerrar");
+		btnCerrar.addActionListener(this);
 
+		card2.add(btnCerrar);
 		// Create the panel that contains the "cards".
 		cards = new JPanel(new CardLayout());
 		cards.add(card1, BUTTONPANEL);
 
 		cards.add(card2, GANADORES);
+
 		pane.add(instruccionesPanel, BorderLayout.PAGE_START);
 		pane.add(cards, BorderLayout.CENTER);
 	}
@@ -94,7 +98,6 @@ System.out.println(resultadoGanadores);
 	 */
 	private static void createAndShowGUI(String ganadores) {
 		// Create and set up the window.
-		JFrame frame = new JFrame("CardLayoutDemo");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		// Create and set up the content pane.
@@ -107,8 +110,9 @@ System.out.println(resultadoGanadores);
 		frame.setLocationRelativeTo(null);
 	}
 
-	public static void ejecutar(ArrayList<Jugador> jugadores) {
-		MejorDeDiez mejorDeDiez = new MejorDeDiez(jugadores);
+	public static void ejecutar(ArrayList<Jugador> jugadores, JFrame juego) {
+		VentanaMiniJuego.pantallaJuego = juego;
+		final MejorDeDiez mejorDeDiez = new MejorDeDiez(jugadores);
 		mejorDeDiez.iniciar();
 
 		SwingUtilities.invokeLater(new Runnable() {
@@ -116,6 +120,7 @@ System.out.println(resultadoGanadores);
 				createAndShowGUI(mejorDeDiez.getResultados());
 			}
 		});
+		VentanaMiniJuego.pantallaJuego.setVisible(false);
 	}
 
 	@Override
@@ -125,8 +130,11 @@ System.out.println(resultadoGanadores);
 		CardLayout cl = (CardLayout) (cards.getLayout());
 
 		if (comStr.equals("Aceptar")) {
-
 			cl.show(cards, GANADORES);
+		} else if (comStr.equals("Cerrar")) {
+
+			frame.dispose();
+			VentanaMiniJuego.pantallaJuego.setVisible(true);
 		}
 
 	}
