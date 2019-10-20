@@ -48,6 +48,14 @@ public class Usuario {
 		this.puntaje = puntaje;
 	}
 
+	public Usuario() {
+	}
+
+	public Usuario(String username, String password) {
+		this.username = username;
+		this.password = password;
+	}
+
 	public Usuario(int id, String username, String password) {
 		this.id = id;
 		this.username = username;

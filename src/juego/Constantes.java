@@ -1,5 +1,7 @@
 package juego;
 
+import javax.json.JsonValue;
+
 public abstract class Constantes {
 	public static final String ASSETS_PATH = "assets/img/";
 	public static final int VENTANA_WIDTH = 800;
@@ -25,6 +27,8 @@ public abstract class Constantes {
 	public static final String INCORRECT_LOGIN = "loginIncorrecto";
 	public static final String DUPLICATED_LOGIN = "loginDuplicado";
 	public static final String CORRECT_LOGIN = "loginCorrecto";
+	public static final String LOGIN_REQUEST_SERVER = "loginRequestServer";
+	public static final String LOGIN_REQUEST_SERVER_CORRECT = "loginCorrectServer";
 
 	// REGISTER
 	public static final String REGISTER_REQUEST = "register";
@@ -36,6 +40,15 @@ public abstract class Constantes {
 	public static final String IP = "0.0.0.0";
 	public static final int PUERTO = 7777;
 	public static final int MAXIMAS_CONEXIONES_SIMULTANEAS = 2;
-	public static final int SALIDA_CLIENTE = 7575;
-	public static final int ENTRADA_CLIENTE = 7777;
+	
+	//PAR CLIENTE->SERVIDOR
+	public static final int PUERTO_SALIDA_CLIENTE = 7775;
+	public static final int PUERTO_ENTRADA_SERVIDOR = 7777;
+	
+	//PAR SERVIDOR->CLIENTE
+	public static final int PUERTO_ENTRADA_CLIENTE = 7774;
+	public static final int PUERTO_SALIDA_SERVIDOR = 7776;
+
+	
+	public static final String LOGIN_REQUEST_SV_CLIENTE = "loginRequestSvCliente";
 }

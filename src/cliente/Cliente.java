@@ -6,9 +6,12 @@ import java.net.Socket;
 import juego.Constantes;
 
 public class Cliente {
-	private static Socket socketOut;
-	private static Socket socketIn;
+	private static Socket servidorIn;
+	private static Socket servidorOut;
+	private static Socket clienteIn;
+	private static Socket clienteOut;
 	private static ConexionServidor conexionServidor;
+	private static ConexionInterna conexionInterna;
 
 	public static void main(String[] args) {
 		new Cliente();
@@ -16,11 +19,19 @@ public class Cliente {
 
 	public Cliente() {
 		try {
-			socketOut = null;
-			socketIn = new Socket(Constantes.IP, Constantes.ENTRADA_CLIENTE);
+			clienteOut = new Socket(Constantes.IP, Constantes.PUERTO_SALIDA_CLIENTE);
+			clienteIn = new Socket(Constantes.IP, Constantes.PUERTO_ENTRADA_CLIENTE);
 
-			conexionServidor = new ConexionServidor(socketOut, socketIn);
+			conexionInterna = new ConexionInterna(clienteOut, clienteIn);
 
+			// Ahora creo el par para el server
+			servidorOut = new Socket(Constantes.IP, Constantes.PUERTO_SALIDA_SERVIDOR);
+			servidorIn = new Socket(Constantes.IP, Constantes.PUERTO_ENTRADA_SERVIDOR);
+			conexionServidor = new ConexionServidor(servidorOut, servidorIn);
+
+			conexionServidor.start();
+			
+			System.out.println(clienteOut.getLocalAddress());
 			PantallaLogin login = new PantallaLogin();
 			login.setVisible(true);
 
@@ -29,11 +40,15 @@ public class Cliente {
 		}
 	}
 
-	public static ConexionServidor getConexionServidor() {
-		return conexionServidor;
+	public static ConexionInterna getConexionInterna() {
+		return conexionInterna;
 	}
 
 	public static Socket getSocket() {
-		return socketOut;
+		return clienteOut;
+	}
+
+	public static ConexionServidor getconexionServidor() {
+		return conexionServidor;
 	}
 }

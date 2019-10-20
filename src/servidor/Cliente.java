@@ -21,13 +21,12 @@ public class Cliente extends Thread {
 	private Usuario usuario;
 	private Sala sala;
 
-	public Cliente(Socket socket) {
-		this.socket = socket;
+	public Cliente(Socket clienteIn, Socket clienteOut) {
+		this.socket = clienteIn;
 		try {
-			entrada = new DataInputStream(socket.getInputStream());
+			entrada = new DataInputStream(clienteIn.getInputStream());
 
-			salida = new DataOutputStream(socket.getOutputStream());
-
+			salida = new DataOutputStream(clienteOut.getOutputStream());
 		} catch (IOException ex) {
 			System.out.println("Error al crear los stream de entrada y salida : " + ex.getMessage());
 

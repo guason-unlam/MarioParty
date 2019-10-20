@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 import org.hibernate.Session;
 
+import servidor.ConexionServidor;
 import hibernate.HibernateUtils;
 import juego.Constantes;
 import lobby.Sala;
@@ -18,28 +19,60 @@ public class Servidor {
 	private static ArrayList<Sala> salasActivas = new ArrayList<Sala>();
 	private static ArrayList<Usuario> usuariosActivos = new ArrayList<Usuario>();
 	private static ArrayList<Cliente> clientesConectados = new ArrayList<Cliente>();
+	private static ArrayList<ConexionServidor> servidoresConectados = new ArrayList<ConexionServidor>();
 
 	public static void main(String[] args) {
-		ServerSocket servidor = null;
-		Socket socket = null;
+		//El socket con el cual el cliente me envia datos
+		ServerSocket ssClienteIn = null;
+		//El socket con el cual el cliente recibe datos
+		ServerSocket ssClienteOut = null;
+
+		///ESTOS DOS SE PIENSAN AL REVES, PUED SER CONFUSO
+		//El socket donde mi servidor envia los datos al cliente
+		ServerSocket ssServidorIn = null;
+		//El socket donde le pega el cliente (lo externo)
+		ServerSocket ssServidorOut = null;
+
+		Socket servidorIn = null;
+		Socket servidorOut = null;
+		Socket clienteIn = null;
+		Socket clienteOut = null;
 
 		try {
-			// Se crea el serverSocket para empezar a escuchar a los clientes.
-			servidor = new ServerSocket(Constantes.PUERTO, Constantes.MAXIMAS_CONEXIONES_SIMULTANEAS);
-			System.out.println("Servidor corriendo en " + servidor.getInetAddress() + ":" + servidor.getLocalPort());
+			ssClienteIn = new ServerSocket(Constantes.PUERTO_SALIDA_CLIENTE, Constantes.MAXIMAS_CONEXIONES_SIMULTANEAS);
+
+			ssClienteOut = new ServerSocket(Constantes.PUERTO_ENTRADA_CLIENTE, Constantes.MAXIMAS_CONEXIONES_SIMULTANEAS);	
+
+			ssServidorIn = new ServerSocket(Constantes.PUERTO_SALIDA_SERVIDOR, Constantes.MAXIMAS_CONEXIONES_SIMULTANEAS);	
+
+			ssServidorOut = new ServerSocket(Constantes.PUERTO_ENTRADA_SERVIDOR, Constantes.MAXIMAS_CONEXIONES_SIMULTANEAS);
+
+			System.out.println("Servidor corriendo en " + ssServidorOut.getInetAddress() + ":" + ssServidorOut.getLocalPort());
 			// Queda corriendo
 			while (true) {
-				// Acepto las conexiones que llegan
-				socket = servidor.accept();
+				clienteIn = ssClienteIn.accept();
+				clienteOut = ssClienteOut.accept();
 
-				// Cada cliente tendra un thread dedicado
-				Cliente conexionCliente = new Cliente(socket);
+
+				Cliente conexionCliente = new Cliente(clienteIn, clienteOut);
+
 
 				// Arranco a ejecutar el thread
 				conexionCliente.start();
 				clientesConectados.add(conexionCliente);
 
-				String mensajeNuevaConexion = "Cliente con IP " + socket.getInetAddress().getHostAddress();
+
+
+				servidorIn = ssServidorIn.accept();
+				servidorOut = ssServidorOut.accept();
+
+				ConexionServidor conexionServidor = new ConexionServidor(servidorIn, servidorOut);
+
+				// Arranco a ejecutar el thread
+				conexionServidor.start();
+				servidoresConectados.add(conexionServidor);
+
+				String mensajeNuevaConexion = "Cliente con IP " + clienteIn.getInetAddress().getHostAddress();
 
 				System.out.println(mensajeNuevaConexion);
 			}
@@ -49,12 +82,13 @@ public class Servidor {
 			System.out.println(mensajeError);
 		} finally {
 			try {
-				if (socket != null) {
+				//Cierro la conexion con el cliente
+				if (ssClienteIn != null) {
 
-					socket.close();
+					ssClienteIn.close();
 				}
-				if (servidor != null) {
-					servidor.close();
+				if (clienteIn != null) {
+					clienteIn.close();
 				}
 			} catch (IOException ex) {
 				String mensajeError = ex.getMessage();
@@ -86,5 +120,10 @@ public class Servidor {
 	public static void desconectar(final Cliente cliente) {
 		cliente.interrupt();
 		clientesConectados.remove(cliente);
+	}
+
+	public static void desconectarServidor(final ConexionServidor conexionServidor) {
+		conexionServidor.interrupt();
+		servidoresConectados.remove(conexionServidor);
 	}
 }
