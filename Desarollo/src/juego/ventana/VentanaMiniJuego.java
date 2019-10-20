@@ -22,16 +22,13 @@ import juego.personas.Jugador;
 import juego.tablero.MejorDeDiez;
 
 class VentanaMiniJuego implements ActionListener {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+
 	JPanel cards; // a panel that uses CardLayout
 	final static String BUTTONPANEL = "Card with JButtons";
 	final static String TEXTPANEL = "Card with JTextField";
 	final static String GANADORES = "ganadores";
-	private static Container padre;
 	private static JFrame frame = new JFrame("CardLayoutDemo");
+	private static JFrame pantallaJuego;
 
 	/**
 	 * @param ganadores
@@ -67,7 +64,7 @@ class VentanaMiniJuego implements ActionListener {
 
 		JPanel card2 = new JPanel();
 		JTextArea ganadores = new JTextArea();
-		System.out.println(resultadoGanadores);
+
 		ganadores.setFont(new Font("Dialog", Font.PLAIN, 22));
 		ganadores.setText(resultadoGanadores);
 		ganadores.setEditable(false);
@@ -113,9 +110,9 @@ class VentanaMiniJuego implements ActionListener {
 		frame.setLocationRelativeTo(null);
 	}
 
-	public static void ejecutar(ArrayList<Jugador> jugadores, Container cpadre) {
-		padre = cpadre;
-		MejorDeDiez mejorDeDiez = new MejorDeDiez(jugadores);
+	public static void ejecutar(ArrayList<Jugador> jugadores, JFrame juego) {
+		VentanaMiniJuego.pantallaJuego = juego;
+		final MejorDeDiez mejorDeDiez = new MejorDeDiez(jugadores);
 		mejorDeDiez.iniciar();
 
 		SwingUtilities.invokeLater(new Runnable() {
@@ -123,6 +120,7 @@ class VentanaMiniJuego implements ActionListener {
 				createAndShowGUI(mejorDeDiez.getResultados());
 			}
 		});
+		VentanaMiniJuego.pantallaJuego.setVisible(false);
 	}
 
 	@Override
@@ -135,10 +133,8 @@ class VentanaMiniJuego implements ActionListener {
 			cl.show(cards, GANADORES);
 		} else if (comStr.equals("Cerrar")) {
 
-			frame.setVisible(false);
 			frame.dispose();
-			padre.setVisible(true);
-			padre.repaint();
+			VentanaMiniJuego.pantallaJuego.setVisible(true);
 		}
 
 	}
