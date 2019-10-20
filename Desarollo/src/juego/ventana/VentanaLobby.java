@@ -13,6 +13,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 
 import juego.Constantes;
+import juego.lobby.Partida;
 import juego.lobby.Usuario;
 
 public class VentanaLobby extends JFrame implements ActionListener {
@@ -145,6 +146,17 @@ public class VentanaLobby extends JFrame implements ActionListener {
 			}
 		});
 
+		btnEmpezar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				// Aca debo iniciar la partida
+				// Por ahora es un single player
+				Partida p = new Partida(usuario.getSala().getUsuariosActivos(), 1);
+				new VentanaJuego(p).setVisible(true);
+				setVisible(false);
+
+			}
+		});
+
 	}
 
 	@Override
@@ -158,6 +170,8 @@ public class VentanaLobby extends JFrame implements ActionListener {
 			if (opcion == JOptionPane.YES_OPTION) {
 				System.exit(0);
 			}
+		} else if (comStr == "Ayuda de Mario Party") {
+			new Ayuda().setVisible(true);
 		}
 
 		System.out.println(comStr + " Selected");
