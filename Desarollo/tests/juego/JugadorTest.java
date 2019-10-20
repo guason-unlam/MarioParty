@@ -72,4 +72,46 @@ public class JugadorTest {
 		if(jugador1.getPosicion().isTieneRecompensa())
 			jugador1.getPosicion().getRecompensa().darRecompensa(jugador1);
 	}
+	
+		@Test
+	public void comprarDolarSinArbolitoTest(){
+		jugador1.setPesos(5000);
+		if(!jugador1.getPosicion().isTieneArbolito())
+			Assert.assertFalse(jugador1.comprarDolar()); // No permite comprar dolares si no hy un arbolito
+		else
+			Assert.assertTrue(jugador1.comprarDolar());
+		
+		
+	}
+	
+	@Test
+	public void comprarDolarSinPesosTest(){
+		jugador1.getPosicion().setTieneArbolito(true);
+		jugador1.setPesos(0);
+		Assert.assertFalse(jugador1.comprarDolar()); /// comprueba que no se pueda comprar dolares sin la cantidad de pesos necesaria
+		
+	}
+	
+	@Test
+	public void comprarDolarRestaPesosTest(){
+		jugador1.setPosicion(new Casillero());
+		jugador1.getPosicion().setTieneArbolito(true);
+		int cantidadPesos = 5000;
+		jugador1.setPesos(cantidadPesos);
+		jugador1.comprarDolar();
+			//comprueba que reste los pesos una vez comprado los dolares.
+		Assert.assertEquals(cantidadPesos-jugador1.getPartida().getPrecioDolar(), jugador1.getPesos()); 
+		
+	}
+	
+	@Test
+	public void soloUnDolarPorArbolitoTest(){
+		jugador1.getPosicion().setTieneArbolito(true);
+		int cantidadPesos = 5000;
+		jugador1.setPesos(cantidadPesos);
+		for(int i = 0;i<2; i++){
+				jugador1.comprarDolar();			
+		}
+		Assert.assertEquals(1, jugador1.getDolares()); 
+	}
 }
