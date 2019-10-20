@@ -104,7 +104,7 @@ public class VentanaLobby extends JFrame implements ActionListener {
 		getContentPane().add(this.btnSalir);
 
 		// Sin esto, el yes/no dialog no sirve
-		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setBounds(0, 0, Constantes.LOGIN_WIDTH, Constantes.LOGIN_HEIGHT);
 		this.setLocationRelativeTo(null);
 		addListener();

@@ -39,6 +39,8 @@ public class VentanaJuego extends JFrame implements ImageObserver {
 		this.setBounds(0, 0, Constantes.VENTANA_WIDTH, Constantes.VENTANA_HEIGHT);
 		this.setResizable(false);
 		this.setLocationRelativeTo(null);
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
 		/*
 		 * GridBagLayout gridBagLayout = new GridBagLayout(); gridBagLayout.columnWidths
 		 * = new int[] { 0 }; gridBagLayout.rowHeights = new int[] { 0 };
