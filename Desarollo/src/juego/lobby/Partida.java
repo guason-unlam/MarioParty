@@ -229,7 +229,7 @@ public class Partida {
 		}
 		int nuevaPos;
 		do {
-			nuevaPos = (int) (Math.random() * this.tablero.getCasilleros().size()) + 1;
+			nuevaPos = (int) (Math.random() * this.tablero.getCasilleros().size());
 		} while (pos.getId() == nuevaPos);
 
 		this.tablero.getCasilleros().get(nuevaPos).setTieneArbolito(true);
