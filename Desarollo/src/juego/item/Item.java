@@ -1,7 +1,5 @@
 package juego.item;
 
-import java.util.Iterator;
-
 import juego.personas.Jugador;
 
 public abstract class Item extends Recompensa {

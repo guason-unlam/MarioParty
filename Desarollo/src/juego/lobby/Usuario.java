@@ -3,6 +3,8 @@ package juego.lobby;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import com.google.gson.JsonObject;
+
 import juego.personas.Jugador;
 
 public class Usuario {
@@ -46,9 +48,28 @@ public class Usuario {
 		this.puntaje = puntaje;
 	}
 
+	public Usuario() {
+	}
+
 	public Usuario(String username, String password) {
 		this.username = username;
 		this.password = password;
+	}
+
+	public Usuario(int id, String username, String password) {
+		this.id = id;
+		this.username = username;
+		this.password = password;
+	}
+
+	public Usuario(JsonObject jsonObject) {
+		this.id = Integer.valueOf(jsonObject.get("id").toString());
+		this.username = jsonObject.get("username").toString();
+		this.password = jsonObject.get("password").toString();
+	}
+
+	public Usuario(int id) {
+		this.id = id;
 	}
 
 	public ArrayList<Partida> getPartidasJugadas() {
@@ -91,7 +112,7 @@ public class Usuario {
 		Sala sala = new Sala(nombreSala, password, cantDeUsrMaximos, this);
 		// Conecto al usuario a la misma
 		conectarseALaSala(sala);
-		//lector.close();
+		// lector.close();
 		return sala;
 	}
 
@@ -108,10 +129,10 @@ public class Usuario {
 
 	public void salirDeSala() {
 		/*
-		 * Si no lo saco, queda el usuario sin sala, pero 
-		 * figura como usuario activo, en al sala
-		 * */
-		if(this.jugador != null) {
+		 * Si no lo saco, queda el usuario sin sala, pero figura como usuario activo, en
+		 * al sala
+		 */
+		if (this.jugador != null) {
 			this.sala.getJugadoresActivos().remove(this.jugador);
 			this.setJugador(null);
 		}
@@ -127,7 +148,7 @@ public class Usuario {
 		if (this.sala != null && this.sala.getPartidaActual() != null
 				&& this.sala.getPartidaActual().getUsuariosActivosEnSala() != null) {
 			for (Usuario user : this.sala.getPartidaActual().getUsuariosActivosEnSala()) {
-				if(user == this) {
+				if (user == this) {
 					return user.getJugador();
 				}
 			}
@@ -138,5 +159,4 @@ public class Usuario {
 	public void setJugador(Jugador jugador) {
 		this.jugador = jugador;
 	}
-
 }

@@ -4,14 +4,12 @@ package juego;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Iterator;
 
 import org.junit.Before;
 import org.junit.Test;
-
 
 import juego.lobby.Partida;
 import juego.lobby.Usuario;

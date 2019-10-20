@@ -1,11 +1,9 @@
 package juego.ventana;
 
-import java.awt.Font;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -13,14 +11,9 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
-import javax.swing.JPasswordField;
-import javax.swing.JTextField;
 
 import juego.Constantes;
-import juego.lobby.Partida;
 import juego.lobby.Usuario;
-
-import java.awt.Color;
 
 public class VentanaLobby extends JFrame implements ActionListener {
 	/**
@@ -104,14 +97,14 @@ public class VentanaLobby extends JFrame implements ActionListener {
 		getContentPane().add(this.btnSalir);
 
 		// Sin esto, el yes/no dialog no sirve
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		this.setBounds(0, 0, Constantes.LOGIN_WIDTH, Constantes.LOGIN_HEIGHT);
 		this.setLocationRelativeTo(null);
 		addListener();
 
 		// Voy a crear mi usuario
 		// Por ahora hardcodeado
-		usuario = new Usuario("admin", "admin");
+		usuario = new Usuario(50, "admin", "admin");
 		// Creo la sala
 		usuario.crearSala();
 
@@ -119,7 +112,7 @@ public class VentanaLobby extends JFrame implements ActionListener {
 		JLabel nombreSala = new JLabel(usuario.getSala().getNombre());
 
 		// Creo un bot
-		Usuario bot = new Usuario("bot", "bot");
+		Usuario bot = new Usuario(999, "bot", "bot");
 		bot.conectarseALaSala(usuario.getSala());
 		nombreSala.setBounds(10, 11, 46, 14);
 		getContentPane().add(nombreSala);
@@ -152,16 +145,6 @@ public class VentanaLobby extends JFrame implements ActionListener {
 			}
 		});
 
-		btnEmpezar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				// Aca debo iniciar la partida
-				// Por ahora es un single player
-				Partida p = new Partida(usuario.getSala().getUsuariosActivos(), 1);
-				new VentanaJuego(p).setVisible(true);
-				setVisible(false);
-
-			}
-		});
 	}
 
 	@Override
@@ -175,8 +158,6 @@ public class VentanaLobby extends JFrame implements ActionListener {
 			if (opcion == JOptionPane.YES_OPTION) {
 				System.exit(0);
 			}
-		} else if (comStr == "Ayuda de Mario Party") {
-			new Ayuda().setVisible(true);
 		}
 
 		System.out.println(comStr + " Selected");

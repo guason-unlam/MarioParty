@@ -7,7 +7,6 @@ import java.util.TreeMap;
 import juego.misc.ExcepcionArchivos;
 import juego.misc.LectorEscritor;
 import juego.tablero.casillero.Casillero;
-import juego.ventana.VentanaJuego;
 
 public class Tablero {
 	// Me interesa tener un id->value, ordenado
@@ -65,6 +64,6 @@ public class Tablero {
 	/*
 	 * Me devuelve la cantidad de casilleros que me puedo mover hasta terminar Para
 	 * no pasarme de rango, voy a ir recorriendo cada rama y me quedo con la mas
-	 * pequeña
+	 * pequeï¿½a
 	 */
 }
