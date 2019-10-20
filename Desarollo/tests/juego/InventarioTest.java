@@ -87,4 +87,15 @@ public class InventarioTest {
 		}
 		Assert.assertEquals(jugador1.getInventario().getCapacidad(), jugador1.getInventario().getCantItems());
 	}
+	
+	@Test
+	public void seRestaItemDeInventarioTest(){
+		Jugador jugador1 = new Jugador(usuario, tablero, partida);
+		Item item;
+		item = new ModificadorDado();
+		item.darRecompensa(jugador1);
+		int cantidadItems = jugador1.getInventario().getCantItems();
+		jugador1.usarItem(item);
+		Assert.assertEquals(cantidadItems-1, jugador1.getInventario().getCantItems());
+	}
 }
