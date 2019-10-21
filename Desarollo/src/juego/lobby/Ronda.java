@@ -11,8 +11,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-
-import javafx.collections.transformation.SortedList;
 import juego.personas.Jugador;
 import juego.tablero.MejorDeDiez;
 import juego.tablero.MiniJuego;
@@ -71,30 +69,30 @@ public class Ronda {
 	public void setVentanaJuego(VentanaJuego ventanaJuego){
 		this.ventanaJuego = ventanaJuego;
 	}
-	public class decidirOrdenTurnos{
-		SortedList<resultadoLanzamiento> orden;
-		
-		public void agregarResultado(resultadoLanzamiento resultado) {
-			this.orden.add(resultado);
-//			resultadosDados.values().
-		}
-	}
+//	public class decidirOrdenTurnos{
+//		SortedList<resultadoLanzamiento> orden;
+//		
+//		public void agregarResultado(resultadoLanzamiento resultado) {
+////			this.orden.add(resultado);
+////			resultadosDados.values().
+//		}
+//	}
 	
-	public class resultadoLanzamiento implements Comparable<resultadoLanzamiento>{
-		Jugador jugador;
-		int resultado;
-		
-		public int getResultado() { return this.resultado;}
-
-		@Override
-		public int compareTo(resultadoLanzamiento resultado) {
-			return this.resultado - resultado.getResultado();
-		}
-		
-		
-	}
-	public void decidirOrdenTurnos() {
-		ventanaJuego.pedirAccion(jugadoresEnPartida.get(jugadoresRestantes-1));
-	}
+//	public class resultadoLanzamiento implements Comparable<resultadoLanzamiento>{
+//		Jugador jugador;
+//		int resultado;
+//		
+//		public int getResultado() { return this.resultado;}
+//
+//		@Override
+//		public int compareTo(resultadoLanzamiento resultado) {
+//			return this.resultado - resultado.getResultado();
+//		}
+//		
+//		
+//	}
+//	public void decidirOrdenTurnos() {
+//		ventanaJuego.pedirAccion(jugadoresEnPartida.get(jugadoresRestantes-1));
+//	}
 
 }

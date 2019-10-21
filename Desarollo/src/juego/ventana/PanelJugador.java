@@ -34,6 +34,7 @@ public class PanelJugador extends JPanel {
 		btnLanzarDado.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				juego.avanzarJugador(juego.getJugadorActual().tirarDado());
+				juego.continuar();
 			}
 		});
 		btnLanzarDado.setBounds(10, 36, 106, 23);

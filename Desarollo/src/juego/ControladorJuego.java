@@ -15,8 +15,6 @@ public class ControladorJuego {
 	private int numeroJugadorActual;
 	private Jugador jugadorActual;
 	
-	private boolean avanzando;
-	private int pasosRestantes;
 	
 	
 	public ControladorJuego(Partida partida, VentanaJuego ventana) {
@@ -27,6 +25,7 @@ public class ControladorJuego {
 		
 		return;
 	}
+	
 	public void avanzarJugador(int cant) {
 		for(int i = cant; i>0; i--)
 		{
@@ -37,9 +36,11 @@ public class ControladorJuego {
 				for(int j = 0; j< jugadorActual.caminosDisponibles();j++) {
 					caminos[j] = "Camino "+ jugadorActual.getPosicion().getSiguiente().get(j).getId();
 				}
-				
-				int camino =  JOptionPane.showOptionDialog(null, "Elegir camino", "Elija un camino",
+				int camino;
+				do
+				camino =  JOptionPane.showOptionDialog(null, "Elegir camino", "Elija un camino",
 						JOptionPane.WARNING_MESSAGE, 0, null, caminos, caminos[0]);
+				while(camino == JOptionPane.CLOSED_OPTION);
 				jugadorActual.avanzarUnCasillero(camino);
 				
 			}
@@ -55,9 +56,9 @@ public class ControladorJuego {
 		if(jugadorActual.getPosicion().isTieneRecompensa())
 			jugadorActual.getPosicion().getRecompensa().darRecompensa(jugadorActual);
 	}
+	
 	public void continuar() {
-		if(!avanzando)
-			siguienteJugador();
+		siguienteJugador();
 	}
 	
 	private void siguienteJugador() {
