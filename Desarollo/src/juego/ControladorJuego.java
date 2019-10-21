@@ -34,8 +34,8 @@ public class ControladorJuego {
 				jugadorActual.avanzarUnCasillero();
 			else {
 				String[] caminos = new String[jugadorActual.caminosDisponibles()]; 
-				for(int j = 1; j<= jugadorActual.caminosDisponibles();j++) {
-					caminos[j] = "Camino "+j;
+				for(int j = 0; j< jugadorActual.caminosDisponibles();j++) {
+					caminos[j] = "Camino "+ jugadorActual.getPosicion().getSiguiente().get(j).getId();
 				}
 				
 				int camino =  JOptionPane.showOptionDialog(null, "Elegir camino", "Elija un camino",
