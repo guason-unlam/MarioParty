@@ -73,22 +73,22 @@ public class VentanaJuego extends JFrame implements ImageObserver {
 		panelJuego.setBounds(0, 0, Constantes.MAPA_WIDTH, Constantes.MAPA_HEIGHT);
 		this.add(panelJuego);
 		tex = new Texture();
-//		JButton btnAbrirMinijuego = new JButton("Abrir Minijuego");
-//		btnAbrirMinijuego.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent e) {
-//				new VentanaMiniJuego();
-//				VentanaMiniJuego.ejecutar(p.getJugadoresEnPartida());
-//				setVisible(false);
-//			}
-//		});
-//		
-//		btnAbrirMinijuego.addMouseListener(new MouseAdapter() {
-//			@Override
-//			public void mouseClicked(MouseEvent e) {
-//			}
-//		});
-//
-//		panelJuego.add(btnAbrirMinijuego);
+		/*JButton btnAbrirMinijuego = new JButton("Abrir Minijuego");
+		btnAbrirMinijuego.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				new VentanaMiniJuego();
+				VentanaMiniJuego.ejecutar(p.getJugadoresEnPartida());
+				setVisible(false);
+			}
+		});
+		
+		btnAbrirMinijuego.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+			}
+		});
+
+		panelJuego.add(btnAbrirMinijuego);
 
 		JLabel lblNewLabel = new JLabel("");
 		lblNewLabel.setIcon(new ImageIcon(Constantes.TABLERO1_PATH));
@@ -145,6 +145,18 @@ public class VentanaJuego extends JFrame implements ImageObserver {
 				desplazamiento+=20;
 			}
 			
+		}
+	}
+	
+	public void dibujarPersonajes(Graphics g) {
+		int x, y;
+		for(int i = 0; i < p.getJugadoresEnPartida().size(); i++) {
+			Jugador tempPlayer = p.getJugadoresEnPartida().get(i);
+			x = tempPlayer.getPosicion().getPosicionX();
+			y = tempPlayer.getPosicion().getPosicionY();
+			g.drawImage(tex.characters[0/*tempPlayer.getPersonaje().getIdCharacter()*/], x, y, null);
+			//eso hay que descomentarlo cuando este bien implementado el registro y logeo de usuario y sacar el 0
+	
 		}
 	}
 

@@ -11,16 +11,23 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import juego.Constantes;
+import juego.lobby.Usuario;
 
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Scanner;
 
 import javax.swing.ImageIcon;
 
 public class VentanaLoginUsuario extends JFrame implements ActionListener {
 	/**
-	 * 
+	 *	Graphics 
 	 */
 	private static final long serialVersionUID = 9099821102113802071L;
 	private JTextField username;
@@ -31,7 +38,10 @@ public class VentanaLoginUsuario extends JFrame implements ActionListener {
 	private JMenu jmFile = null;
 	private JMenu jmOptions = null;
 
+
 	public VentanaLoginUsuario() {
+		
+		
 		this.setResizable(false);
 		this.setLocationRelativeTo(null);
 		this.getContentPane().setLayout(null);
@@ -40,12 +50,14 @@ public class VentanaLoginUsuario extends JFrame implements ActionListener {
 
 		jmFile = new JMenu("Archivo");
 
+		
+		
 		// Se crean los items de la pantalla
 		JMenuItem jmiOpen = new JMenuItem("Abrir");
 		JMenuItem jmiClose = new JMenuItem("Cerrar");
 		JMenuItem jmiSave = new JMenuItem("Guardar");
 		JMenuItem jmiExit = new JMenuItem("Salir");
-
+		
 		// Se agregan los items al archivo
 		jmFile.add(jmiOpen);
 		jmFile.add(jmiClose);
@@ -149,9 +161,10 @@ public class VentanaLoginUsuario extends JFrame implements ActionListener {
 		});
 
 		this.btnRegistrarse.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
+			public void actionPerformed(ActionEvent e) {
 				
-			}
+				}
+			
 		});
 
 		btnCrearUsuario.addActionListener(new ActionListener() {
