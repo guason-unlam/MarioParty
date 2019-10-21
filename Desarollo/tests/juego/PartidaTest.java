@@ -27,13 +27,13 @@ public class PartidaTest {
 		partida = new Partida(usuarios, 5);
 	}
 
-	@Test
-	public void partidaTest() {
-		try {
-			partida.iniciarPartida();
-		}catch(ExcepcionJugadoresInsuficientes e) {
-			Main.mostrar(e.getMessage());
-		}
-		Assert.assertTrue(partida.getGanadorPartida() != null);
-	}
+//	@Test
+//	public void partidaTest() {
+//		try {
+//			partida.iniciarPartida();
+//		}catch(ExcepcionJugadoresInsuficientes e) {
+//			Main.mostrar(e.getMessage());
+//		}
+//		Assert.assertTrue(partida.getGanadorPartida() != null);
+//	}
 }

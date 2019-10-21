@@ -19,7 +19,10 @@ import javax.swing.JPanel;
 
 import graphics.Texture;
 import juego.Constantes;
+import juego.ControladorJuego;
+import juego.lobby.ExcepcionJugadoresInsuficientes;
 import juego.lobby.Partida;
+import juego.lobby.Ronda;
 import juego.personas.Jugador;
 import juego.tablero.Tablero;
 import juego.tablero.casillero.Casillero;
@@ -39,6 +42,8 @@ public class VentanaJuego extends JFrame implements ImageObserver {
 	private static final long serialVersionUID = 3849520346687736542L;
 	private Partida p;
 	private static Texture tex;
+	private ControladorJuego juego;
+	PanelJugador panelJugador;
 
 	/*
 	 * public void paint(Graphics g) { g.fillRect(100, 50, Constantes.MAPA_WIDTH,
@@ -46,11 +51,17 @@ public class VentanaJuego extends JFrame implements ImageObserver {
 	 */
 	public VentanaJuego(Partida p) {
 		this.p = p;
+		p.setVentanaJuego(this);
 		setTitle("Mario Party");
 
-		this.setBounds(0, 0, Constantes.VENTANA_WIDTH, Constantes.VENTANA_HEIGHT);
+		this.setBounds(0, 0, Constantes.VENTANA_WIDTH, Constantes.VENTANA_HEIGHT+200);
 		this.setResizable(false);
 		this.setLocationRelativeTo(null);
+		panelJugador = new PanelJugador(0, Constantes.MAPA_HEIGHT+100);
+		juego = new ControladorJuego(p,this);
+		panelJugador.setControladorJuego(juego);
+		this.add(panelJugador);
+//		panelJugador = new PanelJugador()
 		/*
 		 * GridBagLayout gridBagLayout = new GridBagLayout(); gridBagLayout.columnWidths
 		 * = new int[] { 0 }; gridBagLayout.rowHeights = new int[] { 0 };
@@ -59,36 +70,44 @@ public class VentanaJuego extends JFrame implements ImageObserver {
 		 * getContentPane().setLayout(gridBagLayout);
 		 */
 		JPanel panelJuego = new JPanel();
-		panelJuego.setBounds(103, 21, Constantes.MAPA_WIDTH, Constantes.MAPA_HEIGHT);
-		getContentPane().add(panelJuego);
+		panelJuego.setBounds(0, 0, Constantes.MAPA_WIDTH, Constantes.MAPA_HEIGHT);
+		this.add(panelJuego);
 		tex = new Texture();
-		JButton btnAbrirMinijuego = new JButton("Abrir Minijuego");
-		btnAbrirMinijuego.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				new VentanaMiniJuego();
-				VentanaMiniJuego.ejecutar(p.getJugadoresEnPartida());
-				setVisible(false);
-			}
-		});
-		
-		btnAbrirMinijuego.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-			}
-		});
-
-		panelJuego.add(btnAbrirMinijuego);
+//		JButton btnAbrirMinijuego = new JButton("Abrir Minijuego");
+//		btnAbrirMinijuego.addActionListener(new ActionListener() {
+//			public void actionPerformed(ActionEvent e) {
+//				new VentanaMiniJuego();
+//				VentanaMiniJuego.ejecutar(p.getJugadoresEnPartida());
+//				setVisible(false);
+//			}
+//		});
+//		
+//		btnAbrirMinijuego.addMouseListener(new MouseAdapter() {
+//			@Override
+//			public void mouseClicked(MouseEvent e) {
+//			}
+//		});
+//
+//		panelJuego.add(btnAbrirMinijuego);
 
 		JLabel lblNewLabel = new JLabel("");
 		lblNewLabel.setIcon(new ImageIcon(Constantes.TABLERO1_PATH));
 
-		lblNewLabel.setBounds(54, 21, Constantes.MAPA_WIDTH, Constantes.MAPA_HEIGHT);
+		lblNewLabel.setBounds(0, 0, Constantes.MAPA_WIDTH, Constantes.MAPA_HEIGHT);
 		panelJuego.add(lblNewLabel);
+		
+//		JButton btnLanzarDado = new JButton("Lanzar dado");
+//		btnLanzarDado.addActionListener(new ActionListener() {
+//			public void actionPerformed(ActionEvent arg0) {
+//				
+//				
+//			}
+//		});
+		
 
 	}
 
 	private void dibujarCasillerosYPersonajes(Graphics g) {
-		int i = 0;
 //		Random r = new Random();
 		for (Entry<Integer, Casillero> elemento : this.p.getTablero().getCasilleros().entrySet()) {
 
@@ -132,17 +151,14 @@ public class VentanaJuego extends JFrame implements ImageObserver {
 	public void paint(Graphics g) {
 		super.paint(g);
 
-		// Creo los casilleros
 		this.dibujarCasillerosYPersonajes(g);
-//		this.dibujarPersonajes(g);
-	}
-
-	public void cargarMapa() {
-
 	}
 	
 	public static Texture getInstance() {
 		return tex;
 	}
-
+	
+	public PanelJugador getPanelJugador() {
+		return this.panelJugador;
+	}
 }

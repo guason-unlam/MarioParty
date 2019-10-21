@@ -3,11 +3,14 @@ package juego.lobby;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
+import javax.swing.JFrame;
+
 import juego.misc.ExcepcionArchivos;
 import juego.personas.Jugador;
 import juego.personas.Personaje;
 import juego.tablero.Tablero;
 import juego.tablero.casillero.Casillero;
+import juego.ventana.VentanaJuego;
 
 public class Partida {
 	// Cambiar por el estado
@@ -23,6 +26,9 @@ public class Partida {
 	private int puntajeMaximo;
 	private int cantidadDeRondasAJugar;
 	private int precioDolar = 60;
+	
+	private VentanaJuego ventanaJuego;
+	
 	// Los dolares son las estrellas del mario party, el q mas dolares tiene gana la
 	// partida, de momento hardcodeo el precio aca
 
@@ -46,7 +52,7 @@ public class Partida {
 			// Lo seteo al primer casillero
 			jugador.setPosicion(this.tablero.getCasilleros().get(0));
 			this.jugadoresEnPartida.add(jugador);
-			//aca se estan creando los personajes, hardcodeado todos con el mismo personaje
+			//aca se estan creando los personajes, hardcodeado todos los jugadores con el mismo personaje
 			jugador.setPersonaje(new Personaje("Mario","este es mario(?",1));
 			jugador.setPosicion(tablero.getCasilleros().get(0)); // pongo los personajes en el primer casillero
 			usuario.setJugador(jugador);
@@ -57,34 +63,36 @@ public class Partida {
 		this.puntajeMaximo = 0;
 		this.ganador = null;
 	}
-
-	public int iniciarPartida() throws ExcepcionJugadoresInsuficientes {
-		if (jugadoresEnPartida.size() < 2) {
-			throw new ExcepcionJugadoresInsuficientes(0);
-		}
-		// Inicio
-		this.partidaEnCurso = true;
-
-		/*
-		 * >> Falta validar aca, o en la sala, si se cumplen las condiciones para
-		 * iniciar una partida >> Hay que definir como interpretar la condicion de
-		 * victoria, y en caso de que sea como en el juego por estrellas, hay que ver si
-		 * considerarlas como items o de alguna otra forma.
-		 */
-		do {
-			numeroRonda++;
-			rondaEnCurso = new Ronda(jugadoresEnPartida);
-			System.out.println("RONDA " + numeroRonda);
-			System.out.println("===========");
-			rondaEnCurso.iniciar();
-			rondasJugadas.add(rondaEnCurso);
-			evaluarEstadoPartida();
-			System.out.println("");
-		} while (this.ganador == null && this.partidaEnCurso == true);
-		System.out.println("Con un total de $" + this.ganador.getPesos() + " el ganador es .... "
-				+ this.ganador.getNombre() + "!!!");
-		return 0;
-	}
+//
+//	public int iniciarPartida() throws ExcepcionJugadoresInsuficientes {
+//		if (jugadoresEnPartida.size() < 2) {
+//			throw new ExcepcionJugadoresInsuficientes(0);
+//		}
+//		// Inicio
+//		this.partidaEnCurso = true;
+//
+//		/*
+//		 * >> Falta validar aca, o en la sala, si se cumplen las condiciones para
+//		 * iniciar una partida >> Hay que definir como interpretar la condicion de
+//		 * victoria, y en caso de que sea como en el juego por estrellas, hay que ver si
+//		 * considerarlas como items o de alguna otra forma.
+//		 */
+//		boolean primeraRonda = true;
+//		do {
+//			numeroRonda++;
+//			rondaEnCurso = new Ronda(jugadoresEnPartida);
+//			rondaEnCurso.setVentanaJuego(ventanaJuego);
+//			System.out.println("RONDA " + numeroRonda);
+//			System.out.println("===========");
+//			rondaEnCurso.iniciar(primeraRonda);
+//			rondasJugadas.add(rondaEnCurso);
+//			evaluarEstadoPartida();
+//			System.out.println("");
+//		} while (this.ganador == null && this.partidaEnCurso == true);
+//		System.out.println("Con un total de $" + this.ganador.getPesos() + " el ganador es .... "
+//				+ this.ganador.getNombre() + "!!!");
+//		return 0;
+//	}
 
 	public boolean isPartidaEnCurso() {
 		return partidaEnCurso;
@@ -236,6 +244,10 @@ public class Partida {
 		} while (pos.getId() == nuevaPos);
 
 		this.tablero.getCasilleros().get(nuevaPos).setTieneArbolito(true);
+	}
+	
+	public void setVentanaJuego(VentanaJuego ventanaJuego){
+		this.ventanaJuego = ventanaJuego;
 	}
 
 }
