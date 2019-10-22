@@ -65,10 +65,10 @@ public class Game extends Canvas implements Runnable {
 		
 		/*Intento mover a mario*/
 		varPrueba = false;
-		cas1 = new Casillero();
+		cas1 = new Casillero(0);
 		cas1.setPosicionX(96);
 		cas1.setPosicionY(192);
-		cas2 = new Casillero();
+		cas2 = new Casillero(1);
 		cas2.setPosicionX(640);
 		cas2.setPosicionY(64);
 		/**/

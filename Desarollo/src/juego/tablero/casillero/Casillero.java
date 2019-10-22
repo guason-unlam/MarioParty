@@ -138,15 +138,25 @@ public class Casillero {
 	public Recompensa getRecompensa() {
 		return this.recompensa;
 	}
+	
+	public void setRecompensa(Recompensa recompensa) {
+		this.recompensa = recompensa;
+	}
+	
 	public boolean isTieneArbolito() {
 		return tieneArbolito;
 	}
 	public void setTieneArbolito(boolean tieneArbolito) {
+		this.color = Color.red;
 		this.tieneArbolito = tieneArbolito;
 	}
 
 	public boolean isTieneRecompensa() {
 		return tieneRecompensa;
+	}
+	
+	public void setTieneRecompensa(boolean tieneRecompensa) {
+		this.tieneRecompensa = tieneRecompensa;
 	}
 
 	public Set<Jugador> getJugadores() {

@@ -3,14 +3,18 @@ package juego;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import juego.item.Recompensa;
 import juego.lobby.Partida;
 import juego.personas.Jugador;
+import juego.tablero.casillero.Casillero;
+import juego.ventana.PanelConsola;
 import juego.ventana.VentanaJuego;
 
 public class ControladorJuego {
 	
 	private Partida partida;
 	private VentanaJuego ventana;
+	private int numeroRonda;
 	
 	private int numeroJugadorActual;
 	private Jugador jugadorActual;
@@ -21,12 +25,16 @@ public class ControladorJuego {
 		this.partida = partida;
 		this.ventana = ventana;
 		numeroJugadorActual = 0;
+		numeroRonda = 1;
 		siguienteJugador();
+		partida.cambioArbolito(null);
 		
 		return;
 	}
 	
 	public void avanzarJugador(int cant) {
+		PanelConsola consola = ventana.getPanelConsola();
+		consola.agregarTexto(jugadorActual.getNombre()+" lanzo el dado y saco "+cant);
 		for(int i = cant; i>0; i--)
 		{
 			if(jugadorActual.caminosDisponibles()==1)
@@ -49,12 +57,18 @@ public class ControladorJuego {
 						JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 
 				if (respuesta == JOptionPane.YES_OPTION) {
-					jugadorActual.comprarDolar();
+					if(jugadorActual.comprarDolar())
+						consola.agregarTexto(jugadorActual.getNombre()+" ha comprado un dolar!");
 				}
 			}
 		}
-		if(jugadorActual.getPosicion().isTieneRecompensa())
-			jugadorActual.getPosicion().getRecompensa().darRecompensa(jugadorActual);
+		if(jugadorActual.getPosicion().isTieneRecompensa()) {
+			Recompensa recompensa = jugadorActual.getPosicion().getRecompensa();
+			recompensa.darRecompensa(jugadorActual);
+			consola.agregarTexto(jugadorActual.getNombre()+" ha obtenido "+ recompensa.getNombre());
+			jugadorActual.getPosicion().setRecompensa(null);
+			jugadorActual.getPosicion().setTieneRecompensa(false);
+		}
 	}
 	
 	public void continuar() {
@@ -63,11 +77,12 @@ public class ControladorJuego {
 	
 	private void siguienteJugador() {
 		numeroJugadorActual++;
-		if(numeroJugadorActual > partida.getJugadoresEnPartida().size()) {
+		if(numeroJugadorActual > partida.getJugadoresEnPartida().size()) {//aca termino la ronda, se lanzaria el minijuego
 			numeroJugadorActual = 1;
 		}
 		jugadorActual = partida.getJugadoresEnPartida().get(numeroJugadorActual-1);
 		ventana.getPanelJugador().setNombreJugador("Turno de "+jugadorActual.getNombre());
+		ventana.getPanelConsola().agregarTexto("Comienza turno de "+jugadorActual.getNombre());
 	}
 	
 	public Partida getPartida() {

@@ -42,6 +42,7 @@ public class VentanaJuego extends JFrame implements ImageObserver {
 	private static Texture tex;
 	private PanelJugador panelJugador;
 	private ControladorJuego juego;
+	private PanelConsola consola;
 
 	/*
 	 * public void paint(Graphics g) { g.fillRect(100, 50, Constantes.MAPA_WIDTH,
@@ -54,7 +55,9 @@ public class VentanaJuego extends JFrame implements ImageObserver {
 		this.setBounds(0, 0, Constantes.VENTANA_WIDTH, Constantes.VENTANA_HEIGHT+200);
 		this.setResizable(false);
 		this.setLocationRelativeTo(null);
-		panelJugador = new PanelJugador(0,Constantes.VENTANA_HEIGHT);
+		panelJugador = new PanelJugador(10,Constantes.VENTANA_HEIGHT);
+		consola = new PanelConsola(panelJugador.getWidth()+10,Constantes.VENTANA_HEIGHT);
+		this.add(consola);
 		this.add(panelJugador);
 		juego = new ControladorJuego(p,this);
 		panelJugador.setControladorJuego(juego);
@@ -155,6 +158,10 @@ public class VentanaJuego extends JFrame implements ImageObserver {
 	
 	public PanelJugador getPanelJugador() {
 		return this.panelJugador;
+	}
+	
+	public PanelConsola getPanelConsola() {
+		return this.consola;
 	}
 
 }

@@ -240,8 +240,8 @@ public class Partida {
 		}
 		int nuevaPos;
 		do {
-			nuevaPos = (int) (Math.random() * this.tablero.getCasilleros().size()) + 1;
-		} while (pos.getId() == nuevaPos);
+			nuevaPos = (int) (Math.random() * this.tablero.getCasilleros().size());
+		} while (pos != null && pos.getId() == nuevaPos);
 
 		this.tablero.getCasilleros().get(nuevaPos).setTieneArbolito(true);
 	}

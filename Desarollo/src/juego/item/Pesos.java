@@ -15,4 +15,9 @@ public class Pesos extends Recompensa {
 		jugador.darPesos(cantidad);
 	}
 
+	@Override
+	public String getNombre() {
+		return this.cantidad + " pesos";
+	}
+
 }
