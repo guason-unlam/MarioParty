@@ -1,7 +1,11 @@
 package juego;
 
 public abstract class Constantes {
-	public static final String ASSETS_PATH = "assets/img/";
+	public static final String ASSETS_PATH = "assets/";
+	public static final String IMAGEN_PATH = "img/";
+	public static final String SOUND_PATH = "sound/";
+	public static final String MUSICA_LOGIN = ASSETS_PATH + SOUND_PATH + "service-bell_daniel_simion.wav";
+
 	public static final int VENTANA_WIDTH = 800;
 	public static final int VENTANA_HEIGHT = 600;
 
@@ -13,8 +17,9 @@ public abstract class Constantes {
 
 	public static final int LOGIN_WIDTH = 454;
 	public static final int LOGIN_HEIGHT = 290;
-	public static final String LOGO_PATH = ASSETS_PATH + "logo.png";
-	public static final String TABLERO1_PATH = ASSETS_PATH + "tablero01.jpg";
+
+	public static final String LOGO_PATH = ASSETS_PATH + IMAGEN_PATH + "logo.png";
+	public static final String TABLERO1_PATH = ASSETS_PATH + IMAGEN_PATH + "tablero01.jpg";
 
 	// Casilleros
 	public static final int CASILLERO_WIDTH = 50;
@@ -49,4 +54,5 @@ public abstract class Constantes {
 
 	public static final String LOGIN_REQUEST_SV_CLIENTE = "loginRequestSvCliente";
 	public static final String REGISTER_REQUEST_INCORRECT = "registerRequestIncorrect";
+
 }
