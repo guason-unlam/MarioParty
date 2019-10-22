@@ -1,34 +1,36 @@
 package juego.ventana;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.json.Json;
+import javax.json.JsonObject;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 
+import cliente.Cliente;
 import juego.Constantes;
-import juego.lobby.Partida;
-import juego.lobby.Usuario;
 
 public class VentanaLobby extends JFrame implements ActionListener {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 9099821102113802071L;
-	private JButton btnSalir;
-	private JButton btnEmpezar;
 	private JMenuBar javaMenuBar = null;
 	private JMenu jmFile = null;
 	private JMenu jmOptions = null;
-	private Usuario usuario;
+	private JButton btnEntrarEnSala;
+	private JButton btnCrearSala;
+	private JFrame ventanaLobby;
 
 	public VentanaLobby() {
+		this.ventanaLobby = this;
 		this.setResizable(false);
 		this.setLocationRelativeTo(null);
 		this.getContentPane().setLayout(null);
@@ -84,39 +86,28 @@ public class VentanaLobby extends JFrame implements ActionListener {
 
 		this.setJMenuBar(javaMenuBar);
 
-		this.btnEmpezar = new JButton("INICIAR PARTIDA");
-		btnEmpezar.setForeground(Color.BLACK);
-		btnEmpezar.setBackground(Color.GREEN);
+		this.btnCrearSala = new JButton("CREAR SALA");
+		btnCrearSala.setFont(new Font("Tahoma", Font.PLAIN, 19));
+		btnCrearSala.setForeground(Color.BLACK);
+		btnCrearSala.setBackground(Color.GREEN);
 
-		this.btnEmpezar.setBounds(121, 66, 194, 84);
-		this.getContentPane().add(this.btnEmpezar);
-
-		this.btnSalir = new JButton("Salir");
-		btnSalir.setForeground(Color.WHITE);
-		btnSalir.setBackground(Color.RED);
-		this.btnSalir.setBounds(257, 206, 129, 23);
-		getContentPane().add(this.btnSalir);
-
+		this.btnCrearSala.setBounds(124, 38, 194, 66);
+		this.getContentPane().add(this.btnCrearSala);
+		btnEntrarEnSala = new JButton("UNIRSE A SALA");
+		btnEntrarEnSala.setFont(new Font("Tahoma", Font.PLAIN, 19));
+		btnEntrarEnSala.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnEntrarEnSala.setForeground(Color.BLACK);
+		btnEntrarEnSala.setBackground(Color.GREEN);
+		btnEntrarEnSala.setBounds(124, 113, 194, 66);
+		getContentPane().add(btnEntrarEnSala);
 		// Sin esto, el yes/no dialog no sirve
 		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		this.setBounds(0, 0, Constantes.LOGIN_WIDTH, Constantes.LOGIN_HEIGHT);
 		this.setLocationRelativeTo(null);
 		addListener();
-
-		// Voy a crear mi usuario
-		// Por ahora hardcodeado
-		usuario = new Usuario(50, "admin", "admin");
-		// Creo la sala
-		usuario.crearSala();
-
-		// Seteo el nombre
-		JLabel nombreSala = new JLabel(usuario.getSala().getNombre());
-
-		// Creo un bot
-		Usuario bot = new Usuario(999, "bot", "bot");
-		bot.conectarseALaSala(usuario.getSala());
-		nombreSala.setBounds(10, 11, 46, 14);
-		getContentPane().add(nombreSala);
 
 	}
 
@@ -134,25 +125,31 @@ public class VentanaLobby extends JFrame implements ActionListener {
 			}
 		});
 
-		this.btnSalir.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				int opcion = JOptionPane.showConfirmDialog(getContentPane(), "Desea cerrar la ventana?", "Atención!",
-						JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+		btnCrearSala.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
 
-				if (opcion == JOptionPane.YES_OPTION) {
-					System.exit(0);
-				}
+				// Crear sala
+				// setVisible(false);
 
 			}
 		});
-
-		btnEmpezar.addActionListener(new ActionListener() {
+		btnEntrarEnSala.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// Aca debo iniciar la partida
-				// Por ahora es un single player
-				Partida p = new Partida(usuario.getSala().getUsuariosActivos(), 1);
-				new VentanaJuego(p).setVisible(true);
-				setVisible(false);
+
+				// Voy al menu que selecciona las salas
+				VentanaElegirSala ventanaUnirSala = new VentanaElegirSala(ventanaLobby);
+
+				// Creo el objeto
+				JsonObject listarSalasRequest = Json.createObjectBuilder().add("type", Constantes.INDEX_SALAS).build();
+
+				// Hago el request
+				Cliente.getconexionServidor().enviarAlServidor(listarSalasRequest);
+
+				// Muestro la ventana de unir sala
+				ventanaUnirSala.setVisible(true);
+
+				// Oculto la sala actual
+				ventanaLobby.setVisible(false);
 
 			}
 		});

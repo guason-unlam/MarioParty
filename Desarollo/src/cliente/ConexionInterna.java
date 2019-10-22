@@ -76,8 +76,32 @@ public class ConexionInterna extends Thread {
 		} catch (Exception e) {
 			System.out.println("[ERROR] Registro Usuario - " + e.getMessage());
 		}
-		
+
 		return new Message(Constantes.REGISTER_REQUEST_INCORRECT, null);
+	}
+
+	public boolean unirseASala(String nombreSala) {
+		try {
+
+			this.message = new Message(Constantes.CREATE_ROOM_REQUEST, nombreSala);
+			this.salidaDatos.writeUTF(this.message.toJson());
+			while (true) {
+				//Leo lo enviado por el sv
+				this.message = (Message) new Gson().fromJson((String) entradaDatos.readUTF(), Message.class);
+
+				//Depende el tipo de la respuesta
+				switch (this.message.getType()) {
+				case Constantes.CREATE_ROOM_CORRECT:
+					return true;
+				case Constantes.CREATE_ROOM_INCORRECT:
+					return false;
+				}
+			}
+
+		} catch (Exception ex) {
+			System.out.println("[CREAR SALA] " + ex.getMessage());
+		}
+		return false;
 	}
 
 }
