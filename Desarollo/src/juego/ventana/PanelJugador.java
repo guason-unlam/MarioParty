@@ -42,10 +42,20 @@ public class PanelJugador extends JPanel {
 		
 		JButton btnUsarItem = new JButton("Usar item");
 		btnUsarItem.setBounds(10, 70, 106, 23);
+		btnUsarItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				juego.usarItem();
+			}
+		});
 		add(btnUsarItem);
 		
 		JButton btnPasar = new JButton("Pasar");
 		btnPasar.setBounds(156, 36, 89, 57);
+		btnPasar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				juego.continuar();
+			}
+		});
 		add(btnPasar);
 
 	}

@@ -47,7 +47,7 @@ public class Casillero {
 		tieneArbolito = false;
 		tieneRecompensa = false;
 		primeraVez = true;
-		this.color = Color.GRAY;
+		this.color = Color.GREEN;
 		if(id != 0) {// el 0 es la posicion inicial, no va a tener recompensa
 			ponerRecompensa();
 		}
@@ -56,18 +56,16 @@ public class Casillero {
 	private void ponerRecompensa() {
 		double ran = Math.random();
 		if(ran > 0.5) { // 50% de prob de que el casillero no tenga recompensa
+			this.color = Color.YELLOW;
 			tieneRecompensa = true;
 			if(ran > 0.85) {// 15% de prob de q la recompensa sea un item
 				if(ran>0.9)
 					recompensa = new ItemRobar(); //10% de que sea un Robar
 				else
 					recompensa = new ModificadorDado(); //5% de que sea modificadorDado
-				this.color = Color.GREEN;
 			}
-			else {
+			else 
 				recompensa = new Pesos(50); // 35% de prob de que la recompensa sean 50p, de momento hardcodeado
-				this.color = Color.YELLOW;
-			}
 		}
 	}
 	
@@ -147,7 +145,13 @@ public class Casillero {
 		return tieneArbolito;
 	}
 	public void setTieneArbolito(boolean tieneArbolito) {
-		this.color = Color.red;
+		if(!tieneArbolito) {
+			if(tieneRecompensa)
+				this.color = Color.yellow;
+			else
+				this.color = Color.green;	
+		}else
+			this.color = Color.red;
 		this.tieneArbolito = tieneArbolito;
 	}
 

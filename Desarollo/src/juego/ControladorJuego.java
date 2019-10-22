@@ -72,7 +72,9 @@ public class ControladorJuego {
 	}
 	
 	public void continuar() {
+		ventana.repaint();
 		siguienteJugador();
+		
 	}
 	
 	private void siguienteJugador() {
@@ -83,6 +85,10 @@ public class ControladorJuego {
 		jugadorActual = partida.getJugadoresEnPartida().get(numeroJugadorActual-1);
 		ventana.getPanelJugador().setNombreJugador("Turno de "+jugadorActual.getNombre());
 		ventana.getPanelConsola().agregarTexto("Comienza turno de "+jugadorActual.getNombre());
+	}
+	
+	public void usarItem() {
+		
 	}
 	
 	public Partida getPartida() {

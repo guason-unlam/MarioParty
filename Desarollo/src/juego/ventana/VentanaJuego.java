@@ -125,7 +125,7 @@ public class VentanaJuego extends JFrame implements ImageObserver {
 						(casilleroActual.getPosicionY()) + ((Constantes.CASILLERO_HEIGHT) / 2),
 						sig.getPosicionX() + Constantes.CASILLERO_WIDTH / 2,
 						(sig.getPosicionY()) + Constantes.CASILLERO_HEIGHT / 2);
-			}
+			}		
 
 			Color c = casilleroActual.getColor();
 			g.setColor(c);
