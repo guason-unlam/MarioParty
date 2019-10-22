@@ -43,6 +43,7 @@ public class VentanaJuego extends JFrame implements ImageObserver {
 	private PanelJugador panelJugador;
 	private ControladorJuego juego;
 	private PanelConsola consola;
+	private PanelPuntaje panelPuntaje;
 
 	/*
 	 * public void paint(Graphics g) { g.fillRect(100, 50, Constantes.MAPA_WIDTH,
@@ -52,16 +53,20 @@ public class VentanaJuego extends JFrame implements ImageObserver {
 		this.p = p;
 		setTitle("Mario Party");
 
-		this.setBounds(0, 0, Constantes.VENTANA_WIDTH, Constantes.VENTANA_HEIGHT+200);
+		this.setBounds(0, 0, Constantes.VENTANA_WIDTH, Constantes.VENTANA_HEIGHT + 120);
 		this.setResizable(false);
 		this.setLocationRelativeTo(null);
-		panelJugador = new PanelJugador(10,Constantes.VENTANA_HEIGHT);
-		consola = new PanelConsola(panelJugador.getWidth()+10,Constantes.VENTANA_HEIGHT);
+		// 65
+		panelJugador = new PanelJugador(10, Constantes.VENTANA_HEIGHT - 35);
+		consola = new PanelConsola(panelJugador.getWidth() + 10, Constantes.VENTANA_HEIGHT - 35);
+		panelPuntaje = new PanelPuntaje(panelJugador.getWidth() + consola.getWidth() + 10, Constantes.VENTANA_HEIGHT - 35);
+
 		this.add(consola);
 		this.add(panelJugador);
-		juego = new ControladorJuego(p,this);
+		this.add(panelPuntaje);
+		juego = new ControladorJuego(p, this);
 		panelJugador.setControladorJuego(juego);
-		
+
 		/*
 		 * GridBagLayout gridBagLayout = new GridBagLayout(); gridBagLayout.columnWidths
 		 * = new int[] { 0 }; gridBagLayout.rowHeights = new int[] { 0 };
@@ -81,14 +86,14 @@ public class VentanaJuego extends JFrame implements ImageObserver {
 				setVisible(false);
 			}
 		});
-		
+
 		btnAbrirMinijuego.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 			}
 		});
 
-		panelJuego.add(btnAbrirMinijuego);
+		// panelJuego.add(btnAbrirMinijuego);
 
 		JLabel lblNewLabel = new JLabel("");
 		lblNewLabel.setIcon(new ImageIcon(Constantes.TABLERO1_PATH));
@@ -106,37 +111,39 @@ public class VentanaJuego extends JFrame implements ImageObserver {
 			Casillero casilleroActual = elemento.getValue();
 			g.drawString(String.valueOf(elemento.getKey()), (casilleroActual.getPosicionX()),
 					(casilleroActual.getPosicionY()));
-			
+
 			/* Caminos */
 			g.setColor(Color.black);
 			for (Casillero sig : casilleroActual.getSiguiente()) {
-				g.drawLine(	casilleroActual.getPosicionX() + ((Constantes.CASILLERO_WIDTH) / 2),
-							(casilleroActual.getPosicionY())+((Constantes.CASILLERO_HEIGHT) / 2), 
-							sig.getPosicionX() + Constantes.CASILLERO_WIDTH/2,
-							(casilleroActual.getPosicionY()+((Constantes.CASILLERO_HEIGHT) / 2)));
+				g.drawLine(casilleroActual.getPosicionX() + ((Constantes.CASILLERO_WIDTH) / 2),
+						(casilleroActual.getPosicionY()) + ((Constantes.CASILLERO_HEIGHT) / 2),
+						sig.getPosicionX() + Constantes.CASILLERO_WIDTH / 2,
+						(casilleroActual.getPosicionY() + ((Constantes.CASILLERO_HEIGHT) / 2)));
 			}
 			for (Casillero sig : casilleroActual.getSiguiente()) {
-				g.drawLine(	sig.getPosicionX() + Constantes.CASILLERO_WIDTH/2,
-						(casilleroActual.getPosicionY())+ ((Constantes.CASILLERO_HEIGHT) / 2), 
-						sig.getPosicionX() + Constantes.CASILLERO_WIDTH/2,
-						(sig.getPosicionY()) + Constantes.CASILLERO_HEIGHT/2);
+				g.drawLine(sig.getPosicionX() + Constantes.CASILLERO_WIDTH / 2,
+						(casilleroActual.getPosicionY()) + ((Constantes.CASILLERO_HEIGHT) / 2),
+						sig.getPosicionX() + Constantes.CASILLERO_WIDTH / 2,
+						(sig.getPosicionY()) + Constantes.CASILLERO_HEIGHT / 2);
 			}
-			
+
 			Color c = casilleroActual.getColor();
 			g.setColor(c);
-			
-			g.fillRect(	casilleroActual.getPosicionX(), casilleroActual.getPosicionY(),
-					  	Constantes.CASILLERO_WIDTH, Constantes.CASILLERO_HEIGHT);
+
+			g.fillRect(casilleroActual.getPosicionX(), casilleroActual.getPosicionY(), Constantes.CASILLERO_WIDTH,
+					Constantes.CASILLERO_HEIGHT);
 			g.setColor(Color.black);
 
-			g.drawRect( casilleroActual.getPosicionX(), casilleroActual.getPosicionY(),
-						Constantes.CASILLERO_WIDTH, Constantes.CASILLERO_HEIGHT);
-			int desplazamiento=0;
+			g.drawRect(casilleroActual.getPosicionX(), casilleroActual.getPosicionY(), Constantes.CASILLERO_WIDTH,
+					Constantes.CASILLERO_HEIGHT);
+			int desplazamiento = 0;
 			for (Jugador jugador : casilleroActual.getJugadores()) {
-				g.drawImage(tex.characters[0/*jugador.getPersonaje().getIdCharacter()*/],jugador.getPosicion().getPosicionX()+desplazamiento, jugador.getPosicion().getPosicionY(), null);
-				desplazamiento+=20;
+				g.drawImage(tex.characters[0/* jugador.getPersonaje().getIdCharacter() */],
+						jugador.getPosicion().getPosicionX() + desplazamiento, jugador.getPosicion().getPosicionY(),
+						null);
+				desplazamiento += 20;
 			}
-			
+
 		}
 	}
 
@@ -151,15 +158,15 @@ public class VentanaJuego extends JFrame implements ImageObserver {
 	public void cargarMapa() {
 
 	}
-	
+
 	public static Texture getInstance() {
 		return tex;
 	}
-	
+
 	public PanelJugador getPanelJugador() {
 		return this.panelJugador;
 	}
-	
+
 	public PanelConsola getPanelConsola() {
 		return this.consola;
 	}

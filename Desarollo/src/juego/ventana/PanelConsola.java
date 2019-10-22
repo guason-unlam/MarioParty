@@ -19,7 +19,7 @@ public class PanelConsola extends JPanel {
 	public PanelConsola(int x,int y) {
 		setBackground(Color.PINK);
 		setLayout(null);
-		this.setBounds(x, y, 400, 110);
+		this.setBounds(x, y, 350, 110);
 		textPane = new JTextPane();
 		textPane.setEditable(false);
 		textPane.setBounds(5, 5, this.getWidth()-10, this.getHeight()-10);
