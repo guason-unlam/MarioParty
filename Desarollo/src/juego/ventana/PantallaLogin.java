@@ -87,9 +87,8 @@ public class PantallaLogin extends JFrame {
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setBounds(0, 0, Constantes.LOGIN_WIDTH, Constantes.LOGIN_HEIGHT);
 		this.setLocationRelativeTo(null);
-		// Musica musica = new Musica(Constantes.MUSICA_LOGIN);
+		Musica musica = new Musica(Constantes.MUSICA_LOGIN);
 //		
-		// musica.repetir();
 		addListener();
 	}
 

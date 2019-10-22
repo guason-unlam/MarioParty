@@ -4,7 +4,7 @@ public abstract class Constantes {
 	public static final String ASSETS_PATH = "assets/";
 	public static final String IMAGEN_PATH = "img/";
 	public static final String SOUND_PATH = "sound/";
-	public static final String MUSICA_LOGIN = ASSETS_PATH + SOUND_PATH + "service-bell_daniel_simion.wav";
+	public static final String MUSICA_LOGIN = ASSETS_PATH + SOUND_PATH + "loginRecortado.wav";
 
 	public static final int VENTANA_WIDTH = 800;
 	public static final int VENTANA_HEIGHT = 600;
