@@ -57,7 +57,7 @@ public class ControladorJuego {
 						JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 
 				if (respuesta == JOptionPane.YES_OPTION) {
-					if(jugadorActual.comprarDolar())
+					if(jugadorActual.comprarDolar()) 
 						consola.agregarTexto(jugadorActual.getNombre()+" ha comprado un dolar!");
 				}
 			}
@@ -72,9 +72,8 @@ public class ControladorJuego {
 	}
 	
 	public void continuar() {
-		ventana.repaint();
 		siguienteJugador();
-		
+		ventana.repaint();
 	}
 	
 	private void siguienteJugador() {

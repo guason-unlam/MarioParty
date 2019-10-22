@@ -78,27 +78,11 @@ public class VentanaJuego extends JFrame implements ImageObserver {
 		panelJuego.setBounds(0, 0, Constantes.MAPA_WIDTH, Constantes.MAPA_HEIGHT);
 		getContentPane().add(panelJuego);
 		tex = new Texture();
-		JButton btnAbrirMinijuego = new JButton("Abrir Minijuego");
-		btnAbrirMinijuego.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				new VentanaMiniJuego();
-				VentanaMiniJuego.ejecutar(p.getJugadoresEnPartida());
-				setVisible(false);
-			}
-		});
-
-		btnAbrirMinijuego.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-			}
-		});
-
-		// panelJuego.add(btnAbrirMinijuego);
 
 		JLabel lblNewLabel = new JLabel("");
 		lblNewLabel.setIcon(new ImageIcon(Constantes.TABLERO1_PATH));
 
-		lblNewLabel.setBounds(54, 21, Constantes.MAPA_WIDTH, Constantes.MAPA_HEIGHT);
+		lblNewLabel.setBounds(0, 0, Constantes.MAPA_WIDTH, Constantes.MAPA_HEIGHT);
 		panelJuego.add(lblNewLabel);
 
 	}
@@ -143,7 +127,6 @@ public class VentanaJuego extends JFrame implements ImageObserver {
 						null);
 				desplazamiento += 20;
 			}
-
 		}
 	}
 

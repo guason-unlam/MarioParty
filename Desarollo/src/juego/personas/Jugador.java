@@ -41,12 +41,16 @@ public class Jugador implements Comparable<Jugador> {
 	}
 
 	public int avanzarUnCasillero() {//este metodo avanza un casillero y devuelve la cantidad de caminos disponibles
+		this.posicion.removerJugador(this);
 		this.posicion = this.posicion.getSiguiente().get(0);
+		this.posicion.agregarJugador(this);
 		return this.posicion.getSiguiente().size();
 	}
 	
 	public int avanzarUnCasillero(int camino) {
+		this.posicion.removerJugador(this);
 		this.posicion = this.posicion.getSiguiente().get(camino);
+		this.posicion.agregarJugador(this);
 		return this.posicion.getSiguiente().size();
 	}
 
