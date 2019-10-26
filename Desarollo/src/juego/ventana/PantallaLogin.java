@@ -16,6 +16,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import cliente.Cliente;
+import cliente.Musica;
 import juego.Constantes;
 import juego.lobby.Usuario;
 
@@ -86,7 +87,8 @@ public class PantallaLogin extends JFrame {
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setBounds(0, 0, Constantes.LOGIN_WIDTH, Constantes.LOGIN_HEIGHT);
 		this.setLocationRelativeTo(null);
-
+		Musica musica = new Musica(Constantes.MUSICA_LOGIN);
+//		
 		addListener();
 	}
 
@@ -106,7 +108,7 @@ public class PantallaLogin extends JFrame {
 			this.password.setFocusable(true);
 			return;
 		}
-		
+
 		Usuario usuario = Cliente.getConexionInterna().logear(this.username.getText(), this.password.getText());
 		Cliente.getconexionServidor().enviarAlServidor(Json.createObjectBuilder()
 				.add("type", Constantes.LOGIN_REQUEST_SV_CLIENTE).add("username", this.username.getText()).build());

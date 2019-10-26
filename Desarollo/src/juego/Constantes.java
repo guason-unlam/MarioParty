@@ -1,6 +1,11 @@
 package juego;
 
 public abstract class Constantes {
+	public static final String ASSETS_PATH = "assets/";
+	public static final String IMAGEN_PATH = "img/";
+	public static final String SOUND_PATH = "sound/";
+	public static final String MUSICA_LOGIN = ASSETS_PATH + SOUND_PATH + "loginRecortado.wav";
+
 
 	// SERVIDOR
 	public static final String IP = "0.0.0.0";
@@ -16,7 +21,6 @@ public abstract class Constantes {
 	public static final int PUERTO_SALIDA_SERVIDOR = 7776;
 
 	// ASSETS
-	public static final String ASSETS_PATH = "assets/";
 	public static final int VENTANA_WIDTH = 800;
 	public static final int VENTANA_HEIGHT = 600;
 
@@ -30,6 +34,9 @@ public abstract class Constantes {
 	public static final int LOGIN_HEIGHT = 290;
 	public static final String LOGO_PATH = ASSETS_PATH + "img/logo.png";
 	public static final String TABLERO1_PATH = ASSETS_PATH + "img/tablero01.jpg";
+
+	public static final String LOGO_PATH = ASSETS_PATH + IMAGEN_PATH + "logo.png";
+	public static final String TABLERO1_PATH = ASSETS_PATH + IMAGEN_PATH + "tablero01.jpg";
 
 	// Casilleros
 	public static final int CASILLERO_WIDTH = 50;
@@ -59,4 +66,15 @@ public abstract class Constantes {
 	public static final String CREATE_ROOM_REQUEST = "createRoom";
 	public static final String CREATE_ROOM_CORRECT = "createRoomOK";
 	public static final String CREATE_ROOM_INCORRECT = "createRoomFail";
+	// PAR CLIENTE->SERVIDOR
+	public static final int PUERTO_SALIDA_CLIENTE = 7775;
+	public static final int PUERTO_ENTRADA_SERVIDOR = 7777;
+
+	// PAR SERVIDOR->CLIENTE
+	public static final int PUERTO_ENTRADA_CLIENTE = 7774;
+	public static final int PUERTO_SALIDA_SERVIDOR = 7776;
+
+	public static final String LOGIN_REQUEST_SV_CLIENTE = "loginRequestSvCliente";
+	public static final String REGISTER_REQUEST_INCORRECT = "registerRequestIncorrect";
+
 }
