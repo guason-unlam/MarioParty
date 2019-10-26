@@ -1,11 +1,12 @@
 package juego;
 
+import javax.json.JsonValue;
+
 public abstract class Constantes {
 	public static final String ASSETS_PATH = "assets/";
 	public static final String IMAGEN_PATH = "img/";
 	public static final String SOUND_PATH = "sound/";
 	public static final String MUSICA_LOGIN = ASSETS_PATH + SOUND_PATH + "loginRecortado.wav";
-
 
 	// SERVIDOR
 	public static final String IP = "0.0.0.0";
@@ -32,8 +33,6 @@ public abstract class Constantes {
 
 	public static final int LOGIN_WIDTH = 454;
 	public static final int LOGIN_HEIGHT = 290;
-	public static final String LOGO_PATH = ASSETS_PATH + "img/logo.png";
-	public static final String TABLERO1_PATH = ASSETS_PATH + "img/tablero01.jpg";
 
 	public static final String LOGO_PATH = ASSETS_PATH + IMAGEN_PATH + "logo.png";
 	public static final String TABLERO1_PATH = ASSETS_PATH + IMAGEN_PATH + "tablero01.jpg";
@@ -44,6 +43,9 @@ public abstract class Constantes {
 
 	// LOGIN
 	public static final String LOGIN_REQUEST = "login";
+	public static final String LOGOUT_REQUEST = "logout";
+	public static final String INCORRECT_LOGOUT = "logoutIncorrecto";
+	public static final String CORRECT_LOGOUT = "logoutCorrecto";
 	public static final String INCORRECT_LOGIN = "loginIncorrecto";
 	public static final String DUPLICATED_LOGIN = "loginDuplicado";
 	public static final String CORRECT_LOGIN = "loginCorrecto";
@@ -66,15 +68,11 @@ public abstract class Constantes {
 	public static final String CREATE_ROOM_REQUEST = "createRoom";
 	public static final String CREATE_ROOM_CORRECT = "createRoomOK";
 	public static final String CREATE_ROOM_INCORRECT = "createRoomFail";
-	// PAR CLIENTE->SERVIDOR
-	public static final int PUERTO_SALIDA_CLIENTE = 7775;
-	public static final int PUERTO_ENTRADA_SERVIDOR = 7777;
-
-	// PAR SERVIDOR->CLIENTE
-	public static final int PUERTO_ENTRADA_CLIENTE = 7774;
-	public static final int PUERTO_SALIDA_SERVIDOR = 7776;
-
-	public static final String LOGIN_REQUEST_SV_CLIENTE = "loginRequestSvCliente";
-	public static final String REGISTER_REQUEST_INCORRECT = "registerRequestIncorrect";
+	public static final String EYE_ICON = ASSETS_PATH + IMAGEN_PATH + "eye.png";
+	public static final String CREATE_ROOM = "createRoom";
+	public static final String JOIN_ROOM_REQUEST = "joinRoom";
+	public static final String JOIN_ROOM_CORRECT = "joinRoomOK";
+	public static final String JOIN_ROOM_INCORRECT = "joinRoomFail";
+	public static final String REQUEST_EXIT_ROOM = "requestExitRoom";
 
 }

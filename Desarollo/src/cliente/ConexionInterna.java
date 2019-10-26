@@ -4,6 +4,7 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
+import java.util.ArrayList;
 
 import javax.json.Json;
 
@@ -58,7 +59,28 @@ public class ConexionInterna extends Thread {
 				return null;
 			}
 		} catch (Exception e) {
-			System.out.println("Error login " + e.getMessage());
+			System.out.println("[LOGIN] " + e.getMessage());
+		}
+		return null;
+	}
+
+	public Boolean logout(Usuario u) {
+
+		try {
+
+			this.salidaDatos.writeUTF(new Message(Constantes.LOGOUT_REQUEST, u).toJson());
+
+			this.message = (Message) new Gson().fromJson((String) entradaDatos.readUTF(), Message.class);
+			switch (this.message.getType()) {
+			case Constantes.CORRECT_LOGOUT:
+				return true;
+			case Constantes.INCORRECT_LOGIN:
+				return false;
+			default:
+				return false;
+			}
+		} catch (Exception e) {
+			System.out.println("[LOGOUT] " + e.getMessage());
 		}
 		return null;
 	}
@@ -74,7 +96,7 @@ public class ConexionInterna extends Thread {
 			return this.message;
 
 		} catch (Exception e) {
-			System.out.println("[ERROR] Registro Usuario - " + e.getMessage());
+			System.out.println("[REGISTRAR] " + e.getMessage());
 		}
 
 		return new Message(Constantes.REGISTER_REQUEST_INCORRECT, null);
@@ -83,13 +105,37 @@ public class ConexionInterna extends Thread {
 	public boolean unirseASala(String nombreSala) {
 		try {
 
-			this.message = new Message(Constantes.CREATE_ROOM_REQUEST, nombreSala);
+			this.message = new Message(Constantes.JOIN_ROOM_REQUEST, nombreSala);
 			this.salidaDatos.writeUTF(this.message.toJson());
 			while (true) {
-				//Leo lo enviado por el sv
+				// Leo lo enviado por el sv
 				this.message = (Message) new Gson().fromJson((String) entradaDatos.readUTF(), Message.class);
 
-				//Depende el tipo de la respuesta
+				// Depende el tipo de la respuesta
+				switch (this.message.getType()) {
+				case Constantes.JOIN_ROOM_CORRECT:
+					return true;
+				case Constantes.JOIN_ROOM_INCORRECT:
+					return false;
+				}
+			}
+
+		} catch (Exception ex) {
+			System.out.println("[INGRESAR A SALA] " + ex.getMessage());
+		}
+		return false;
+	}
+
+	public boolean crearSala(ArrayList<String> datosSala) {
+		try {
+
+			this.message = new Message(Constantes.CREATE_ROOM_REQUEST, datosSala);
+			this.salidaDatos.writeUTF(this.message.toJson());
+			while (true) {
+				// Leo lo enviado por el sv
+				this.message = (Message) new Gson().fromJson((String) entradaDatos.readUTF(), Message.class);
+
+				// Depende el tipo de la respuesta
 				switch (this.message.getType()) {
 				case Constantes.CREATE_ROOM_CORRECT:
 					return true;
@@ -104,4 +150,16 @@ public class ConexionInterna extends Thread {
 		return false;
 	}
 
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void salirSala(String nombreSala) {
+		try {
+			this.message = new Message(Constantes.REQUEST_EXIT_ROOM, nombreSala);
+			this.salidaDatos.writeUTF(this.message.toJson());
+		} catch (Exception ex) {
+			System.out.println("[SALIR SALA]" + ex.getMessage());
+		}
+	}
 }

@@ -47,11 +47,6 @@ public class VentanaElegirSala extends JFrame {
 		setResizable(false);
 		setLocationRelativeTo(null);
 
-		JLabel lblSalasDisponibles = new JLabel("Salas disponibles");
-		lblSalasDisponibles.setFont(new Font("Tahoma", Font.BOLD, 19));
-		lblSalasDisponibles.setBounds(10, 11, 190, 27);
-		panel.add(lblSalasDisponibles);
-
 		btnJoin = new JButton("Entrar!");
 		btnJoin.setFont(new Font("Tahoma", Font.PLAIN, 19));
 		btnJoin.setBounds(329, 314, 111, 46);
@@ -80,7 +75,7 @@ public class VentanaElegirSala extends JFrame {
 				if (!(sala == null)) {
 					entrarEnSala(sala);
 				} else {
-					JOptionPane.showMessageDialog(null, "Seleccione una sala", "Sala no seleccionada",
+					JOptionPane.showMessageDialog(null, "Seleccione una sala", "Error",
 							JOptionPane.ERROR_MESSAGE);
 				}
 			}

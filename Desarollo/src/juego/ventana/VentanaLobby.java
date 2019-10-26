@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 import javax.json.Json;
 import javax.json.JsonObject;
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -16,6 +17,10 @@ import javax.swing.JOptionPane;
 
 import cliente.Cliente;
 import juego.Constantes;
+import juego.lobby.Usuario;
+
+import javax.swing.JTextField;
+import javax.swing.JLabel;
 
 public class VentanaLobby extends JFrame implements ActionListener {
 	/**
@@ -28,8 +33,13 @@ public class VentanaLobby extends JFrame implements ActionListener {
 	private JButton btnEntrarEnSala;
 	private JButton btnCrearSala;
 	private JFrame ventanaLobby;
+	private Usuario usuario;
+	private JButton btnHistorial;
 
 	public VentanaLobby() {
+		// Obtengo el usuario!
+		usuario = Cliente.getConexionInterna().getUsuario();
+
 		this.ventanaLobby = this;
 		this.setResizable(false);
 		this.setLocationRelativeTo(null);
@@ -87,22 +97,44 @@ public class VentanaLobby extends JFrame implements ActionListener {
 		this.setJMenuBar(javaMenuBar);
 
 		this.btnCrearSala = new JButton("CREAR SALA");
-		btnCrearSala.setFont(new Font("Tahoma", Font.PLAIN, 19));
+		btnCrearSala.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		btnCrearSala.setForeground(Color.BLACK);
 		btnCrearSala.setBackground(Color.GREEN);
+		btnCrearSala.setFocusPainted(false);
 
-		this.btnCrearSala.setBounds(124, 38, 194, 66);
+		this.btnCrearSala.setBounds(164, 171, 120, 58);
 		this.getContentPane().add(this.btnCrearSala);
 		btnEntrarEnSala = new JButton("UNIRSE A SALA");
-		btnEntrarEnSala.setFont(new Font("Tahoma", Font.PLAIN, 19));
+		btnEntrarEnSala.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		btnEntrarEnSala.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
 		btnEntrarEnSala.setForeground(Color.BLACK);
 		btnEntrarEnSala.setBackground(Color.GREEN);
-		btnEntrarEnSala.setBounds(124, 113, 194, 66);
+		btnEntrarEnSala.setBounds(294, 171, 120, 58);
+		btnEntrarEnSala.setFocusPainted(false);
+
 		getContentPane().add(btnEntrarEnSala);
+
+		btnHistorial = new JButton("HISTORIAL");
+		btnHistorial.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnHistorial.setForeground(Color.BLACK);
+		btnHistorial.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		btnHistorial.setBackground(Color.GREEN);
+		btnHistorial.setBounds(34, 171, 120, 58);
+		btnHistorial.setFocusPainted(false);
+		getContentPane().add(btnHistorial);
+
+		JLabel lblBienvenida = new JLabel("Hola " + usuario.getUsername() + "!");
+		lblBienvenida.setFont(new Font("Tahoma", Font.PLAIN, 24));
+		lblBienvenida.setBounds(34, 56, 380, 68);
+		lblBienvenida.setHorizontalAlignment(JLabel.CENTER);
+		lblBienvenida.setVerticalAlignment(JLabel.CENTER);
+		getContentPane().add(lblBienvenida);
 		// Sin esto, el yes/no dialog no sirve
 		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		this.setBounds(0, 0, Constantes.LOGIN_WIDTH, Constantes.LOGIN_HEIGHT);
@@ -126,13 +158,33 @@ public class VentanaLobby extends JFrame implements ActionListener {
 		});
 
 		btnCrearSala.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
 
-				// Crear sala
-				// setVisible(false);
+			public void actionPerformed(ActionEvent e) {
+				VentanaCrearSala ventanaCrearSala = new VentanaCrearSala(ventanaLobby);
+
+				// Muestro la ventana de unir sala
+				ventanaCrearSala.setVisible(true);
+
+				// Oculto la sala actual
+				ventanaLobby.setVisible(false);
 
 			}
 		});
+		
+		btnHistorial.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
+				VentanaHistorial ventanaHistorial = new VentanaHistorial(ventanaLobby);
+
+				// Muestro la ventana de historial
+				ventanaHistorial.setVisible(true);
+
+				// Oculto la sala actual
+				ventanaLobby.setVisible(false);
+
+			}
+		});
+
 		btnEntrarEnSala.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
