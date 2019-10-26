@@ -242,7 +242,7 @@ public class VentanaCrearSala extends JFrame {
 						true);
 
 				this.ventanaAdministracionSala.setVisible(false);
-				JsonObject paqueteCrearSala = Json.createObjectBuilder().add("type", Constantes.CREATE_ROOM)
+				JsonObject paqueteCrearSala = Json.createObjectBuilder().add("type", Constantes.CREATE_ROOM_SV_REQUEST)
 						.add("sala", datosSala.get(0)).build();
 				Cliente.getConexionServidor().enviarAlServidor(paqueteCrearSala);
 				this.ventanaAdministracionSala.setVisible(true);

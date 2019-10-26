@@ -122,7 +122,7 @@ public class VentanaElegirSala extends JFrame {
 
 	private void entrarEnSala(String sala) {
 		if (Cliente.getConexionInterna().unirseASala(sala)) {
-			VentanaRoom ventanaSala = new VentanaRoom(lobby, false, sala);
+			VentanaAdministracionSala ventanaSala = new VentanaAdministracionSala(lobby, sala, false);
 
 			JsonObject joinRoomRequest = Json.createObjectBuilder().add("type", Constantes.JOIN_ROOM).add("sala", sala)
 					.build();

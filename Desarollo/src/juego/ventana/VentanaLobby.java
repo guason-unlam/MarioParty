@@ -185,25 +185,26 @@ public class VentanaLobby extends JFrame implements ActionListener {
 		btnEntrarEnSala.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				// Voy al menu que selecciona las salas
-				VentanaElegirSala ventanaUnirSala = new VentanaElegirSala(ventanaLobby);
-				Coordinador.setVentanaUnirSala(ventanaUnirSala);
+				abrirVentanaUnirSala();
 
-				// Creo el objeto
-				JsonObject listarSalasRequest = Json.createObjectBuilder().add("type", Constantes.INDEX_SALAS).build();
-
-				// Hago el request
-				Cliente.getConexionServidor().enviarAlServidor(listarSalasRequest);
-
-				// Muestro la ventana de unir sala
-				ventanaUnirSala.setVisible(true);
-
-				// Oculto la sala actual
-				ventanaLobby.setVisible(false);
 
 			}
 		});
 
+	}
+
+	protected void abrirVentanaUnirSala() {
+		VentanaElegirSala ventanaUnirSala = new VentanaElegirSala(this);
+		Coordinador.setVentanaUnirSala(ventanaUnirSala);
+		
+		JsonObject paqueteIngresoVentanaUnirSala = Json.createObjectBuilder()
+				.add("type", Constantes.INDEX_ROOM_REQUEST).build();
+
+		// Le aviso al sv que me actualice las salas, el cliente se las auto-actualiza
+		Cliente.getConexionServidor().enviarAlServidor(paqueteIngresoVentanaUnirSala);
+
+		ventanaUnirSala.setVisible(true);
+		this.setVisible(false);		
 	}
 
 	@Override

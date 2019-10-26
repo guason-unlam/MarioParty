@@ -24,22 +24,24 @@ public class Coordinador extends Thread {
 		while (true) {
 			String stringEntrada;
 			try {
-				stringEntrada = Cliente.getConexionServidor().getEntrada().readUTF();
+				stringEntrada = (String) Cliente.getConexionServidor().getEntrada().readUTF();
 				JsonReader jsonReader = Json.createReader(new StringReader(stringEntrada));
 				JsonObject entradaJson = jsonReader.readObject();
 				jsonReader.close(); // Cierro el stream hasta nuevo aviso
-				System.out.println("ENTRADA" + entradaJson.getString("type"));
 
 				switch (entradaJson.getString("type")) {
 				case Constantes.INDEX_SALAS:
-					System.out.println("Index!");
+
 					datosDeSalasDisponibles = entradaJson.getJsonArray("datosDeSalas");
-System.out.println(datosDeSalasDisponibles.get(0));
+
 					if (ventanaElegirSala != null) {
 						ventanaElegirSala.indexSalas(datosDeSalasDisponibles);
 					}
 					break;
+				default:
+					break;
 				}
+
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

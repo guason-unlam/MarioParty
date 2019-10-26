@@ -41,8 +41,8 @@ public class Cliente extends Thread {
 
 		while (conectado) {
 			try {
-				Message message = (Message) new Gson().fromJson(this.entrada.readUTF(), Message.class);
-				System.out.println("STRING" + message.getType());
+				String cadena = this.entrada.readUTF();
+				Message message = (Message) new Gson().fromJson(cadena, Message.class);
 				switch (message.getType()) {
 				// LOGIN
 				case Constantes.LOGIN_REQUEST:

@@ -1,25 +1,22 @@
 package juego;
 
-import javax.json.JsonValue;
-
 public abstract class Constantes {
 	public static final String ASSETS_PATH = "assets/";
 	public static final String IMAGEN_PATH = "img/";
 	public static final String SOUND_PATH = "sound/";
-	public static final String MUSICA_LOGIN = ASSETS_PATH + SOUND_PATH + "loginRecortado.wav";
+	public static final String MUSICA_LOGIN = ASSETS_PATH + SOUND_PATH + "login.wav";
 
 	// SERVIDOR
 	public static final String IP = "0.0.0.0";
-	public static final int PUERTO = 7777;
-	public static final int MAXIMAS_CONEXIONES_SIMULTANEAS = 2;
+	public static final int MAXIMAS_CONEXIONES_SIMULTANEAS = 10;
 
 	// PAR CLIENTE->SERVIDOR
-	public static final int PUERTO_SALIDA_CLIENTE = 7775;
-	public static final int PUERTO_ENTRADA_SERVIDOR = 7777;
+	public static final int PUERTO_1 = 7777;
+	public static final int PUERTO_2 = 7778;
 
 	// PAR SERVIDOR->CLIENTE
-	public static final int PUERTO_ENTRADA_CLIENTE = 7774;
-	public static final int PUERTO_SALIDA_SERVIDOR = 7776;
+	public static final int PUERTO_3 = 7779;
+	public static final int PUERTO_4 = 7780;
 
 	// ASSETS
 	public static final int VENTANA_WIDTH = 800;
@@ -77,4 +74,15 @@ public abstract class Constantes {
 	public static final String LEAVE_ROOM_REQUEST = "leaveRoom";
 	public static final String LEAVE_ROOM_CORRECT = "leaveRoomOK";
 	public static final String LEAVE_ROOM_INCORRECT = "leaveRoomFail";
+	public static final String REQUEST_REFRESH_ROOMS = "updateRooms";
+	public static final String CREATE_ROOM_SV_REQUEST = "creeSala";
+	public static final String JOIN_ROOM_SV_REQUEST = "unionSala";
+	public static final String EXIT_ROOM_REQUEST = "leaveSala";
+	public static final String INDEX_ROOM_REQUEST = "verSala";
+	public static final String REFRESH_ALL_ROOMS = "refreshSalas";
+	public static final String REFRESH_ROOM = "refreshRoom";
+	public static final String REFRESH_PARAM_ROOM = "refreshParamRoom";
+	public static final String JOIN_ROOM_PARAM = "parametersAdmin";
+	public static final String LOGIN_REQUEST_SV_OK = "loginServerClienteOK";
+	public static final String LOGIN_REQUEST_SV = "loginRequest";
 }

@@ -161,4 +161,20 @@ public class ConexionInterna extends Thread {
 			System.out.println("[SALIR SALA]" + ex.getMessage());
 		}
 	}
+
+	// Metodo utilizado para hacer el refresh de las salas
+	public String refreshRooms() {
+		try {
+			while (true) {
+				this.message = (Message) new Gson().fromJson((String) entradaDatos.readUTF(), Message.class);
+				if (message.getType() == Constantes.REQUEST_REFRESH_ROOMS) {
+					return (String) message.getData();
+				}
+			}
+		} catch (Exception ex) {
+			System.out.println("[REFRESH ROOM]" + ex.getMessage());
+		}
+		return null;
+
+	}
 }

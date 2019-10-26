@@ -15,10 +15,9 @@ public class ConexionServidor extends Thread {
 	private DataInputStream entrada;
 	private DataOutputStream salida;
 
-	public ConexionServidor(Socket servidorIn, Socket servidorOut) {
+	public ConexionServidor(Socket servidorOut, Socket servidorIn) {
 		this.socketIn = servidorIn;
 		this.socketOut = servidorOut;
-
 		try {
 			this.entrada = new DataInputStream(this.socketIn.getInputStream());
 			this.salida = new DataOutputStream(this.socketOut.getOutputStream());
@@ -29,8 +28,8 @@ public class ConexionServidor extends Thread {
 	}
 
 	public void enviarAlServidor(JsonObject paquete) {
-		System.out.println(paquete.toString());
 		try {
+			System.out.println(paquete.toString());
 			this.salida.writeUTF(paquete.toString());
 		} catch (IOException e) {
 			System.out.println("Error " + paquete.toString());

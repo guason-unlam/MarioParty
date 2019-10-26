@@ -43,16 +43,13 @@ public class Servidor {
 		Socket clienteOut = null;
 
 		try {
-			ssClienteIn = new ServerSocket(Constantes.PUERTO_SALIDA_CLIENTE, Constantes.MAXIMAS_CONEXIONES_SIMULTANEAS);
+			ssClienteIn = new ServerSocket(Constantes.PUERTO_1, Constantes.MAXIMAS_CONEXIONES_SIMULTANEAS);
 
-			ssClienteOut = new ServerSocket(Constantes.PUERTO_ENTRADA_CLIENTE,
-					Constantes.MAXIMAS_CONEXIONES_SIMULTANEAS);
+			ssClienteOut = new ServerSocket(Constantes.PUERTO_2, Constantes.MAXIMAS_CONEXIONES_SIMULTANEAS);
 
-			ssServidorIn = new ServerSocket(Constantes.PUERTO_SALIDA_SERVIDOR,
-					Constantes.MAXIMAS_CONEXIONES_SIMULTANEAS);
+			ssServidorIn = new ServerSocket(Constantes.PUERTO_3, Constantes.MAXIMAS_CONEXIONES_SIMULTANEAS);
 
-			ssServidorOut = new ServerSocket(Constantes.PUERTO_ENTRADA_SERVIDOR,
-					Constantes.MAXIMAS_CONEXIONES_SIMULTANEAS);
+			ssServidorOut = new ServerSocket(Constantes.PUERTO_4, Constantes.MAXIMAS_CONEXIONES_SIMULTANEAS);
 
 			System.out.println(
 					"Servidor corriendo en " + ssServidorOut.getInetAddress() + ":" + ssServidorOut.getLocalPort());
@@ -71,10 +68,9 @@ public class Servidor {
 				servidorOut = ssServidorOut.accept();
 
 				ConexionServidor conexionServidor = new ConexionServidor(servidorIn, servidorOut);
-
 				// Arranco a ejecutar el thread
 				conexionServidor.start();
-				servidoresConectados.add(conexionServidor);
+				getServidoresConectados().add(conexionServidor);
 
 				String mensajeNuevaConexion = "[NUEVA CONEXION] Cliente con IP "
 						+ clienteIn.getInetAddress().getHostAddress();
@@ -129,7 +125,7 @@ public class Servidor {
 
 	public static void desconectarServidor(final ConexionServidor conexionServidor) {
 		conexionServidor.interrupt();
-		servidoresConectados.remove(conexionServidor);
+		getServidoresConectados().remove(conexionServidor);
 	}
 
 	public static Sala getSalaPorNombre(String nombreSala) {
@@ -145,18 +141,29 @@ public class Servidor {
 		JsonArrayBuilder datosDeSalas = Json.createArrayBuilder();
 		for (Sala sala : salasActivas) {
 			JsonObjectBuilder oSala = Json.createObjectBuilder();
-			oSala.add("nombre", sala.getNombre()).add("capacidadActual", String.valueOf(sala.getCapacidadActual()))
+			oSala.add("nombre", sala.getNombre())
+					.add("capacidadActual", String.valueOf(sala.getCapacidadActual()))
 					.add("capacidadMaxima", String.valueOf(sala.getCapacidadMaxima()))
-					.add("admin", sala.getJugadorCreador().getUsername()).build();
-			datosDeSalas.add(oSala);
+					.add("admin", sala.getJugadorCreador().getUsername());
+			datosDeSalas.add(oSala.build());
 		}
+
 		return datosDeSalas.build();
 	}
 
 	public static boolean agregarASalasActivas(Sala sala) {
 		return salasActivas.add(sala);
 	}
+
 	public static boolean eliminarSalaActiva(Sala sala) {
 		return salasActivas.remove(sala);
+	}
+
+	public static ArrayList<ConexionServidor> getServidoresConectados() {
+		return servidoresConectados;
+	}
+
+	public static void setServidoresConectados(ArrayList<ConexionServidor> servidoresConectados) {
+		Servidor.servidoresConectados = servidoresConectados;
 	}
 }

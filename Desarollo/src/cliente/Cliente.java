@@ -22,14 +22,14 @@ public class Cliente {
 
 	public Cliente() {
 		try {
-			clienteOut = new Socket(Constantes.IP, Constantes.PUERTO_SALIDA_CLIENTE);
-			clienteIn = new Socket(Constantes.IP, Constantes.PUERTO_ENTRADA_CLIENTE);
+			clienteOut = new Socket(Constantes.IP, Constantes.PUERTO_1);
+			clienteIn = new Socket(Constantes.IP, Constantes.PUERTO_2);
 
 			conexionInterna = new ConexionInterna(clienteOut, clienteIn);
 
 			// Ahora creo el par para el server
-			servidorOut = new Socket(Constantes.IP, Constantes.PUERTO_SALIDA_SERVIDOR);
-			servidorIn = new Socket(Constantes.IP, Constantes.PUERTO_ENTRADA_SERVIDOR);
+			servidorOut = new Socket(Constantes.IP, Constantes.PUERTO_3);
+			servidorIn = new Socket(Constantes.IP, Constantes.PUERTO_4);
 			conexionServidor = new ConexionServidor(servidorOut, servidorIn);
 
 			conexionServidor.start();
