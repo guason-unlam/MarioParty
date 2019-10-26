@@ -8,8 +8,8 @@ import java.awt.event.ActionListener;
 import javax.json.Json;
 import javax.json.JsonObject;
 import javax.swing.JButton;
-import javax.swing.JComponent;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -18,9 +18,6 @@ import javax.swing.JOptionPane;
 import cliente.Cliente;
 import juego.Constantes;
 import juego.lobby.Usuario;
-
-import javax.swing.JTextField;
-import javax.swing.JLabel;
 
 public class VentanaLobby extends JFrame implements ActionListener {
 	/**
@@ -190,12 +187,13 @@ public class VentanaLobby extends JFrame implements ActionListener {
 
 				// Voy al menu que selecciona las salas
 				VentanaElegirSala ventanaUnirSala = new VentanaElegirSala(ventanaLobby);
+				Coordinador.setVentanaUnirSala(ventanaUnirSala);
 
 				// Creo el objeto
 				JsonObject listarSalasRequest = Json.createObjectBuilder().add("type", Constantes.INDEX_SALAS).build();
 
 				// Hago el request
-				Cliente.getconexionServidor().enviarAlServidor(listarSalasRequest);
+				Cliente.getConexionServidor().enviarAlServidor(listarSalasRequest);
 
 				// Muestro la ventana de unir sala
 				ventanaUnirSala.setVisible(true);

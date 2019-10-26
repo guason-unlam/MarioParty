@@ -104,13 +104,12 @@ public class ConexionInterna extends Thread {
 
 	public boolean unirseASala(String nombreSala) {
 		try {
-
 			this.message = new Message(Constantes.JOIN_ROOM_REQUEST, nombreSala);
 			this.salidaDatos.writeUTF(this.message.toJson());
 			while (true) {
 				// Leo lo enviado por el sv
 				this.message = (Message) new Gson().fromJson((String) entradaDatos.readUTF(), Message.class);
-
+				System.out.println(this.message.getType());
 				// Depende el tipo de la respuesta
 				switch (this.message.getType()) {
 				case Constantes.JOIN_ROOM_CORRECT:

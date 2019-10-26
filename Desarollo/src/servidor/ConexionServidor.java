@@ -45,7 +45,7 @@ public class ConexionServidor extends Thread {
 				jsonReader.close();
 
 				String tipoDeMensaje = entradaJson.getString("type");
-
+System.out.println(tipoDeMensaje);
 				if (tipoDeMensaje.equals(Constantes.LOGIN_REQUEST_SERVER)) {
 					for (Usuario u : Servidor.getUsuariosActivos()) {
 						if (u.getUsername().equals(entradaJson.getString("username"))) {

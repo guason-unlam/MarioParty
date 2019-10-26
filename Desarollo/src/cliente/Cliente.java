@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.Socket;
 
 import juego.Constantes;
+import juego.ventana.Coordinador;
 import juego.ventana.PantallaLogin;
 
 public class Cliente {
@@ -13,6 +14,7 @@ public class Cliente {
 	private static Socket clienteOut;
 	private static ConexionServidor conexionServidor;
 	private static ConexionInterna conexionInterna;
+	private static Coordinador coordinador;
 
 	public static void main(String[] args) {
 		new Cliente();
@@ -31,7 +33,8 @@ public class Cliente {
 			conexionServidor = new ConexionServidor(servidorOut, servidorIn);
 
 			conexionServidor.start();
-			
+			coordinador = new Coordinador();
+
 			PantallaLogin login = new PantallaLogin();
 			login.setVisible(true);
 
@@ -48,7 +51,12 @@ public class Cliente {
 		return clienteOut;
 	}
 
-	public static ConexionServidor getconexionServidor() {
+	public static ConexionServidor getConexionServidor() {
 		return conexionServidor;
 	}
+
+	public static Coordinador getCoordinador() {
+		return coordinador;
+	}
+
 }

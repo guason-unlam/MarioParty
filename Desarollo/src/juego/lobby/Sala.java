@@ -11,6 +11,8 @@ public class Sala {
 	private ArrayList<Usuario> usuariosActivos = new ArrayList<Usuario>();
 	private Usuario usuarioCreador;
 	private Partida partidaActual;
+	// Necesito llevar un control de las partidas jugadas
+	private ArrayList<Partida> partidas = new ArrayList<Partida>();
 
 	public Sala(String nombreSala, String passwordSala, int capacidadMaxima, Usuario usuarioCreador) {
 		this.nombre = nombreSala;
@@ -89,6 +91,31 @@ public class Sala {
 		return usuarioCreador;
 	}
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((usuarioCreador == null) ? 0 : usuarioCreador.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Sala other = (Sala) obj;
+		if (usuarioCreador == null) {
+			if (other.usuarioCreador != null)
+				return false;
+		} else if (!usuarioCreador.equals(other.usuarioCreador))
+			return false;
+		return true;
+	}
+
 	public void setJugadorCreador(Usuario jugadorCreador) {
 		this.usuarioCreador = jugadorCreador;
 	}
@@ -115,8 +142,20 @@ public class Sala {
 		return usuariosActivos;
 	}
 
-	public void setUsuariosActivos(Usuario usuariosActivos) {
-		this.usuariosActivos.add(usuariosActivos);
+	public boolean agregarUsuario(Usuario usuario) {
+		boolean esPrimeraPartida = this.partidas.size() > 0;
+		if (esPrimeraPartida && this.partidaActual.isPartidaEnCurso() == false
+				&& this.capacidadActual < this.capacidadMaxima) { //En caso deq ue quiera meterme a una partida ya empezada
+			this.usuariosActivos.add(usuario);
+			this.capacidadActual++;
+			return true;
+		} else if (this.capacidadActual < this.capacidadMaxima) { // El flujo normal
+			this.usuariosActivos.add(usuario);
+			this.capacidadActual++;
+			return true;
+		}
+		this.salaLlena = true;
+		return false;
 	}
 
 	/*

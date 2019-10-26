@@ -110,7 +110,7 @@ public class PantallaLogin extends JFrame {
 		}
 
 		Usuario usuario = Cliente.getConexionInterna().logear(this.username.getText(), this.password.getText());
-		Cliente.getconexionServidor().enviarAlServidor(Json.createObjectBuilder()
+		Cliente.getConexionServidor().enviarAlServidor(Json.createObjectBuilder()
 				.add("type", Constantes.LOGIN_REQUEST_SV_CLIENTE).add("username", this.username.getText()).build());
 		if (usuario != null && usuario.getId() != -1) {
 			EventQueue.invokeLater(new Runnable() {

@@ -74,5 +74,7 @@ public abstract class Constantes {
 	public static final String JOIN_ROOM_CORRECT = "joinRoomOK";
 	public static final String JOIN_ROOM_INCORRECT = "joinRoomFail";
 	public static final String REQUEST_EXIT_ROOM = "requestExitRoom";
-
+	public static final String LEAVE_ROOM_REQUEST = "leaveRoom";
+	public static final String LEAVE_ROOM_CORRECT = "leaveRoomOK";
+	public static final String LEAVE_ROOM_INCORRECT = "leaveRoomFail";
 }

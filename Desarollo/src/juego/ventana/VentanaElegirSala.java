@@ -7,10 +7,10 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import javax.json.Json;
+import javax.json.JsonArray;
 import javax.json.JsonObject;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -31,6 +31,7 @@ public class VentanaElegirSala extends JFrame {
 	private JButton btnVolver;
 	private JTable tableSalas;
 	private String sala;
+	private ModelTableRooms modelTableRooms = new ModelTableRooms();
 
 	public VentanaElegirSala(JFrame ventanaLobby) {
 		// Me guardo la referencia para hacerlo visible, etc
@@ -59,7 +60,7 @@ public class VentanaElegirSala extends JFrame {
 		panel.add(btnVolver);
 
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 49, 430, 254);
+		scrollPane.setBounds(10, 10, 430, 290);
 		panel.add(scrollPane);
 
 		tableSalas = new JTable();
@@ -75,8 +76,7 @@ public class VentanaElegirSala extends JFrame {
 				if (!(sala == null)) {
 					entrarEnSala(sala);
 				} else {
-					JOptionPane.showMessageDialog(null, "Seleccione una sala", "Error",
-							JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(null, "Seleccione una sala", "Error", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});
@@ -124,10 +124,10 @@ public class VentanaElegirSala extends JFrame {
 		if (Cliente.getConexionInterna().unirseASala(sala)) {
 			VentanaRoom ventanaSala = new VentanaRoom(lobby, false, sala);
 
-			JsonObject joinRoomRequest = Json.createObjectBuilder().add("type", Constantes.JOIN_ROOM)
-					.add("sala", sala).build();
+			JsonObject joinRoomRequest = Json.createObjectBuilder().add("type", Constantes.JOIN_ROOM).add("sala", sala)
+					.build();
 
-			Cliente.getconexionServidor().enviarAlServidor(joinRoomRequest);
+			Cliente.getConexionServidor().enviarAlServidor(joinRoomRequest);
 
 			this.setVisible(false);
 			ventanaSala.setVisible(true);
@@ -136,4 +136,27 @@ public class VentanaElegirSala extends JFrame {
 					"Error al ingresar", JOptionPane.WARNING_MESSAGE);
 		}
 	}
+
+	public void indexSalas(JsonArray datosDeSalasDisponibles) {
+		String data[][] = new String[datosDeSalasDisponibles.size()][3];
+
+		for (int i = 0; i < datosDeSalasDisponibles.size(); i++) {
+
+			data[i][0] = datosDeSalasDisponibles.getJsonObject(i).getString("nombre");
+			data[i][1] = (datosDeSalasDisponibles.getJsonObject(i).getString("capacidadActual") + "/"
+					+ datosDeSalasDisponibles.getJsonObject(i).getString("capacidadMaxima"));
+			data[i][2] = datosDeSalasDisponibles.getJsonObject(i).getString("admin");
+		}
+
+		if (datosDeSalasDisponibles.isEmpty()) {
+			this.modelTableRooms.setTableEmpty();
+			this.modelTableRooms.fireTableStructureChanged();
+		} else {
+			this.modelTableRooms.setData(data);
+		}
+
+		this.modelTableRooms.fireTableDataChanged();
+		this.tableSalas.setModel(this.modelTableRooms);
+	}
+
 }

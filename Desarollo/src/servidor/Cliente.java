@@ -4,6 +4,7 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.Properties;
 
 import com.google.gson.Gson;
@@ -41,6 +42,7 @@ public class Cliente extends Thread {
 		while (conectado) {
 			try {
 				Message message = (Message) new Gson().fromJson(this.entrada.readUTF(), Message.class);
+				System.out.println("STRING" + message.getType());
 				switch (message.getType()) {
 				// LOGIN
 				case Constantes.LOGIN_REQUEST:
@@ -102,7 +104,59 @@ public class Cliente extends Thread {
 								+ properties.getProperty("username") + ", pero el nombre esta duplicado en la DB.");
 						break;
 					}
+					break;
+				case Constantes.INDEX_SALAS:
+					this.salida.writeUTF(new Message(Constantes.INDEX_SALAS, Servidor.getIndexSalas()).toJson());
+					break;
+				case Constantes.CREATE_ROOM_REQUEST:
+					ArrayList<String> dataSala = (ArrayList<String>) message.getData();
 
+					// Primero debo chequear que no exista una sala con el nombre
+					if (Servidor.getSalaPorNombre(dataSala.get(0)) == null) {
+						// Creo la sala
+						if (dataSala.size() == 3) {
+							sala = usuario.crearSala(dataSala.get(0), dataSala.get(1),
+									Integer.valueOf(dataSala.get(2)));
+						} else {
+							sala = usuario.crearSala(dataSala.get(0), Integer.valueOf(dataSala.get(1)));
+						}
+						// La agrego al array de control
+						Servidor.agregarASalasActivas(sala);
+						this.salida.writeUTF(new Message(Constantes.CREATE_ROOM_CORRECT, true).toJson());
+					} else {
+						this.salida.writeUTF(new Message(Constantes.CREATE_ROOM_INCORRECT, false).toJson());
+					}
+
+					break;
+				case Constantes.LEAVE_ROOM_REQUEST:
+					usuario.salirDeSala();
+					sala = Servidor.getSalaPorNombre((String) message.getData());
+					sala.sacarUsuarioDeSala(usuario);
+
+					// En caso de que sea el ultimo usuario en la sala, se va a destruir la misma
+					if (sala.getCapacidadActual() == 0 || sala.getJugadorCreador().equals(usuario)) {
+						Servidor.eliminarSalaActiva(sala);
+						// TODO: No deberia avisar o algo a los demas jugadores? se puede romper todo
+					}
+					break;
+				case Constantes.JOIN_ROOM_REQUEST:
+					sala = Servidor.getSalaPorNombre((String) message.getData());
+					this.salida
+							.writeUTF(new Message(Constantes.JOIN_ROOM_CORRECT, sala.agregarUsuario(usuario)).toJson());
+					break;
+				case Constantes.LOGOUT_REQUEST:
+					usuario = new Gson().fromJson((String) message.getData(), Usuario.class);
+					for (Usuario usuarioEnServer : Servidor.getUsuariosActivos()) {
+						if (usuario != null && usuarioEnServer.getId() == usuario.getId()) {
+							Servidor.removerUsuarioActivo(usuarioEnServer);
+							this.salida.flush();
+							this.salida.writeUTF(new Message(Constantes.CORRECT_LOGOUT, null).toJson());
+							break;
+						} else {
+							this.salida.flush();
+							this.salida.writeUTF(new Message(Constantes.INCORRECT_LOGOUT, usuario).toJson());
+						}
+					}
 					break;
 				default:
 					break;
