@@ -7,7 +7,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -15,12 +14,17 @@ import java.util.ArrayList;
 import java.util.ListIterator;
 
 import javax.imageio.ImageIO;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.border.BevelBorder;
 import javax.swing.border.EmptyBorder;
 
 import juego.Constantes;
@@ -47,6 +51,14 @@ public class VentanaAdministracionSala extends JFrame {
 	private BufferedImage image2;
 	private BufferedImage image3;
 	private BufferedImage imageSheet;
+	private JList<String> listUsuarios;
+	private DefaultListModel<String> modelUsuariosLista = new DefaultListModel<String>();
+	private JLabel lblPersonaje;
+	private JComboBox<Object> comboMapa;
+	private JComboBox<Object> comboCantRondas;
+	private JLabel cantidadDeRondasLabel;
+	private JComboBox<Object> cantidadDeBotsComboBox;
+	private JLabel lblCantBots;
 
 	public static void main(String[] args) {
 		new VentanaAdministracionSala(null, "Sala de pruebas", true).setVisible(true);
@@ -58,7 +70,7 @@ public class VentanaAdministracionSala extends JFrame {
 		// Me guardo la referencia para hacerlo visible, etc
 		this.lobby = ventanaLobby;
 
-		setTitle("Salas disponibles");
+		setTitle("Bienvenido a " + nombreSala);
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 
 		setBounds(0, 0, 456, 400);
@@ -69,31 +81,31 @@ public class VentanaAdministracionSala extends JFrame {
 		setResizable(false);
 		setLocationRelativeTo(null);
 
-		btnJoin = new JButton("Entrar!");
+		btnJoin = new JButton("Jugar!");
 		btnJoin.setFont(new Font("Tahoma", Font.PLAIN, 19));
 		btnJoin.setBounds(329, 314, 111, 46);
 		panel.add(btnJoin);
 		setLocationRelativeTo(this.lobby);
 
-		btnVolver = new JButton("Volver");
+		btnVolver = new JButton("Salir\r\n");
 		btnVolver.setFont(new Font("Tahoma", Font.PLAIN, 19));
 		btnVolver.setBounds(10, 314, 111, 46);
 		panel.add(btnVolver);
 
 		lblNewLabel = new JLabel(nombreSala);
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 30));
-		lblNewLabel.setBounds(126, 11, 285, 106);
+		lblNewLabel.setBounds(10, 0, 430, 46);
 
 		panel.add(lblNewLabel);
 		panel2 = new JPanel();
-		panel2.setLocation(187, 199);
+		panel2.setLocation(143, 232);
 		panel2.setSize(50, 50);
 
 		labelLeft = new JLabel("");
 		labelLeft.setIcon(new ImageIcon(
 				new ImageIcon(Constantes.ARROW_LEFT).getImage().getScaledInstance(32, 32, Image.SCALE_DEFAULT)));
 		labelLeft.setFont(new Font("Tahoma", Font.BOLD, 17));
-		labelLeft.setBounds(153, 209, 32, 32);
+		labelLeft.setBounds(109, 242, 32, 32);
 
 		getContentPane().add(panel2);
 		getContentPane().add(labelLeft);
@@ -103,7 +115,7 @@ public class VentanaAdministracionSala extends JFrame {
 		labelRight.setIcon(new ImageIcon(
 				new ImageIcon(Constantes.ARROW_RIGHT).getImage().getScaledInstance(32, 32, Image.SCALE_DEFAULT)));
 		labelRight.setFont(new Font("Tahoma", Font.BOLD, 17));
-		labelRight.setBounds(239, 209, 32, 32);
+		labelRight.setBounds(195, 242, 32, 32);
 		panel.add(labelRight);
 
 		labelsIconos = new ArrayList<JLabel>();
@@ -124,7 +136,71 @@ public class VentanaAdministracionSala extends JFrame {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		this.listUsuarios = new JList<String>(modelUsuariosLista);
+		listUsuarios.setFont(new Font("Century Gothic", Font.BOLD, 14));
+		this.listUsuarios.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		this.listUsuarios.setBounds(264, 60, 176, 222);
+		this.listUsuarios.setEnabled(false);
+		this.listUsuarios.setOpaque(false);
+		getContentPane().add(this.listUsuarios);
 
+		JLabel lblUsuariosConectados = new JLabel("Usuarios conectados");
+		lblUsuariosConectados.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblUsuariosConectados.setBounds(292, 40, 200, 24);
+		lblUsuariosConectados.setSize(lblUsuariosConectados.getPreferredSize());
+		getContentPane().add(lblUsuariosConectados);
+
+		lblPersonaje = new JLabel("Personaje");
+		lblPersonaje.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblPersonaje.setBounds(10, 239, 64, 32);
+		panel.add(lblPersonaje);
+
+		JLabel labelMapa = new JLabel("Mapa");
+		labelMapa.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		labelMapa.setBounds(10, 194, 98, 20);
+		panel.add(labelMapa);
+
+		comboMapa = new JComboBox<Object>();
+		comboMapa.setToolTipText("Selecione un mapa");
+
+		comboMapa.setBounds(108, 196, 151, 25);
+		comboMapa.addItem("Seleccione un mapa");
+		comboMapa.addItem("Chico");
+		comboMapa.addItem("Mediano");
+		comboMapa.addItem("Grande");
+		comboMapa.setSize(comboMapa.getPreferredSize());
+		panel.add(comboMapa);
+
+		comboCantRondas = new JComboBox<Object>();
+		comboCantRondas.setToolTipText("Seleccione cantidad de rondas");
+		comboCantRondas.setBounds(109, 163, 118, 20);
+		comboCantRondas.addItem("Seleccione Rondas");
+		comboCantRondas.addItem("1");
+		comboCantRondas.addItem("2");
+		comboCantRondas.addItem("3");
+		comboCantRondas.addItem("4");
+		comboCantRondas.addItem("5");
+		comboCantRondas.setSize(comboCantRondas.getPreferredSize());
+		panel.add(comboCantRondas);
+
+		cantidadDeBotsComboBox = new JComboBox<Object>();
+		cantidadDeBotsComboBox.setToolTipText("Debe seleccionar cantidad de bots");
+		cantidadDeBotsComboBox
+				.setModel(new DefaultComboBoxModel<Object>(new String[] { "0", "1", "2", "3", "4", "5" }));
+		cantidadDeBotsComboBox.setBounds(130, 132, 80, 20);
+		panel.add(cantidadDeBotsComboBox);
+
+		cantidadDeRondasLabel = new JLabel();
+		cantidadDeRondasLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		cantidadDeRondasLabel.setText("Cant. Rondas");
+		cantidadDeRondasLabel.setBounds(10, 163, 151, 20);
+		panel.add(cantidadDeRondasLabel);
+
+		lblCantBots = new JLabel();
+		lblCantBots.setText("Cant. Bots");
+		lblCantBots.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblCantBots.setBounds(10, 132, 151, 20);
+		panel.add(lblCantBots);
 		this.addListener();
 	}
 
