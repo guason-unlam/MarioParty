@@ -49,7 +49,7 @@ public class VentanaAdministracionSala extends JFrame {
 	private BufferedImage imageSheet;
 
 	public static void main(String[] args) {
-		new VentanaAdministracionSala(null, "atr perro", true).setVisible(true);
+		new VentanaAdministracionSala(null, "Sala de pruebas", true).setVisible(true);
 		;
 	}
 
@@ -138,9 +138,9 @@ public class VentanaAdministracionSala extends JFrame {
 		});
 		btnJoin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				System.out.println(actual);
+
 				switch (actual) {
-				case 0:
+				case 1:
 					System.out.println("Elegiste Mario!");
 					break;
 				case 2:
@@ -156,29 +156,26 @@ public class VentanaAdministracionSala extends JFrame {
 		labelLeft.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				boolean flagLast = true;
-				if (actual == labelsIconos.size() ) {
+				if (actual > 1) {
 					actual--;
-				}
-				System.out.println("Tocaste " + actual);
-				if (actual >= 1) {
-					lis = labelsIconos.listIterator(actual);
-					JLabel icono = lis.hasPrevious() ? lis.previous() : null;
-					if (icono != null) {
-						Component[] components = panel2.getComponents();
 
-						for (Component component : components) {
-							panel2.remove(component);
+					if (actual >= 1) {
+						lis = labelsIconos.listIterator(actual);
+						JLabel icono = lis.hasPrevious() ? lis.previous() : null;
+						if (icono != null) {
+							Component[] components = panel2.getComponents();
+
+							for (Component component : components) {
+								panel2.remove(component);
+							}
+
+							panel2.revalidate();
+							panel2.repaint();
+							panel2.add(icono);
+
 						}
-
-						panel2.revalidate();
-						panel2.repaint();
-						panel2.add(icono);
-						if (actual - 1 > 0 && flagLast)
-							actual--;
 					}
 				}
-
 			}
 		});
 
