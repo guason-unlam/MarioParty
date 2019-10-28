@@ -10,7 +10,7 @@ import juego.Constantes;
 import javax.imageio.*;
 
 public class DyeImage {
-	private BufferedImage image;
+	private static BufferedImage image;
 
 	public static void main(String args[]) {
 		SwingUtilities.invokeLater(new Runnable() {
@@ -30,19 +30,28 @@ public class DyeImage {
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		this.image = ImageIO.read(new File(Constantes.ASSETS_PATH + Constantes.IMAGEN_PATH + "/characters_sheet.png"));
-		image = grabImage(0, 0, 10, 10);
-		JPanel panel = new JPanel(new GridLayout(1, 0));
-		panel.add(new JLabel(new ImageIcon(image)));
-		panel.add(new JLabel(new ImageIcon(dye(image, new Color(255, 0, 0, 128)))));
-		panel.add(new JLabel(new ImageIcon(dye(image, new Color(255, 0, 0, 32)))));
-		panel.add(new JLabel(new ImageIcon(dye(image, new Color(0, 128, 0, 32)))));
-		panel.add(new JLabel(new ImageIcon(dye(image, new Color(0, 0, 255, 32)))));
+
+		JPanel panel = new JPanel(new GridLayout(5, 3));
+		for (int i = 3; i < 4; i++) {
+			image = grabImage(i, 1, 44, 44);
+			panel.add(new JLabel(new ImageIcon(image)));
+			panel.add(new JLabel(new ImageIcon(dye(image, new Color(0, 0, 153, 120)))));
+			panel.add(new JLabel(new ImageIcon(dye(image, new Color(0, 153, 0, 120)))));
+			panel.add(new JLabel(new ImageIcon(dye(image, new Color(255, 102, 0, 120)))));
+			panel.add(new JLabel(new ImageIcon(dye(image, new Color(255, 255, 0, 120)))));
+			panel.add(new JLabel(new ImageIcon(dye(image, new Color(51, 0, 0, 150)))));
+			panel.add(new JLabel(new ImageIcon(dye(image, new Color(102, 0, 153, 120)))));
+			// Personaje que no tiene el turno
+			panel.add(new JLabel(new ImageIcon(dye(image, new Color(51, 51, 51, 120)))));
+		}
+
 		f.getContentPane().add(panel);
+
 		f.pack();
 		f.setVisible(true);
 	}
 
-	public BufferedImage grabImage(int col, int row, int width, int height) {
+	public static BufferedImage grabImage(int col, int row, int width, int height) {
 		BufferedImage img = image.getSubimage((col * width) - width, (row * height) - height, width, height);
 		return img;
 	}
