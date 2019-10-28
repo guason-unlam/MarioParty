@@ -30,12 +30,12 @@ public class PelotaPingPong {
 		}
 		if (colisionR2) {
 			dx = -dx;
-			x = 755;
+			x = 752;
 		}
-		if (x > limites.getMaxX()) {
+		if (x > limites.getMaxX() - 15) {
 			dx = -dx;
 		}
-		if (y > limites.getMaxY()) {
+		if (y > limites.getMaxY() - 15) {
 			dy = -dy;
 		}
 		if (x < 0) {
