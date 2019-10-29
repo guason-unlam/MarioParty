@@ -171,12 +171,12 @@ public class VentanaAdministracionSala extends JFrame {
 		comboMapa = new JComboBox<Object>();
 		comboMapa.setToolTipText("Selecione un mapa");
 
-		comboMapa.setBounds(109, 134, 151, 25);
-		comboMapa.addItem("Seleccione un mapa");
+		comboMapa.setBounds(109, 134, 134, 20);
+		comboMapa.addItem("Seleccione mapa");
 		comboMapa.addItem("Chico");
 		comboMapa.addItem("Mediano");
 		comboMapa.addItem("Grande");
-		comboMapa.setSize(comboMapa.getPreferredSize());
+		comboMapa.setSize(new Dimension(130, 20));
 		panel.add(comboMapa);
 
 		comboCantRondas = new JComboBox<Object>();
@@ -188,14 +188,14 @@ public class VentanaAdministracionSala extends JFrame {
 		comboCantRondas.addItem("3");
 		comboCantRondas.addItem("4");
 		comboCantRondas.addItem("5");
-		comboCantRondas.setSize(new Dimension(122, 20));
+		comboCantRondas.setSize(new Dimension(130, 20));
 		panel.add(comboCantRondas);
 
 		cantidadDeBotsComboBox = new JComboBox<Object>();
 		cantidadDeBotsComboBox.setToolTipText("Debe seleccionar cantidad de bots");
 		cantidadDeBotsComboBox
 				.setModel(new DefaultComboBoxModel<Object>(new String[] { "0", "1", "2", "3", "4", "5" }));
-		cantidadDeBotsComboBox.setBounds(109, 172, 119, 20);
+		cantidadDeBotsComboBox.setBounds(109, 172, 130, 20);
 		panel.add(cantidadDeBotsComboBox);
 
 		cantidadLabel = new JLabel();
@@ -211,29 +211,29 @@ public class VentanaAdministracionSala extends JFrame {
 		panel.add(lblCantBots);
 
 		cantidadDeBotsLabel = new JLabel("-");
-		cantidadDeBotsLabel.setBounds(109, 172, 119, 20);
+		cantidadDeBotsLabel.setBounds(109, 172, 130, 20);
 		panel.add(cantidadDeBotsLabel);
 
 		cantidadRondasLabel = new JLabel("-");
-		cantidadRondasLabel.setBounds(109, 94, 114, 20);
+		cantidadRondasLabel.setBounds(109, 96, 130, 20);
 		panel.add(cantidadRondasLabel);
 
 		mapaParaNoAdmin = new JLabel("-");
-		mapaParaNoAdmin.setBounds(109, 134, 119, 20);
+		mapaParaNoAdmin.setBounds(109, 134, 130, 20);
 		panel.add(mapaParaNoAdmin);
 
 		condicionVictoria = new JComboBox<Object>();
 		condicionVictoria.setToolTipText("Selecione una condicion de victoria");
-		condicionVictoria.setBounds(109, 57, 118, 20);
+		condicionVictoria.setBounds(109, 57, 130, 20);
 		condicionVictoria.addItem("Seleccione condicion");
 		for (TipoCondicionVictoria tipo : TipoCondicionVictoria.values()) {
 			condicionVictoria.addItem(tipo);
 		}
-		condicionVictoria.setSize(condicionVictoria.getPreferredSize());
+		condicionVictoria.setSize(new Dimension(130, 20));
 		panel.add(condicionVictoria);
 
 		labelCondicionVictoria = new JLabel("-");
-		labelCondicionVictoria.setBounds(109, 57, 122, 20);
+		labelCondicionVictoria.setBounds(109, 57, 130, 20);
 		panel.add(labelCondicionVictoria);
 
 		JLabel lblCondicin = new JLabel();
