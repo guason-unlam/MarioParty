@@ -23,6 +23,7 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 import cliente.Cliente;
+import cliente.Musica;
 import juego.Constantes;
 
 public class VentanaCrearSala extends JFrame {
@@ -42,8 +43,10 @@ public class VentanaCrearSala extends JFrame {
 	private JLabel lb;
 	int flagPw = 0;
 	private VentanaAdministracionSala ventanaAdministracionSala;
+	private Musica musica;
 
-	public VentanaCrearSala(JFrame ventanaLobby) {
+	public VentanaCrearSala(JFrame ventanaLobby, Musica musica) {
+		this.musica = musica;
 		// Me guardo la referencia para hacerlo visible, etc
 		this.lobby = ventanaLobby;
 
@@ -245,6 +248,7 @@ public class VentanaCrearSala extends JFrame {
 				JsonObject paqueteCrearSala = Json.createObjectBuilder().add("type", Constantes.CREATE_ROOM_SV_REQUEST)
 						.add("sala", datosSala.get(0)).build();
 				Cliente.getConexionServidor().enviarAlServidor(paqueteCrearSala);
+				musica.stop();
 				this.ventanaAdministracionSala.setVisible(true);
 
 				this.dispose();

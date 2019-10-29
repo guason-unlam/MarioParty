@@ -16,6 +16,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 
 import cliente.Cliente;
+import cliente.Musica;
 import juego.Constantes;
 import juego.lobby.Usuario;
 
@@ -32,8 +33,16 @@ public class VentanaLobby extends JFrame implements ActionListener {
 	private JFrame ventanaLobby;
 	private Usuario usuario;
 	private JButton btnHistorial;
+	private Musica musica;
 
-	public VentanaLobby() {
+	public VentanaLobby(Musica musica) {
+		if (musica == null) {
+			musica = new Musica(Constantes.MUSICA_LOGIN);
+			musica.loop();
+		} else {
+			this.musica = musica;
+
+		}
 		// Obtengo el usuario!
 		usuario = Cliente.getConexionInterna().getUsuario();
 
@@ -157,7 +166,7 @@ public class VentanaLobby extends JFrame implements ActionListener {
 		btnCrearSala.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
-				VentanaCrearSala ventanaCrearSala = new VentanaCrearSala(ventanaLobby);
+				VentanaCrearSala ventanaCrearSala = new VentanaCrearSala(ventanaLobby, musica);
 
 				// Muestro la ventana de unir sala
 				ventanaCrearSala.setVisible(true);
@@ -167,7 +176,7 @@ public class VentanaLobby extends JFrame implements ActionListener {
 
 			}
 		});
-		
+
 		btnHistorial.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
@@ -187,7 +196,6 @@ public class VentanaLobby extends JFrame implements ActionListener {
 
 				abrirVentanaUnirSala();
 
-
 			}
 		});
 
@@ -196,15 +204,15 @@ public class VentanaLobby extends JFrame implements ActionListener {
 	protected void abrirVentanaUnirSala() {
 		VentanaElegirSala ventanaUnirSala = new VentanaElegirSala(this);
 		Coordinador.setVentanaUnirSala(ventanaUnirSala);
-		
-		JsonObject paqueteIngresoVentanaUnirSala = Json.createObjectBuilder()
-				.add("type", Constantes.INDEX_ROOM_REQUEST).build();
+
+		JsonObject paqueteIngresoVentanaUnirSala = Json.createObjectBuilder().add("type", Constantes.INDEX_ROOM_REQUEST)
+				.build();
 
 		// Le aviso al sv que me actualice las salas, el cliente se las auto-actualiza
 		Cliente.getConexionServidor().enviarAlServidor(paqueteIngresoVentanaUnirSala);
 
 		ventanaUnirSala.setVisible(true);
-		this.setVisible(false);		
+		this.setVisible(false);
 	}
 
 	@Override

@@ -41,4 +41,5 @@ public class ConexionServidor extends Thread {
 		return entrada;
 	}
 
+
 }

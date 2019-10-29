@@ -15,6 +15,7 @@ public class Coordinador extends Thread {
 
 	private static VentanaElegirSala ventanaElegirSala;
 	private static JsonArray datosDeSalasDisponibles;
+	private static VentanaAdministracionSala ventanaAdministracionSala;
 
 	public Coordinador() {
 		this.start();
@@ -55,6 +56,30 @@ public class Coordinador extends Thread {
 		if (datosDeSalasDisponibles != null) {
 			ventanaElegirSala.indexSalas(datosDeSalasDisponibles);
 		}
+	}
+
+	public static void setVentanaElegirSala(VentanaElegirSala ventanaElegirSala) {
+		Coordinador.ventanaElegirSala = ventanaElegirSala;
+	}
+
+	public static void setDatosDeSalasDisponibles(JsonArray datosDeSalasDisponibles) {
+		Coordinador.datosDeSalasDisponibles = datosDeSalasDisponibles;
+	}
+
+	public static void setVentanaAdministracionSala(VentanaAdministracionSala ventanaAdministracionSala) {
+		Coordinador.ventanaAdministracionSala = ventanaAdministracionSala;
+	}
+
+	public static VentanaAdministracionSala getVentanaAdministracionSala() {
+		return ventanaAdministracionSala;
+	}
+
+	public static VentanaElegirSala getVentanaElegirSala() {
+		return ventanaElegirSala;
+	}
+
+	public static JsonArray getDatosDeSalasDisponibles() {
+		return datosDeSalasDisponibles;
 	}
 
 }

@@ -5,6 +5,7 @@ public abstract class Constantes {
 	public static final String IMAGEN_PATH = "img/";
 	public static final String SOUND_PATH = "sound/";
 	public static final String MUSICA_LOGIN = ASSETS_PATH + SOUND_PATH + "login.wav";
+	public static final String MUSICA_SELECT = ASSETS_PATH + SOUND_PATH + "sala.wav";
 
 	// SERVIDOR
 	public static final String IP = "0.0.0.0";
@@ -85,6 +86,6 @@ public abstract class Constantes {
 	public static final String JOIN_ROOM_PARAM = "parametersAdmin";
 	public static final String LOGIN_REQUEST_SV_OK = "loginServerClienteOK";
 	public static final String LOGIN_REQUEST_SV = "loginRequest";
-	public static final String ARROW_LEFT =ASSETS_PATH + IMAGEN_PATH +  "arrow-left.png";
-	public static final String ARROW_RIGHT =ASSETS_PATH + IMAGEN_PATH +  "arrow-right.png";
+	public static final String ARROW_LEFT = ASSETS_PATH + IMAGEN_PATH + "arrow-left.png";
+	public static final String ARROW_RIGHT = ASSETS_PATH + IMAGEN_PATH + "arrow-right.png";
 }

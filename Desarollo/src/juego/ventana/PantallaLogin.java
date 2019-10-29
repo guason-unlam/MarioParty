@@ -31,6 +31,7 @@ public class PantallaLogin extends JFrame {
 	private JButton btnRegistrarse;
 	private JButton btnCrearUsuario;
 	public static JLabel lblEstado;
+	private Musica musica;
 
 	/**
 	 * Create the application.
@@ -87,8 +88,9 @@ public class PantallaLogin extends JFrame {
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setBounds(0, 0, Constantes.LOGIN_WIDTH, Constantes.LOGIN_HEIGHT);
 		this.setLocationRelativeTo(null);
-		Musica musica = new Musica(Constantes.MUSICA_LOGIN);
-//		
+		musica = new Musica(Constantes.MUSICA_LOGIN);
+		musica.loop();
+
 		addListener();
 	}
 
@@ -110,15 +112,15 @@ public class PantallaLogin extends JFrame {
 		}
 
 		Usuario usuario = Cliente.getConexionInterna().logear(this.username.getText(), this.password.getText());
-		
+
 		Cliente.getConexionServidor().enviarAlServidor(Json.createObjectBuilder()
 				.add("type", Constantes.LOGIN_REQUEST_SV).add("username", this.username.getText()).build());
-		
+
 		if (usuario != null && usuario.getId() != -1) {
 			EventQueue.invokeLater(new Runnable() {
 				public void run() {
 					try {
-						VentanaLobby frame = new VentanaLobby();
+						VentanaLobby frame = new VentanaLobby(musica);
 						frame.setVisible(true);
 						dispose();
 					} catch (Exception e) {

@@ -7,6 +7,10 @@ import java.awt.Image;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
@@ -16,6 +20,8 @@ import java.util.ArrayList;
 import java.util.ListIterator;
 
 import javax.imageio.ImageIO;
+import javax.json.Json;
+import javax.json.JsonObject;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
@@ -29,6 +35,8 @@ import javax.swing.JPanel;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.EmptyBorder;
 
+import cliente.Cliente;
+import cliente.Musica;
 import juego.Constantes;
 import juego.lobby.TipoCondicionVictoria;
 
@@ -67,6 +75,10 @@ public class VentanaAdministracionSala extends JFrame {
 	private JLabel mapaParaNoAdmin;
 	private JComboBox<Object> condicionVictoria;
 	private JLabel labelCondicionVictoria;
+	private int totalRondas;
+	private Musica musica;
+	private String nombreSala;
+	private boolean esAdmin;
 
 	public static void main(String[] args) {
 		new VentanaAdministracionSala(null, "Sala de pruebas", false).setVisible(true);
@@ -74,10 +86,11 @@ public class VentanaAdministracionSala extends JFrame {
 	}
 
 	public VentanaAdministracionSala(JFrame ventanaLobby, String nombreSala, boolean esAdmin) {
-
+		this.esAdmin = esAdmin;
 		// Me guardo la referencia para hacerlo visible, etc
 		this.lobby = ventanaLobby;
-
+		this.musica = new Musica(Constantes.MUSICA_SELECT);
+		this.musica.loop();
 		setTitle("Bienvenido a " + nombreSala);
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 
@@ -99,7 +112,7 @@ public class VentanaAdministracionSala extends JFrame {
 		btnVolver.setFont(new Font("Tahoma", Font.PLAIN, 19));
 		btnVolver.setBounds(10, 314, 111, 46);
 		panel.add(btnVolver);
-
+		this.nombreSala = nombreSala;
 		lblNewLabel = new JLabel(nombreSala);
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 30));
 		lblNewLabel.setBounds(10, 0, 430, 46);
@@ -266,13 +279,7 @@ public class VentanaAdministracionSala extends JFrame {
 	}
 
 	private void addListener() {
-		btnVolver.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				lobby.setVisible(true);
-				// Lo oculto, puede ser de utilidad luego
-				setVisible(false);
-			}
-		});
+		// Cosas internas
 		btnJoin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
@@ -289,7 +296,7 @@ public class VentanaAdministracionSala extends JFrame {
 				}
 			}
 		});
-		// Listener que se encarga de mostrar u ocultar la contrase�a
+		// Listener que se encarga de mostrar u ocultar la contraseï¿½a
 		labelLeft.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -357,8 +364,61 @@ public class VentanaAdministracionSala extends JFrame {
 			public void windowClosing(java.awt.event.WindowEvent windowEvent) {
 				if (JOptionPane.showConfirmDialog(getContentPane(), "Desea cerrar la ventana?", "Atencion!",
 						JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
+					abandonarSala();
 					System.exit(0);
 				}
+			}
+		});
+
+		/// COSAS QUE AFECTAN AL RESTO
+		btnVolver.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				abandonarSala();
+			}
+		});
+
+		btnJoin.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				empezarJuego();
+			}
+		});
+
+		btnJoin.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+					empezarJuego();
+				}
+			}
+		});
+
+		// Todo esto deberia hacer requests al sv
+		// Para que los otros lo vean
+		comboMapa.addItemListener(new ItemListener() {
+			@Override
+			public void itemStateChanged(ItemEvent e) {
+
+			}
+		});
+
+		comboCantRondas.addItemListener(new ItemListener() {
+			@Override
+			public void itemStateChanged(ItemEvent e) {
+
+			}
+		});
+
+		condicionVictoria.addItemListener(new ItemListener() {
+			@Override
+			public void itemStateChanged(ItemEvent e) {
+
+			}
+		});
+
+		cantidadDeBotsComboBox.addItemListener(new ItemListener() {
+			@Override
+			public void itemStateChanged(ItemEvent e) {
+
 			}
 		});
 	}
@@ -367,4 +427,52 @@ public class VentanaAdministracionSala extends JFrame {
 		BufferedImage img = image.getSubimage((col * width) - width, (row * height) - height, width, height);
 		return img;
 	}
+
+	public void cerrarSala() {
+		JOptionPane.showMessageDialog(this, "El administrador abandono la sala", "Sala terminada",
+				JOptionPane.INFORMATION_MESSAGE);
+		this.setVisible(false);
+	}
+
+	protected void empezarJuego() {
+		int totalBots = Integer.parseInt((String) cantidadDeBotsComboBox.getSelectedItem());
+		this.totalRondas = Integer.parseInt((String) comboCantRondas.getSelectedItem());
+		TipoCondicionVictoria condicion = (TipoCondicionVictoria) condicionVictoria.getSelectedItem();
+		String mapa = (String) comboMapa.getSelectedItem();
+
+		if (!Cliente.getConexionInterna().usuariosEnSala()) {
+			JOptionPane.showMessageDialog(this, "Hay usuarios aun en la partida", "Atencion!",
+					JOptionPane.INFORMATION_MESSAGE);
+			return;
+		}
+
+		if (Cliente.getConexionInterna().comenzarJuego(totalBots, totalRondas, condicion, mapa) == false) {
+			System.out.println("Error al crear el juego");
+			return;
+		}
+
+		this.setVisible(false);
+	}
+
+	protected void validacionBotonJugar() {
+		if (comboMapa.getSelectedIndex() != 0 && comboCantRondas.getSelectedIndex() != 0
+				&& (this.listUsuarios.getModel().getSize() >= 2
+						|| this.cantidadDeBotsComboBox.getSelectedIndex() != 0)) {
+			btnJoin.setEnabled(true);
+		} else {
+			btnJoin.setEnabled(false);
+		}
+	}
+
+	private void abandonarSala() {
+		this.lobby.setVisible(true);
+		setVisible(false);
+		JsonObject paqueteSalirSala = Json.createObjectBuilder().add("type", Constantes.LEAVE_ROOM_REQUEST)
+				.add("sala", this.nombreSala).build();
+
+		Cliente.getConexionInterna().abandonarSala(this.nombreSala);
+		Coordinador.setVentanaAdministracionSala(null);
+		Cliente.getConexionServidor().enviarAlServidor(paqueteSalirSala);
+	}
+
 }

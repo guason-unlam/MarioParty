@@ -11,6 +11,7 @@ import javax.json.Json;
 import com.google.gson.Gson;
 
 import juego.Constantes;
+import juego.lobby.TipoCondicionVictoria;
 import juego.lobby.Usuario;
 import servidor.Message;
 import servidor.Seguridad;
@@ -177,4 +178,20 @@ public class ConexionInterna extends Thread {
 		return null;
 
 	}
+
+	public boolean usuariosEnSala() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public boolean comenzarJuego(int totalBots, int totalRondas, TipoCondicionVictoria condicion, String mapa) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public void abandonarSala(String nombreSala) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
