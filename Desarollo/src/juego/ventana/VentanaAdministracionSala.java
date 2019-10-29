@@ -1,8 +1,10 @@
 package juego.ventana;
 
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Image;
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -28,6 +30,7 @@ import javax.swing.border.BevelBorder;
 import javax.swing.border.EmptyBorder;
 
 import juego.Constantes;
+import juego.lobby.TipoCondicionVictoria;
 
 public class VentanaAdministracionSala extends JFrame {
 
@@ -56,12 +59,17 @@ public class VentanaAdministracionSala extends JFrame {
 	private JLabel lblPersonaje;
 	private JComboBox<Object> comboMapa;
 	private JComboBox<Object> comboCantRondas;
-	private JLabel cantidadDeRondasLabel;
+	private JLabel cantidadLabel;
 	private JComboBox<Object> cantidadDeBotsComboBox;
 	private JLabel lblCantBots;
+	private JLabel cantidadDeBotsLabel;
+	private JLabel cantidadRondasLabel;
+	private JLabel mapaParaNoAdmin;
+	private JComboBox<Object> condicionVictoria;
+	private JLabel labelCondicionVictoria;
 
 	public static void main(String[] args) {
-		new VentanaAdministracionSala(null, "Sala de pruebas", true).setVisible(true);
+		new VentanaAdministracionSala(null, "Sala de pruebas", false).setVisible(true);
 		;
 	}
 
@@ -98,14 +106,14 @@ public class VentanaAdministracionSala extends JFrame {
 
 		panel.add(lblNewLabel);
 		panel2 = new JPanel();
-		panel2.setLocation(143, 232);
+		panel2.setLocation(144, 214);
 		panel2.setSize(50, 50);
 
 		labelLeft = new JLabel("");
 		labelLeft.setIcon(new ImageIcon(
 				new ImageIcon(Constantes.ARROW_LEFT).getImage().getScaledInstance(32, 32, Image.SCALE_DEFAULT)));
 		labelLeft.setFont(new Font("Tahoma", Font.BOLD, 17));
-		labelLeft.setBounds(109, 242, 32, 32);
+		labelLeft.setBounds(110, 224, 32, 32);
 
 		getContentPane().add(panel2);
 		getContentPane().add(labelLeft);
@@ -115,7 +123,7 @@ public class VentanaAdministracionSala extends JFrame {
 		labelRight.setIcon(new ImageIcon(
 				new ImageIcon(Constantes.ARROW_RIGHT).getImage().getScaledInstance(32, 32, Image.SCALE_DEFAULT)));
 		labelRight.setFont(new Font("Tahoma", Font.BOLD, 17));
-		labelRight.setBounds(195, 242, 32, 32);
+		labelRight.setBounds(196, 224, 32, 32);
 		panel.add(labelRight);
 
 		labelsIconos = new ArrayList<JLabel>();
@@ -152,18 +160,18 @@ public class VentanaAdministracionSala extends JFrame {
 
 		lblPersonaje = new JLabel("Personaje");
 		lblPersonaje.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblPersonaje.setBounds(10, 239, 64, 32);
+		lblPersonaje.setBounds(11, 221, 64, 32);
 		panel.add(lblPersonaje);
 
 		JLabel labelMapa = new JLabel("Mapa");
 		labelMapa.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		labelMapa.setBounds(10, 194, 98, 20);
+		labelMapa.setBounds(10, 132, 98, 20);
 		panel.add(labelMapa);
 
 		comboMapa = new JComboBox<Object>();
 		comboMapa.setToolTipText("Selecione un mapa");
 
-		comboMapa.setBounds(108, 196, 151, 25);
+		comboMapa.setBounds(109, 134, 151, 25);
 		comboMapa.addItem("Seleccione un mapa");
 		comboMapa.addItem("Chico");
 		comboMapa.addItem("Mediano");
@@ -172,35 +180,88 @@ public class VentanaAdministracionSala extends JFrame {
 		panel.add(comboMapa);
 
 		comboCantRondas = new JComboBox<Object>();
-		comboCantRondas.setToolTipText("Seleccione cantidad de rondas");
-		comboCantRondas.setBounds(109, 163, 118, 20);
-		comboCantRondas.addItem("Seleccione Rondas");
+		comboCantRondas.setBounds(new Rectangle(109, 96, 119, 20));
+		comboCantRondas.setToolTipText("Seleccione cantidad");
+		comboCantRondas.addItem("Seleccione");
 		comboCantRondas.addItem("1");
 		comboCantRondas.addItem("2");
 		comboCantRondas.addItem("3");
 		comboCantRondas.addItem("4");
 		comboCantRondas.addItem("5");
-		comboCantRondas.setSize(comboCantRondas.getPreferredSize());
+		comboCantRondas.setSize(new Dimension(122, 20));
 		panel.add(comboCantRondas);
 
 		cantidadDeBotsComboBox = new JComboBox<Object>();
 		cantidadDeBotsComboBox.setToolTipText("Debe seleccionar cantidad de bots");
 		cantidadDeBotsComboBox
 				.setModel(new DefaultComboBoxModel<Object>(new String[] { "0", "1", "2", "3", "4", "5" }));
-		cantidadDeBotsComboBox.setBounds(130, 132, 80, 20);
+		cantidadDeBotsComboBox.setBounds(109, 172, 119, 20);
 		panel.add(cantidadDeBotsComboBox);
 
-		cantidadDeRondasLabel = new JLabel();
-		cantidadDeRondasLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		cantidadDeRondasLabel.setText("Cant. Rondas");
-		cantidadDeRondasLabel.setBounds(10, 163, 151, 20);
-		panel.add(cantidadDeRondasLabel);
+		cantidadLabel = new JLabel();
+		cantidadLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		cantidadLabel.setText("Cantidad");
+		cantidadLabel.setBounds(10, 94, 151, 20);
+		panel.add(cantidadLabel);
 
 		lblCantBots = new JLabel();
 		lblCantBots.setText("Cant. Bots");
 		lblCantBots.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblCantBots.setBounds(10, 132, 151, 20);
+		lblCantBots.setBounds(10, 172, 151, 20);
 		panel.add(lblCantBots);
+
+		cantidadDeBotsLabel = new JLabel("-");
+		cantidadDeBotsLabel.setBounds(109, 172, 119, 20);
+		panel.add(cantidadDeBotsLabel);
+
+		cantidadRondasLabel = new JLabel("-");
+		cantidadRondasLabel.setBounds(109, 94, 114, 20);
+		panel.add(cantidadRondasLabel);
+
+		mapaParaNoAdmin = new JLabel("-");
+		mapaParaNoAdmin.setBounds(109, 134, 119, 20);
+		panel.add(mapaParaNoAdmin);
+
+		condicionVictoria = new JComboBox<Object>();
+		condicionVictoria.setToolTipText("Selecione una condicion de victoria");
+		condicionVictoria.setBounds(109, 57, 118, 20);
+		condicionVictoria.addItem("Seleccione condicion");
+		for (TipoCondicionVictoria tipo : TipoCondicionVictoria.values()) {
+			condicionVictoria.addItem(tipo);
+		}
+		condicionVictoria.setSize(condicionVictoria.getPreferredSize());
+		panel.add(condicionVictoria);
+
+		labelCondicionVictoria = new JLabel("-");
+		labelCondicionVictoria.setBounds(109, 57, 122, 20);
+		panel.add(labelCondicionVictoria);
+
+		JLabel lblCondicin = new JLabel();
+		lblCondicin.setText("Condici\u00F3n");
+		lblCondicin.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblCondicin.setBounds(10, 57, 151, 20);
+		panel.add(lblCondicin);
+
+		// Si es admin, le muestro algunas cosas, si no otras
+		if (esAdmin) {
+			comboMapa.setEnabled(true);
+			comboCantRondas.setEnabled(true);
+			mapaParaNoAdmin.setVisible(false);
+			cantidadDeBotsLabel.setVisible(false);
+			labelCondicionVictoria.setVisible(false);
+		} else {
+			comboMapa.setVisible(false);
+			// Solo el admin puede arrancar la partida
+			btnJoin.setVisible(false);
+			comboCantRondas.setVisible(false);
+			mapaParaNoAdmin.setVisible(true);
+			cantidadDeBotsLabel.setVisible(true);
+			cantidadLabel.setVisible(true);
+			cantidadDeBotsComboBox.setVisible(false);
+			condicionVictoria.setVisible(false);
+			labelCondicionVictoria.setVisible(true);
+
+		}
 		this.addListener();
 	}
 
