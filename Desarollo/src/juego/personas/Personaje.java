@@ -1,14 +1,25 @@
 package juego.personas;
 
+import java.awt.Image;
+
 public class Personaje {
 	private String nombre;
 	private String descripcion;
-	private String pathSkin;
+	private int idCharacter;
 
-	public Personaje(String nombre, String desc, String path) {
+	public Personaje(String nombre, String desc,int idCharacter) {
 		this.nombre = nombre;
 		this.descripcion = desc;
-		this.pathSkin = path;
+		this.idCharacter = idCharacter;
+	}
+
+	
+	public int getIdCharacter() {
+		return idCharacter;
+	}
+
+	public void setIdCharacter(int idCharacter) {
+		this.idCharacter = idCharacter;
 	}
 
 	public String getNombre() {
@@ -27,11 +38,8 @@ public class Personaje {
 		this.descripcion = descripcion;
 	}
 
-	public String getPathSkin() {
-		return pathSkin;
-	}
-
-	public void setPathSkin(String pathSkin) {
-		this.pathSkin = pathSkin;
+	public Image getImage() {
+		
+		return null;
 	}
 }

@@ -32,6 +32,7 @@ public class Casillero {
 	// Personajes actualmente en el casillero
 	private Set<Jugador> jugadores = new TreeSet<Jugador>();
 	
+
 	private Recompensa recompensa;
 	/*
 	 * Permite agregar un personaje al actual casillero
@@ -41,12 +42,21 @@ public class Casillero {
 	 * @return void
 	 */
 
-	public Casillero() {
+	public Casillero(int id) {
+		this.id = id;
 		tieneArbolito = false;
 		tieneRecompensa = false;
 		primeraVez = true;
+		this.color = Color.GREEN;
+		if(id != 0) {// el 0 es la posicion inicial, no va a tener recompensa
+			ponerRecompensa();
+		}
+	}
+	
+	private void ponerRecompensa() {
 		double ran = Math.random();
 		if(ran > 0.5) { // 50% de prob de que el casillero no tenga recompensa
+			this.color = Color.YELLOW;
 			tieneRecompensa = true;
 			if(ran > 0.85) {// 15% de prob de q la recompensa sea un item
 				if(ran>0.9)
@@ -54,7 +64,7 @@ public class Casillero {
 				else
 					recompensa = new ModificadorDado(); //5% de que sea modificadorDado
 			}
-			else
+			else 
 				recompensa = new Pesos(50); // 35% de prob de que la recompensa sean 50p, de momento hardcodeado
 		}
 	}
@@ -126,15 +136,35 @@ public class Casillero {
 	public Recompensa getRecompensa() {
 		return this.recompensa;
 	}
+	
+	public void setRecompensa(Recompensa recompensa) {
+		this.recompensa = recompensa;
+	}
+	
 	public boolean isTieneArbolito() {
 		return tieneArbolito;
 	}
 	public void setTieneArbolito(boolean tieneArbolito) {
+		if(!tieneArbolito) {
+			if(tieneRecompensa)
+				this.color = Color.yellow;
+			else
+				this.color = Color.green;	
+		}else
+			this.color = Color.red;
 		this.tieneArbolito = tieneArbolito;
 	}
 
 	public boolean isTieneRecompensa() {
 		return tieneRecompensa;
+	}
+	
+	public void setTieneRecompensa(boolean tieneRecompensa) {
+		this.tieneRecompensa = tieneRecompensa;
+	}
+
+	public Set<Jugador> getJugadores() {
+		return jugadores;
 	}
 
 }

@@ -2,9 +2,11 @@ package juego.personas;
 
 import java.awt.Color;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Random;
 
 import juego.item.Inventario;
+import juego.item.Item;
 import juego.lobby.Partida;
 import juego.lobby.Usuario;
 import juego.misc.Dado;
@@ -39,12 +41,16 @@ public class Jugador implements Comparable<Jugador> {
 	}
 
 	public int avanzarUnCasillero() {//este metodo avanza un casillero y devuelve la cantidad de caminos disponibles
+		this.posicion.removerJugador(this);
 		this.posicion = this.posicion.getSiguiente().get(0);
+		this.posicion.agregarJugador(this);
 		return this.posicion.getSiguiente().size();
 	}
 	
 	public int avanzarUnCasillero(int camino) {
+		this.posicion.removerJugador(this);
 		this.posicion = this.posicion.getSiguiente().get(camino);
+		this.posicion.agregarJugador(this);
 		return this.posicion.getSiguiente().size();
 	}
 
@@ -60,6 +66,16 @@ public class Jugador implements Comparable<Jugador> {
 		}
 		this.pesos -= cant;
 		return cant;
+	}
+	
+	public void usarItem(Item item) {
+		item.activarItem(item.elegirObjetivo());
+		int posicionEnInventario=0;
+		Iterator<Item> i = this.getInventario().getItems().iterator();
+		while(i.hasNext() && !i.next().equals(item))
+			posicionEnInventario++;
+		this.getInventario().getItems().remove(posicionEnInventario);
+		this.getInventario().setCantItems(this.getInventario().getCantItems() - 1);
 	}
 	
 	public boolean comprarDolar() {
@@ -148,6 +164,7 @@ public class Jugador implements Comparable<Jugador> {
 
 	public void setPosicion(Casillero posicion) {
 		this.posicion = posicion;
+		posicion.agregarJugador(this);
 	}
 
 	public Dado getDado() {

@@ -12,7 +12,7 @@ public class PersonajeTest {
 	@Test
 	public void hayPersonajeDescripcion() {
 		
-		Personaje per = new Personaje("Mario","el numero 1","./src/main/");
+		Personaje per = new Personaje("Mario","el numero 1", 1);
 		
 		assertEquals("el numero 1",per.getDescripcion());
 		
@@ -21,23 +21,16 @@ public class PersonajeTest {
 	@Test
 	public void hayPersonajeNombre() {
 		
-		Personaje per = new Personaje("Mario","el numero 1","./src/main/");
+		Personaje per = new Personaje("Mario","el numero 1", 1);
 		
 		assertEquals("el numero 1",per.getDescripcion());
 
 	}
 	
 	@Test
-	public void hayPersonajePath() {
-		
-		Personaje per = new Personaje("Mario","el numero 1","./src/main/");
-		
-		assertEquals("./src/main/",per.getPathSkin());
-	}
-	@Test
 	public void noHayPersonajeNombreFalso() {
 		
-		Personaje per = new Personaje("Mario","el numero 1","./src/main/");
+		Personaje per = new Personaje("Mario","el numero 1", 1);
 		
 		assertNotEquals("Wario",per.getNombre());
 	}
@@ -45,19 +38,10 @@ public class PersonajeTest {
 	@Test
 	public void noHayPersonajeDescripcionFalsa() {
 		
-		Personaje per = new Personaje("Mario","el numero 1","./src/main/");
+		Personaje per = new Personaje("Mario","el numero 1", 1);
 		
 		assertNotEquals("el numero 2",per.getDescripcion());
 		
-	}
-	
-	@Test
-	public void noHayPersonajePathFalso() {
-		
-		Personaje per = new Personaje("Mario","el numero 1","./src/main/");
-		
-		assertNotEquals("./src/mein/",per.getPathSkin());
-	
 	}
 
 }

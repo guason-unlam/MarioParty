@@ -1,6 +1,10 @@
 package juego.lobby;
 
 public class ExcepcionJugadoresInsuficientes extends Exception {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7495595027250279723L;
 	private int id;
 	
 	public ExcepcionJugadoresInsuficientes(int id) {
