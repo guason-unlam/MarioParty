@@ -2,9 +2,11 @@ package juego.lobby;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JFrame;
 
+import graphics.ObjectId;
 import juego.misc.ExcepcionArchivos;
 import juego.personas.Jugador;
 import juego.personas.Personaje;
@@ -15,11 +17,11 @@ import juego.ventana.VentanaJuego;
 public class Partida {
 	// Cambiar por el estado
 	private boolean partidaEnCurso = false;
-	private ArrayList<Ronda> rondasJugadas = new ArrayList<Ronda>();
-	private ArrayList<Jugador> jugadoresEnPartida = new ArrayList<Jugador>();
+	private List<Ronda> rondasJugadas = new ArrayList<Ronda>();
+	private List<Jugador> jugadoresEnPartida = new ArrayList<Jugador>();
 	private Ronda rondaEnCurso;
 	private int numeroRonda = 0;
-	private ArrayList<Usuario> usuariosActivosEnSala;
+	private List<Usuario> usuariosActivosEnSala;
 	private Tablero tablero;
 	private int tipoMapa;
 	private Jugador ganador;
@@ -35,7 +37,7 @@ public class Partida {
 //	Para saber cuando termin� una Partida, por defecto, es por estrellas, a cinco.
 	private CondicionVictoria condicionVictoria = new CondicionVictoria(TipoCondicionVictoria.RONDAS, 5);
 
-	public Partida(ArrayList<Usuario> usuariosActivosEnSala, int cantidadTotalRondas) {
+	public Partida(List<Usuario> usuariosActivosEnSala, int cantidadTotalRondas) {
 		this.usuariosActivosEnSala = usuariosActivosEnSala;
 		try {
 			this.tablero = new Tablero("../Mapas/tablero03.txt");
@@ -45,17 +47,20 @@ public class Partida {
 			e.printStackTrace();
 		}
 
+		int i = 1;
 		for (Usuario usuario : usuariosActivosEnSala) {
 			Jugador jugador;
 
-			jugador = new Jugador(usuario, tablero, this);
+			jugador = new Jugador(tablero.getCasilleros().get(0), 0, ObjectId.Player);
 			// Lo seteo al primer casillero
 			jugador.setPosicion(this.tablero.getCasilleros().get(0));
-			this.jugadoresEnPartida.add(jugador);
-			//aca se estan creando los personajes, hardcodeado todos los jugadores con el mismo personaje
-			jugador.setPersonaje(new Personaje("Mario","este es mario(?",1));
+			//Aca se estan creando los personajes, hardcodeado todos los jugadores con el mismo personaje
+			jugador.setPersonaje(i-1);
+			jugador.setNombre("Jugador "+i);
 			jugador.setPosicion(tablero.getCasilleros().get(0)); // pongo los personajes en el primer casillero
 			usuario.setJugador(jugador);
+			this.jugadoresEnPartida.add(jugador);
+			i++;
 		}
 		if (cantidadTotalRondas != 0) {
 			condicionVictoria = new CondicionVictoria(TipoCondicionVictoria.RONDAS, cantidadTotalRondas);
@@ -102,7 +107,7 @@ public class Partida {
 		this.partidaEnCurso = partidaEnCurso;
 	}
 
-	public ArrayList<Ronda> getRondasJugadas() {
+	public List<Ronda> getRondasJugadas() {
 		return rondasJugadas;
 	}
 
@@ -110,7 +115,7 @@ public class Partida {
 		this.rondasJugadas = rondasJugadas;
 	}
 
-	public ArrayList<Jugador> getJugadoresEnPartida() {
+	public List<Jugador> getJugadoresEnPartida() {
 		return jugadoresEnPartida;
 	}
 
@@ -142,7 +147,7 @@ public class Partida {
 		this.numeroRonda = numeroRonda;
 	}
 
-	public ArrayList<Usuario> getUsuariosActivosEnSala() {
+	public List<Usuario> getUsuariosActivosEnSala() {
 		return usuariosActivosEnSala;
 	}
 

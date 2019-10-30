@@ -1,10 +1,19 @@
 package juego.personas;
 
 import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Point;
+import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Random;
 
+import graphics.Game;
+import graphics.GameObject;
+import graphics.ObjectId;
+import graphics.Texture;
 import juego.item.Inventario;
 import juego.item.Item;
 import juego.lobby.Partida;
@@ -13,21 +22,27 @@ import juego.misc.Dado;
 import juego.tablero.Tablero;
 import juego.tablero.casillero.Casillero;
 
-public class Jugador implements Comparable<Jugador> {
+public class Jugador extends GameObject implements Comparable<Jugador>  {
 	// Necesito tener una referencia a la partida, es el objeto padre de todo
-	private Partida partida;
+	Partida partida;
 	private String nombre;
 	private int pesos;
 	private Color color;
 	private int dolares;
 	private Inventario inventario;
-	private Personaje personaje;
 	private Casillero posicion;
+	private int personaje;
 	private Dado dado;
+	private float width = 32, height = 32;
+	Texture tex = Game.getInstance();
+	/* Mas cosas para tratar de mover a mario */
+	private Queue<Casillero> movimientos = new LinkedList<Casillero>();
+	public int xObjetivo = 0;
+	public int yObjetivo = 0;
 
-	public Jugador(Usuario usuario, Tablero tablero, Partida partida) {
-		this.partida = partida;
-		this.nombre = usuario.getUsername();
+	public Jugador(/*Usuario usuario,*/Casillero posicionInicial, int personaje, ObjectId id) {
+//		this.nombre = usuario.getUsername();
+		super(posicionInicial.getPosicionX(), posicionInicial.getPosicionY(), id);
 		this.pesos = 100;
 		this.dolares = 0;
 		Random rand = new Random(System.currentTimeMillis());
@@ -36,20 +51,107 @@ public class Jugador implements Comparable<Jugador> {
 		this.inventario = new Inventario(10); // 10 items maximos
 	}
 
+	public void tick(LinkedList<GameObject> object) {
+		if(movimientos.size()>0) {
+			Casillero sig = movimientos.peek();
+			//System.out.println("posY: " + this.y + " objetivoY: "+sig.getPosicionY()+" hay camino: "+posicion.isCaminoAbajo());
+//			System.out.println("posX: " + this.x + " objetivoX: "+sig.getPosicionX()+" hay camino: "+posicion.isCaminoDerecha());
+			if(this.x < sig.getPosicionX()-1 && Game.hayCamino(this.x+1.5, this.y) == 1)
+				this.x += 1.5f;
+			else {
+				if(this.x > sig.getPosicionX()+1 && Game.hayCamino(this.x-1.5, this.y) == 1)
+					this.x -= 1.5f;
+				else {
+					if(this.y < sig.getPosicionY()-1  && Game.hayCamino(this.x, this.y+1.5) == 1)
+						this.y += 1.5f;
+					else {
+						if(this.y > sig.getPosicionY()+1 && Game.hayCamino(this.x, this.y-1.5) == 1)
+							this.y -= 1.5f;
+						else {
+							this.posicion = sig;
+							sig.agregarJugador(this);
+							movimientos.remove();
+						}
+					}
+				}
+			}
+		}
+			
+		
+	}
+//	public void tick(LinkedList<GameObject> object) {
+//		/* Lugar donde debería ir la lógica para mover a mario */
+//		if( enMovimientoX && x > xObjetivo-1 && x < xObjetivo+1) {
+//			velX = 0;
+//			enMovimientoX = false;
+//		}
+//		if(enMovimientoY && y > yObjetivo-1 && y < yObjetivo+1) {
+//			velY = 0;
+//			enMovimientoY = false;
+//		}
+//		x += velX;
+//		y += velY;
+//	}
+
+	/* dibujador de personajes */
+	public void render(Graphics g) {
+		g.drawImage(tex.characters[personaje], (int)x, (int)y, null);
+	}
+	
+	/* Despues sirve para el tema de las colisiones */
+	public Rectangle getBounds() {
+		return new Rectangle((int)x,(int)y);
+	}
+	
 	public int tirarDado() {
 		return this.dado.tirar();
 	}
 
-	public int avanzarUnCasillero() {//este metodo avanza un casillero y devuelve la cantidad de caminos disponibles
+	public int avanzarUnCasillero() {
 		this.posicion.removerJugador(this);
-		this.posicion = this.posicion.getSiguiente().get(0);
-		this.posicion.agregarJugador(this);
+		movimientos.add(posicion.getSiguiente().get(0));
 		return this.posicion.getSiguiente().size();
 	}
+//	public int avanzarUnCasillero() {//este metodo avanza un casillero y devuelve la cantidad de caminos disponibles
+//		this.posicion.removerJugador(this);
+//		int x = posicion.getPosicionX();
+//		int y = posicion.getPosicionY();
+//		xObjetivo = posicion.getSiguiente().get(0).getPosicionX();
+//		yObjetivo = posicion.getSiguiente().get(0).getPosicionY();
+//		if(x > xObjetivo) {
+//			this.setVelX(-1.5f);
+//		}else if(x < xObjetivo){
+//			this.setVelX(1.5f);
+//		}
+//		if(y > yObjetivo) {
+//			this.setVelY(-1.5f);
+//		}else if(y < yObjetivo){
+//			this.setVelY(1.5f);
+//		}
+//		this.posicion = posicion.getSiguiente().get(0);
+//		this.posicion.agregarJugador(this);
+//		return this.posicion.getSiguiente().size();
+//	}
 	
 	public int avanzarUnCasillero(int camino) {
 		this.posicion.removerJugador(this);
-		this.posicion = this.posicion.getSiguiente().get(camino);
+
+		int x = posicion.getPosicionX();
+		int y = posicion.getPosicionY();
+		xObjetivo = posicion.getSiguiente().get(camino).getPosicionX();
+		yObjetivo = posicion.getSiguiente().get(camino).getPosicionY();
+		if(x > xObjetivo) {
+			this.setVelX(-1.5f);
+		}else if(x < xObjetivo){
+			this.setVelX(1.5f);
+		}
+		this.enMovimientoX = true;
+		if(y > yObjetivo) {
+			this.setVelY(-1.5f);
+		}else if(y < yObjetivo){
+			this.setVelY(1.5f);
+		}
+		this.posicion = posicion.getSiguiente().get(camino);
 		this.posicion.agregarJugador(this);
 		return this.posicion.getSiguiente().size();
 	}
@@ -100,6 +202,10 @@ public class Jugador implements Comparable<Jugador> {
 	 * SETTERS Y GETTERS
 	 * 
 	 */
+	
+	public void setPersonaje(int personaje) {
+		this.personaje = personaje;
+	}
 
 	public String getNombre() {
 		return nombre;
@@ -150,14 +256,6 @@ public class Jugador implements Comparable<Jugador> {
 		this.inventario = inventario;
 	}
 
-	public Personaje getPersonaje() {
-		return personaje;
-	}
-
-	public void setPersonaje(Personaje personaje) {
-		this.personaje = personaje;
-	}
-
 	public Casillero getPosicion() {
 		return posicion;
 	}
@@ -173,6 +271,10 @@ public class Jugador implements Comparable<Jugador> {
 
 	public Partida getPartida() {
 		return this.partida;
+	}
+	
+	public void setPartida(Partida partida) {
+		this.partida = partida;
 	}
 
 	public void setDado(Dado dado) {

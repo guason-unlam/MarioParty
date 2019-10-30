@@ -2,6 +2,8 @@ package juego.ventana;
 
 import javax.swing.JPanel;
 
+import graphics.Game;
+import graphics.GameWindow;
 import juego.ControladorJuego;
 import juego.personas.Jugador;
 
@@ -15,7 +17,8 @@ public class PanelJugador extends JPanel {
 
 	
 	private JLabel lblNombrejugador;
-	ControladorJuego juego;
+//	ControladorJuego juego;
+	Game juego;
 	
 	/**
 	 * Create the panel.
@@ -23,7 +26,7 @@ public class PanelJugador extends JPanel {
 	public PanelJugador(int x, int y) {
 		this.setBounds(x, y, 260, 110);
 		
-		setBackground(Color.PINK);
+		setBackground(Color.BLACK);
 		setLayout(null);
 		
 		lblNombrejugador = new JLabel("nombreJugador");
@@ -33,7 +36,9 @@ public class PanelJugador extends JPanel {
 		JButton btnLanzarDado = new JButton("Lanzar dado");
 		btnLanzarDado.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				juego.avanzarJugador(juego.getJugadorActual().tirarDado());
+//				juego.avanzarJugador(juego.getJugadorActual().tirarDado());
+//				juego.continuar();
+				juego.avanzarJugador(juego.jugadorActual.tirarDado());
 				juego.continuar();
 			}
 		});
@@ -44,7 +49,7 @@ public class PanelJugador extends JPanel {
 		btnUsarItem.setBounds(10, 70, 106, 23);
 		btnUsarItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				juego.usarItem();
+//				juego.usarItem();
 			}
 		});
 		add(btnUsarItem);
@@ -53,7 +58,7 @@ public class PanelJugador extends JPanel {
 		btnPasar.setBounds(156, 36, 89, 57);
 		btnPasar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				juego.continuar();
+//				juego.continuar();
 			}
 		});
 		add(btnPasar);
@@ -64,7 +69,11 @@ public class PanelJugador extends JPanel {
 		lblNombrejugador.setText(nombre);
 	}
 	
-	public void setControladorJuego(ControladorJuego juego) {
+	public void setGame(Game juego) {
 		this.juego = juego;
 	}
+	
+//	public void setControladorJuego(ControladorJuego juego) {
+//		this.juego = juego;
+//	}
 }

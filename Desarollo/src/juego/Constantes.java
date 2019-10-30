@@ -17,7 +17,7 @@ public abstract class Constantes {
 	public static final String TABLERO1_PATH = ASSETS_PATH + "tablero01.jpg";
 	
 	public static final int CANTIDAD_PERSONAJES = 3;
-	public static final int NUMBER_OF_SPOTS = 1;
+	public static final int NUMBER_OF_SPOTS = 4;
 	public static final int NUMBER_OF_ROADS = 1;
 	
 	// Casilleros

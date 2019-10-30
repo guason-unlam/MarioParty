@@ -2,6 +2,7 @@ package juego.ventana;
 
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 
 import java.awt.Color;
 import javax.swing.JTextPane;
@@ -12,25 +13,24 @@ public class PanelConsola extends JPanel {
 	 * Create the panel.
 	 */
 	
-	private JTextPane textPane;
+	private JTextArea textArea;
 	private JScrollPane scroller;
 
 	
 	public PanelConsola(int x,int y) {
-		setBackground(Color.PINK);
+		setBackground(Color.BLACK);
 		setLayout(null);
 		this.setBounds(x, y, 350, 110);
-		textPane = new JTextPane();
-		textPane.setEditable(false);
-		textPane.setBounds(5, 5, this.getWidth()-10, this.getHeight()-10);
-		scroller = new JScrollPane(textPane);
+		textArea = new JTextArea();
+		textArea.setEditable(false);
+		textArea.setBounds(5, 5, this.getWidth()-10, this.getHeight()-10);
+		scroller = new JScrollPane(textArea);
 		scroller.setBounds(5, 5, this.getWidth()-10, this.getHeight()-10);
 		this.add(scroller);
-//		this.add(textPane);
 
 	}
 	
 	public void agregarTexto(String texto) {
-		this.textPane.setText(this.textPane.getText()+"\n"+texto);
+		this.textArea.append("\n"+texto);
 	}
 }

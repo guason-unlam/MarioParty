@@ -29,6 +29,7 @@ public class Casillero {
 	// Para el movimiento
 	private ArrayList<Casillero> siguientes;
 	private ArrayList<Casillero> anteriores;
+	boolean caminoIzquierda,caminoDerecha,caminoArriba,caminoAbajo;
 	// Personajes actualmente en el casillero
 	private Set<Jugador> jugadores = new TreeSet<Jugador>();
 	
@@ -165,6 +166,38 @@ public class Casillero {
 
 	public Set<Jugador> getJugadores() {
 		return jugadores;
+	}
+
+	public boolean isCaminoIzquierda() {
+		return caminoIzquierda;
+	}
+
+	public void setCaminoIzquierda(boolean caminoIzquierda) {
+		this.caminoIzquierda = caminoIzquierda;
+	}
+
+	public boolean isCaminoDerecha() {
+		return caminoDerecha;
+	}
+
+	public void setCaminoDerecha(boolean caminoDerecha) {
+		this.caminoDerecha = caminoDerecha;
+	}
+
+	public boolean isCaminoArriba() {
+		return caminoArriba;
+	}
+
+	public void setCaminoArriba(boolean caminoArriba) {
+		this.caminoArriba = caminoArriba;
+	}
+
+	public boolean isCaminoAbajo() {
+		return caminoAbajo;
+	}
+
+	public void setCaminoAbajo(boolean caminoAbajo) {
+		this.caminoAbajo = caminoAbajo;
 	}
 
 }

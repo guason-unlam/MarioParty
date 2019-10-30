@@ -58,14 +58,18 @@ public class VentanaJuego extends JFrame implements ImageObserver {
 		this.setLocationRelativeTo(null);
 		// 65
 		panelJugador = new PanelJugador(10, Constantes.VENTANA_HEIGHT - 35);
+		panelJugador.setBounds(10, 565, 260, 110);
 		consola = new PanelConsola(panelJugador.getWidth() + 10, Constantes.VENTANA_HEIGHT - 35);
+		consola.setBounds(270, 565, 350, 110);
 		panelPuntaje = new PanelPuntaje(panelJugador.getWidth() + consola.getWidth() + 10, Constantes.VENTANA_HEIGHT - 35);
+		panelPuntaje.setBounds(620, 565, 163, 110);
+		getContentPane().setLayout(null);
 
-		this.add(consola);
-		this.add(panelJugador);
-		this.add(panelPuntaje);
+		getContentPane().add(consola);
+		getContentPane().add(panelJugador);
+		getContentPane().add(panelPuntaje);
 		juego = new ControladorJuego(p, this);
-		panelJugador.setControladorJuego(juego);
+//		panelJugador.setControladorJuego(juego);
 
 		/*
 		 * GridBagLayout gridBagLayout = new GridBagLayout(); gridBagLayout.columnWidths
@@ -75,7 +79,7 @@ public class VentanaJuego extends JFrame implements ImageObserver {
 		 * getContentPane().setLayout(gridBagLayout);
 		 */
 		JPanel panelJuego = new JPanel();
-		panelJuego.setBounds(0, 0, Constantes.MAPA_WIDTH, Constantes.MAPA_HEIGHT);
+		panelJuego.setBounds(0, 0, 794, 691);
 		getContentPane().add(panelJuego);
 		tex = new Texture();
 
@@ -88,8 +92,6 @@ public class VentanaJuego extends JFrame implements ImageObserver {
 	}
 
 	private void dibujarCasillerosYPersonajes(Graphics g) {
-		int i = 0;
-//		Random r = new Random();
 		for (Entry<Integer, Casillero> elemento : this.p.getTablero().getCasilleros().entrySet()) {
 
 			Casillero casilleroActual = elemento.getValue();

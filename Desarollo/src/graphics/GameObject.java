@@ -53,9 +53,11 @@ public abstract class GameObject {
 	}
 	public void setVelX(float velX){
 		this.velX = velX;
+		this.enMovimientoX = velX != 0;
 	}
 	public void setVelY(float velY) {
 		this.velY = velY;
+		this.enMovimientoY = velY != 0;
 	}
 	
 	public ObjectId getId() {

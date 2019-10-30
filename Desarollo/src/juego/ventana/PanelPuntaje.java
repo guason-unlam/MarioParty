@@ -22,7 +22,7 @@ public class PanelPuntaje extends JPanel {
 
 		tableSalas = new JTable();
 		scrollPane.setViewportView(tableSalas);
-		setBackground(Color.PINK);
+		setBackground(Color.BLACK);
 		setLayout(null);
 	}
 }

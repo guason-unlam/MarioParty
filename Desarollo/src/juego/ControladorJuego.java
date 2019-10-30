@@ -73,7 +73,6 @@ public class ControladorJuego {
 	
 	public void continuar() {
 		siguienteJugador();
-		ventana.repaint();
 	}
 	
 	private void siguienteJugador() {

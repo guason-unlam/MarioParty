@@ -54,6 +54,9 @@ public class Texture {
 		roads[0] = rs.grabImage(1, 1, 32, 32);
 		/*	Spots	*/
 		spots[0] = ss.grabImage(1, 1, 32, 32);
+		spots[1] = ss.grabImage(2, 1, 32, 32);
+		spots[2] = ss.grabImage(3, 1, 32, 32);
+		spots[3] = ss.grabImage(4, 1, 32, 32);
 		/* Se deben cargar todos los personajes que se quiera tener en el juego */
 		/* Hay que ir expandiendo la imagen que cree con los cuadritos de cada uno, ahora tiene 3 nomas
 		 * pero se le pueden agregar las que quieran. */
