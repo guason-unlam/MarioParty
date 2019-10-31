@@ -17,7 +17,13 @@ public class Handler {
 			
 			tempObject = object.get(i);
 			tempObject.tick(object);
-				
+			
+			if(object.get(i).enMovimientoX) {
+				object.get(i).velX = 0.5f;
+			}
+			if(object.get(i).enMovimientoY) {
+				object.get(i).velY = 0.5f;
+			}
 		}
 	}
 	

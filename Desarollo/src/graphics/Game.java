@@ -57,6 +57,7 @@ public class Game extends Canvas implements Runnable {
 			tab = new Tablero("../Mapas/tablero03.txt");
 			leerTablero(tab);
 			Player pj = new Player(96, 192, 0, ObjectId.Player);
+			pj.setVelX(1);
 			handler.addObject(pj);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -174,16 +175,18 @@ public class Game extends Canvas implements Runnable {
 		int y = casAct.getPosicionY();
 		p.xObjetivo = casSig.getPosicionX();
 		p.yObjetivo = casSig.getPosicionY();
-		if(x > casSig.getPosicionX()) {
+		if(x < casSig.getPosicionX()) {
 			p.setVelX(0.5f);
-		}else if(x < casSig.getPosicionX()){
+		}else if(x > casSig.getPosicionX()){
 			p.setVelX(-0.5f);
 		}
 		p.enMovimientoX = true;
-		if(y > casSig.getPosicionY()) {
-			p.setVelX(0.5f);
-		}else if(y < casSig.getPosicionY()){
-			p.setVelX(-0.5f);
+		while(p.enMovimientoX) {
+		}
+		if(y < casSig.getPosicionY()) {
+			p.setVelY(0.5f);
+		}else if(y > casSig.getPosicionY()){
+			p.setVelY(-0.5f);
 		}
 		
 	}
