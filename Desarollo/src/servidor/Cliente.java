@@ -43,6 +43,7 @@ public class Cliente extends Thread {
 			try {
 				String cadena = this.entrada.readUTF();
 				Message message = (Message) new Gson().fromJson(cadena, Message.class);
+				System.out.println("RECIBIDO" + message.getType());
 				switch (message.getType()) {
 				// LOGIN
 				case Constantes.LOGIN_REQUEST:
@@ -120,6 +121,8 @@ public class Cliente extends Thread {
 						} else {
 							sala = usuario.crearSala(dataSala.get(0), Integer.valueOf(dataSala.get(1)));
 						}
+						usuario.setSala(sala);
+
 						// La agrego al array de control
 						Servidor.agregarASalasActivas(sala);
 						this.salida.writeUTF(new Message(Constantes.CREATE_ROOM_CORRECT, true).toJson());
@@ -137,10 +140,14 @@ public class Cliente extends Thread {
 					if (sala.getCapacidadActual() == 0 || sala.getJugadorCreador().equals(usuario)) {
 						Servidor.eliminarSalaActiva(sala);
 						// TODO: No deberia avisar o algo a los demas jugadores? se puede romper todo
+						Servidor.informarSalaTermina(sala);
+
 					}
 					break;
 				case Constantes.JOIN_ROOM_REQUEST:
 					sala = Servidor.getSalaPorNombre((String) message.getData());
+					usuario.setSala(sala);
+
 					this.salida
 							.writeUTF(new Message(Constantes.JOIN_ROOM_CORRECT, sala.agregarUsuario(usuario)).toJson());
 					break;

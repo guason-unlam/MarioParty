@@ -69,13 +69,13 @@ public class ConexionServidor extends Thread {
 				if (tipoDeMensaje.equals(Constantes.CREATE_ROOM_SV_REQUEST)
 						|| tipoDeMensaje.equals(Constantes.JOIN_ROOM_SV_REQUEST)
 						|| tipoDeMensaje.equals(Constantes.INDEX_ROOM_REQUEST)
-						|| tipoDeMensaje.equals(Constantes.EXIT_ROOM_REQUEST)) {
+						|| tipoDeMensaje.equals(Constantes.LEAVE_ROOM_REQUEST)) {
 					actualizarSalasClientes();
 				}
 
 				// A una sala particular
 				if (tipoDeMensaje.equals(Constantes.REFRESH_PARAM_ROOM)
-						|| tipoDeMensaje.equals(Constantes.EXIT_ROOM_REQUEST)
+						|| tipoDeMensaje.equals(Constantes.LEAVE_ROOM_REQUEST)
 						|| tipoDeMensaje.equals(Constantes.JOIN_ROOM_SV_REQUEST)) {
 					actualizarClientesSalaUnica(entradaJson);
 				}
@@ -107,7 +107,7 @@ public class ConexionServidor extends Thread {
 		if (salaARefrescar != null) {
 
 			if (tipoDeMensaje.equals(Constantes.JOIN_ROOM_SV_REQUEST)
-					|| tipoDeMensaje.equals(Constantes.EXIT_ROOM_REQUEST)) {
+					|| tipoDeMensaje.equals(Constantes.LEAVE_ROOM_REQUEST)) {
 
 				JsonArrayBuilder usernamesConectadosALaSala = Json.createArrayBuilder();
 
@@ -186,6 +186,10 @@ public class ConexionServidor extends Thread {
 	}
 
 	private JsonObject armarPaqueteParamSala(JsonObject entradaJson) {
-		return Json.createObjectBuilder().add("type", Constantes.REFRESH_PARAM_ROOM).build();
+		return Json.createObjectBuilder().add("type", Constantes.REFRESH_PARAM_ROOM)
+				.add("condicion", entradaJson.getString("condicion"))
+				.add("cantidad", entradaJson.getString("cantidad"))
+				.add("mapa", entradaJson.getString("mapa"))
+				.add("bots", entradaJson.getString("bots")).build();
 	}
 }

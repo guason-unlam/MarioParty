@@ -39,6 +39,23 @@ public class Coordinador extends Thread {
 						ventanaElegirSala.indexSalas(datosDeSalasDisponibles);
 					}
 					break;
+				case Constantes.REFRESH_PARAM_ROOM:
+				case Constantes.REFRESH_ROOM:
+					try {
+						Coordinador.ventanaAdministracionSala.actualizarUsuarios(entradaJson);
+					} catch (Exception e) {
+						System.out.println("[REFRESCAR SALA]" + e.getCause());
+					}
+					break;
+				case Constantes.JOIN_ROOM_PARAM:
+					Coordinador.ventanaAdministracionSala.validacionBotonJugar();
+					Coordinador.ventanaAdministracionSala.actualizarSala();
+					break;
+
+				case Constantes.FIN_SALA:
+					Coordinador.ventanaAdministracionSala.cerrarSala();
+					ventanaElegirSala.setVisible(true);
+					break;
 				default:
 					break;
 				}

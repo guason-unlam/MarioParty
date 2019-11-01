@@ -156,7 +156,7 @@ public class ConexionInterna extends Thread {
 
 	public void salirSala(String nombreSala) {
 		try {
-			this.message = new Message(Constantes.REQUEST_EXIT_ROOM, nombreSala);
+			this.message = new Message(Constantes.LEAVE_ROOM_REQUEST, nombreSala);
 			this.salidaDatos.writeUTF(this.message.toJson());
 		} catch (Exception ex) {
 			System.out.println("[SALIR SALA]" + ex.getMessage());
@@ -187,11 +187,6 @@ public class ConexionInterna extends Thread {
 	public boolean comenzarJuego(int totalBots, int totalRondas, TipoCondicionVictoria condicion, String mapa) {
 		// TODO Auto-generated method stub
 		return false;
-	}
-
-	public void abandonarSala(String nombreSala) {
-		// TODO Auto-generated method stub
-		
 	}
 
 }

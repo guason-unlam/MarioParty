@@ -88,4 +88,5 @@ public abstract class Constantes {
 	public static final String LOGIN_REQUEST_SV = "loginRequest";
 	public static final String ARROW_LEFT = ASSETS_PATH + IMAGEN_PATH + "arrow-left.png";
 	public static final String ARROW_RIGHT = ASSETS_PATH + IMAGEN_PATH + "arrow-right.png";
+	public static final String FIN_SALA = "finSala";
 }

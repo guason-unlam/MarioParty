@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import javax.json.Json;
 import javax.json.JsonArray;
 import javax.json.JsonArrayBuilder;
+import javax.json.JsonObject;
 import javax.json.JsonObjectBuilder;
 
 import org.hibernate.Session;
@@ -141,8 +142,7 @@ public class Servidor {
 		JsonArrayBuilder datosDeSalas = Json.createArrayBuilder();
 		for (Sala sala : salasActivas) {
 			JsonObjectBuilder oSala = Json.createObjectBuilder();
-			oSala.add("nombre", sala.getNombre())
-					.add("capacidadActual", String.valueOf(sala.getCapacidadActual()))
+			oSala.add("nombre", sala.getNombre()).add("capacidadActual", String.valueOf(sala.getCapacidadActual()))
 					.add("capacidadMaxima", String.valueOf(sala.getCapacidadMaxima()))
 					.add("admin", sala.getJugadorCreador().getUsername());
 			datosDeSalas.add(oSala.build());
@@ -165,5 +165,17 @@ public class Servidor {
 
 	public static void setServidoresConectados(ArrayList<ConexionServidor> servidoresConectados) {
 		Servidor.servidoresConectados = servidoresConectados;
+	}
+
+	public static void informarSalaTermina(Sala sala) {
+		JsonObject paqueteSalaTerminada = Json.createObjectBuilder().add("type", Constantes.FIN_SALA).build();
+
+		for (Usuario userSala : sala.getUsuariosActivos()) {
+			for (ConexionServidor cliente : servidoresConectados) {
+				if (cliente.getUsuario().equals(userSala)) {
+					cliente.escribirSalida(paqueteSalaTerminada);
+				}
+			}
+		}
 	}
 }

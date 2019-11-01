@@ -250,6 +250,7 @@ public class VentanaCrearSala extends JFrame {
 				Cliente.getConexionServidor().enviarAlServidor(paqueteCrearSala);
 				musica.stop();
 				this.ventanaAdministracionSala.setVisible(true);
+				Coordinador.setVentanaAdministracionSala(ventanaAdministracionSala);
 
 				this.dispose();
 			} else {

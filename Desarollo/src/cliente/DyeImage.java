@@ -1,13 +1,20 @@
 package cliente;
 
-import java.awt.*;
-import java.awt.image.*;
-import java.io.*;
-import javax.swing.*;
+import java.awt.AlphaComposite;
+import java.awt.Color;
+import java.awt.Graphics2D;
+import java.awt.GridLayout;
+import java.awt.image.BufferedImage;
+import java.io.File;
+
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 
 import juego.Constantes;
-
-import javax.imageio.*;
 
 public class DyeImage {
 	private static BufferedImage image;

@@ -21,7 +21,9 @@ import java.util.ListIterator;
 
 import javax.imageio.ImageIO;
 import javax.json.Json;
+import javax.json.JsonArray;
 import javax.json.JsonObject;
+import javax.json.JsonObjectBuilder;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
@@ -397,6 +399,7 @@ public class VentanaAdministracionSala extends JFrame {
 		comboMapa.addItemListener(new ItemListener() {
 			@Override
 			public void itemStateChanged(ItemEvent e) {
+				actualizarSala();
 
 			}
 		});
@@ -404,6 +407,7 @@ public class VentanaAdministracionSala extends JFrame {
 		comboCantRondas.addItemListener(new ItemListener() {
 			@Override
 			public void itemStateChanged(ItemEvent e) {
+				actualizarSala();
 
 			}
 		});
@@ -411,6 +415,7 @@ public class VentanaAdministracionSala extends JFrame {
 		condicionVictoria.addItemListener(new ItemListener() {
 			@Override
 			public void itemStateChanged(ItemEvent e) {
+				actualizarSala();
 
 			}
 		});
@@ -418,7 +423,7 @@ public class VentanaAdministracionSala extends JFrame {
 		cantidadDeBotsComboBox.addItemListener(new ItemListener() {
 			@Override
 			public void itemStateChanged(ItemEvent e) {
-
+				actualizarSala();
 			}
 		});
 	}
@@ -470,9 +475,64 @@ public class VentanaAdministracionSala extends JFrame {
 		JsonObject paqueteSalirSala = Json.createObjectBuilder().add("type", Constantes.LEAVE_ROOM_REQUEST)
 				.add("sala", this.nombreSala).build();
 
-		Cliente.getConexionInterna().abandonarSala(this.nombreSala);
+		Cliente.getConexionInterna().salirSala(this.nombreSala);
 		Coordinador.setVentanaAdministracionSala(null);
 		Cliente.getConexionServidor().enviarAlServidor(paqueteSalirSala);
+	}
+
+	public void actualizarSala() {
+
+		JsonObjectBuilder datosSala = Json.createObjectBuilder();
+
+		// Agrego parametros
+		datosSala.add("type", Constantes.REFRESH_PARAM_ROOM);
+		datosSala.add("sala", this.nombreSala);
+
+		if (condicionVictoria.getSelectedIndex() == 0) {
+			datosSala.add("condicion", "-");
+		} else {
+			datosSala.add("condicion", String.valueOf(condicionVictoria.getSelectedItem()));
+		}
+		if (comboMapa.getSelectedIndex() == 0) {
+			datosSala.add("mapa", "-");
+		} else {
+			datosSala.add("mapa", (String) comboMapa.getSelectedItem());
+		}
+
+		if (comboCantRondas.getSelectedIndex() == 0) {
+			datosSala.add("cantidad", "-");
+		} else {
+			datosSala.add("cantidad", (String) comboCantRondas.getSelectedItem());
+		}
+
+		datosSala.add("bots", String.valueOf(cantidadDeBotsComboBox.getSelectedItem()));
+
+		Cliente.getConexionServidor().enviarAlServidor(datosSala.build());
+
+	}
+
+	public void actualizarUsuarios(JsonObject entradaJson) {
+		String tipoDeActualizacion = entradaJson.getString("type");
+		System.out.println("aca");
+		System.out.println(tipoDeActualizacion);
+		if (tipoDeActualizacion.equals(Constantes.REFRESH_ROOM)) {
+			JsonArray arrayUsuariosConectados = entradaJson.getJsonArray("usuarios");
+			this.modelUsuariosLista.clear();
+
+			for (int i = 0; i < arrayUsuariosConectados.size(); i++) {
+				this.modelUsuariosLista.addElement(arrayUsuariosConectados.getString(i));
+
+			}
+			this.listUsuarios.setModel(this.modelUsuariosLista);
+		} else {
+			if (!this.esAdmin) {
+				this.labelCondicionVictoria.setText(entradaJson.getString("condicion"));
+				this.cantidadRondasLabel.setText(entradaJson.getString("cantidad"));
+				this.mapaParaNoAdmin.setText(entradaJson.getString("mapa"));
+				this.cantidadDeBotsLabel.setText(entradaJson.getString("bots"));
+			}
+		}
+
 	}
 
 }
