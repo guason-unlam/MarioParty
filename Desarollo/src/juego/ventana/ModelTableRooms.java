@@ -5,7 +5,7 @@ import javax.swing.table.AbstractTableModel;
 public class ModelTableRooms extends AbstractTableModel {
 	// https://stackoverflow.com/questions/23511143/dynamic-jtable-extending-abstracttablemodel
 	private static final long serialVersionUID = -2954569124563189244L;
-	private String[] columnNames = { "Sala", "Disponibilidad", "Admin" };
+	private String[] columnNames = { "Sala", "Disponibilidad", "Admin", "Sala privada" };
 	private String[][] data;
 
 	public ModelTableRooms() {

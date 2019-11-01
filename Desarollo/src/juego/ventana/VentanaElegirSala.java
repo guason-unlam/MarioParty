@@ -125,8 +125,8 @@ public class VentanaElegirSala extends JFrame {
 			VentanaAdministracionSala ventanaSala = new VentanaAdministracionSala(lobby, sala, false);
 			Coordinador.setVentanaAdministracionSala(ventanaSala);
 
-			JsonObject joinRoomRequest = Json.createObjectBuilder().add("type", Constantes.JOIN_ROOM_SV_REQUEST).add("sala", sala)
-					.build();
+			JsonObject joinRoomRequest = Json.createObjectBuilder().add("type", Constantes.JOIN_ROOM_SV_REQUEST)
+					.add("sala", sala).build();
 
 			Cliente.getConexionServidor().enviarAlServidor(joinRoomRequest);
 
@@ -139,7 +139,7 @@ public class VentanaElegirSala extends JFrame {
 	}
 
 	public void indexSalas(JsonArray datosDeSalasDisponibles) {
-		String data[][] = new String[datosDeSalasDisponibles.size()][3];
+		String data[][] = new String[datosDeSalasDisponibles.size()][4];
 
 		for (int i = 0; i < datosDeSalasDisponibles.size(); i++) {
 
@@ -147,6 +147,7 @@ public class VentanaElegirSala extends JFrame {
 			data[i][1] = (datosDeSalasDisponibles.getJsonObject(i).getString("capacidadActual") + "/"
 					+ datosDeSalasDisponibles.getJsonObject(i).getString("capacidadMaxima"));
 			data[i][2] = datosDeSalasDisponibles.getJsonObject(i).getString("admin");
+			data[i][3] = datosDeSalasDisponibles.getJsonObject(i).getString("salaPrivada");
 		}
 
 		if (datosDeSalasDisponibles.isEmpty()) {

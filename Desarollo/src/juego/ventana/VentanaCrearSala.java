@@ -211,9 +211,9 @@ public class VentanaCrearSala extends JFrame {
 			return;
 		}
 
-		if (Integer.valueOf(this.textFieldSlots.getText()) < 2
-				|| Integer.valueOf(this.textFieldSlots.getText()) > 100) {
-			JOptionPane.showMessageDialog(null, "La cantidad de usuarios máximos debe ser entre 2 y 100", "Atención",
+		if (!this.textFieldSlots.getText().matches("[0-9]+") || (Integer.valueOf(this.textFieldSlots.getText()) < 2
+				|| Integer.valueOf(this.textFieldSlots.getText()) > 100)) {
+			JOptionPane.showMessageDialog(null, "La capacidad debe ser entre 2 y 100", "Atención",
 					JOptionPane.WARNING_MESSAGE);
 			// Reseteo el campo
 			this.textFieldSlots.setText("");

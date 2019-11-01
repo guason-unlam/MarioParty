@@ -82,11 +82,6 @@ public class VentanaAdministracionSala extends JFrame {
 	private String nombreSala;
 	private boolean esAdmin;
 
-	public static void main(String[] args) {
-		new VentanaAdministracionSala(null, "Sala de pruebas", false).setVisible(true);
-		;
-	}
-
 	public VentanaAdministracionSala(JFrame ventanaLobby, String nombreSala, boolean esAdmin) {
 		this.esAdmin = esAdmin;
 		// Me guardo la referencia para hacerlo visible, etc
@@ -107,6 +102,7 @@ public class VentanaAdministracionSala extends JFrame {
 		btnJoin = new JButton("Jugar!");
 		btnJoin.setFont(new Font("Tahoma", Font.PLAIN, 19));
 		btnJoin.setBounds(329, 314, 111, 46);
+		btnJoin.setEnabled(false);
 		panel.add(btnJoin);
 		setLocationRelativeTo(this.lobby);
 

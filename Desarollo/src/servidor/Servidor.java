@@ -140,11 +140,14 @@ public class Servidor {
 
 	public static JsonArray getIndexSalas() {
 		JsonArrayBuilder datosDeSalas = Json.createArrayBuilder();
+
 		for (Sala sala : salasActivas) {
 			JsonObjectBuilder oSala = Json.createObjectBuilder();
+
 			oSala.add("nombre", sala.getNombre()).add("capacidadActual", String.valueOf(sala.getCapacidadActual()))
 					.add("capacidadMaxima", String.valueOf(sala.getCapacidadMaxima()))
-					.add("admin", sala.getJugadorCreador().getUsername());
+					.add("admin", sala.getJugadorCreador().getUsername())
+					.add("salaPrivada", sala.getPassword().equals("") ? "No" : "Si");
 			datosDeSalas.add(oSala.build());
 		}
 
