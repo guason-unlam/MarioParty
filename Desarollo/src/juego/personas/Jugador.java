@@ -22,7 +22,7 @@ import juego.misc.Dado;
 import juego.tablero.Tablero;
 import juego.tablero.casillero.Casillero;
 
-public class Jugador extends GameObject implements Comparable<Jugador>  {
+public class Jugador extends GameObject implements Comparable<Jugador> {
 	// Necesito tener una referencia a la partida, es el objeto padre de todo
 	Partida partida;
 	private String nombre;
@@ -40,7 +40,7 @@ public class Jugador extends GameObject implements Comparable<Jugador>  {
 	public int xObjetivo = 0;
 	public int yObjetivo = 0;
 
-	public Jugador(/*Usuario usuario,*/Casillero posicionInicial, int personaje, ObjectId id) {
+	public Jugador(/* Usuario usuario, */Casillero posicionInicial, int personaje, ObjectId id) {
 //		this.nombre = usuario.getUsername();
 		super(posicionInicial.getPosicionX(), posicionInicial.getPosicionY(), id);
 		this.pesos = 100;
@@ -52,22 +52,54 @@ public class Jugador extends GameObject implements Comparable<Jugador>  {
 	}
 
 	public void tick(LinkedList<GameObject> object) {
-		if(movimientos.size()>0) {
+		if (movimientos.size() > 0) {
+			System.out.println("Cola siguientes: ");
+
+			for (Casillero cas : movimientos) {
+				System.out.print(cas.getId() + " ");
+			}
+			System.out.println("");
+		}
+		if (movimientos.size() > 0) {
 			Casillero sig = movimientos.peek();
-			//System.out.println("posY: " + this.y + " objetivoY: "+sig.getPosicionY()+" hay camino: "+posicion.isCaminoAbajo());
+			// System.out.println("[X]desde " + this.x + " hasta " + sig.getPosicionX());
+			// System.out.println("[Y]desde " + this.y + " hasta " + sig.getPosicionY());
+
+			// System.out.println("posY: " + this.y + " objetivoY: "+sig.getPosicionY()+"
+			// hay camino: "+posicion.isCaminoAbajo());
 //			System.out.println("posX: " + this.x + " objetivoX: "+sig.getPosicionX()+" hay camino: "+posicion.isCaminoDerecha());
-			if(this.x < sig.getPosicionX()-1 && Game.hayCamino(this.x+1.5, this.y) == 1)
+			// MOVIMIENTO PARA LA DERECHA
+			if (this.x < sig.getPosicionX() - 1 && Game.hayCamino(this.x + 1.5, this.y) == 1) {
+				// System.out.println("derecha");
 				this.x += 1.5f;
-			else {
-				if(this.x > sig.getPosicionX()+1 && Game.hayCamino(this.x-1.5, this.y) == 1)
+			} else {
+				// System.out.println("Intento previo entre " + (this.x + 1.5) + " y " +
+				// this.y);
+				if (this.x > sig.getPosicionX() + 1 && Game.hayCamino(this.x - 1.5, this.y) == 1) {
+					// System.out.println("izquierda");
 					this.x -= 1.5f;
-				else {
-					if(this.y < sig.getPosicionY()-1  && Game.hayCamino(this.x, this.y+1.5) == 1)
+				} else {
+					// System.out.println("Intento previo entre " + (this.x - 1.5) + " y " +
+					// this.y);
+
+					if (this.y < sig.getPosicionY() - 1 && Game.hayCamino(this.x, this.y + 1.5) == 1) {
+						// System.out.println("abajo");
 						this.y += 1.5f;
-					else {
-						if(this.y > sig.getPosicionY()+1 && Game.hayCamino(this.x, this.y-1.5) == 1)
+					} else {
+						// System.out.println("Intento previo entre " + (this.x) + " y " + (this.y +
+						// 1.5));
+
+						if (this.y > sig.getPosicionY() + 1 && Game.hayCamino(this.x, (this.y - 1.5)) == 1) {
+							// System.out.println("arriba");
 							this.y -= 1.5f;
-						else {
+						} else {
+							// System.out.println("Intento previo entre " + (this.x) + " y " + (this.y -
+							// 1.5));
+
+							// System.out.println("[X FINAL]desde " + this.x + " hasta " +
+							// sig.getPosicionX());
+							// System.out.println("[Y FINAL]desde " + this.y + " hasta " +
+							// sig.getPosicionY());
 							this.posicion = sig;
 							sig.agregarJugador(this);
 							movimientos.remove();
@@ -76,8 +108,7 @@ public class Jugador extends GameObject implements Comparable<Jugador>  {
 				}
 			}
 		}
-			
-		
+
 	}
 //	public void tick(LinkedList<GameObject> object) {
 //		/* Lugar donde debería ir la lógica para mover a mario */
@@ -95,20 +126,24 @@ public class Jugador extends GameObject implements Comparable<Jugador>  {
 
 	/* dibujador de personajes */
 	public void render(Graphics g) {
-		g.drawImage(tex.characters[personaje], (int)x, (int)y, null);
+		g.drawImage(tex.characters[personaje], (int) x, (int) y, null);
 	}
-	
+
 	/* Despues sirve para el tema de las colisiones */
 	public Rectangle getBounds() {
-		return new Rectangle((int)x,(int)y);
+		return new Rectangle((int) x, (int) y);
 	}
-	
+
 	public int tirarDado() {
 		return this.dado.tirar();
 	}
 
 	public int avanzarUnCasillero() {
 		this.posicion.removerJugador(this);
+		System.out.println("Estoy parado en" + posicion.getId());
+
+		System.out.println("Estoy yendo al " + posicion.getSiguiente().get(0).getId());
+
 		movimientos.add(posicion.getSiguiente().get(0));
 		return this.posicion.getSiguiente().size();
 	}
@@ -132,27 +167,31 @@ public class Jugador extends GameObject implements Comparable<Jugador>  {
 //		this.posicion.agregarJugador(this);
 //		return this.posicion.getSiguiente().size();
 //	}
-	
+
 	public int avanzarUnCasillero(int camino) {
 		this.posicion.removerJugador(this);
 
 		int x = posicion.getPosicionX();
 		int y = posicion.getPosicionY();
+		System.out.println("[BIFURCACION]Estoy parado en" + posicion.getId());
+		System.out.println("[BIFURCACION]Estoy yendo al " + posicion.getSiguiente().get(camino).getId());
 		xObjetivo = posicion.getSiguiente().get(camino).getPosicionX();
 		yObjetivo = posicion.getSiguiente().get(camino).getPosicionY();
-		if(x > xObjetivo) {
+		if (x > xObjetivo) {
 			this.setVelX(-1.5f);
-		}else if(x < xObjetivo){
+		} else if (x < xObjetivo) {
 			this.setVelX(1.5f);
 		}
 		this.enMovimientoX = true;
-		if(y > yObjetivo) {
+		if (y > yObjetivo) {
 			this.setVelY(-1.5f);
-		}else if(y < yObjetivo){
+		} else if (y < yObjetivo) {
 			this.setVelY(1.5f);
 		}
 		this.posicion = posicion.getSiguiente().get(camino);
 		this.posicion.agregarJugador(this);
+		movimientos.add(posicion);
+
 		return this.posicion.getSiguiente().size();
 	}
 
@@ -169,31 +208,31 @@ public class Jugador extends GameObject implements Comparable<Jugador>  {
 		this.pesos -= cant;
 		return cant;
 	}
-	
+
 	public void usarItem(Item item) {
 		item.activarItem(item.elegirObjetivo());
-		int posicionEnInventario=0;
+		int posicionEnInventario = 0;
 		Iterator<Item> i = this.getInventario().getItems().iterator();
-		while(i.hasNext() && !i.next().equals(item))
+		while (i.hasNext() && !i.next().equals(item))
 			posicionEnInventario++;
 		this.getInventario().getItems().remove(posicionEnInventario);
 		this.getInventario().setCantItems(this.getInventario().getCantItems() - 1);
 	}
-	
+
 	public boolean comprarDolar() {
-		if(!this.posicion.isTieneArbolito())
-				return false;
+		if (!this.posicion.isTieneArbolito())
+			return false;
 		if (this.pesos < partida.getPrecioDolar()) {
 			return false;
 		}
-		
+
 		this.dolares++;
 		this.pesos -= partida.getPrecioDolar();
 		this.partida.cambioArbolito(this.posicion);
 		this.posicion.setTieneArbolito(false);
 		return true;
 	}
-	
+
 	public int caminosDisponibles() {
 		return this.posicion.getSiguiente().size();
 	}
@@ -202,7 +241,7 @@ public class Jugador extends GameObject implements Comparable<Jugador>  {
 	 * SETTERS Y GETTERS
 	 * 
 	 */
-	
+
 	public void setPersonaje(int personaje) {
 		this.personaje = personaje;
 	}
@@ -272,7 +311,7 @@ public class Jugador extends GameObject implements Comparable<Jugador>  {
 	public Partida getPartida() {
 		return this.partida;
 	}
-	
+
 	public void setPartida(Partida partida) {
 		this.partida = partida;
 	}

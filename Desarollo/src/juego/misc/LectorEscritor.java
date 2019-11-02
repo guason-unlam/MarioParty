@@ -44,8 +44,8 @@ public class LectorEscritor {
 					// Seteo x e y
 					casillero.setPosicionX(Integer.valueOf(partes[1]));
 					casillero.setPosicionY(Integer.valueOf(partes[2]));
-					// System.out.println("Estoy en " + partes[0] + "\tpadres: " + partes[3] +
-					// "\thijos:" + partes[4]);
+					 System.out.println("Estoy en " + partes[0] + "\tpadres: " + partes[3] +
+					 "\thijos:" + partes[4]);
 
 					for (String valorP : partesPadres) {
 						int valorNumerico = Integer.valueOf(valorP);
