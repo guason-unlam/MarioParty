@@ -7,6 +7,9 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Properties;
 
+import javax.json.Json;
+import javax.json.JsonArrayBuilder;
+
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 
@@ -146,10 +149,15 @@ public class Cliente extends Thread {
 					break;
 				case Constantes.JOIN_ROOM_REQUEST:
 					sala = Servidor.getSalaPorNombre((String) message.getData());
-					usuario.setSala(sala);
+					if (sala.getCapacidadActual() + 1 <= sala.getCapacidadMaxima()) {
+						usuario.setSala(sala);
 
-					this.salida
-							.writeUTF(new Message(Constantes.JOIN_ROOM_CORRECT, sala.agregarUsuario(usuario)).toJson());
+						this.salida.writeUTF(
+								new Message(Constantes.JOIN_ROOM_CORRECT, sala.agregarUsuario(usuario)).toJson());
+					} else {
+
+						this.salida.writeUTF(new Message(Constantes.JOIN_ROOM_INCORRECT, false).toJson());
+					}
 					break;
 				case Constantes.LOGOUT_REQUEST:
 					usuario = new Gson().fromJson((String) message.getData(), Usuario.class);

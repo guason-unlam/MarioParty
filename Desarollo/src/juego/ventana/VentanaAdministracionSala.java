@@ -273,6 +273,7 @@ public class VentanaAdministracionSala extends JFrame {
 			labelCondicionVictoria.setVisible(true);
 
 		}
+		modelUsuariosLista.addElement(PantallaLogin.nombreUser);
 		this.addListener();
 	}
 
@@ -509,7 +510,7 @@ public class VentanaAdministracionSala extends JFrame {
 
 	public void actualizarUsuarios(JsonObject entradaJson) {
 		String tipoDeActualizacion = entradaJson.getString("type");
-		System.out.println("aca");
+
 		System.out.println(tipoDeActualizacion);
 		if (tipoDeActualizacion.equals(Constantes.REFRESH_ROOM)) {
 			JsonArray arrayUsuariosConectados = entradaJson.getJsonArray("usuarios");

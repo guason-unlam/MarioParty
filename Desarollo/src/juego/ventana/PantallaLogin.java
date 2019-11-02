@@ -32,6 +32,7 @@ public class PantallaLogin extends JFrame {
 	private JButton btnCrearUsuario;
 	public static JLabel lblEstado;
 	private Musica musica;
+	public static String nombreUser;
 
 	/**
 	 * Create the application.
@@ -121,6 +122,7 @@ public class PantallaLogin extends JFrame {
 				public void run() {
 					try {
 						VentanaLobby frame = new VentanaLobby(musica);
+						nombreUser = username.getText();
 						frame.setVisible(true);
 						dispose();
 					} catch (Exception e) {
