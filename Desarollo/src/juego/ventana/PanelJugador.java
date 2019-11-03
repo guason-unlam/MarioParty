@@ -1,17 +1,14 @@
 package juego.ventana;
 
+import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import graphics.Game;
-import graphics.GameWindow;
-import juego.ControladorJuego;
-import juego.personas.Jugador;
-
-import java.awt.Color;
-import javax.swing.JLabel;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
 public class PanelJugador extends JPanel {
 
@@ -21,6 +18,7 @@ public class PanelJugador extends JPanel {
 	private static JButton btnPasar;
 //	ControladorJuego juego;
 	Game juego;
+	protected static boolean botonesActivados = true;
 
 	/**
 	 * Create the panel.
@@ -40,8 +38,14 @@ public class PanelJugador extends JPanel {
 			public void actionPerformed(ActionEvent arg0) {
 //				juego.avanzarJugador(juego.getJugadorActual().tirarDado());
 //				juego.continuar();
+
+				/*
+				 * while (botonesActivados) { System.out.println("DESACTIVAR"); }
+				 * System.out.println("botones desactivados");
+				 */
+				// juego.continuar();
+				// System.out.println(juego.jugadorActual.getId());
 				juego.avanzarJugador(juego.jugadorActual.tirarDado());
-				desactivarIconos();
 				juego.continuar();
 			}
 		});
@@ -68,13 +72,13 @@ public class PanelJugador extends JPanel {
 
 	}
 
-	public static void desactivarIconos() {
+	public synchronized static void desactivarBotones() {
 		btnLanzarDado.setEnabled(false);
 		btnUsarItem.setEnabled(false);
 		btnPasar.setEnabled(false);
 	}
 
-	public static void activarIconos() {
+	public synchronized static void activarBotones() {
 		btnLanzarDado.setEnabled(true);
 		btnUsarItem.setEnabled(true);
 		btnPasar.setEnabled(true);

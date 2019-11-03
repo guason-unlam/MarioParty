@@ -23,6 +23,7 @@ import juego.personas.Jugador;
 import juego.tablero.Tablero;
 import juego.tablero.casillero.Casillero;
 import juego.ventana.PanelConsola;
+import juego.ventana.PanelJugador;
 
 public class Game extends Canvas implements Runnable {
 
@@ -182,8 +183,10 @@ public class Game extends Canvas implements Runnable {
 			Casillero casilleroActual = elemento.getValue();
 			handler.addObject(new Spot(casilleroActual.getPosicionX(), casilleroActual.getPosicionY(), 0, ObjectId.Spot,
 					casilleroActual));
-			System.out.println("x - " + casilleroActual.getPosicionX() + " - " + casilleroActual.getPosicionX() / 32);
-			System.out.println("y - " + casilleroActual.getPosicionY() + " - " + casilleroActual.getPosicionY() / 32);
+			// System.out.println("x - " + casilleroActual.getPosicionX() + " - " +
+			// casilleroActual.getPosicionX() / 32);
+			// System.out.println("y - " + casilleroActual.getPosicionY() + " - " +
+			// casilleroActual.getPosicionY() / 32);
 			matrizMapa[(int) casilleroActual.getPosicionX() / 32][(int) casilleroActual.getPosicionY() / 32] = 1;
 
 			/* Caminos */
@@ -225,7 +228,8 @@ public class Game extends Canvas implements Runnable {
 
 	public void avanzarJugador(int cant) {
 		ventana.getPanelConsola().agregarTexto(jugadorActual.getNombre() + " lanzo el dado y saco " + cant);
-		System.out.println("avanzo " + cant);
+		PanelJugador.activarBotones();
+		// System.out.println("avanzo " + cant);
 		for (int i = cant; i > 0; i--) {
 
 			if (jugadorActual.caminosDisponibles() == 1) {
@@ -245,11 +249,15 @@ public class Game extends Canvas implements Runnable {
 				//
 				// ESTE BREAK NO DEBERIA IR
 				//
-				break;
+				// break;
 			}
+			while (jugadorActual.isHaciendoCambios()) {
+				// System.out.println("loop");
+			}
+			// PanelJugador.activarIconos();
 			if (jugadorActual.getPosicion().isTieneArbolito()) { // pregunto si quiere comprar dolar
 				int respuesta = JOptionPane.showConfirmDialog(ventana.getFrame().getContentPane(),
-						"Desea comprar un dolar?", "Atención!", JOptionPane.YES_NO_OPTION,
+						"Desea comprar un dolar?", "Atenciï¿½n!", JOptionPane.YES_NO_OPTION,
 						JOptionPane.QUESTION_MESSAGE);
 
 				if (respuesta == JOptionPane.YES_OPTION) {
@@ -274,11 +282,12 @@ public class Game extends Canvas implements Runnable {
 
 	private void siguienteJugador() {
 		numeroJugadorActual++;
-		if (numeroJugadorActual > partida.getJugadoresEnPartida().size()) {// aca termino la ronda, se lanzaria el
+
+		if (numeroJugadorActual >= partida.getJugadoresEnPartida().size()) {// aca termino la ronda, se lanzaria el
 																			// minijuego
-			numeroJugadorActual = 1;
+			numeroJugadorActual = 0;
 		}
-		jugadorActual = partida.getJugadoresEnPartida().get(numeroJugadorActual - 1);
+		jugadorActual = partida.getJugadoresEnPartida().get(numeroJugadorActual);
 		ventana.getPanelJugador().setNombreJugador("Turno de " + jugadorActual.getNombre());
 		ventana.getPanelConsola().agregarTexto("Comienza turno de " + jugadorActual.getNombre());
 	}

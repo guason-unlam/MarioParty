@@ -40,6 +40,7 @@ public class Jugador extends GameObject implements Comparable<Jugador> {
 	private Queue<Casillero> movimientos = new LinkedList<Casillero>();
 	public int xObjetivo = 0;
 	public int yObjetivo = 0;
+	private volatile boolean haciendoCambios = true;
 
 	public Jugador(/* Usuario usuario, */Casillero posicionInicial, int personaje, ObjectId id) {
 //		this.nombre = usuario.getUsername();
@@ -54,14 +55,12 @@ public class Jugador extends GameObject implements Comparable<Jugador> {
 
 	public void tick(LinkedList<GameObject> object) {
 
-		if (movimientos.size() > 0) {
-			System.out.println("Cola siguientes: ");
-
-			for (Casillero cas : movimientos) {
-				System.out.print(cas.getId() + " ");
-			}
-			System.out.println("");
-		}
+		/*
+		 * if (movimientos.size() > 0) { System.out.println("Cola siguientes: ");
+		 * 
+		 * for (Casillero cas : movimientos) { System.out.print(cas.getId() + " "); }
+		 * System.out.println(""); }
+		 */
 
 		if (movimientos.size() > 0) {
 			Casillero sig = movimientos.peek();
@@ -106,8 +105,12 @@ public class Jugador extends GameObject implements Comparable<Jugador> {
 							if (sig.getAnteriores().get(0).getSiguiente().size() == 1)
 								this.posicion = sig;
 							sig.agregarJugador(this);
+							setHaciendoCambios(false);
+							//System.out.println("me deje de mover");
+							//PanelJugador.activarIconos();
+							//System.out.println("aca");
+
 							movimientos.remove();
-							PanelJugador.activarIconos();
 						}
 					}
 				}
@@ -148,11 +151,13 @@ public class Jugador extends GameObject implements Comparable<Jugador> {
 		this.y = posicion.getPosicionY();
 		this.posicion.removerJugador(this);
 
-		System.out.println("Estoy parado en" + posicion.getId());
+		//System.out.println("Estoy parado en" + posicion.getId());
 
-		System.out.println("Estoy yendo al " + posicion.getSiguiente().get(0).getId());
+		//System.out.println("Estoy yendo al " + posicion.getSiguiente().get(0).getId());
 
 		movimientos.add(posicion.getSiguiente().get(0));
+		setHaciendoCambios(true);
+
 		return this.posicion.getSiguiente().size();
 	}
 //	public int avanzarUnCasillero() {//este metodo avanza un casillero y devuelve la cantidad de caminos disponibles
@@ -180,17 +185,19 @@ public class Jugador extends GameObject implements Comparable<Jugador> {
 		this.x = posicion.getPosicionX();
 		this.y = posicion.getPosicionY();
 		this.posicion.removerJugador(this);
-		System.out.println("[BIFURCACION]Estoy parado en " + posicion.getId() + "(" + posicion.getPosicionX() + ","
-				+ posicion.getPosicionY() + ")");
+//		System.out.println("[BIFURCACION]Estoy parado en " + posicion.getId() + "(" + posicion.getPosicionX() + ","
+//				+ posicion.getPosicionY() + ")");
 		// System.out.println("[BIFURCACION]Estoy yendo al " +
 		// posicion.getSiguiente().get(camino).getId());
 		if (posicion.getSiguiente().get(camino) != null) {
 			posicion.getSiguiente().get(camino).agregarJugador(this);
-			System.out.println("[BIFURCACION]Ahora voy a" + posicion.getId() + "(" + posicion.getPosicionX() + ","
-					+ posicion.getPosicionY() + ")");
-			if (!movimientos.contains(posicion.getSiguiente().get(camino)))
+//			System.out.println("[BIFURCACION]Ahora voy a" + posicion.getId() + "(" + posicion.getPosicionX() + ","
+//					+ posicion.getPosicionY() + ")");
+			if (!movimientos.contains(posicion.getSiguiente().get(camino))) {
 				movimientos.add(posicion.getSiguiente().get(camino));
+				setHaciendoCambios(true);
 
+			}
 //		this.x = posicion.getPosicionX();
 //		this.y = posicion.getPosicionY();
 			this.x = posicion.getPosicionX();
@@ -354,6 +361,14 @@ public class Jugador extends GameObject implements Comparable<Jugador> {
 			return 0;
 		}
 		return 1;
+	}
+
+	public boolean isHaciendoCambios() {
+		return haciendoCambios;
+	}
+
+	public void setHaciendoCambios(boolean haciendoCambios) {
+		this.haciendoCambios = haciendoCambios;
 	}
 
 }
