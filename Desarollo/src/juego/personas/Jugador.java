@@ -21,6 +21,7 @@ import juego.lobby.Usuario;
 import juego.misc.Dado;
 import juego.tablero.Tablero;
 import juego.tablero.casillero.Casillero;
+import juego.ventana.PanelJugador;
 
 public class Jugador extends GameObject implements Comparable<Jugador> {
 	// Necesito tener una referencia a la partida, es el objeto padre de todo
@@ -106,6 +107,7 @@ public class Jugador extends GameObject implements Comparable<Jugador> {
 								this.posicion = sig;
 							sig.agregarJugador(this);
 							movimientos.remove();
+							PanelJugador.activarIconos();
 						}
 					}
 				}
@@ -215,7 +217,7 @@ public class Jugador extends GameObject implements Comparable<Jugador> {
 			} catch (Exception e) {
 				System.out.println("Problema detectado" + e.getMessage());
 			}
-		
+
 			this.posicion = posicion.getSiguiente().get(camino);
 		}
 		return this.posicion.getSiguiente().size();
