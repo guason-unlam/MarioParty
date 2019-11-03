@@ -242,7 +242,10 @@ public class Game extends Canvas implements Runnable {
 							JOptionPane.WARNING_MESSAGE, 0, null, caminos, caminos[0]);
 				} while (camino == JOptionPane.CLOSED_OPTION);
 				jugadorActual.avanzarUnCasillero(camino);
-
+				//
+				// ESTE BREAK NO DEBERIA IR
+				//
+				break;
 			}
 			if (jugadorActual.getPosicion().isTieneArbolito()) { // pregunto si quiere comprar dolar
 				int respuesta = JOptionPane.showConfirmDialog(ventana.getFrame().getContentPane(),

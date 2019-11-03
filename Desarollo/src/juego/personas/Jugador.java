@@ -52,18 +52,20 @@ public class Jugador extends GameObject implements Comparable<Jugador> {
 	}
 
 	public void tick(LinkedList<GameObject> object) {
-	/*	if (movimientos.size() > 0) {
+
+		if (movimientos.size() > 0) {
 			System.out.println("Cola siguientes: ");
 
 			for (Casillero cas : movimientos) {
 				System.out.print(cas.getId() + " ");
 			}
 			System.out.println("");
-		}*/
+		}
+
 		if (movimientos.size() > 0) {
 			Casillero sig = movimientos.peek();
-		 //System.out.println("[X]desde " + this.x + " hasta " + sig.getPosicionX());
-		 System.out.println("[Y]desde " + this.y + " hasta " + sig.getPosicionY());
+			// System.out.println("[X]desde " + this.x + " hasta " + sig.getPosicionX());
+			// System.out.println("[Y]desde " + this.y + " hasta " + sig.getPosicionY());
 
 			// System.out.println("posY: " + this.y + " objetivoY: "+sig.getPosicionY()+"
 			// hay camino: "+posicion.isCaminoAbajo());
@@ -89,7 +91,7 @@ public class Jugador extends GameObject implements Comparable<Jugador> {
 						// System.out.println("Intento previo entre " + (this.x) + " y " + (this.y +
 						// 1.5));
 
-						if (this.y > sig.getPosicionY() + 1 ) {
+						if (this.y > sig.getPosicionY() + 1) {
 							// System.out.println("arriba");
 							this.y -= 1.5f;
 						} else {
@@ -100,7 +102,8 @@ public class Jugador extends GameObject implements Comparable<Jugador> {
 							// sig.getPosicionX());
 							// System.out.println("[Y FINAL]desde " + this.y + " hasta " +
 							// sig.getPosicionY());
-							this.posicion = sig;
+							if (sig.getAnteriores().get(0).getSiguiente().size() == 1)
+								this.posicion = sig;
 							sig.agregarJugador(this);
 							movimientos.remove();
 						}
@@ -111,7 +114,7 @@ public class Jugador extends GameObject implements Comparable<Jugador> {
 
 	}
 //	public void tick(LinkedList<GameObject> object) {
-//		/* Lugar donde debería ir la lógica para mover a mario */
+//		/* Lugar donde deberï¿½a ir la lï¿½gica para mover a mario */
 //		if( enMovimientoX && x > xObjetivo-1 && x < xObjetivo+1) {
 //			velX = 0;
 //			enMovimientoX = false;
@@ -175,31 +178,46 @@ public class Jugador extends GameObject implements Comparable<Jugador> {
 		this.x = posicion.getPosicionX();
 		this.y = posicion.getPosicionY();
 		this.posicion.removerJugador(this);
-		this.posicion = posicion.getSiguiente().get(camino);
-		this.posicion.agregarJugador(this);
-		movimientos.add(posicion);
-		
+		System.out.println("[BIFURCACION]Estoy parado en " + posicion.getId() + "(" + posicion.getPosicionX() + ","
+				+ posicion.getPosicionY() + ")");
+		// System.out.println("[BIFURCACION]Estoy yendo al " +
+		// posicion.getSiguiente().get(camino).getId());
+		if (posicion.getSiguiente().get(camino) != null) {
+			posicion.getSiguiente().get(camino).agregarJugador(this);
+			System.out.println("[BIFURCACION]Ahora voy a" + posicion.getId() + "(" + posicion.getPosicionX() + ","
+					+ posicion.getPosicionY() + ")");
+			if (!movimientos.contains(posicion.getSiguiente().get(camino)))
+				movimientos.add(posicion.getSiguiente().get(camino));
+
 //		this.x = posicion.getPosicionX();
 //		this.y = posicion.getPosicionY();
-		int x = posicion.getPosicionX();
-		int y = posicion.getPosicionY();
-		System.out.println("[BIFURCACION]Estoy parado en" + posicion.getId());
-		System.out.println("[BIFURCACION]Estoy yendo al " + posicion.getSiguiente().get(camino).getId());
-		xObjetivo = posicion.getSiguiente().get(camino).getPosicionX();
-		yObjetivo = posicion.getSiguiente().get(camino).getPosicionY();
-		if (x > xObjetivo) {
-			this.setVelX(-1.5f);
-		} else if (x < xObjetivo) {
-			this.setVelX(1.5f);
-		}
-		this.enMovimientoX = true;
-		if (y > yObjetivo) {
-			this.setVelY(-1.5f);
-		} else if (y < yObjetivo) {
-			this.setVelY(1.5f);
-		}
+			this.x = posicion.getPosicionX();
+			this.y = posicion.getPosicionY();
+			try {
+				xObjetivo = posicion.getSiguiente().get(camino).getPosicionX();
+				yObjetivo = posicion.getSiguiente().get(camino).getPosicionY();
+				if (x != xObjetivo) {
+					if (x > xObjetivo) {
+						this.setVelX(-1.5f);
+					} else if (x < xObjetivo) {
+						this.setVelX(1.5f);
+					}
 
+				}
+				if (y != yObjetivo) {
+					if (y > yObjetivo) {
+						this.setVelY(-1.5f);
+					} else if (y < yObjetivo) {
+						this.setVelY(1.5f);
+					}
 
+				}
+			} catch (Exception e) {
+				System.out.println("Problema detectado" + e.getMessage());
+			}
+		
+			this.posicion = posicion.getSiguiente().get(camino);
+		}
 		return this.posicion.getSiguiente().size();
 	}
 
