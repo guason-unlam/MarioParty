@@ -176,6 +176,7 @@ public class Game extends Canvas implements Runnable {
 //	}
 
 	public void leerTablero(Tablero tab) {
+		System.out.println(tab.getCasilleros().keySet());
 		for (Entry<Integer, Casillero> elemento : tab.getCasilleros().entrySet()) {
 
 			Casillero casilleroActual = elemento.getValue();

@@ -52,18 +52,18 @@ public class Jugador extends GameObject implements Comparable<Jugador> {
 	}
 
 	public void tick(LinkedList<GameObject> object) {
-		if (movimientos.size() > 0) {
+	/*	if (movimientos.size() > 0) {
 			System.out.println("Cola siguientes: ");
 
 			for (Casillero cas : movimientos) {
 				System.out.print(cas.getId() + " ");
 			}
 			System.out.println("");
-		}
+		}*/
 		if (movimientos.size() > 0) {
 			Casillero sig = movimientos.peek();
-			// System.out.println("[X]desde " + this.x + " hasta " + sig.getPosicionX());
-			// System.out.println("[Y]desde " + this.y + " hasta " + sig.getPosicionY());
+		 //System.out.println("[X]desde " + this.x + " hasta " + sig.getPosicionX());
+		 System.out.println("[Y]desde " + this.y + " hasta " + sig.getPosicionY());
 
 			// System.out.println("posY: " + this.y + " objetivoY: "+sig.getPosicionY()+"
 			// hay camino: "+posicion.isCaminoAbajo());
@@ -89,7 +89,7 @@ public class Jugador extends GameObject implements Comparable<Jugador> {
 						// System.out.println("Intento previo entre " + (this.x) + " y " + (this.y +
 						// 1.5));
 
-						if (this.y > sig.getPosicionY() + 1 && Game.hayCamino(this.x, (this.y - 1.5)) == 1) {
+						if (this.y > sig.getPosicionY() + 1 ) {
 							// System.out.println("arriba");
 							this.y -= 1.5f;
 						} else {
@@ -139,7 +139,10 @@ public class Jugador extends GameObject implements Comparable<Jugador> {
 	}
 
 	public int avanzarUnCasillero() {
+		this.x = posicion.getPosicionX();
+		this.y = posicion.getPosicionY();
 		this.posicion.removerJugador(this);
+
 		System.out.println("Estoy parado en" + posicion.getId());
 
 		System.out.println("Estoy yendo al " + posicion.getSiguiente().get(0).getId());
@@ -169,8 +172,15 @@ public class Jugador extends GameObject implements Comparable<Jugador> {
 //	}
 
 	public int avanzarUnCasillero(int camino) {
+		this.x = posicion.getPosicionX();
+		this.y = posicion.getPosicionY();
 		this.posicion.removerJugador(this);
-
+		this.posicion = posicion.getSiguiente().get(camino);
+		this.posicion.agregarJugador(this);
+		movimientos.add(posicion);
+		
+//		this.x = posicion.getPosicionX();
+//		this.y = posicion.getPosicionY();
 		int x = posicion.getPosicionX();
 		int y = posicion.getPosicionY();
 		System.out.println("[BIFURCACION]Estoy parado en" + posicion.getId());
@@ -188,9 +198,7 @@ public class Jugador extends GameObject implements Comparable<Jugador> {
 		} else if (y < yObjetivo) {
 			this.setVelY(1.5f);
 		}
-		this.posicion = posicion.getSiguiente().get(camino);
-		this.posicion.agregarJugador(this);
-		movimientos.add(posicion);
+
 
 		return this.posicion.getSiguiente().size();
 	}
