@@ -187,9 +187,7 @@ public class ConexionServidor extends Thread {
 
 	private JsonObject armarPaqueteParamSala(JsonObject entradaJson) {
 		return Json.createObjectBuilder().add("type", Constantes.REFRESH_PARAM_ROOM)
-				.add("condicion", entradaJson.getString("condicion"))
-				.add("cantidad", entradaJson.getString("cantidad"))
-				.add("mapa", entradaJson.getString("mapa"))
-				.add("bots", entradaJson.getString("bots")).build();
+				.add("condicion", entradaJson.getString("condicion")).add("cantidad", entradaJson.getString("cantidad"))
+				.add("mapa", entradaJson.getString("mapa")).add("bots", entradaJson.getString("bots")).build();
 	}
 }

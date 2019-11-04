@@ -21,7 +21,7 @@ public class TableroTest {
 	public void crearTableroArchivoNoExisteTest() {
 		try {
 			tablero = new Tablero("../Mapas/tablero_inexistente.txt");
-		} catch (FileNotFoundException |ExcepcionArchivos ex) {
+		} catch (FileNotFoundException | ExcepcionArchivos ex) {
 			Assert.assertEquals(FileNotFoundException.class, ex.getClass());
 		}
 	}

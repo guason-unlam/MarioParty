@@ -17,8 +17,8 @@ public class UsuarioDAO {
 		Transaction tx = null;
 
 		try {
-			String query = "SELECT u FROM Usuario u WHERE u.username = '" + username + "' AND u.password = '"
-					+ password + "'";
+			String query = "SELECT u FROM Usuario u WHERE u.username = '" + username + "' AND u.password = '" + password
+					+ "'";
 			Query queryLogueo = Servidor.getSessionHibernate().createQuery(query);
 			try {
 				Usuario user = (Usuario) queryLogueo.getSingleResult();

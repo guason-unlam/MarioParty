@@ -145,7 +145,8 @@ public class Sala {
 	public boolean agregarUsuario(Usuario usuario) {
 		boolean esPrimeraPartida = this.partidas.size() > 0;
 		if (esPrimeraPartida && this.partidaActual.isPartidaEnCurso() == false
-				&& this.capacidadActual < this.capacidadMaxima) { //En caso deq ue quiera meterme a una partida ya empezada
+				&& this.capacidadActual < this.capacidadMaxima) { // En caso deq ue quiera meterme a una partida ya
+																	// empezada
 			this.usuariosActivos.add(usuario);
 			this.capacidadActual++;
 			return true;

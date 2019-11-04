@@ -7,9 +7,6 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Properties;
 
-import javax.json.Json;
-import javax.json.JsonArrayBuilder;
-
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 

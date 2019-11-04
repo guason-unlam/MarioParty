@@ -40,12 +40,11 @@ public class LectorEscritor {
 
 				// Si no contiene ese casillero, entonces debo crearlo
 				if (!casilleros.containsKey(Integer.valueOf(partes[0]))) {
-					Casillero casillero = new Casillero();
+					Casillero casillero = new Casillero(Integer.valueOf(partes[0]));
 					// Seteo x e y
 					casillero.setPosicionX(Integer.valueOf(partes[1]));
 					casillero.setPosicionY(Integer.valueOf(partes[2]));
-					// System.out.println("Estoy en " + partes[0] + "\tpadres: " + partes[3] +
-					// "\thijos:" + partes[4]);
+					//System.out.println("Estoy en " + partes[0] + "\tpadres: " + partes[3] + "\thijos:" + partes[4]);
 
 					for (String valorP : partesPadres) {
 						int valorNumerico = Integer.valueOf(valorP);
@@ -124,6 +123,6 @@ public class LectorEscritor {
 			// System.out.println(casilleros.keySet());
 			throw new ExcepcionArchivos("No coincide el numero de casilleros con el final");
 		}
-		
+
 	}
 }

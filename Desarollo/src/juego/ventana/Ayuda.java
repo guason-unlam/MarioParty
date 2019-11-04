@@ -71,7 +71,6 @@ public class Ayuda extends JFrame implements ActionListener {
 		this.setVisible(true);
 	}
 
-
 	public static void main(String args[]) {
 		new Ayuda();
 	}

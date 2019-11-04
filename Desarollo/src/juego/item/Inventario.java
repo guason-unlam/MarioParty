@@ -13,14 +13,12 @@ public class Inventario {
 		this.cantItems = cantItems;
 	}
 
-
 	public Inventario(int capacidad) {
 		items = new ArrayList<Item>();
 		this.capacidad = capacidad;
 		cantItems = 0;
 	}
 
-	
 	public Iterator<Item> listarItems() {
 		return this.items.iterator();
 	}
@@ -46,20 +44,17 @@ public class Inventario {
 		return items;
 	}
 
-
 	public void setItems(ArrayList<Item> items) {
 		this.items = items;
 	}
-	
+
 	public int getCantItems() {
 		return this.cantItems;
 	}
 
-
 	public int getCapacidad() {
 		return capacidad;
 	}
-
 
 	public void setCapacidad(int capacidad) {
 		this.capacidad = capacidad;

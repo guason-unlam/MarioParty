@@ -27,5 +27,7 @@
 	<classpathentry kind="lib" path="lib/sqlite-jdbc-3.27.2.1.jar"/>
 	<classpathentry kind="lib" path="lib/stax-ex-1.8.jar"/>
 	<classpathentry kind="lib" path="lib/txw2-2.3.1.jar"/>
+	<classpathentry kind="lib" path="assets/img"/>
+	<classpathentry kind="lib" path="assets/maps"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

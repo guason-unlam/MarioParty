@@ -86,15 +86,15 @@ public class Usuario {
 	public void setSala(Sala sala) {
 		this.sala = sala;
 	}
-	
-	//Constructor simple, sin contraseña
+
+	// Constructor simple, sin contraseña
 	public Sala crearSala(String nombreSala, int capacidadMaxima) {
 		Sala sala = new Sala(nombreSala, capacidadMaxima, this);
 		sala.agregarUsuario(this);
 		return sala;
 	}
-	
-	//Constructor con contraseña
+
+	// Constructor con contraseña
 	public Sala crearSala(String nombreSala, String password, int capacidadMaxima) {
 		Sala sala = new Sala(nombreSala, password, capacidadMaxima, this);
 		sala.agregarUsuario(this);

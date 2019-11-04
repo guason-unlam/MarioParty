@@ -15,7 +15,7 @@ public class Tablero {
 	private int id;
 	private int dimensionX;
 	private int dimensionY;
-	
+
 	public Tablero(String arch) throws ExcepcionArchivos, FileNotFoundException {
 		this.casilleros = new TreeMap<Integer, Casillero>();
 		crearCasillerosYCrearTablero(arch);
@@ -25,7 +25,7 @@ public class Tablero {
 		// Por ahora voy a usar un .txt para levantar los casilleros
 		LectorEscritor le = new LectorEscritor();
 		le.leerTablero(arch, this);
-		
+
 	}
 
 	public Map<Integer, Casillero> getCasilleros() {
@@ -60,7 +60,6 @@ public class Tablero {
 		this.dimensionY = dimensionY;
 	}
 
-	
 	/*
 	 * Me devuelve la cantidad de casilleros que me puedo mover hasta terminar Para
 	 * no pasarme de rango, voy a ir recorriendo cada rama y me quedo con la mas

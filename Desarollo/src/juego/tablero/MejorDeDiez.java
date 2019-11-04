@@ -2,25 +2,26 @@ package juego.tablero;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.TreeSet;
 
 import juego.misc.Dado;
 import juego.personas.Jugador;
 
 public class MejorDeDiez extends MiniJuego {
-	private ArrayList<Jugador> nombreJugadores;
+	private List<Jugador> nombreJugadores;
 	private Dado dado;
 	private boolean enPartida;
 	String resultados = ""; // Solo es para saber que estaba funcionando bien, ya que aca guardo los totales
 							// de cada uno
 	TreeSet<JugadorMinijuego> resumen = new TreeSet<JugadorMinijuego>();
 
-	public MejorDeDiez(ArrayList<Jugador> jugadores) {
+	public MejorDeDiez(List<Jugador> jugadoresEnPartida) {
 		super.setDescripcion("Cada jugador lanza 10 veces 1 dado," + " el que saque la mayor suma gana.");
 		super.setNombre("MejorDeDiez");
 		dado = new Dado(6);
 		enPartida = false;
-		this.nombreJugadores = jugadores;
+		this.nombreJugadores = jugadoresEnPartida;
 	}
 
 	@Override
@@ -79,7 +80,7 @@ public class MejorDeDiez extends MiniJuego {
 		return nombresOrdenados;
 	}
 
-	public ArrayList<Jugador> getNombreJugadores() {
+	public List<Jugador> getNombreJugadores() {
 		return nombreJugadores;
 	}
 
