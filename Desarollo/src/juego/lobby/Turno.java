@@ -2,12 +2,20 @@ package juego.lobby;
 
 import java.util.Iterator;
 
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+
 import juego.item.Item;
 import juego.personas.Jugador;;
 
-public class Turno {
+public class Turno extends JPanel {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Jugador jugador;
+	private JFrame ventanaJuego;
 
 	public Turno(Jugador jugador) {
 		this.jugador = jugador;
@@ -47,8 +55,12 @@ public class Turno {
 
 		do {
 			numeroIngresado = juego.Main.leerInt(); // El jugador elije q item usar
-		}while(numeroIngresado<1 || numeroIngresado>i);
+		} while (numeroIngresado < 1 || numeroIngresado > i);
 
 		return jugador.getInventario().getItems().get(numeroIngresado - 1); // devuelvo el item seleccionado
+	}
+
+	public void setVentanaJuego(JFrame ventanaJuego) {
+		this.ventanaJuego = ventanaJuego;
 	}
 }

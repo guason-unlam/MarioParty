@@ -19,21 +19,18 @@ public class SalaTest {
 		usuarioParticipante2 = new Usuario("conectarse2", "123456");
 
 	}
-	
+
 	@Test
 	public void TestSalaLlena() {
-		
-		//		Sala sala = new Sala("SalaTest", 2, usuarioCreador);
-		Sala sala = usuarioCreador.crearSala();
+		Sala sala = usuarioCreador.crearSala("SalaTest", 2);
 		usuarioParticipante1.conectarseALaSala(sala);
 		Assert.assertFalse(usuarioParticipante2.conectarseALaSala(sala)); // compruebo que al querer agregar un tercer
-
 	}
 
 	@Test
 	public void TestCreadorSala() {
 		Usuario usuarioCreador = new Usuario("prueba", "1234");
-		Sala sala = usuarioCreador.crearSala();
+		Sala sala = usuarioCreador.crearSala("SalaTest", 2);
 		Assert.assertEquals(usuarioCreador, sala.getUsuarioCreador());
 	}
 
@@ -51,7 +48,7 @@ public class SalaTest {
 		Sala sala = new Sala("Sala 1", 10, usuarioCreador);
 		Assert.assertEquals(true, sala.esAdmin(usuarioCreador));
 	}
-	
+
 	@Test
 	public void sacarUsuarioDeSalaTest() {
 		Usuario usuarioCreador = new Usuario("prueba", "1234");

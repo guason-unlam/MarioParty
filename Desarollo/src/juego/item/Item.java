@@ -1,7 +1,5 @@
 package juego.item;
 
-import java.util.Iterator;
-
 import juego.personas.Jugador;
 
 public abstract class Item extends Recompensa {
@@ -15,7 +13,6 @@ public abstract class Item extends Recompensa {
 	}
 
 	public abstract void activarItem(Jugador objetivo);
-
 
 	public abstract Jugador elegirObjetivo();
 

@@ -2,11 +2,8 @@ package juego;
 
 import java.util.ArrayList;
 
-import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Test;
 
-import juego.lobby.ExcepcionJugadoresInsuficientes;
 import juego.lobby.Partida;
 import juego.lobby.Usuario;
 
@@ -27,13 +24,13 @@ public class PartidaTest {
 		partida = new Partida(usuarios, 5);
 	}
 
-	@Test
-	public void partidaTest() {
-		try {
-			partida.iniciarPartida();
-		}catch(ExcepcionJugadoresInsuficientes e) {
-			Main.mostrar(e.getMessage());
-		}
-		Assert.assertTrue(partida.getGanadorPartida() != null);
-	}
+//	@Test
+//	public void partidaTest() {
+//		try {
+//			partida.iniciarPartida();
+//		}catch(ExcepcionJugadoresInsuficientes e) {
+//			Main.mostrar(e.getMessage());
+//		}
+//		Assert.assertTrue(partida.getGanadorPartida() != null);
+//	}
 }

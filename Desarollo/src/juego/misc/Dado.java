@@ -1,6 +1,5 @@
 package juego.misc;
 
-
 public class Dado {
 	private int cantidadCaras;
 
@@ -9,14 +8,15 @@ public class Dado {
 	}
 
 	public int tirar() {
-		return (int)(Math.random() * this.cantidadCaras + 1);
+		return (int) (Math.random() * this.cantidadCaras + 1);
 	}
 
 	public void setCantidadCaras(int cant) {
 		this.cantidadCaras = cant;
 	}
+
 	public int getCantidadCaras() {
 		return this.cantidadCaras;
 	}
-	
+
 }

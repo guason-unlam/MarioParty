@@ -1,7 +1,8 @@
 package juego.lobby;
 
 import java.util.ArrayList;
-import java.util.Scanner;
+
+import com.google.gson.JsonObject;
 
 import juego.personas.Jugador;
 
@@ -46,9 +47,28 @@ public class Usuario {
 		this.puntaje = puntaje;
 	}
 
+	public Usuario() {
+	}
+
 	public Usuario(String username, String password) {
 		this.username = username;
 		this.password = password;
+	}
+
+	public Usuario(int id, String username, String password) {
+		this.id = id;
+		this.username = username;
+		this.password = password;
+	}
+
+	public Usuario(JsonObject jsonObject) {
+		this.id = Integer.valueOf(jsonObject.get("id").toString());
+		this.username = jsonObject.get("username").toString();
+		this.password = jsonObject.get("password").toString();
+	}
+
+	public Usuario(int id) {
+		this.id = id;
 	}
 
 	public ArrayList<Partida> getPartidasJugadas() {
@@ -67,38 +87,24 @@ public class Usuario {
 		this.sala = sala;
 	}
 
-	public Sala crearSala() {
-		Scanner lector = new Scanner(System.in);
-		String nombreSala = "sala"; // para simplificar ahora le asigno un nombre luego hay que leer de consola
-		String password = "1234";
-		int cantDeUsrMaximos = 2; // mas adelante se podra elegir
+	// Constructor simple, sin contraseña
+	public Sala crearSala(String nombreSala, int capacidadMaxima) {
+		Sala sala = new Sala(nombreSala, capacidadMaxima, this);
+		sala.agregarUsuario(this);
+		return sala;
+	}
 
-//		// Voy ingresando los parametros
-//		System.out.println("Ingrese el nombre de la sala: ");
-//		nombreSala = lector.nextLine();
-//		// Voy ingresando la pw, PUEDE SER VACIA
-//		System.out.println("Ingrese la contraseña de la sala: ");
-//		password = lector.nextLine();
-//
-//		do {
-//			// Por ahora salas entre 2 y 5
-//			System.out.println("Ingrese la cantidad maxima de usuarios: ");
-//			cantDeUsrMaximos = lector.nextInt();
-//		} while (cantDeUsrMaximos < 2 && cantDeUsrMaximos > 5);
-//
-//	lector.close();
-		// Creo la sala
-		Sala sala = new Sala(nombreSala, password, cantDeUsrMaximos, this);
-		// Conecto al usuario a la misma
-		conectarseALaSala(sala);
-		//lector.close();
+	// Constructor con contraseña
+	public Sala crearSala(String nombreSala, String password, int capacidadMaxima) {
+		Sala sala = new Sala(nombreSala, password, capacidadMaxima, this);
+		sala.agregarUsuario(this);
 		return sala;
 	}
 
 	public boolean conectarseALaSala(Sala sala) {
 		if (sala.getCapacidadActual() < sala.getCapacidadMaxima()) {
 			this.setSala(sala);
-			sala.setUsuariosActivos(this);
+			sala.agregarUsuario(this);
 			sala.setCapacidadActual(sala.getCapacidadActual() + 1);
 			return true;
 		}
@@ -108,14 +114,14 @@ public class Usuario {
 
 	public void salirDeSala() {
 		/*
-		 * Si no lo saco, queda el usuario sin sala, pero 
-		 * figura como usuario activo, en al sala
-		 * */
-		if(this.jugador != null) {
+		 * Si no lo saco, queda el usuario sin sala, pero figura como usuario activo, en
+		 * al sala
+		 */
+		if (this.jugador != null) {
 			this.sala.getJugadoresActivos().remove(this.jugador);
 			this.setJugador(null);
 		}
-		this.sala.getUsuariosActivos().remove(this);
+
 		this.sala = null;
 	}
 
@@ -127,7 +133,7 @@ public class Usuario {
 		if (this.sala != null && this.sala.getPartidaActual() != null
 				&& this.sala.getPartidaActual().getUsuariosActivosEnSala() != null) {
 			for (Usuario user : this.sala.getPartidaActual().getUsuariosActivosEnSala()) {
-				if(user == this) {
+				if (user == this) {
 					return user.getJugador();
 				}
 			}
@@ -138,5 +144,4 @@ public class Usuario {
 	public void setJugador(Jugador jugador) {
 		this.jugador = jugador;
 	}
-
 }
