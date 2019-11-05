@@ -274,7 +274,7 @@ public class VentanaAdministracionSala extends JFrame {
 			labelCondicionVictoria.setVisible(true);
 
 		}
-		modelUsuariosLista.addElement(PantallaLogin.nombreUser);
+		modelUsuariosLista.addElement(VentanaLogin.nombreUser);
 		this.addListener();
 	}
 

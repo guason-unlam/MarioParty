@@ -5,7 +5,7 @@ import java.net.Socket;
 
 import juego.Constantes;
 import juego.ventana.Coordinador;
-import juego.ventana.PantallaLogin;
+import juego.ventana.VentanaLogin;
 
 public class Cliente {
 	private static Socket servidorIn;
@@ -35,7 +35,7 @@ public class Cliente {
 			conexionServidor.start();
 			coordinador = new Coordinador();
 
-			PantallaLogin login = new PantallaLogin();
+			VentanaLogin login = new VentanaLogin();
 			login.setVisible(true);
 
 		} catch (IOException ex) {

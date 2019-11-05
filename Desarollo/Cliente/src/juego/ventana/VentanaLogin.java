@@ -20,7 +20,7 @@ import cliente.Musica;
 import juego.Constantes;
 import juego.lobby.Usuario;
 
-public class PantallaLogin extends JFrame {
+public class VentanaLogin extends JFrame {
 
 	/**
 	 * 
@@ -37,7 +37,7 @@ public class PantallaLogin extends JFrame {
 	/**
 	 * Create the application.
 	 */
-	public PantallaLogin() {
+	public VentanaLogin() {
 		this.setTitle("Mario Party");
 
 		this.setBounds(100, 100, 450, 300);

@@ -10,9 +10,6 @@ import javax.json.JsonObject;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
@@ -27,9 +24,6 @@ public class VentanaLobby extends JFrame implements ActionListener {
 	 * 
 	 */
 	private static final long serialVersionUID = 9099821102113802071L;
-	private JMenuBar javaMenuBar = null;
-	private JMenu jmFile = null;
-	private JMenu jmOptions = null;
 	private JButton btnEntrarEnSala;
 	private JButton btnCrearSala;
 	private JFrame ventanaLobby;
@@ -53,56 +47,6 @@ public class VentanaLobby extends JFrame implements ActionListener {
 		this.setLocationRelativeTo(null);
 		this.getContentPane().setLayout(null);
 		setTitle("Mario Party");
-		javaMenuBar = new JMenuBar();
-
-		jmFile = new JMenu("Archivo");
-
-		// Se crean los items de la pantalla
-		JMenuItem jmiOpen = new JMenuItem("Abrir");
-		JMenuItem jmiClose = new JMenuItem("Cerrar");
-		JMenuItem jmiSave = new JMenuItem("Guardar");
-		JMenuItem jmiExit = new JMenuItem("Salir");
-
-		// Se agregan los items al archivo
-		jmFile.add(jmiOpen);
-		jmFile.add(jmiClose);
-		jmFile.add(jmiSave);
-		jmFile.addSeparator();
-		jmFile.add(jmiExit);
-		javaMenuBar.add(jmFile);
-
-		jmOptions = new JMenu("Opciones");
-		JMenu a = new JMenu("A");
-		JMenuItem b = new JMenuItem("B");
-		JMenuItem c = new JMenuItem("C");
-		JMenuItem d = new JMenuItem("D");
-		a.add(b);
-		a.add(c);
-		a.add(d);
-		jmOptions.add(a);
-
-		JMenu e = new JMenu("E");
-		e.add(new JMenuItem("F"));
-		e.add(new JMenuItem("G"));
-		jmOptions.add(e);
-
-		javaMenuBar.add(jmOptions);
-
-		JMenu jmHelp = new JMenu("Ayuda");
-		JMenuItem jmiHelp = new JMenuItem("Ayuda de Mario Party");
-		jmHelp.add(jmiHelp);
-		javaMenuBar.add(jmHelp);
-
-		jmiOpen.addActionListener(this);
-		jmiClose.addActionListener(this);
-		jmiSave.addActionListener(this);
-		jmiExit.addActionListener(this);
-		b.addActionListener(this);
-		c.addActionListener(this);
-		d.addActionListener(this);
-		jmiHelp.addActionListener(this);
-
-		this.setJMenuBar(javaMenuBar);
 
 		this.btnCrearSala = new JButton("CREAR SALA");
 		btnCrearSala.setFont(new Font("Tahoma", Font.PLAIN, 11));
@@ -134,9 +78,10 @@ public class VentanaLobby extends JFrame implements ActionListener {
 		});
 		btnHistorial.setForeground(Color.BLACK);
 		btnHistorial.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		btnHistorial.setBackground(Color.GREEN);
+		btnHistorial.setBackground(Color.LIGHT_GRAY);
 		btnHistorial.setBounds(34, 171, 120, 58);
 		btnHistorial.setFocusPainted(false);
+		btnHistorial.setEnabled(false);
 		getContentPane().add(btnHistorial);
 
 		JLabel lblBienvenida = new JLabel("Hola " + usuario.getUsername() + "!");
@@ -233,8 +178,6 @@ public class VentanaLobby extends JFrame implements ActionListener {
 			if (opcion == JOptionPane.YES_OPTION) {
 				System.exit(0);
 			}
-		} else if (comStr == "Ayuda de Mario Party") {
-			new Ayuda().setVisible(true);
 		}
 
 		System.out.println(comStr + " Selected");
