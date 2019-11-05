@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import javax.json.Json;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import juego.Constantes;
 import juego.lobby.TipoCondicionVictoria;
@@ -48,9 +49,11 @@ public class ConexionInterna extends Thread {
 			this.salidaDatos.writeUTF(new Message(Constantes.LOGIN_REQUEST, request).toJson());
 
 			this.message = (Message) new Gson().fromJson((String) entradaDatos.readUTF(), Message.class);
+			System.out.println(message.getType());
+			System.out.println(message.getData());
 			switch (this.message.getType()) {
 			case Constantes.CORRECT_LOGIN:
-				this.usuario = new Gson().fromJson((String) message.getData(), Usuario.class);
+				this.usuario = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().setPrettyPrinting().create().fromJson((String) message.getData(), Usuario.class);
 				return this.usuario;
 			case Constantes.INCORRECT_LOGIN:
 				return null;

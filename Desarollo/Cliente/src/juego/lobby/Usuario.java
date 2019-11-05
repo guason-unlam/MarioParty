@@ -1,18 +1,34 @@
 package juego.lobby;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import com.google.gson.JsonObject;
+import com.google.gson.annotations.Expose;
 
 import juego.personas.Jugador;
 
-public class Usuario {
+public class Usuario implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2485482482881418543L;
+	@Expose
 	private int id;
+	@Expose
 	private String username;
+	@Expose
 	private String password;
+	@Expose
+
 	private ArrayList<Partida> partidasJugadas;
+	@Expose
 	private int puntaje;
+	@Expose
+
 	private Sala sala;
+	@Expose
+
 	private Jugador jugador;
 
 	public int getId() {
