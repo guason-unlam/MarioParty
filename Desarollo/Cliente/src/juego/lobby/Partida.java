@@ -4,7 +4,7 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
-import graphics.ObjectId;
+import graphics.elements.ObjectId;
 import juego.misc.ExcepcionArchivos;
 import juego.personas.Jugador;
 import juego.tablero.Tablero;

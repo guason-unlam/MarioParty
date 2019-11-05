@@ -10,7 +10,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import graphics.Texture;
+import graphics.elements.Texture;
 import juego.Constantes;
 import juego.ControladorJuego;
 import juego.lobby.Partida;

@@ -1,4 +1,4 @@
-package graphics;
+package graphics.elements;
 
 public enum ObjectId {
 

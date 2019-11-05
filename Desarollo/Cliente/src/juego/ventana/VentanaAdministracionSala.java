@@ -40,6 +40,8 @@ import javax.swing.border.EmptyBorder;
 
 import cliente.Cliente;
 import cliente.Musica;
+import graphics.Game;
+import graphics.GameWindow;
 import juego.Constantes;
 import juego.lobby.TipoCondicionVictoria;
 
@@ -82,6 +84,7 @@ public class VentanaAdministracionSala extends JFrame {
 	private Musica musica;
 	private String nombreSala;
 	private boolean esAdmin;
+	private Game game;
 
 	public VentanaAdministracionSala(JFrame ventanaLobby, String nombreSala, boolean esAdmin) {
 		this.esAdmin = esAdmin;
@@ -457,7 +460,8 @@ public class VentanaAdministracionSala extends JFrame {
 			System.out.println("Error al crear el juego");
 			return;
 		}
-
+		game = new Game();
+		new GameWindow(800, 600, "Mario Party Prototype", game);
 		this.setVisible(false);
 	}
 

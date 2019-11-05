@@ -9,9 +9,9 @@ import java.util.Queue;
 import java.util.Random;
 
 import graphics.Game;
-import graphics.GameObject;
-import graphics.ObjectId;
-import graphics.Texture;
+import graphics.elements.GameObject;
+import graphics.elements.ObjectId;
+import graphics.elements.Texture;
 import juego.item.Inventario;
 import juego.item.Item;
 import juego.lobby.Partida;

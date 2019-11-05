@@ -1,7 +1,5 @@
 package juego;
 
-import javax.json.JsonValue;
-
 public abstract class Constantes {
 	public static final String ASSETS_PATH = "assets/";
 	public static final String IMAGEN_PATH = "img/";

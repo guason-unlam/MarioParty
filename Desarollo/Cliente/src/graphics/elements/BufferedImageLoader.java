@@ -1,4 +1,4 @@
-package graphics;
+package graphics.elements;
 
 import java.awt.image.BufferedImage;
 import java.io.FileInputStream;

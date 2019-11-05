@@ -11,6 +11,11 @@ import java.util.Map.Entry;
 
 import javax.swing.JOptionPane;
 
+import graphics.elements.BufferedImageLoader;
+import graphics.elements.ObjectId;
+import graphics.elements.Road;
+import graphics.elements.Spot;
+import graphics.elements.Texture;
 import juego.item.Recompensa;
 import juego.lobby.Partida;
 import juego.lobby.Usuario;
@@ -296,12 +301,6 @@ public class Game extends Canvas implements Runnable {
 
 	public void setVentana(GameWindow ventana) {
 		this.ventana = ventana;
-	}
-
-	public static void main(String[] args) {
-
-		new UnJugador(800, 600, "Mario Party Prototype", new Game());
-
 	}
 
 }

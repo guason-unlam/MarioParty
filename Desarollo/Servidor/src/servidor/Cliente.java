@@ -12,7 +12,6 @@ import com.google.gson.JsonSyntaxException;
 
 import juego.Constantes;
 import juego.lobby.Sala;
-import juego.lobby.TipoCondicionVictoria;
 import juego.lobby.Usuario;
 import juego.lobby.UsuarioDAO;
 

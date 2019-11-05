@@ -1,9 +1,10 @@
-package graphics;
+package graphics.elements;
 
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.util.LinkedList;
 
+import graphics.Game;
 import juego.tablero.casillero.Casillero;
 
 /* Representacion grafica de un casillero */
