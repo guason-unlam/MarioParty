@@ -12,6 +12,8 @@ import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.SwingConstants;
+import javax.swing.WindowConstants;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 
@@ -38,8 +40,8 @@ public class Ayuda extends JFrame implements ActionListener {
 		Border border = LineBorder.createGrayLineBorder();
 		this.setTitle("Ayuda de Mario Party");
 		JLabel label1 = new JLabel(upIcon);
-		label1.setHorizontalTextPosition(JLabel.LEFT);
-		label1.setVerticalTextPosition(JLabel.BOTTOM);
+		label1.setHorizontalTextPosition(SwingConstants.LEFT);
+		label1.setVerticalTextPosition(SwingConstants.BOTTOM);
 		label1.setBorder(border);
 		content.add(label1);
 
@@ -53,7 +55,7 @@ public class Ayuda extends JFrame implements ActionListener {
 		// label2.setVisible(true);
 
 		// Se definen las opciones por default
-		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		javaMenuBar = new JMenuBar();
 
 		jmFile = new JMenu("Archivo");

@@ -21,11 +21,12 @@ public class Coordinador extends Thread {
 		this.start();
 	}
 
+	@Override
 	public void run() {
 		while (true) {
 			String stringEntrada;
 			try {
-				stringEntrada = (String) Cliente.getConexionServidor().getEntrada().readUTF();
+				stringEntrada = Cliente.getConexionServidor().getEntrada().readUTF();
 				JsonReader jsonReader = Json.createReader(new StringReader(stringEntrada));
 				JsonObject entradaJson = jsonReader.readObject();
 				jsonReader.close(); // Cierro el stream hasta nuevo aviso

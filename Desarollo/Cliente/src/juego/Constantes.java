@@ -1,7 +1,7 @@
 package juego;
 
 public abstract class Constantes {
-	public static final String ASSETS_PATH = "../assets/";
+	public static final String ASSETS_PATH = "assets/";
 	public static final String IMAGEN_PATH = "img/";
 	public static final String SOUND_PATH = "sound/";
 	public static final String MUSICA_LOGIN = ASSETS_PATH + SOUND_PATH + "login.wav";

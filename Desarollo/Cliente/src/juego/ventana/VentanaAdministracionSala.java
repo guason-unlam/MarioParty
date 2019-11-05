@@ -34,6 +34,7 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.WindowConstants;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.EmptyBorder;
 
@@ -89,7 +90,7 @@ public class VentanaAdministracionSala extends JFrame {
 		this.musica = new Musica(Constantes.MUSICA_SELECT);
 		this.musica.loop();
 		setTitle("Bienvenido a " + nombreSala);
-		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 
 		setBounds(0, 0, 456, 400);
 		panel = new JPanel();
@@ -280,6 +281,7 @@ public class VentanaAdministracionSala extends JFrame {
 	private void addListener() {
 		// Cosas internas
 		btnJoin.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent arg0) {
 
 				switch (actual) {
@@ -371,12 +373,14 @@ public class VentanaAdministracionSala extends JFrame {
 
 		/// COSAS QUE AFECTAN AL RESTO
 		btnVolver.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				abandonarSala();
 			}
 		});
 
 		btnJoin.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				empezarJuego();
 			}

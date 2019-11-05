@@ -14,6 +14,8 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
+import javax.swing.SwingConstants;
+import javax.swing.WindowConstants;
 
 import cliente.Cliente;
 import cliente.Musica;
@@ -113,6 +115,7 @@ public class VentanaLobby extends JFrame implements ActionListener {
 		btnEntrarEnSala = new JButton("UNIRSE A SALA");
 		btnEntrarEnSala.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		btnEntrarEnSala.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
@@ -125,6 +128,7 @@ public class VentanaLobby extends JFrame implements ActionListener {
 
 		btnHistorial = new JButton("HISTORIAL");
 		btnHistorial.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
@@ -138,11 +142,11 @@ public class VentanaLobby extends JFrame implements ActionListener {
 		JLabel lblBienvenida = new JLabel("Hola " + usuario.getUsername() + "!");
 		lblBienvenida.setFont(new Font("Tahoma", Font.PLAIN, 24));
 		lblBienvenida.setBounds(34, 56, 380, 68);
-		lblBienvenida.setHorizontalAlignment(JLabel.CENTER);
-		lblBienvenida.setVerticalAlignment(JLabel.CENTER);
+		lblBienvenida.setHorizontalAlignment(SwingConstants.CENTER);
+		lblBienvenida.setVerticalAlignment(SwingConstants.CENTER);
 		getContentPane().add(lblBienvenida);
 		// Sin esto, el yes/no dialog no sirve
-		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		this.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 		this.setBounds(0, 0, Constantes.LOGIN_WIDTH, Constantes.LOGIN_HEIGHT);
 		this.setLocationRelativeTo(null);
 		addListener();
@@ -165,6 +169,7 @@ public class VentanaLobby extends JFrame implements ActionListener {
 
 		btnCrearSala.addActionListener(new ActionListener() {
 
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				VentanaCrearSala ventanaCrearSala = new VentanaCrearSala(ventanaLobby, musica);
 
@@ -179,6 +184,7 @@ public class VentanaLobby extends JFrame implements ActionListener {
 
 		btnHistorial.addActionListener(new ActionListener() {
 
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				VentanaHistorial ventanaHistorial = new VentanaHistorial(ventanaLobby);
 
@@ -192,6 +198,7 @@ public class VentanaLobby extends JFrame implements ActionListener {
 		});
 
 		btnEntrarEnSala.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 
 				abrirVentanaUnirSala();

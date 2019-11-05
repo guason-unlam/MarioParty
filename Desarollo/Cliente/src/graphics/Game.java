@@ -87,6 +87,7 @@ public class Game extends Canvas implements Runnable {
 		thread.start();
 	}
 
+	@Override
 	public void run() {
 		init();
 		this.requestFocus();
@@ -181,7 +182,7 @@ public class Game extends Canvas implements Runnable {
 			// casilleroActual.getPosicionX() / 32);
 			// System.out.println("y - " + casilleroActual.getPosicionY() + " - " +
 			// casilleroActual.getPosicionY() / 32);
-			matrizMapa[(int) casilleroActual.getPosicionX() / 32][(int) casilleroActual.getPosicionY() / 32] = 1;
+			matrizMapa[casilleroActual.getPosicionX() / 32][casilleroActual.getPosicionY() / 32] = 1;
 
 			/* Caminos */
 			for (Casillero sig : casilleroActual.getSiguiente()) {
@@ -197,7 +198,7 @@ public class Game extends Canvas implements Runnable {
 						casilleroActual.setCaminoDerecha(true);
 					}
 					handler.addObject(new Road(x, y, 0, ObjectId.Road));
-					matrizMapa[(int) x / 32][(int) y / 32] = 1;
+					matrizMapa[x / 32][y / 32] = 1;
 
 				}
 				while (y != sig.getPosicionY()) {
@@ -208,7 +209,7 @@ public class Game extends Canvas implements Runnable {
 						casilleroActual.setCaminoArriba(true);
 					}
 					handler.addObject(new Road(x, y, 0, ObjectId.Road));
-					matrizMapa[(int) x / 32][(int) y / 32] = 1;
+					matrizMapa[x / 32][y / 32] = 1;
 
 				}
 			}

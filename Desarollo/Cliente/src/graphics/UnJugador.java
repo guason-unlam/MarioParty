@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.WindowConstants;
 
 public class UnJugador implements ActionListener {
 
@@ -28,10 +29,11 @@ public class UnJugador implements ActionListener {
 		panel.add(jugarButton);
 		frame.add(panel);
 		frame.setVisible(true);
-		frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+		frame.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
 
 	}
 
+	@Override
 	public void actionPerformed(ActionEvent e) {
 		this.frame.setVisible(false);
 		new GameWindow(800, 600, "Mario Party Prototype", game);

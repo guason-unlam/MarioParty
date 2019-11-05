@@ -122,6 +122,7 @@ public class VentanaJuego extends JFrame implements ImageObserver {
 		}
 	}
 
+	@Override
 	public void paint(Graphics g) {
 		super.paint(g);
 

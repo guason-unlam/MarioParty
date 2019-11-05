@@ -48,6 +48,7 @@ public class Jugador extends GameObject implements Comparable<Jugador> {
 		this.inventario = new Inventario(10); // 10 items maximos
 	}
 
+	@Override
 	public void tick(LinkedList<GameObject> object) {
 
 		/*
@@ -128,11 +129,13 @@ public class Jugador extends GameObject implements Comparable<Jugador> {
 //	}
 
 	/* dibujador de personajes */
+	@Override
 	public void render(Graphics g) {
 		g.drawImage(tex.characters[personaje], (int) x, (int) y, null);
 	}
 
 	/* Despues sirve para el tema de las colisiones */
+	@Override
 	public Rectangle getBounds() {
 		return new Rectangle((int) x, (int) y);
 	}

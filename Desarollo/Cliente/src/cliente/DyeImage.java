@@ -21,6 +21,7 @@ public class DyeImage {
 
 	public static void main(String args[]) {
 		SwingUtilities.invokeLater(new Runnable() {
+			@Override
 			public void run() {
 				try {
 					new DyeImage();
@@ -36,7 +37,7 @@ public class DyeImage {
 		JFrame f = new JFrame();
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		this.image = ImageIO.read(new File(Constantes.ASSETS_PATH + Constantes.IMAGEN_PATH + "/characters_sheet.png"));
+		DyeImage.image = ImageIO.read(new File(Constantes.ASSETS_PATH + Constantes.IMAGEN_PATH + "/characters_sheet.png"));
 
 		JPanel panel = new JPanel(new GridLayout(5, 3));
 		for (int i = 3; i < 4; i++) {

@@ -48,7 +48,7 @@ public class ConexionInterna extends Thread {
 
 			this.salidaDatos.writeUTF(new Message(Constantes.LOGIN_REQUEST, request).toJson());
 
-			this.message = (Message) new Gson().fromJson((String) entradaDatos.readUTF(), Message.class);
+			this.message = new Gson().fromJson(entradaDatos.readUTF(), Message.class);
 			System.out.println(message.getType());
 			System.out.println(message.getData());
 			switch (this.message.getType()) {
@@ -74,7 +74,7 @@ public class ConexionInterna extends Thread {
 
 			this.salidaDatos.writeUTF(new Message(Constantes.LOGOUT_REQUEST, u).toJson());
 
-			this.message = (Message) new Gson().fromJson((String) entradaDatos.readUTF(), Message.class);
+			this.message = new Gson().fromJson(entradaDatos.readUTF(), Message.class);
 			switch (this.message.getType()) {
 			case Constantes.CORRECT_LOGOUT:
 				return true;
@@ -96,7 +96,7 @@ public class ConexionInterna extends Thread {
 
 			this.salidaDatos.writeUTF(new Message(Constantes.REGISTER_REQUEST, request).toJson());
 
-			this.message = (Message) new Gson().fromJson((String) entradaDatos.readUTF(), Message.class);
+			this.message = new Gson().fromJson(entradaDatos.readUTF(), Message.class);
 			return this.message;
 
 		} catch (Exception e) {
@@ -112,7 +112,7 @@ public class ConexionInterna extends Thread {
 			this.salidaDatos.writeUTF(this.message.toJson());
 			while (true) {
 				// Leo lo enviado por el sv
-				this.message = (Message) new Gson().fromJson((String) entradaDatos.readUTF(), Message.class);
+				this.message = new Gson().fromJson(entradaDatos.readUTF(), Message.class);
 				System.out.println(this.message.getType());
 				// Depende el tipo de la respuesta
 				switch (this.message.getType()) {
@@ -136,7 +136,7 @@ public class ConexionInterna extends Thread {
 			this.salidaDatos.writeUTF(this.message.toJson());
 			while (true) {
 				// Leo lo enviado por el sv
-				this.message = (Message) new Gson().fromJson((String) entradaDatos.readUTF(), Message.class);
+				this.message = new Gson().fromJson(entradaDatos.readUTF(), Message.class);
 
 				// Depende el tipo de la respuesta
 				switch (this.message.getType()) {
@@ -170,7 +170,7 @@ public class ConexionInterna extends Thread {
 	public String refreshRooms() {
 		try {
 			while (true) {
-				this.message = (Message) new Gson().fromJson((String) entradaDatos.readUTF(), Message.class);
+				this.message = new Gson().fromJson(entradaDatos.readUTF(), Message.class);
 				if (message.getType() == Constantes.REQUEST_REFRESH_ROOMS) {
 					return (String) message.getData();
 				}

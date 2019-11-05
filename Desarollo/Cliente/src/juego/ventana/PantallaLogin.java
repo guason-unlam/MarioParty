@@ -119,6 +119,7 @@ public class PantallaLogin extends JFrame {
 
 		if (usuario != null && usuario.getId() != -1) {
 			EventQueue.invokeLater(new Runnable() {
+				@Override
 				public void run() {
 					try {
 						VentanaLobby frame = new VentanaLobby(musica);
@@ -158,6 +159,7 @@ public class PantallaLogin extends JFrame {
 		});
 
 		this.btnRegistrarse.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				registrarUsuario();
 			}
@@ -177,6 +179,7 @@ public class PantallaLogin extends JFrame {
 
 	private ActionListener iniciarSessionPerformed() {
 		return new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				try {
 					iniciarSession();

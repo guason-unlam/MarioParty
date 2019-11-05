@@ -15,6 +15,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.WindowConstants;
 import javax.swing.border.EmptyBorder;
 
 import cliente.Cliente;
@@ -38,7 +39,7 @@ public class VentanaElegirSala extends JFrame {
 		this.lobby = ventanaLobby;
 
 		setTitle("Salas disponibles");
-		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 
 		setBounds(0, 0, 456, 400);
 		panel = new JPanel();
@@ -71,6 +72,7 @@ public class VentanaElegirSala extends JFrame {
 
 	private void addListener() {
 		btnJoin.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent arg0) {
 
 				if (!(sala == null)) {
@@ -102,6 +104,7 @@ public class VentanaElegirSala extends JFrame {
 		});
 
 		btnVolver.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				lobby.setVisible(true);
 				// Lo oculto, puede ser de utilidad luego

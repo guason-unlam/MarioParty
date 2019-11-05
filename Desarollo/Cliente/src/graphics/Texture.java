@@ -23,17 +23,12 @@ public class Texture {
 	 * correspondiente
 	 */
 	public Texture() {
-
 		BufferedImageLoader loader = new BufferedImageLoader();
-
 		try {
-			characterSheet = loader.loadImage("/characters_sheet.png");
-			/*
-			 * TODO: complete Sheets Hay que cargar mas personajes, una vez logremos
-			 * moverlos
-			 */
-			spotSheet = loader.loadImage("/spots_sheet.png");
-			roadSheet = loader.loadImage("/roads_sheet.png");
+			characterSheet = loader.loadImage(Constantes.ASSETS_PATH + Constantes.IMAGEN_PATH + "characters_sheet.png");
+
+			spotSheet = loader.loadImage(Constantes.ASSETS_PATH + Constantes.IMAGEN_PATH + "spots_sheet.png");
+			roadSheet = loader.loadImage(Constantes.ASSETS_PATH + Constantes.IMAGEN_PATH + "roads_sheet.png");
 		} catch (Exception e) {
 			System.err.println(e.getMessage());
 		}
@@ -41,20 +36,18 @@ public class Texture {
 		cs = new SpriteSheet(characterSheet);
 		ss = new SpriteSheet(spotSheet);
 		rs = new SpriteSheet(roadSheet);
-
 		getTextures();
 	}
 
 	private void getTextures() {
-
 		/* Characters */
 		characters[0] = cs.grabImage(1, 1, 44, 44);
 		characters[1] = cs.grabImage(2, 1, 44, 44);
 		characters[2] = cs.grabImage(3, 1, 44, 44);
 		/* Roads */
-		/* TODO: change values on demand */
+//		/* TODO: change values on demand */
 		roads[0] = rs.grabImage(1, 1, 32, 32);
-		/* Spots */
+//		/* Spots */
 		spots[0] = ss.grabImage(1, 1, 32, 32);
 		spots[1] = ss.grabImage(2, 1, 32, 32);
 		spots[2] = ss.grabImage(3, 1, 32, 32);

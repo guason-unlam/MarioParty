@@ -10,6 +10,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.WindowConstants;
 import javax.swing.border.EmptyBorder;
 
 public class VentanaHistorial extends JFrame {
@@ -27,7 +28,7 @@ public class VentanaHistorial extends JFrame {
 		this.lobby = lobby;
 
 		setTitle("Historial de partidas");
-		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 
 		setBounds(0, 0, 456, 400);
 		panel = new JPanel();
@@ -55,6 +56,7 @@ public class VentanaHistorial extends JFrame {
 	private void addListener() {
 
 		btnVolver.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				lobby.setVisible(true);
 				// Lo oculto, puede ser de utilidad luego

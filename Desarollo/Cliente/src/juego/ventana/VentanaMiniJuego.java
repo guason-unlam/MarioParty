@@ -116,6 +116,7 @@ class VentanaMiniJuego implements ActionListener {
 		mejorDeDiez.iniciar();
 
 		SwingUtilities.invokeLater(new Runnable() {
+			@Override
 			public void run() {
 				createAndShowGUI(mejorDeDiez.getResultados());
 			}

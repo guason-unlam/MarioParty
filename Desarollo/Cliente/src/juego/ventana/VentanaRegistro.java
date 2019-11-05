@@ -177,6 +177,7 @@ public class VentanaRegistro extends JFrame {
 	private void addListener() {
 
 		btnCrearUsuario.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				try {
 					registrarUsuario(pantallaLogin);
@@ -186,6 +187,7 @@ public class VentanaRegistro extends JFrame {
 			}
 		});
 		btnVolver.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				dispose();
 				pantallaLogin.setVisible(true);

@@ -35,6 +35,7 @@ public class PanelJugador extends JPanel {
 
 		btnLanzarDado = new JButton("Lanzar dado");
 		btnLanzarDado.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent arg0) {
 //				juego.avanzarJugador(juego.getJugadorActual().tirarDado());
 //				juego.continuar();
@@ -55,6 +56,7 @@ public class PanelJugador extends JPanel {
 		btnUsarItem = new JButton("Usar item");
 		btnUsarItem.setBounds(10, 70, 106, 23);
 		btnUsarItem.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 //				juego.usarItem();
 			}
@@ -64,6 +66,7 @@ public class PanelJugador extends JPanel {
 		btnPasar = new JButton("Pasar");
 		btnPasar.setBounds(156, 36, 89, 57);
 		btnPasar.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 //				juego.continuar();
 			}

@@ -25,6 +25,7 @@ public class Player extends GameObject {
 		yObjetivo = (int) y;
 	}
 
+	@Override
 	public void tick(LinkedList<GameObject> object) {
 		/* Lugar donde debería ir la lógica para mover a mario */
 		if (enMovimientoX && x > xObjetivo - 1 && x < xObjetivo + 1) {
@@ -41,11 +42,13 @@ public class Player extends GameObject {
 	}
 
 	/* dibujador de personajes */
+	@Override
 	public void render(Graphics g) {
 		g.drawImage(tex.characters[personaje], (int) x, (int) y, null);
 	}
 
 	/* Despues sirve para el tema de las colisiones */
+	@Override
 	public Rectangle getBounds() {
 		return new Rectangle((int) x, (int) y);
 	}

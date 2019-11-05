@@ -19,11 +19,13 @@ public class Spot extends GameObject {
 		this.casillero = casillero;
 	}
 
+	@Override
 	public void tick(LinkedList<GameObject> object) {
 		if (this.casillero.isTieneArbolito())
 			type++;
 	}
 
+	@Override
 	public void render(Graphics g) {
 		if (this.casillero.isTieneRecompensa())
 			type = 2;
@@ -34,6 +36,7 @@ public class Spot extends GameObject {
 		g.drawImage(tex.spots[type], (int) x, (int) y, null);
 	}
 
+	@Override
 	public Rectangle getBounds() {
 		return new Rectangle((int) x, (int) y, 32, 32);
 	}

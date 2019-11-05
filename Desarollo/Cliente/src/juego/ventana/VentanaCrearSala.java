@@ -128,6 +128,7 @@ public class VentanaCrearSala extends JFrame {
 		});
 
 		btnCrear.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				crearSala();
 			}
@@ -179,6 +180,7 @@ public class VentanaCrearSala extends JFrame {
 			}
 		});
 		btnVolver.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				lobby.setVisible(true);
 				// Lo oculto, puede ser de utilidad luego
