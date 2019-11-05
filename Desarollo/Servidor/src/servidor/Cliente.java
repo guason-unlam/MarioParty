@@ -42,7 +42,7 @@ public class Cliente extends Thread {
 		while (conectado) {
 			try {
 				String cadena = this.entrada.readUTF();
-				Message message = (Message) new Gson().fromJson(cadena, Message.class);
+				Message message = new Gson().fromJson(cadena, Message.class);
 				System.out.println("RECIBIDO" + message.getType());
 				switch (message.getType()) {
 				// LOGIN
@@ -169,6 +169,16 @@ public class Cliente extends Thread {
 							this.salida.writeUTF(new Message(Constantes.INCORRECT_LOGOUT, usuario).toJson());
 						}
 					}
+					break;
+				case Constantes.TODOS_EN_SALA:
+					boolean todosEnSala = true;
+					for (Usuario u : this.sala.getUsuariosActivos()) {
+						if (u.isEstaJugando()) {
+							todosEnSala = false;
+							break;
+						}
+					}
+					this.salida.writeUTF(new Message(Constantes.NOTICE_TODOS_EN_SALA, todosEnSala).toJson());
 					break;
 				default:
 					break;

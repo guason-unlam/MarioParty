@@ -44,6 +44,7 @@ public class Coordinador extends Thread {
 				case Constantes.REFRESH_ROOM:
 					try {
 						Coordinador.ventanaAdministracionSala.actualizarUsuarios(entradaJson);
+						Coordinador.ventanaAdministracionSala.validacionBotonJugar();
 					} catch (Exception e) {
 						System.out.println("[REFRESCAR SALA]" + e.getCause());
 					}

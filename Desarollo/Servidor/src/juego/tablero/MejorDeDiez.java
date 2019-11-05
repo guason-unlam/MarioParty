@@ -124,8 +124,8 @@ class JugadorMinijuego implements Comparable<JugadorMinijuego> {
 		/*
 		 * En caso de empate por puntos, desempata por nombre alfabeticamente
 		 */
-		int difNom = this.getNombre().compareTo(((JugadorMinijuego) jugadorMJ).getNombre());
-		int dif = this.getRes() - ((JugadorMinijuego) jugadorMJ).getRes();
+		int difNom = this.getNombre().compareTo(jugadorMJ.getNombre());
+		int dif = this.getRes() - jugadorMJ.getRes();
 		return ((dif > 0) ? 1 : ((dif < 0) ? -1 : ((difNom > 0)) ? 1 : -1));
 	}
 

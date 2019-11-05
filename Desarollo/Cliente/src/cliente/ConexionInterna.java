@@ -53,7 +53,8 @@ public class ConexionInterna extends Thread {
 			System.out.println(message.getData());
 			switch (this.message.getType()) {
 			case Constantes.CORRECT_LOGIN:
-				this.usuario = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().setPrettyPrinting().create().fromJson((String) message.getData(), Usuario.class);
+				this.usuario = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().setPrettyPrinting().create()
+						.fromJson((String) message.getData(), Usuario.class);
 				return this.usuario;
 			case Constantes.INCORRECT_LOGIN:
 				return null;
@@ -183,7 +184,14 @@ public class ConexionInterna extends Thread {
 	}
 
 	public boolean usuariosEnSala() {
-		// TODO Auto-generated method stub
+		try {
+			this.salidaDatos.writeUTF(new Message(Constantes.TODOS_EN_SALA, null).toJson());
+			Message retorno = (Message) new Gson().fromJson(this.entradaDatos.readUTF(), Message.class);
+			if (retorno.getType().equals(Constantes.NOTICE_TODOS_EN_SALA))
+				return (boolean) retorno.getData();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		return false;
 	}
 

@@ -14,6 +14,15 @@ public class Usuario {
 	private int puntaje;
 	private Sala sala;
 	private Jugador jugador;
+	private boolean estaJugando = false;
+	
+	public boolean isEstaJugando() {
+		return estaJugando;
+	}
+
+	public void setEstaJugando(boolean estaJugando) {
+		this.estaJugando = estaJugando;
+	}
 
 	public int getId() {
 		return id;

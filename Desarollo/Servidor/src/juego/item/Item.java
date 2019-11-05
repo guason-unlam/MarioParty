@@ -20,6 +20,7 @@ public abstract class Item extends Recompensa {
 		return this.duenio;
 	}
 
+	@Override
 	public String getNombre() {
 		return nombre;
 	}

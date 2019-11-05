@@ -43,7 +43,7 @@ public class ConexionServidor extends Thread {
 		while (conectado) {
 
 			try {
-				String entrada = (String) this.entrada.readUTF();
+				String entrada = this.entrada.readUTF();
 				JsonReader jsonReader = Json.createReader(new StringReader(entrada));
 				JsonObject entradaJson = jsonReader.readObject();
 				jsonReader.close();
