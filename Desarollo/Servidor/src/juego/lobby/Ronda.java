@@ -18,6 +18,7 @@ public class Ronda {
 	private MiniJuego minijuego;
 	private List<Jugador> jugadoresEnPartida;
 	private int jugadoresRestantes;
+	private boolean jugando = false;
 
 	public Ronda(ArrayList<Jugador> jugadoresEnPartida) {
 
@@ -54,6 +55,46 @@ public class Ronda {
 //		}
 //		((MejorDeDiez) minijuego).iniciar();
 //		Lanzo minijuego cuando lo tenga
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public MiniJuego getMinijuego() {
+		return minijuego;
+	}
+
+	public void setMinijuego(MiniJuego minijuego) {
+		this.minijuego = minijuego;
+	}
+
+	public List<Jugador> getJugadoresEnPartida() {
+		return jugadoresEnPartida;
+	}
+
+	public void setJugadoresEnPartida(List<Jugador> jugadoresEnPartida) {
+		this.jugadoresEnPartida = jugadoresEnPartida;
+	}
+
+	public int getJugadoresRestantes() {
+		return jugadoresRestantes;
+	}
+
+	public void setJugadoresRestantes(int jugadoresRestantes) {
+		this.jugadoresRestantes = jugadoresRestantes;
+	}
+
+	public boolean isJugando() {
+		return jugando;
+	}
+
+	public void setJugando(boolean jugando) {
+		this.jugando = jugando;
 	}
 
 //	public class decidirOrdenTurnos{

@@ -452,6 +452,7 @@ public class VentanaAdministracionSala extends JFrame {
 			return;
 		}
 
+		// LE AVISO AL SERVER QUE VA A ARRANCAR
 		if (Cliente.getConexionInterna().comenzarJuego(totalBots, totalRondas, condicion, mapa) == false) {
 			System.out.println("Error al crear el juego");
 			return;

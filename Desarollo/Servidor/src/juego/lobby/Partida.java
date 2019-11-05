@@ -7,6 +7,7 @@ import juego.misc.ExcepcionArchivos;
 import juego.personas.Jugador;
 import juego.tablero.Tablero;
 import juego.tablero.casillero.Casillero;
+import servidor.Bot;
 
 public class Partida {
 	// Cambiar por el estado
@@ -27,8 +28,12 @@ public class Partida {
 
 //	Para saber cuando termin� una Partida, por defecto, es por estrellas, a cinco.
 	private CondicionVictoria condicionVictoria = new CondicionVictoria(TipoCondicionVictoria.RONDAS, 5);
+	private TipoCondicionVictoria resCondicionVictoria;
 
-	public Partida(ArrayList<Usuario> usuariosActivosEnSala, int cantidadTotalRondas) {
+	public Partida(ArrayList<Usuario> usuariosActivosEnSala, String condicionVictoria, String mapa,
+			int cantidadTotalRondas) {
+		resCondicionVictoria = TipoCondicionVictoria.valueOf(condicionVictoria);
+
 		this.usuariosActivosEnSala = usuariosActivosEnSala;
 		try {
 			this.tablero = new Tablero("../Mapas/tablero01.txt");
@@ -40,17 +45,23 @@ public class Partida {
 
 		for (Usuario usuario : usuariosActivosEnSala) {
 			Jugador jugador;
-
+//			if (usuario instanceof Bot) {
+//				jugador = new JugadorBot(usuario, tablero, this);
+//				this.jugadoresEnPartida.add(jugador);
+//			} else {
 			jugador = new Jugador(usuario, tablero, this);
+			this.jugadoresEnPartida.add(jugador);
+//			}
+			jugador = new Jugador(usuario, tablero, this);
+
 			// Lo seteo al primer casillero
 			jugador.setPosicion(this.tablero.getCasilleros().get(0));
+
 			this.jugadoresEnPartida.add(jugador);
 
 			usuario.setJugador(jugador);
 		}
-		if (cantidadTotalRondas != 0) {
-			condicionVictoria = new CondicionVictoria(TipoCondicionVictoria.RONDAS, cantidadTotalRondas);
-		}
+
 		this.puntajeMaximo = 0;
 		this.ganador = null;
 	}
@@ -73,14 +84,67 @@ public class Partida {
 			rondaEnCurso = new Ronda(jugadoresEnPartida);
 			System.out.println("RONDA " + numeroRonda);
 			System.out.println("===========");
-			rondaEnCurso.iniciar(true);
+			this.iniciarJuego();
 			rondasJugadas.add(rondaEnCurso);
-			evaluarEstadoPartida();
 			System.out.println("");
 		} while (this.ganador == null && this.partidaEnCurso == true);
+
+		if (this.numeroRonda == this.cantidadDeRondasAJugar) {
+			for (Usuario u : usuariosActivosEnSala) {
+				if (u.getJugador().equals(this.ganador)) {
+					// TODO:Le actualizo las stats al que gano
+					// usuariosActivosEnSala.get(usuariosActivosEnSala.indexOf(u)).updateStats();
+					break;
+				}
+			}
+
+		}
+		this.partidaEnCurso = false;
 		System.out.println("Con un total de $" + this.ganador.getPesos() + " el ganador es .... "
 				+ this.ganador.getNombre() + "!!!");
 		return 0;
+	}
+
+	private void iniciarJuego() {
+		if (this.rondaEnCurso == null) {
+			return;
+		}
+
+		Thread thread = new Thread() {
+			public synchronized void run() {
+				try {
+					Thread.sleep(1000);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+
+				// Termina una ronda y comienza otra.
+				try {
+
+					for (Jugador jug : rondaEnCurso.getJugadoresEnPartida()) {
+
+						// Actualizo stats en la db
+						if (!(jug instanceof JugadorBot)) {
+							for (Usuario u : usuariosActivosEnSala) {
+								if (u.getJugador().equals(jug)) {
+//									usuariosActivosEnSala.get(usuariosActivosEnSala.indexOf(u)).actualizarEstadisticasRonda();
+									break;
+								}
+							}
+						}
+					}
+
+					if (numeroRonda == cantidadDeRondasAJugar) {
+						evaluarEstadoPartida();
+					} else {
+						Thread.sleep(1500);
+					}
+				} catch (InterruptedException e) {
+					System.out.println("Error partida");
+				}
+			}
+		};
+		thread.start();
 	}
 
 	public boolean isPartidaEnCurso() {
@@ -191,8 +255,8 @@ public class Partida {
 		for (Jugador jug : jugadoresEnPartida) {
 			if ((jug.getDolares() == this.condicionVictoria.getCantidad())) {
 				/*
-				 * Si a�n nadie cumple condicionVictoria ganador es jug Si alguien ya cumple
-				 * la condici�nVictoria desempato por cantidad de pesos que tiene cada uno.
+				 * Si a�n nadie cumple condicionVictoria ganador es jug Si alguien ya cumple la
+				 * condici�nVictoria desempato por cantidad de pesos que tiene cada uno.
 				 */
 				ganador = ((ganador == null) ? jug : ((jug.getPesos() > ganador.getPesos()) ? jug : ganador));
 			}
@@ -233,6 +297,18 @@ public class Partida {
 		} while (pos.getId() == nuevaPos);
 
 		this.tablero.getCasilleros().get(nuevaPos).setTieneArbolito(true);
+	}
+
+	public void agregarBotAPartida(Bot bot) {
+		Jugador jugador = new JugadorBot(bot, tablero, this);
+		this.jugadoresEnPartida.add(jugador);
+		bot.setJugador(jugador);
+	}
+
+	public void frenarPartida() {
+		this.partidaEnCurso = false;
+		this.rondaEnCurso.setJugando(false);
+		this.rondaEnCurso = null;
 	}
 
 }

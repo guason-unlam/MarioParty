@@ -2,6 +2,12 @@ package juego.lobby;
 
 import java.util.ArrayList;
 
+import javax.json.Json;
+
+import juego.Constantes;
+import servidor.ConexionServidor;
+import servidor.Servidor;
+
 public class Sala {
 	private String nombre;
 	private String password;
@@ -170,4 +176,47 @@ public class Sala {
 		this.partidaActual = partidaActual;
 	}
 
+	/**
+	 * Crea la partida y la comienza
+	 * 
+	 * @param cantidadDeRondasDePartida
+	 * @param tipoJuego
+	 * 
+	 * @return Boolean
+	 */
+	public boolean crearPartida(int cantidadBots, String condicionVictoria, String mapa, int cantidadTotalRondas) {
+		if (this.partidaActual == null || this.partidaActual.isPartidaEnCurso() == false) {
+			this.partidaActual = new Partida(this.usuariosActivos, condicionVictoria, mapa, cantidadTotalRondas);
+
+			// Preparo a todos los usuarios
+			for (Usuario userActivo : this.usuariosActivos) {
+				for (ConexionServidor cs : Servidor.getServidoresConectados()) {
+					if (cs.getUsuario().equals(userActivo)) {
+						cs.escribirSalida(
+								Json.createObjectBuilder().add("type", Constantes.NOTICE_EMPEZA_JUEGO_CLIENTE).build());
+					}
+				}
+			}
+			return true;
+		}
+		return false;
+	}
+
+	public boolean comenzarPartida() {
+		if (this.partidaActual == null) {
+			return false;
+		}
+		try {
+			this.partidaActual.iniciarPartida();
+		} catch (ExcepcionJugadoresInsuficientes e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		this.partidas.add(this.partidaActual);
+		return true;
+	}
+
+	public void stopPartida() {
+		this.partidaActual.frenarPartida();
+	}
 }

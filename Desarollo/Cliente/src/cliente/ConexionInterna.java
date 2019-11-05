@@ -196,8 +196,18 @@ public class ConexionInterna extends Thread {
 	}
 
 	public boolean comenzarJuego(int totalBots, int totalRondas, TipoCondicionVictoria condicion, String mapa) {
-		// TODO Auto-generated method stub
-		return false;
+		String request = "{\"" + Constantes.CANTIDAD_BOTS + "\":\"" + totalBots + "\",\"" + Constantes.TOTAL_RONDAS
+				+ "\":\"" + totalRondas + "\",\"" + Constantes.CONDICION_VICTORIA + "\":\"" + condicion + "\",\""
+				+ Constantes.MAPA + "\":\"" + mapa + "\"}";
+
+		this.message = new Message(Constantes.NOTICE_ARRANCAR_JUEGO, request);
+		try {
+			this.salidaDatos.writeUTF(this.message.toJson());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		return true;
 	}
 
 }

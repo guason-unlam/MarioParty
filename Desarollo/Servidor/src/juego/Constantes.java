@@ -1,5 +1,7 @@
 package juego;
 
+import javax.json.JsonValue;
+
 public abstract class Constantes {
 	public static final String ASSETS_PATH = "assets/";
 	public static final String IMAGEN_PATH = "img/";
@@ -94,5 +96,11 @@ public abstract class Constantes {
 	public static final String FIN_SALA = "finSala";
 	public static final String NOTICE_TODOS_EN_SALA = "ACKestanTodosEnSala!";
 	public static final String TODOS_EN_SALA = "estanTodosEnSala";
-
+	public static final String TOTAL_RONDAS = "totalRondas";
+	public static final String NOTICE_ARRANCAR_JUEGO = "gogogo";
+	public static final String MAPA = "mapa";
+	public static final String CONDICION_VICTORIA = "condicionVictoria";
+	public static final String CANTIDAD_BOTS = "cantidadBots";
+	public static final String NOTICE_EMPEZA_JUEGO_CLIENTE = "arrancaLaPartidaaaaaa";
+	public static int NUMERO_DE_BOT = 1;
 }

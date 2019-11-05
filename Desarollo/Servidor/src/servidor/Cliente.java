@@ -12,6 +12,7 @@ import com.google.gson.JsonSyntaxException;
 
 import juego.Constantes;
 import juego.lobby.Sala;
+import juego.lobby.TipoCondicionVictoria;
 import juego.lobby.Usuario;
 import juego.lobby.UsuarioDAO;
 
@@ -179,6 +180,30 @@ public class Cliente extends Thread {
 						}
 					}
 					this.salida.writeUTF(new Message(Constantes.NOTICE_TODOS_EN_SALA, todosEnSala).toJson());
+					break;
+				case Constantes.NOTICE_ARRANCAR_JUEGO:
+					properties = new Gson().fromJson((String) message.getData(), Properties.class);
+
+					int cantidadBots = Integer.valueOf(properties.getProperty(Constantes.CANTIDAD_BOTS));
+					String condicionVictoria = String.valueOf(properties.getProperty(Constantes.CONDICION_VICTORIA));
+					int cantidadTotalRondas = Integer.valueOf(properties.getProperty(Constantes.TOTAL_RONDAS));
+					String mapaDeJuego = String.valueOf(properties.get(Constantes.MAPA));
+
+					// CAMBIO EL ESTADO DE LOS JUGADORES
+					for (Usuario u : this.sala.getUsuariosActivos()) {
+						u.setEstaJugando(true);
+					}
+					// POR AHORA DEJAMOS ESTE
+					String nombreMapa = "tablero03.txt";
+
+					// CREO LA PARTIDA
+					sala.crearPartida(cantidadBots, condicionVictoria, nombreMapa, cantidadTotalRondas);
+
+					// SI TENGO BOTS, LOS AGREGO
+					for (int i = 0; i < cantidadBots; i++) {
+						sala.getPartidaActual().agregarBotAPartida(new Bot());
+					}
+					sala.comenzarPartida();
 					break;
 				default:
 					break;
