@@ -15,15 +15,7 @@ public class Handler {
 	public void tick() {
 		for(int i = 0; i< object.size(); i++) {
 			
-			tempObject = object.get(i);
-			tempObject.tick(object);
-			
-			if(object.get(i).enMovimientoX) {
-				object.get(i).velX = 0.5f;
-			}
-			if(object.get(i).enMovimientoY) {
-				object.get(i).velY = 0.5f;
-			}
+			object.get(i).tick(null);
 		}
 	}
 	

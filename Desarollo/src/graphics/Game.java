@@ -33,9 +33,9 @@ public class Game extends Canvas implements Runnable {
 	static Texture tex;
 	
 	/* Cosas para el intento de mover a mario*/
-	Casillero cas1, cas2;
-	boolean varPrueba;
 	/**/
+
+	Casillero cas1, cas2;
 	private static final long serialVersionUID = 7245467516827418593L;
 
 	public void init() {
@@ -56,23 +56,18 @@ public class Game extends Canvas implements Runnable {
 		try {
 			tab = new Tablero("../Mapas/tablero03.txt");
 			leerTablero(tab);
-			Player pj = new Player(96, 192, 0, ObjectId.Player);
+			Player pj = new Player(640, 288, 2, ObjectId.Player);
 			pj.setVelX(1);
 			handler.addObject(pj);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		/*Intento mover a mario*/
-		varPrueba = false;
+
+
 		cas1 = new Casillero(0);
 		cas1.setPosicionX(96);
-		cas1.setPosicionY(192);
-		cas2 = new Casillero(1);
-		cas2.setPosicionX(640);
-		cas2.setPosicionY(64);
-		/**/
+		cas1.setPosicionY(32);
 	}
 	
 	
@@ -119,10 +114,6 @@ public class Game extends Canvas implements Runnable {
 
 	private void tick() {
 		handler.tick();
-		if(!varPrueba) {
-			Game.moverDeCasilleroACasillero(cas1, cas2, new Player(96,192,0,ObjectId.Player));
-			varPrueba = true;
-		}
 	}
 
 	private void render() {
@@ -150,7 +141,7 @@ public class Game extends Canvas implements Runnable {
 		bs.show();
 		
 	}	
-	/* Metodo creado para leer tablero desde una imagen png */
+	/* Metodo creado para leer tablero desde una imagen png 
 	private void loadImageMap(BufferedImage image) {
 		int w = image.getWidth();
 		int h = image.getHeight();
@@ -167,27 +158,12 @@ public class Game extends Canvas implements Runnable {
 				
 			}
 		}
-	}
+	}*/
 	
 	/*	Intento de mover a mario/cualquierPj	*/
-	public static void moverDeCasilleroACasillero(Casillero casAct, Casillero casSig, Player p){
-		int x = casAct.getPosicionX();
-		int y = casAct.getPosicionY();
+	public static void moverDeCasilleroACasillero(Casillero casSig, Player p){
 		p.xObjetivo = casSig.getPosicionX();
 		p.yObjetivo = casSig.getPosicionY();
-		if(x < casSig.getPosicionX()) {
-			p.setVelX(0.5f);
-		}else if(x > casSig.getPosicionX()){
-			p.setVelX(-0.5f);
-		}
-		p.enMovimientoX = true;
-		while(p.enMovimientoX) {
-		}
-		if(y < casSig.getPosicionY()) {
-			p.setVelY(0.5f);
-		}else if(y > casSig.getPosicionY()){
-			p.setVelY(-0.5f);
-		}
 		
 	}
 	
@@ -237,7 +213,6 @@ public class Game extends Canvas implements Runnable {
 	public static void main(String[] args) {
 
 		new UnJugador(800, 600, "Mario Party Prototype", new Game());
-		
 	}
 	
 }
