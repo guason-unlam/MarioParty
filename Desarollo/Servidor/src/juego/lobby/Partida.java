@@ -3,11 +3,6 @@ package juego.lobby;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
-import javax.json.Json;
-import javax.json.JsonValue;
-
-import com.google.gson.Gson;
-
 import juego.misc.ExcepcionArchivos;
 import juego.personas.Jugador;
 import juego.tablero.Tablero;
@@ -23,6 +18,7 @@ public class Partida {
 	private int numeroRonda = 0;
 	private ArrayList<Usuario> usuariosActivosEnSala;
 	private Tablero tablero;
+	private int tipoMapa;
 	private Jugador ganador;
 	private int puntajeMaximo;
 	private int cantidadDeRondasAJugar;
@@ -229,6 +225,14 @@ public class Partida {
 		this.tablero = tablero;
 	}
 
+	public int getTipoMapa() {
+		return tipoMapa;
+	}
+
+	public void setTipoMapa(int tipoMapa) {
+		this.tipoMapa = tipoMapa;
+	}
+
 	public Jugador getGanadorPartida() {
 		return ganador;
 	}
@@ -317,15 +321,6 @@ public class Partida {
 		this.partidaEnCurso = false;
 		this.rondaEnCurso.setJugando(false);
 		this.rondaEnCurso = null;
-	}
-
-	public JsonValue toJson() {
-		return Json.createObjectBuilder().add("partidaEnCurso", this.partidaEnCurso).add("tablero", tablero.toJson())
-				.add("rondasJugadas", new Gson().toJson(this.rondasJugadas))
-				.add("jugadoresEnPartida", new Gson().toJson(this.jugadoresEnPartida))
-				.add("usuariosEnPartida", new Gson().toJson(this.usuariosActivosEnSala))
-				.add("rondaEnCurso", this.rondaEnCurso.toJson()).add("numeroRonda", this.numeroRonda)
-				.add("precioDolar", this.precioDolar).build();
 	}
 
 }

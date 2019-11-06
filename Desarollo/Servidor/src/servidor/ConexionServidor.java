@@ -80,10 +80,6 @@ public class ConexionServidor extends Thread {
 					actualizarClientesSalaUnica(entradaJson);
 				}
 
-				// Le aviso a todos que va a arrancar el juego
-				if (tipoDeMensaje.equals(Constantes.NOTICE_ARRANCAR_JUEGO)) {
-					enviarEmpezarJuegoAClientesDeUnaSalaParticular(entradaJson);
-				}
 			} catch (IOException ex) {
 				System.out.println(ex.getMessage() + "[ConexionServidor] Cliente con la IP "
 						+ socket.getInetAddress().getHostAddress() + " desconectado.");
@@ -99,24 +95,6 @@ public class ConexionServidor extends Thread {
 		}
 
 		Servidor.desconectarServidor(this);
-	}
-
-	//Le aviso a todos salvo al admin que ya arranca la partida!
-	// Esto triggerea el Game
-	private void enviarEmpezarJuegoAClientesDeUnaSalaParticular(JsonObject entradaJson) {
-		Sala salaARefrescar = Servidor.getSalaPorNombre(entradaJson.getString("sala"));
-		JsonObject paqueteAEnviar;
-		paqueteAEnviar = Json.createObjectBuilder().add("type", Constantes.NOTICE_EMPEZA_JUEGO_CLIENTE).add("partida", Cliente.sala.getPartidaActual().toJson()).build();
-
-		for (ConexionServidor c : Servidor.getServidoresConectados()) {
-			try {
-				if (usuarioEstaEnLaSala(c.getUsuario(), salaARefrescar) && !salaARefrescar.esAdmin(c.getUsuario())) {
-					c.salida.writeUTF(paqueteAEnviar.toString());
-				}
-			} catch (IOException e) {
-				System.out.println("[ENVIAR PARTIDA A LOS JUGADORES] ERROR" + e.getMessage());
-			}
-		}
 	}
 
 	public void actualizarClientesSalaUnica(JsonObject entradaJson) {

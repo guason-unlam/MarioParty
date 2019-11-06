@@ -20,7 +20,7 @@ public class Cliente extends Thread {
 	private DataInputStream entrada;
 	private DataOutputStream salida;
 	private Usuario usuario;
-	protected static Sala sala;
+	private Sala sala;
 
 	public Cliente(Socket clienteIn, Socket clienteOut) {
 		this.socket = clienteIn;
