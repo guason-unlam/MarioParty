@@ -1,17 +1,30 @@
 package juego.lobby;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.json.Json;
+import javax.json.JsonObject;
+
 import juego.personas.Jugador;
 import juego.tablero.MiniJuego;
+import juego.tablero.Tablero;
+import servidor.Servidor;
 
 /*
  * Esta clase igual se podria reemplazar por el loop en la clase partida y 
  * lanzar despues del loop el minijuego, pero bueno, ya estaba 
  * implementada por algo supongo.
  * */
-public class Ronda {
+public class Ronda implements Serializable {
+
+	private static final long serialVersionUID = -3765719165739391662L;
+	private Tablero tablero;
+	private int segundosTranscurridos = 0;
+	private long currentTimeMillis;
+	private int numeroRonda = 0;
+
 //	Falta la referencia al minijuego, pero como aun no esta creado no lo pongo, pero deber�a ser un
 //	ArrayList de minijuegos, y elejis uno al azar que no haya salido
 	private int id;
@@ -20,10 +33,11 @@ public class Ronda {
 	private int jugadoresRestantes;
 	private boolean jugando = false;
 
-	public Ronda(ArrayList<Jugador> jugadoresEnPartida) {
+	public Ronda(ArrayList<Jugador> jugadoresEnPartida, Tablero tablero) {
 
 		this.jugadoresEnPartida = jugadoresEnPartida;
 		this.jugadoresRestantes = jugadoresEnPartida.size();
+		this.tablero = tablero;
 //		minijuego = new MejorDeDiez(this.jugadoresEnPartida);
 	}
 
@@ -73,6 +87,31 @@ public class Ronda {
 		this.minijuego = minijuego;
 	}
 
+	public void start() {
+		boolean puedeActualizar = true;
+		this.jugando = true;
+		try {
+
+			Servidor.actualizarJuego(this);
+			Thread.sleep(1000);
+
+			long tiempoInicial = System.currentTimeMillis();
+			while (puedeActualizar && this.jugando) {
+				this.currentTimeMillis = System.currentTimeMillis();
+				this.tablero.actualizar();
+
+				puedeActualizar = Servidor.actualizarJuego(this);
+
+				Thread.sleep(100);
+				this.segundosTranscurridos = (int) (System.currentTimeMillis() - tiempoInicial) / 1000;
+			}
+			this.jugando = false;
+			Servidor.actualizarJuego(this);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+
 	public List<Jugador> getJugadoresEnPartida() {
 		return jugadoresEnPartida;
 	}
@@ -97,6 +136,23 @@ public class Ronda {
 		this.jugando = jugando;
 	}
 
+	public JsonObject toJson() {
+		return Json.createObjectBuilder().add("terminado", this.terminado())
+				.add("tiempoTranscurrido", this.segundosTranscurridos).add("currentTimeMillis", this.currentTimeMillis)
+				.add("numeroRonda", this.numeroRonda).build();
+	}
+
+	public void setRonda(int rondaEnCurso) {
+		this.numeroRonda = rondaEnCurso;
+	}
+
+	public boolean terminado() {
+		return this.jugando == false;
+	}
+
+	public void parar() {
+		this.jugando = false;
+	}
 //	public class decidirOrdenTurnos{
 //		SortedList<resultadoLanzamiento> orden;
 //		

@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.json.Json;
 import javax.json.JsonArray;
@@ -15,8 +16,11 @@ import org.hibernate.Session;
 
 import hibernate.HibernateUtils;
 import juego.Constantes;
+import juego.lobby.Ronda;
 import juego.lobby.Sala;
 import juego.lobby.Usuario;
+import juego.personas.Jugador;
+import juego.tablero.Tablero;
 
 public class Servidor {
 	private static Session sessionHibernate = HibernateUtils.getSessionFactory().openSession();
@@ -180,5 +184,39 @@ public class Servidor {
 				}
 			}
 		}
+	}
+
+	public static boolean actualizarJuego(final Ronda ronda) {
+		List<Jugador> jugadores = ronda.getJugadoresEnPartida();
+		String entrada = ronda.toJson().toString();
+		Message message = new Message(Constantes.REQUEST_UPDATE_MAPA, entrada);
+		boolean enviar = false;
+		for (Cliente conexionCliente : clientesConectados) {
+			enviar = false;
+			Usuario usuario = conexionCliente.getUsuario();
+			if (usuario != null && conexionCliente.getSalida() != null && jugadores != null) {
+				for (Jugador jugadorMapa : jugadores) {
+					Jugador jugador = usuario.getJugador();
+					if (jugador != null && jugador.equals(jugadorMapa)) {
+						enviar = true;
+						break;
+					}
+				}
+
+				if (enviar) {
+					try {
+						conexionCliente.getSalida().flush();
+						String salida = new String().concat(message.toJson());
+						conexionCliente.getSalida().writeUTF(salida);
+					} catch (IOException e) {
+						System.out.println("Error al actualizar el mapa ");
+						return false;
+					}
+				}
+
+			}
+
+		}
+		return true;
 	}
 }

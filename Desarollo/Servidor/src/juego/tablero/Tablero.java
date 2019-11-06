@@ -60,6 +60,12 @@ public class Tablero {
 		this.dimensionY = dimensionY;
 	}
 
+	public void actualizar() {
+		// TODO ACA IRIA TODA LA LOGICA PARA REFRESCAR EL MAPA, HAY QUE VER COMO SACARLO
+		// DEL CLIENTE
+
+	}
+
 	/*
 	 * Me devuelve la cantidad de casilleros que me puedo mover hasta terminar Para
 	 * no pasarme de rango, voy a ir recorriendo cada rama y me quedo con la mas

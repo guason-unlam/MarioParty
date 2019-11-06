@@ -27,16 +27,31 @@ public class Partida {
 	// partida, de momento hardcodeo el precio aca
 
 //	Para saber cuando termin� una Partida, por defecto, es por estrellas, a cinco.
-	private CondicionVictoria condicionVictoria = new CondicionVictoria(TipoCondicionVictoria.RONDAS, 5);
-	private TipoCondicionVictoria resCondicionVictoria;
+	private TipoCondicionVictoria condicionVictoria;
 
-	public Partida(ArrayList<Usuario> usuariosActivosEnSala, String condicionVictoria, String mapa,
+	public Partida(ArrayList<Usuario> usuariosActivosEnSala, String sCondicionVictoria, String mapa,
 			int cantidadTotalRondas) {
-		resCondicionVictoria = TipoCondicionVictoria.valueOf(condicionVictoria);
+		this.condicionVictoria = TipoCondicionVictoria.valueOf(sCondicionVictoria);
 
 		this.usuariosActivosEnSala = usuariosActivosEnSala;
+		this.cantidadDeRondasAJugar = cantidadTotalRondas;
+		String nombreTablero = "";
+
+		// Cuando agregue mas mapas, esto se va a cambiar
+		if (mapa.equals("chico")) {
+			nombreTablero = "../Mapas/tablero03.txt";
+		} else if (mapa.equals("mediano")) {
+			nombreTablero = "../Mapas/tablero03.txt";
+
+		} else if (mapa.equals("grande")) {
+			nombreTablero = "../Mapas/tablero03.txt";
+
+		} else { // FALLBACK
+			nombreTablero = "../Mapas/tablero03.txt";
+		}
+
 		try {
-			this.tablero = new Tablero("../Mapas/tablero01.txt");
+			this.tablero = new Tablero(nombreTablero);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (ExcepcionArchivos e) {
@@ -79,15 +94,12 @@ public class Partida {
 		 * victoria, y en caso de que sea como en el juego por estrellas, hay que ver si
 		 * considerarlas como items o de alguna otra forma.
 		 */
-		do {
+		if (this.partidaEnCurso == true) {
 			numeroRonda++;
-			rondaEnCurso = new Ronda(jugadoresEnPartida);
-			System.out.println("RONDA " + numeroRonda);
-			System.out.println("===========");
+			rondaEnCurso = new Ronda(jugadoresEnPartida, this.tablero);
 			this.iniciarJuego();
 			rondasJugadas.add(rondaEnCurso);
-			System.out.println("");
-		} while (this.ganador == null && this.partidaEnCurso == true);
+		}
 
 		if (this.numeroRonda == this.cantidadDeRondasAJugar) {
 			for (Usuario u : usuariosActivosEnSala) {
@@ -100,8 +112,7 @@ public class Partida {
 
 		}
 		this.partidaEnCurso = false;
-		System.out.println("Con un total de $" + this.ganador.getPesos() + " el ganador es .... "
-				+ this.ganador.getNombre() + "!!!");
+
 		return 0;
 	}
 
@@ -117,6 +128,9 @@ public class Partida {
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
+
+				rondaEnCurso.setRonda(numeroRonda);
+				rondaEnCurso.start();
 
 				// Termina una ronda y comienza otra.
 				try {
@@ -253,7 +267,7 @@ public class Partida {
 	 */
 	public Jugador calcularGanadorPorEstrellas() {
 		for (Jugador jug : jugadoresEnPartida) {
-			if ((jug.getDolares() == this.condicionVictoria.getCantidad())) {
+			if ((jug.getDolares() == this.cantidadDeRondasAJugar)) {
 				/*
 				 * Si a�n nadie cumple condicionVictoria ganador es jug Si alguien ya cumple la
 				 * condici�nVictoria desempato por cantidad de pesos que tiene cada uno.
@@ -264,21 +278,19 @@ public class Partida {
 		return ganador;
 	}
 
-	public CondicionVictoria getCondicionVictoria() {
-		return condicionVictoria;
-	}
-
-	public void setCondicionVictoria(CondicionVictoria condicionVictoria) {
-		this.condicionVictoria = condicionVictoria;
+	public String getGanador() {
+		if (this.ganador == null)
+			return "Empate";
+		return "El ganador es: " + this.ganador.getNombre() + "!";
 	}
 
 	public void evaluarEstadoPartida() {
-		if (condicionVictoria.getTipo() == TipoCondicionVictoria.RONDAS) {
-			if (this.numeroRonda == condicionVictoria.getCantidad()) {
+		if (condicionVictoria == TipoCondicionVictoria.RONDAS) {
+			if (this.numeroRonda == this.cantidadDeRondasAJugar) {
 				calcularGanadorPartidaPorRondas();
 				this.partidaEnCurso = false;
 			}
-		} else if (condicionVictoria.getTipo() == TipoCondicionVictoria.ESTRELLAS) {
+		} else if (condicionVictoria == TipoCondicionVictoria.ESTRELLAS) {
 			this.partidaEnCurso = (calcularGanadorPorEstrellas() == null);
 		}
 	}

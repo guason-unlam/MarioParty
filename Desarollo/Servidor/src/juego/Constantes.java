@@ -100,5 +100,6 @@ public abstract class Constantes {
 	public static final String CONDICION_VICTORIA = "condicionVictoria";
 	public static final String CANTIDAD_BOTS = "cantidadBots";
 	public static final String NOTICE_EMPEZA_JUEGO_CLIENTE = "arrancaLaPartidaaaaaa";
+	public static final String REQUEST_UPDATE_MAPA = "updatemap";
 	public static int NUMERO_DE_BOT = 1;
 }
