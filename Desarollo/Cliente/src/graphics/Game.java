@@ -53,6 +53,11 @@ public class Game extends Canvas implements Runnable {
 	/**/
 	private static final long serialVersionUID = 7245467516827418593L;
 
+	public Game(Partida partida) {
+		super();
+		this.partida = partida;
+	}
+
 	public void init() {
 
 		WIDTH = getWidth();
@@ -66,12 +71,6 @@ public class Game extends Canvas implements Runnable {
 		// New Handler
 		handler = new Handler();
 
-//		loadImageMap(map);
-//		Tablero tab;
-		List<Usuario> usuarios = new ArrayList<Usuario>(); // creo los usuarios aca, temporalmente
-		usuarios.add(new Usuario("nombre1", "contrasenia"));
-		usuarios.add(new Usuario("nombre2", "contrasenia"));
-		partida = new Partida(usuarios, 10);
 		for (int i = 0; i < 25; i++)
 			for (int j = 0; j < 18; j++)
 				matrizMapa[i][j] = 0;

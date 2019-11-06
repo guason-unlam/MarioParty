@@ -30,6 +30,7 @@ public class VentanaLobby extends JFrame implements ActionListener {
 	private Usuario usuario;
 	private JButton btnHistorial;
 	private Musica musica;
+	private VentanaLobby context;
 
 	public VentanaLobby(Musica musica) {
 		if (musica == null) {
@@ -95,7 +96,7 @@ public class VentanaLobby extends JFrame implements ActionListener {
 		this.setBounds(0, 0, Constantes.LOGIN_WIDTH, Constantes.LOGIN_HEIGHT);
 		this.setLocationRelativeTo(null);
 		addListener();
-
+		this.context = this;
 	}
 
 	private void addListener() {
@@ -116,7 +117,7 @@ public class VentanaLobby extends JFrame implements ActionListener {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				VentanaCrearSala ventanaCrearSala = new VentanaCrearSala(ventanaLobby, musica);
+				VentanaCrearSala ventanaCrearSala = new VentanaCrearSala(context, musica);
 
 				// Muestro la ventana de unir sala
 				ventanaCrearSala.setVisible(true);
@@ -181,5 +182,13 @@ public class VentanaLobby extends JFrame implements ActionListener {
 		}
 
 		System.out.println(comStr + " Selected");
+	}
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 }

@@ -44,6 +44,7 @@ import graphics.Game;
 import graphics.GameWindow;
 import juego.Constantes;
 import juego.lobby.TipoCondicionVictoria;
+import juego.lobby.Usuario;
 
 public class VentanaAdministracionSala extends JFrame {
 
@@ -51,7 +52,7 @@ public class VentanaAdministracionSala extends JFrame {
 	 * 
 	 */
 	private static final long serialVersionUID = -3071454957161090149L;
-	private JFrame lobby;
+	private VentanaLobby lobby;
 	private JPanel panel;
 	private JButton btnJoin;
 	private JButton btnVolver;
@@ -85,11 +86,13 @@ public class VentanaAdministracionSala extends JFrame {
 	private String nombreSala;
 	private boolean esAdmin;
 	private Game game;
+	private Usuario user;
 
-	public VentanaAdministracionSala(JFrame ventanaLobby, String nombreSala, boolean esAdmin) {
+	public VentanaAdministracionSala(VentanaLobby ventanaLobby, String nombreSala, boolean esAdmin) {
 		this.esAdmin = esAdmin;
 		// Me guardo la referencia para hacerlo visible, etc
 		this.lobby = ventanaLobby;
+		this.user = ventanaLobby.getUsuario();
 		this.musica = new Musica(Constantes.MUSICA_SELECT);
 		this.musica.loop();
 		setTitle("Bienvenido a " + nombreSala);
@@ -541,6 +544,17 @@ public class VentanaAdministracionSala extends JFrame {
 			}
 		}
 
+	}
+
+	public void prepararArranqueJuego() {
+		// Oculto la pantalla de la sala
+		this.setVisible(false);
+		if (!esAdmin) {
+			new VentanaJuego(Integer.valueOf(this.cantidadRondasLabel.getText()), mapaParaNoAdmin.getText(),
+					this.lobby.getUsuario(), this);
+		} else {
+			new VentanaJuego(totalRondas, this.comboMapa.getSelectedItem().toString(), this.lobby.getUsuario(), this);
+		}
 	}
 
 }

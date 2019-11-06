@@ -32,7 +32,7 @@ public class VentanaCrearSala extends JFrame {
 	 * 
 	 */
 	private static final long serialVersionUID = 3252807040559842501L;
-	private JFrame lobby;
+	private VentanaLobby lobby;
 	private JPanel panel;
 	private JButton btnCrear;
 	private JButton btnVolver;
@@ -45,7 +45,7 @@ public class VentanaCrearSala extends JFrame {
 	private VentanaAdministracionSala ventanaAdministracionSala;
 	private Musica musica;
 
-	public VentanaCrearSala(JFrame ventanaLobby, Musica musica) {
+	public VentanaCrearSala(VentanaLobby ventanaLobby, Musica musica) {
 		this.musica = musica;
 		// Me guardo la referencia para hacerlo visible, etc
 		this.lobby = ventanaLobby;

@@ -4,6 +4,9 @@ import java.io.FileNotFoundException;
 import java.util.Map;
 import java.util.TreeMap;
 
+import javax.json.Json;
+import javax.json.JsonValue;
+
 import juego.misc.ExcepcionArchivos;
 import juego.misc.LectorEscritor;
 import juego.tablero.casillero.Casillero;
@@ -15,8 +18,10 @@ public class Tablero {
 	private int id;
 	private int dimensionX;
 	private int dimensionY;
+	private String nombreTablero;
 
 	public Tablero(String arch) throws ExcepcionArchivos, FileNotFoundException {
+		this.nombreTablero = arch;
 		this.casilleros = new TreeMap<Integer, Casillero>();
 		crearCasillerosYCrearTablero(arch);
 	}
@@ -64,6 +69,10 @@ public class Tablero {
 		// TODO ACA IRIA TODA LA LOGICA PARA REFRESCAR EL MAPA, HAY QUE VER COMO SACARLO
 		// DEL CLIENTE
 
+	}
+
+	public JsonValue toJson() {
+		return Json.createObjectBuilder().add("nombreTablero", this.nombreTablero).build();
 	}
 
 	/*
