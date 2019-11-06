@@ -467,8 +467,10 @@ public class VentanaAdministracionSala extends JFrame {
 
 	protected void validacionBotonJugar() {
 		if (comboMapa.getSelectedIndex() != 0 && comboCantRondas.getSelectedIndex() != 0
-				&& (this.listUsuarios.getModel().getSize() >= 2
-						|| this.cantidadDeBotsComboBox.getSelectedIndex() != 0)) {
+		/*
+		 * && (this.listUsuarios.getModel().getSize() >= 2 ||
+		 * this.cantidadDeBotsComboBox.getSelectedIndex() != 0)
+		 */) {
 			btnJoin.setEnabled(true);
 		} else {
 			btnJoin.setEnabled(false);

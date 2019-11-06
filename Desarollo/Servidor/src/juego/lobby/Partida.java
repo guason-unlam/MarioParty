@@ -39,15 +39,15 @@ public class Partida {
 
 		// Cuando agregue mas mapas, esto se va a cambiar
 		if (mapa.equals("chico")) {
-			nombreTablero = "../Mapas/tablero03.txt";
+			nombreTablero = "../../Mapas/tablero03.txt";
 		} else if (mapa.equals("mediano")) {
-			nombreTablero = "../Mapas/tablero03.txt";
+			nombreTablero = "../../Mapas/tablero03.txt";
 
 		} else if (mapa.equals("grande")) {
-			nombreTablero = "../Mapas/tablero03.txt";
+			nombreTablero = "../../Mapas/tablero03.txt";
 
 		} else { // FALLBACK
-			nombreTablero = "../Mapas/tablero03.txt";
+			nombreTablero = "../../Mapas/tablero03.txt";
 		}
 
 		try {
