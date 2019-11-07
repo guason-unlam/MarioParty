@@ -131,7 +131,7 @@ public class Jugador extends GameObject implements Comparable<Jugador> {
 	/* dibujador de personajes */
 	@Override
 	public void render(Graphics g) {
-		g.drawImage(tex.characters[personaje], (int) x, (int) y, null);
+		g.drawImage(tex.characters[personaje], (int) x, (int) y, 32, 32, null);
 	}
 
 	/* Despues sirve para el tema de las colisiones */

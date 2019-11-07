@@ -43,14 +43,13 @@ public class Game extends Canvas implements Runnable {
 	private GameWindow ventana;
 
 	private Tablero tab;
-
-	/* Cosas para el intento de mover a mario */
-	public Casillero cas1, cas2;
+	
+	
 	public Jugador jugadorActual; // el personaje q esta jugando actualmente
 	private int numeroJugadorActual = 0;
-	boolean varPrueba;
 	private static int[][] matrizMapa = new int[25][18];
-	/**/
+	
+	
 	private static final long serialVersionUID = 7245467516827418593L;
 
 	public void init() {
@@ -126,10 +125,6 @@ public class Game extends Canvas implements Runnable {
 
 	private void tick() {
 		handler.tick();
-		if (!varPrueba) {
-//			Game.moverDeCasilleroACasillero(cas1, cas2, new Player(96,192,0,ObjectId.Player));
-			varPrueba = true;
-		}
 	}
 
 	private void render() {
@@ -235,6 +230,7 @@ public class Game extends Canvas implements Runnable {
 			if (jugadorActual.caminosDisponibles() == 1) {
 
 				jugadorActual.avanzarUnCasillero();
+				
 			} else {
 				String[] caminos = new String[jugadorActual.caminosDisponibles()];
 				for (int j = 0; j < jugadorActual.caminosDisponibles(); j++) {

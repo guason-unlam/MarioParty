@@ -460,11 +460,16 @@ public class VentanaAdministracionSala extends JFrame {
 			System.out.println("Error al crear el juego");
 			return;
 		}
-		game = new Game();
-		new GameWindow(800, 600, "Mario Party Prototype", game);
-		this.setVisible(false);
+		nuevoJuego();
 	}
 
+	public void nuevoJuego() {
+
+		game = new Game();
+		new GameWindow(800, 600, "Mario Party Prototipo", game);
+		this.setVisible(false);
+	}
+	
 	protected void validacionBotonJugar() {
 		if (comboMapa.getSelectedIndex() != 0 && comboCantRondas.getSelectedIndex() != 0
 		/*

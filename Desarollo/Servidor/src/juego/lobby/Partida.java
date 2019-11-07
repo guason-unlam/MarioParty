@@ -32,7 +32,6 @@ public class Partida {
 	public Partida(ArrayList<Usuario> usuariosActivosEnSala, String sCondicionVictoria, String mapa,
 			int cantidadTotalRondas) {
 		this.condicionVictoria = TipoCondicionVictoria.valueOf(sCondicionVictoria);
-
 		this.usuariosActivosEnSala = usuariosActivosEnSala;
 		this.cantidadDeRondasAJugar = cantidadTotalRondas;
 		String nombreTablero = "";
@@ -99,20 +98,17 @@ public class Partida {
 			rondaEnCurso = new Ronda(jugadoresEnPartida, this.tablero);
 			this.iniciarJuego();
 			rondasJugadas.add(rondaEnCurso);
-		}
+			System.out.println("");
+		} while (this.ganador == null && this.partidaEnCurso == true);
 
-		if (this.numeroRonda == this.cantidadDeRondasAJugar) {
-			for (Usuario u : usuariosActivosEnSala) {
-				if (u.getJugador().equals(this.ganador)) {
-					// TODO:Le actualizo las stats al que gano
-					// usuariosActivosEnSala.get(usuariosActivosEnSala.indexOf(u)).updateStats();
-					break;
-				}
 			}
+			this.partidaEnCurso = false;
+		} while (this.ganador == null && this.partidaEnCurso == true);
 
 		}
 		this.partidaEnCurso = false;
-
+		System.out.println("Con un total de $" + this.ganador.getPesos() + " el ganador es .... "
+				+ this.ganador.getNombre() + "!!!");
 		return 0;
 	}
 
