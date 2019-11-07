@@ -10,12 +10,16 @@ import javax.json.JsonReader;
 
 import cliente.Cliente;
 import juego.Constantes;
+import juego.ventana.minijuego.VentanaResultadosMiniJuego;
 
 public class Coordinador extends Thread {
 
 	private static VentanaElegirSala ventanaElegirSala;
 	private static JsonArray datosDeSalasDisponibles;
+	private static JsonArray datosDeMinijuego;
 	private static VentanaAdministracionSala ventanaAdministracionSala;
+	private static VentanaResultadosMiniJuego ventanaResultadosMiniJuego;
+	private static JsonArray datosDeFinMinijuego;
 
 	public Coordinador() {
 		this.start();
@@ -38,6 +42,22 @@ public class Coordinador extends Thread {
 
 					if (ventanaElegirSala != null) {
 						ventanaElegirSala.indexSalas(datosDeSalasDisponibles);
+					}
+					break;
+				case Constantes.PUNTOS_MINIJUEGO:
+
+					datosDeMinijuego = entradaJson.getJsonArray("datosDeMinijuego");
+
+					if (ventanaElegirSala != null) {
+						ventanaResultadosMiniJuego.refrescarPuntaje(datosDeMinijuego);
+					}
+					break;
+				case Constantes.FIN_MINIJUEGO:
+
+					datosDeFinMinijuego = entradaJson.getJsonArray("datosDeFinMinijuego");
+
+					if (ventanaElegirSala != null) {
+						ventanaResultadosMiniJuego.refrescarPuntaje(datosDeFinMinijuego);
 					}
 					break;
 				case Constantes.REFRESH_PARAM_ROOM:
@@ -101,4 +121,11 @@ public class Coordinador extends Thread {
 		return datosDeSalasDisponibles;
 	}
 
+	public static VentanaResultadosMiniJuego getVentanaResultadosMiniJuego() {
+		return ventanaResultadosMiniJuego;
+	}
+
+	public static void setVentanaResultadosMiniJuego(VentanaResultadosMiniJuego ventanaResultadosMiniJuego) {
+		Coordinador.ventanaResultadosMiniJuego = ventanaResultadosMiniJuego;
+	}
 }

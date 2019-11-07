@@ -210,4 +210,24 @@ public class ConexionInterna extends Thread {
 		return true;
 	}
 
+	public String tirarDado(String usuario) {
+
+		try {
+			String request = Json.createObjectBuilder().add("username", usuario).build().toString();
+
+			this.salidaDatos.writeUTF(new Message(Constantes.TIRAR_DADO_REQUEST, request).toJson());
+
+			this.message = new Gson().fromJson(entradaDatos.readUTF(), Message.class);
+			if (message.getType() == Constantes.RESPONSE_TIRAR_DADO) {
+				return (String) message.getData();
+			}
+
+		} catch (
+
+		Exception e) {
+			System.out.println("[MINIJUEGO] " + e.getMessage());
+		}
+		return null;
+	}
+
 }

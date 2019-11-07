@@ -6,6 +6,7 @@ public abstract class Constantes {
 	public static final String SOUND_PATH = "sound/";
 	public static final String MUSICA_LOGIN = ASSETS_PATH + SOUND_PATH + "login.wav";
 	public static final String MUSICA_SELECT = ASSETS_PATH + SOUND_PATH + "sala.wav";
+	public static final String MUSICA_WIN = ASSETS_PATH + SOUND_PATH + "win.wav";
 
 	// SERVIDOR
 	public static final String IP = "0.0.0.0";
@@ -100,5 +101,11 @@ public abstract class Constantes {
 	public static final String CONDICION_VICTORIA = "condicionVictoria";
 	public static final String CANTIDAD_BOTS = "cantidadBots";
 	public static final String NOTICE_EMPEZA_JUEGO_CLIENTE = "arrancaLaPartidaaaaaa";
+	public static final String TIRAR_DADO_REQUEST = "tirarDadoRequest";
+	public static final String RESPONSE_TIRAR_DADO = "respuestaDadoRequest";
+	public static final String PUNTOS_MINIJUEGO = "puntosMinijuego";
+	public static final String FIN_MINIJUEGO = "terminoElMinijuego";
+	public static final String MUSICA_SUSPENSO = ASSETS_PATH + SOUND_PATH + "musica_suspenso.wav";
+
 	public static int NUMERO_DE_BOT = 1;
 }

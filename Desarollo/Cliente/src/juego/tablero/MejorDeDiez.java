@@ -27,13 +27,16 @@ public class MejorDeDiez extends MiniJuego {
 	@Override
 	public void iniciar() {
 		enPartida = true;
+		int i = 0;
 		muestraInstrucciones();
 		JugadorMinijuego nuevoJugador;
 		for (Jugador jugador : nombreJugadores) {
+			jugador.setNombre("Jugador " + String.valueOf(i));
 			nuevoJugador = new JugadorMinijuego(jugador.getNombre());
 			resultados += String.format("%-15s", nuevoJugador.getNombre());
 			nuevoJugador.setRes(jugar());
-			resumen.add(nuevoJugador);
+			// resumen.add(nuevoJugador);
+			i++;
 		}
 		guardarResultados();
 		enPartida = false;

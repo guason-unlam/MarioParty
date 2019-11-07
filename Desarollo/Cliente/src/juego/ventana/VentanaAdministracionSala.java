@@ -37,13 +37,15 @@ import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.EmptyBorder;
-
+import juego.ventana.minijuego.*;
 import cliente.Cliente;
 import cliente.Musica;
 import graphics.Game;
-import graphics.GameWindow;
+import graphics.elements.ObjectId;
 import juego.Constantes;
 import juego.lobby.TipoCondicionVictoria;
+import juego.personas.Jugador;
+import juego.tablero.casillero.Casillero;
 
 public class VentanaAdministracionSala extends JFrame {
 
@@ -448,7 +450,7 @@ public class VentanaAdministracionSala extends JFrame {
 		this.totalRondas = Integer.parseInt((String) comboCantRondas.getSelectedItem());
 		TipoCondicionVictoria condicion = (TipoCondicionVictoria) condicionVictoria.getSelectedItem();
 		String mapa = (String) comboMapa.getSelectedItem();
-
+/*
 		if (!Cliente.getConexionInterna().usuariosEnSala()) {
 			JOptionPane.showMessageDialog(this, "Hay usuarios aun en la partida", "Atencion!",
 					JOptionPane.INFORMATION_MESSAGE);
@@ -459,9 +461,15 @@ public class VentanaAdministracionSala extends JFrame {
 		if (Cliente.getConexionInterna().comenzarJuego(totalBots, totalRondas, condicion, mapa) == false) {
 			System.out.println("Error al crear el juego");
 			return;
-		}
-		game = new Game();
-		new GameWindow(800, 600, "Mario Party Prototype", game);
+		}*/
+		/*
+		 * game = new Game(); new GameWindow(800, 600, "Mario Party Prototype", game);
+		 */
+
+		ArrayList<Jugador> arrJugadores = new ArrayList<Jugador>();
+		arrJugadores.add(new Jugador(new Casillero(0), 1, ObjectId.Player));
+		arrJugadores.add(new Jugador(new Casillero(1), 2, ObjectId.Player));
+		new VentanaMiniJuego(arrJugadores, this, this.musica);
 		this.setVisible(false);
 	}
 
