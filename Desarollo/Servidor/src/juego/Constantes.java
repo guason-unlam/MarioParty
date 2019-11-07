@@ -101,5 +101,9 @@ public abstract class Constantes {
 	public static final String CANTIDAD_BOTS = "cantidadBots";
 	public static final String NOTICE_EMPEZA_JUEGO_CLIENTE = "arrancaLaPartidaaaaaa";
 	public static final String REQUEST_UPDATE_MAPA = "updatemap";
+	public static final String TIRAR_DADO_REQUEST = "tirarDadoRequest";
+	public static final String RESPONSE_TIRAR_DADO = "respuestaDadoRequest";
+	public static final String PUNTOS_MINIJUEGO = "puntosMinijuego";
+	public static final String FIN_MINIJUEGO = "terminoElMinijuego";
 	public static int NUMERO_DE_BOT = 1;
 }

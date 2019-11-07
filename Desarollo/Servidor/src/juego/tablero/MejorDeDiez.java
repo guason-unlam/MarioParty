@@ -10,16 +10,15 @@ import juego.personas.Jugador;
 
 public class MejorDeDiez extends MiniJuego {
 	private List<Jugador> nombreJugadores;
-	private Dado dado;
+	private static Dado dado = new Dado(6);
 	private boolean enPartida;
-	String resultados = ""; // Solo es para saber que estaba funcionando bien, ya que aca guardo los totales
-							// de cada uno
+	static String resultados = ""; // Solo es para saber que estaba funcionando bien, ya que aca guardo los totales
+	// de cada uno
 	TreeSet<JugadorMinijuego> resumen = new TreeSet<JugadorMinijuego>();
 
 	public MejorDeDiez(List<Jugador> jugadoresEnPartida) {
 		super.setDescripcion("Cada jugador lanza 10 veces 1 dado," + " el que saque la mayor suma gana.");
 		super.setNombre("MejorDeDiez");
-		dado = new Dado(6);
 		enPartida = false;
 		this.nombreJugadores = jugadoresEnPartida;
 	}
@@ -52,7 +51,7 @@ public class MejorDeDiez extends MiniJuego {
 
 	}
 
-	public int jugar() {
+	public static int jugar() {
 		int res = 0;
 		for (int i = 0; i < 10; i++) {
 			res += dado.tirar();

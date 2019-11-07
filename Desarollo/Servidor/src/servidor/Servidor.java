@@ -5,6 +5,8 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 import javax.json.Json;
 import javax.json.JsonArray;
@@ -20,7 +22,7 @@ import juego.lobby.Ronda;
 import juego.lobby.Sala;
 import juego.lobby.Usuario;
 import juego.personas.Jugador;
-import juego.tablero.Tablero;
+import juego.tablero.MejorDeDiez;
 
 public class Servidor {
 	private static Session sessionHibernate = HibernateUtils.getSessionFactory().openSession();
@@ -29,6 +31,7 @@ public class Servidor {
 	private static ArrayList<Usuario> usuariosActivos = new ArrayList<Usuario>();
 	private static ArrayList<Cliente> clientesConectados = new ArrayList<Cliente>();
 	private static ArrayList<ConexionServidor> servidoresConectados = new ArrayList<ConexionServidor>();
+	private static Map<String, Integer> minijuego = new TreeMap<String, Integer>();
 
 	public static void main(String[] args) {
 		// El socket con el cual el cliente me envia datos
@@ -142,6 +145,15 @@ public class Servidor {
 		return null;
 	}
 
+	public static Usuario getUsuarioPorNombre(String nombreUsuario) {
+		for (Usuario user : usuariosActivos) {
+			if (user.getUsername().equals(nombreUsuario)) {
+				return user;
+			}
+		}
+		return null;
+	}
+
 	public static JsonArray getIndexSalas() {
 		JsonArrayBuilder datosDeSalas = Json.createArrayBuilder();
 
@@ -218,5 +230,28 @@ public class Servidor {
 
 		}
 		return true;
+	}
+
+	public static JsonArray informarTiradaDados(Sala sala) {
+		JsonArrayBuilder datosMinijuego = Json.createArrayBuilder();
+
+		for (Sala salaActiva : salasActivas) {
+			if (salaActiva.equals(sala)) {
+				JsonObjectBuilder oSala = Json.createObjectBuilder();
+
+				// Por cada uno ,le agrego su puntaje
+				for (String cliente : minijuego.keySet()) {
+					oSala.add("nombre", cliente).add("puntos", minijuego.get("cliente"));
+				}
+
+				datosMinijuego.add(oSala.build());
+			}
+		}
+
+		return datosMinijuego.build();
+	}
+
+	public static void tirarDado(Sala sala, Usuario user) {
+		minijuego.put(user.getUsername(), Integer.valueOf(MejorDeDiez.jugar()));
 	}
 }

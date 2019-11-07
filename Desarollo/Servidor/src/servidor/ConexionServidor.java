@@ -79,7 +79,10 @@ public class ConexionServidor extends Thread {
 						|| tipoDeMensaje.equals(Constantes.JOIN_ROOM_SV_REQUEST)) {
 					actualizarClientesSalaUnica(entradaJson);
 				}
-
+				
+				if (tipoDeMensaje.equals(Constantes.RESPONSE_TIRAR_DADO)) {
+					actualizarJugadoresMinijuego(entradaJson);
+				}
 			} catch (IOException ex) {
 				System.out.println(ex.getMessage() + "[ConexionServidor] Cliente con la IP "
 						+ socket.getInetAddress().getHostAddress() + " desconectado.");
@@ -95,6 +98,11 @@ public class ConexionServidor extends Thread {
 		}
 
 		Servidor.desconectarServidor(this);
+	}
+
+	private void actualizarJugadoresMinijuego(JsonObject entradaJson) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	public void actualizarClientesSalaUnica(JsonObject entradaJson) {

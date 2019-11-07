@@ -15,6 +15,7 @@ import javax.swing.border.EmptyBorder;
 
 import cliente.Musica;
 import juego.Constantes;
+import juego.ventana.Coordinador;
 
 public class VentanaResultadosFinal extends JFrame {
 
@@ -23,7 +24,6 @@ public class VentanaResultadosFinal extends JFrame {
 	 */
 	private static final long serialVersionUID = -8704958894111944322L;
 	private Musica musica;
-	private JFrame lobby;
 	private JPanel panel;
 	private JButton btnVolver;
 	private JLabel logo;
@@ -45,7 +45,6 @@ public class VentanaResultadosFinal extends JFrame {
 		panel.setLayout(null);
 		setResizable(false);
 		setLocationRelativeTo(null);
-		setLocationRelativeTo(this.lobby);
 
 		btnVolver = new JButton("Volver");
 		btnVolver.setFont(new Font("Tahoma", Font.PLAIN, 19));
@@ -112,7 +111,7 @@ public class VentanaResultadosFinal extends JFrame {
 		btnVolver.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				lobby.setVisible(true);
+				//Coordinador.getVentanaJuego().setVisible(true);
 				// Lo oculto, puede ser de utilidad luego
 				setVisible(false);
 			}

@@ -57,7 +57,7 @@ public class Coordinador extends Thread {
 					datosDeFinMinijuego = entradaJson.getJsonArray("datosDeFinMinijuego");
 
 					if (ventanaElegirSala != null) {
-						ventanaResultadosMiniJuego.refrescarPuntaje(datosDeFinMinijuego);
+						ventanaResultadosMiniJuego.mostrarPantallaFinal(datosDeFinMinijuego);
 					}
 					break;
 				case Constantes.REFRESH_PARAM_ROOM:

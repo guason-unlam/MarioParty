@@ -218,7 +218,7 @@ public class ConexionInterna extends Thread {
 			this.salidaDatos.writeUTF(new Message(Constantes.TIRAR_DADO_REQUEST, request).toJson());
 
 			this.message = new Gson().fromJson(entradaDatos.readUTF(), Message.class);
-			if (message.getType() == Constantes.RESPONSE_TIRAR_DADO) {
+			if (message.getType() == Constantes.PUNTOS_MINIJUEGO) {
 				return (String) message.getData();
 			}
 
