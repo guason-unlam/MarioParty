@@ -33,14 +33,14 @@ public class UsuarioTest {
 		usuarios.add(usuario1);
 		usuarios.add(usuario2);
 		// 1 Ronda
-		partida = new Partida(usuarios, 1);
+		partida = new Partida(usuarios, "MONEDAS", "chico", 1);
 		jugador1 = usuario1.getJugador();
 		jugador2 = usuario2.getJugador();
 	}
 
 	@Test
 	public void perteneceASala() {
-		Assert.assertTrue(usuario1.getSala() == sala1);
+		Assert.assertEquals(sala1.getCapacidadActual(), 1);
 		usuario2.conectarseALaSala(sala1);
 		Assert.assertTrue(usuario2.getSala() == sala1);
 	}
@@ -71,7 +71,7 @@ public class UsuarioTest {
 	@Test
 	public void salirDeSala() {
 		Sala sala2 = usuario3.crearSala("NombreSala2", 10);
-		Assert.assertTrue(usuario3.getSala() != null);
+		Assert.assertEquals(sala2.getCapacidadActual(), 1);
 		usuario3.salirDeSala();
 		Assert.assertTrue(usuario3.getSala() == null);
 

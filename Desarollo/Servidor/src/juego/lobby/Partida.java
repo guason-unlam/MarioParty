@@ -99,17 +99,16 @@ public class Partida {
 			this.iniciarJuego();
 			rondasJugadas.add(rondaEnCurso);
 			System.out.println("");
-		} while (this.ganador == null && this.partidaEnCurso == true);
-
-			}
-			this.partidaEnCurso = false;
-		} while (this.ganador == null && this.partidaEnCurso == true);
-
 		}
+		while (this.ganador == null && this.partidaEnCurso == true)
+			;
+
 		this.partidaEnCurso = false;
+
 		System.out.println("Con un total de $" + this.ganador.getPesos() + " el ganador es .... "
 				+ this.ganador.getNombre() + "!!!");
 		return 0;
+
 	}
 
 	private void iniciarJuego() {

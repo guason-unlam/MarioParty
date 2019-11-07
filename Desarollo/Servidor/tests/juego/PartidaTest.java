@@ -21,7 +21,7 @@ public class PartidaTest {
 		usuarios.add(user1);
 		usuarios.add(user2);
 		// 5 Rondas
-		partida = new Partida(usuarios, 5);
+		partida = new Partida(usuarios, "MONEDAS", "chico", 1);
 	}
 
 //	@Test
