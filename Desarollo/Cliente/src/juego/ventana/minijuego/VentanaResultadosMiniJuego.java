@@ -113,7 +113,6 @@ public class VentanaResultadosMiniJuego extends JFrame {
 	 */
 	public void refrescarPuntaje(JsonArray datosDeJugadores) {
 		String data[][] = new String[datosDeJugadores.size()][2];
-		System.out.println("|||" + datosDeJugadores.toString());
 		for (int i = 0; i < datosDeJugadores.size(); i++) {
 
 			data[i][0] = datosDeJugadores.getJsonObject(i).getString("nombre");

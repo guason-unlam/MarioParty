@@ -4,9 +4,13 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.TreeMap;
+import java.util.Map.Entry;
+import java.util.stream.Collectors;
 
 import javax.json.Json;
 import javax.json.JsonArray;
@@ -31,7 +35,7 @@ public class Servidor {
 	private static ArrayList<Usuario> usuariosActivos = new ArrayList<Usuario>();
 	private static ArrayList<Cliente> clientesConectados = new ArrayList<Cliente>();
 	private static ArrayList<ConexionServidor> servidoresConectados = new ArrayList<ConexionServidor>();
-	private static Map<String, Integer> minijuego = new TreeMap<String, Integer>();
+	private static Map<String, Integer> minijuego = new HashMap<String, Integer>();
 
 	public static void main(String[] args) {
 		// El socket con el cual el cliente me envia datos
@@ -253,5 +257,49 @@ public class Servidor {
 
 	public static void tirarDado(Sala sala, Usuario user) {
 		minijuego.put(user.getUsername(), Integer.valueOf(MejorDeDiez.jugar()));
+	}
+
+	public static int cantidadParticipantesDado(Sala sala) {
+		return minijuego.keySet().size();
+	}
+
+	public static Map<String, Integer> ordenarGanadores() {
+		return sortByValue(minijuego, true);
+	}
+
+	public static JsonArray informarGanadores(Sala sala) {
+		JsonArrayBuilder datosMinijuego = Json.createArrayBuilder();
+		Map<String, Integer> mapOrdenado = ordenarGanadores();
+		int i = 0;
+		for (Sala salaActiva : salasActivas) {
+			if (salaActiva.equals(sala)) {
+				JsonObjectBuilder oSala = Json.createObjectBuilder();
+
+				// Por cada uno ,le agrego su puntaje
+				for (String cliente : mapOrdenado.keySet()) {
+					oSala.add("nombre", cliente).add("puntos", minijuego.get(cliente));
+					i++;
+					if (i == 3)
+						break;
+				}
+
+				datosMinijuego.add(oSala.build());
+			}
+		}
+
+		return datosMinijuego.build();
+	}
+
+	private static Map<String, Integer> sortByValue(Map<String, Integer> unsortMap, final boolean order) {
+		List<Entry<String, Integer>> list = new LinkedList<>(unsortMap.entrySet());
+
+		// Sorting the list based on values
+		list.sort((o1, o2) -> order
+				? o1.getValue().compareTo(o2.getValue()) == 0 ? o1.getKey().compareTo(o2.getKey())
+						: o1.getValue().compareTo(o2.getValue())
+				: o2.getValue().compareTo(o1.getValue()) == 0 ? o2.getKey().compareTo(o1.getKey())
+						: o2.getValue().compareTo(o1.getValue()));
+		return list.stream().collect(Collectors.toMap(Entry::getKey, Entry::getValue, (a, b) -> b, LinkedHashMap::new));
+
 	}
 }

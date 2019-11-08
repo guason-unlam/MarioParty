@@ -36,7 +36,7 @@ public class VentanaResultadosFinal extends JFrame {
 
 		this.musica = new Musica(Constantes.MUSICA_WIN);
 		this.musica.loop();
-		
+
 		setTitle("Ganadores del minijuego");
 		setBounds(0, 0, 456, 400);
 		panel = new JPanel();
@@ -74,9 +74,10 @@ public class VentanaResultadosFinal extends JFrame {
 		JLabel puesto1WinnerLabel = new JLabel("");
 		puesto1WinnerLabel.setFont(new Font("Tahoma", Font.PLAIN, 19));
 		puesto1WinnerLabel.setBounds(148, 120, 275, 46);
-		if (datosDeFinMinijuego.size() > 1) {
+
+		if (datosDeFinMinijuego.size() > 0) {
 			puesto1WinnerLabel.setText(datosDeFinMinijuego.getJsonObject(0).getString("nombre") + " - "
-					+ datosDeFinMinijuego.getJsonObject(0).getString("puntos") + "ptos.");
+					+ String.valueOf(datosDeFinMinijuego.getJsonObject(0).getInt("puntos")) + "ptos.");
 		} else {
 			puesto1WinnerLabel.setText("-");
 		}
@@ -85,9 +86,9 @@ public class VentanaResultadosFinal extends JFrame {
 		JLabel puesto2WinnerLabel = new JLabel("");
 		puesto2WinnerLabel.setFont(new Font("Tahoma", Font.PLAIN, 19));
 		puesto2WinnerLabel.setBounds(148, 177, 275, 46);
-		if (datosDeFinMinijuego.size() > 0) {
+		if (datosDeFinMinijuego.size() > 1) {
 			puesto2WinnerLabel.setText(datosDeFinMinijuego.getJsonObject(1).getString("nombre") + " - "
-					+ datosDeFinMinijuego.getJsonObject(1).getString("puntos") + "ptos.");
+					+ String.valueOf(datosDeFinMinijuego.getJsonObject(1).getInt("puntos")) + "ptos.");
 		} else {
 			puesto2WinnerLabel.setText("-");
 		}
@@ -98,7 +99,7 @@ public class VentanaResultadosFinal extends JFrame {
 		puesto3WinnerLabel.setBounds(148, 234, 275, 46);
 		if (datosDeFinMinijuego.size() > 2) {
 			puesto3WinnerLabel.setText(datosDeFinMinijuego.getJsonObject(2).getString("nombre") + " - "
-					+ datosDeFinMinijuego.getJsonObject(2).getString("puntos") + "ptos.");
+					+ String.valueOf(datosDeFinMinijuego.getJsonObject(2).getInt("puntos")) + "ptos.");
 		} else {
 			puesto3WinnerLabel.setText("-");
 		}
@@ -111,9 +112,13 @@ public class VentanaResultadosFinal extends JFrame {
 		btnVolver.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				//Coordinador.getVentanaJuego().setVisible(true);
-				// Lo oculto, puede ser de utilidad luego
+				// Vuelvo a la ventana principal
+				// Por ahora no esta seteado, falta estadio intermedio
+				Coordinador.getVentanaJuego().setVisible(true);
+				// Lo oculto
 				setVisible(false);
+				// Cierro
+				dispose();
 			}
 		});
 

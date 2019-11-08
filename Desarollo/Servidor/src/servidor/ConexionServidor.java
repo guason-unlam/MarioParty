@@ -108,11 +108,20 @@ public class ConexionServidor extends Thread {
 		Sala sala = user.getSala();
 		Servidor.tirarDado(sala, user);
 
-		JsonArray datosMinijuego = Servidor.informarTiradaDados(sala);
 		JsonObjectBuilder paqueteMinijuego = Json.createObjectBuilder();
-		String cadenaSalida = paqueteMinijuego.add("type", Constantes.PUNTOS_MINIJUEGO)
-				.add("datosDeMinijuego", datosMinijuego).build().toString();
+		String cadenaSalida;
 
+		// Si ya complete, debo mostrar la lista de ganadores
+		if (Servidor.cantidadParticipantesDado(sala) == user.getSala().getCapacidadActual()) {
+			JsonArray datosFinMinijuego = Servidor.informarGanadores(sala);
+			cadenaSalida = paqueteMinijuego.add("type", Constantes.FIN_MINIJUEGO)
+					.add("datosDeFinMinijuego", datosFinMinijuego).build().toString();
+		} else {
+			JsonArray datosMinijuego = Servidor.informarTiradaDados(sala);
+
+			cadenaSalida = paqueteMinijuego.add("type", Constantes.PUNTOS_MINIJUEGO)
+					.add("datosDeMinijuego", datosMinijuego).build().toString();
+		}
 		for (ConexionServidor conexion : Servidor.getServidoresConectados()) {
 			if (conexion.getUsuario().getSala().equals(sala)) {
 				try {

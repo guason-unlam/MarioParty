@@ -20,6 +20,7 @@ public class Coordinador extends Thread {
 	private static VentanaAdministracionSala ventanaAdministracionSala;
 	private static VentanaResultadosMiniJuego ventanaResultadosMiniJuego;
 	private static JsonArray datosDeFinMinijuego;
+	private static VentanaJuego ventanaJuego;
 
 	public Coordinador() {
 		this.start();
@@ -126,5 +127,13 @@ public class Coordinador extends Thread {
 
 	public static void setVentanaResultadosMiniJuego(VentanaResultadosMiniJuego ventanaResultadosMiniJuego) {
 		Coordinador.ventanaResultadosMiniJuego = ventanaResultadosMiniJuego;
+	}
+
+	public static VentanaJuego getVentanaJuego() {
+		return ventanaJuego;
+	}
+
+	public static void setVentanaJuego(VentanaJuego ventanaJuego) {
+		Coordinador.ventanaJuego = ventanaJuego;
 	}
 }
