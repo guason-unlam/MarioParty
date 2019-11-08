@@ -449,17 +449,17 @@ public class VentanaAdministracionSala extends JFrame {
 		TipoCondicionVictoria condicion = (TipoCondicionVictoria) condicionVictoria.getSelectedItem();
 		String mapa = (String) comboMapa.getSelectedItem();
 
-		if (!Cliente.getConexionInterna().usuariosEnSala()) {
+		/* if (!Cliente.getConexionInterna().usuariosEnSala()) {
 			JOptionPane.showMessageDialog(this, "Hay usuarios aun en la partida", "Atencion!",
 					JOptionPane.INFORMATION_MESSAGE);
 			return;
-		}
+		}*/
 
 		// LE AVISO AL SERVER QUE VA A ARRANCAR
-		if (Cliente.getConexionInterna().comenzarJuego(totalBots, totalRondas, condicion, mapa) == false) {
+		/*if (Cliente.getConexionInterna().comenzarJuego(totalBots, totalRondas, condicion, mapa) == false) {
 			System.out.println("Error al crear el juego");
 			return;
-		}
+		}*/
 		JsonObject paquetePedirMinijuego = Json.createObjectBuilder().add("type", Constantes.NOTICE_ARRANCAR_JUEGO)
 				.add("sala", nombreSala).build();
 
