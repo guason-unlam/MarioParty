@@ -450,27 +450,28 @@ public class VentanaAdministracionSala extends JFrame {
 		this.totalRondas = Integer.parseInt((String) comboCantRondas.getSelectedItem());
 		TipoCondicionVictoria condicion = (TipoCondicionVictoria) condicionVictoria.getSelectedItem();
 		String mapa = (String) comboMapa.getSelectedItem();
-/*
-		if (!Cliente.getConexionInterna().usuariosEnSala()) {
-			JOptionPane.showMessageDialog(this, "Hay usuarios aun en la partida", "Atencion!",
-					JOptionPane.INFORMATION_MESSAGE);
-			return;
-		}
-
-		// LE AVISO AL SERVER QUE VA A ARRANCAR
-		if (Cliente.getConexionInterna().comenzarJuego(totalBots, totalRondas, condicion, mapa) == false) {
-			System.out.println("Error al crear el juego");
-			return;
-		}*/
+		/*
+		 * if (!Cliente.getConexionInterna().usuariosEnSala()) {
+		 * JOptionPane.showMessageDialog(this, "Hay usuarios aun en la partida",
+		 * "Atencion!", JOptionPane.INFORMATION_MESSAGE); return; }
+		 * 
+		 * // LE AVISO AL SERVER QUE VA A ARRANCAR if
+		 * (Cliente.getConexionInterna().comenzarJuego(totalBots, totalRondas,
+		 * condicion, mapa) == false) { System.out.println("Error al crear el juego");
+		 * return; }
+		 */
 		/*
 		 * game = new Game(); new GameWindow(800, 600, "Mario Party Prototype", game);
 		 */
+		
+		// La referencia a la administracion de sala ya la tiene el coordinador
+		JsonObject paquetePedirMinijuego = Json.createObjectBuilder()
+				.add("type", Constantes.NOTICE_ARRANCAR_JUEGO).add("sala", nombreSala).build();
 
-		ArrayList<Jugador> arrJugadores = new ArrayList<Jugador>();
-		arrJugadores.add(new Jugador(new Casillero(0), 1, ObjectId.Player));
-		arrJugadores.add(new Jugador(new Casillero(1), 2, ObjectId.Player));
-		VentanaMiniJuego ventanaMiniJuego = new VentanaMiniJuego(arrJugadores, this, this.musica);
-		ventanaMiniJuego.setVisible(true);
+		// Le aviso al sv que estoy listo para jugar
+		Cliente.getConexionServidor().enviarAlServidor(paquetePedirMinijuego);
+
+
 		this.setVisible(false);
 	}
 
@@ -550,6 +551,13 @@ public class VentanaAdministracionSala extends JFrame {
 			}
 		}
 
+	}
+
+	public void prepararArranqueJuego() {
+		// Oculto la pantalla de la sala
+		VentanaMiniJuego ventanaMiniJuego = new VentanaMiniJuego(this, this.musica);
+		ventanaMiniJuego.setVisible(true);
+		this.setVisible(false);
 	}
 
 }

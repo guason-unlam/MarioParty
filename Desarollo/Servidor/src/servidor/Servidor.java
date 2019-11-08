@@ -246,9 +246,10 @@ public class Servidor {
 				// Por cada uno ,le agrego su puntaje
 				for (String cliente : minijuego.keySet()) {
 					oSala.add("nombre", cliente).add("puntos", minijuego.get(cliente));
+					datosMinijuego.add(oSala.build());
+
 				}
 
-				datosMinijuego.add(oSala.build());
 			}
 		}
 
@@ -256,15 +257,22 @@ public class Servidor {
 	}
 
 	public static void tirarDado(Sala sala, Usuario user) {
-		minijuego.put(user.getUsername(), Integer.valueOf(MejorDeDiez.jugar()));
+		int valor = Integer.valueOf(MejorDeDiez.jugar());
+		String nombreUser = user.getUsername();
+		System.out.println("[TIRADA DE DADOS]" + nombreUser + " - " + valor);
+		minijuego.put(nombreUser, valor);
 	}
 
 	public static int cantidadParticipantesDado(Sala sala) {
 		return minijuego.keySet().size();
 	}
 
+	public static void limpiarMinijuego(Sala sala) {
+		minijuego.clear();
+	}
+
 	public static Map<String, Integer> ordenarGanadores() {
-		return sortByValue(minijuego, true);
+		return sortByValue(minijuego, false);
 	}
 
 	public static JsonArray informarGanadores(Sala sala) {
@@ -277,16 +285,20 @@ public class Servidor {
 
 				// Por cada uno ,le agrego su puntaje
 				for (String cliente : mapOrdenado.keySet()) {
-					oSala.add("nombre", cliente).add("puntos", minijuego.get(cliente));
-					i++;
+
 					if (i == 3)
 						break;
+
+					System.out.println(cliente + " - " + mapOrdenado.get(cliente));
+					oSala.add("nombre", cliente).add("puntos", mapOrdenado.get(cliente));
+					i++;
+
+					datosMinijuego.add(oSala.build());
+
 				}
 
-				datosMinijuego.add(oSala.build());
 			}
 		}
-
 		return datosMinijuego.build();
 	}
 

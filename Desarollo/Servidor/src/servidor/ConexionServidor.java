@@ -84,6 +84,11 @@ public class ConexionServidor extends Thread {
 				if (tipoDeMensaje.equals(Constantes.TIRAR_DADO_REQUEST)) {
 					actualizarJugadoresMinijuego(entradaJson);
 				}
+
+				if (tipoDeMensaje.equals(Constantes.NOTICE_ARRANCAR_JUEGO)) {
+					enviarEmpezarJuegoAClientesDeUnaSalaParticular(entradaJson);
+				}
+
 			} catch (IOException ex) {
 				System.out.println(ex.getMessage() + "[ConexionServidor] Cliente con la IP "
 						+ socket.getInetAddress().getHostAddress() + " desconectado.");
@@ -101,6 +106,26 @@ public class ConexionServidor extends Thread {
 		Servidor.desconectarServidor(this);
 	}
 
+	// Le aviso a todos salvo al admin que ya arranca la partida!
+	// Esto triggerea el Game
+	private void enviarEmpezarJuegoAClientesDeUnaSalaParticular(JsonObject entradaJson) {
+		Sala salaARefrescar = Servidor.getSalaPorNombre(entradaJson.getString("sala"));
+		Servidor.limpiarMinijuego(salaARefrescar);
+
+		JsonObject paqueteAEnviar;
+		paqueteAEnviar = Json.createObjectBuilder().add("type", Constantes.NOTICE_EMPEZA_JUEGO_CLIENTE).build();
+
+		for (ConexionServidor c : Servidor.getServidoresConectados()) {
+			try {
+				if (usuarioEstaEnLaSala(c.getUsuario(), salaARefrescar)) {
+					c.salida.writeUTF(paqueteAEnviar.toString());
+				}
+			} catch (IOException e) {
+				System.out.println("[ENVIAR PARTIDA A LOS JUGADORES] ERROR" + e.getMessage());
+			}
+		}
+	}
+
 	private void actualizarJugadoresMinijuego(JsonObject entradaJson) {
 
 		// Sala, usuario
@@ -114,6 +139,7 @@ public class ConexionServidor extends Thread {
 		// Si ya complete, debo mostrar la lista de ganadores
 		if (Servidor.cantidadParticipantesDado(sala) == user.getSala().getCapacidadActual()) {
 			JsonArray datosFinMinijuego = Servidor.informarGanadores(sala);
+			System.out.println(datosFinMinijuego.toString());
 			cadenaSalida = paqueteMinijuego.add("type", Constantes.FIN_MINIJUEGO)
 					.add("datosDeFinMinijuego", datosFinMinijuego).build().toString();
 		} else {

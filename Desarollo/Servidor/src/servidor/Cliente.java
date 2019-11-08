@@ -143,7 +143,7 @@ public class Cliente extends Thread {
 						Servidor.informarSalaTermina(sala);
 
 					}
-					break;					
+					break;
 				case Constantes.JOIN_ROOM_REQUEST:
 					sala = Servidor.getSalaPorNombre((String) message.getData());
 					if (sala.getCapacidadActual() + 1 <= sala.getCapacidadMaxima()) {
@@ -220,6 +220,15 @@ public class Cliente extends Thread {
 				for (Usuario usuarioActivo : Servidor.getUsuariosActivos()) {
 
 					if (usuarioActivo.getId() == usuario.getId()) {
+						if (usuario.getSala() != null && usuario.getSala().getUsuarioCreador().equals(usuario)) {
+							usuario.getSala().sacarUsuarioDeSala(usuario);
+
+							// En caso de que sea el ultimo usuario en la sala, se va a destruir la misma
+							if (sala.getCapacidadActual() == 0 || sala.getJugadorCreador().equals(usuario)) {
+								Servidor.eliminarSalaActiva(usuario.getSala());
+								Servidor.informarSalaTermina(usuario.getSala());
+							}
+						}
 						Servidor.getUsuariosActivos().remove(usuario);
 						break;
 					}

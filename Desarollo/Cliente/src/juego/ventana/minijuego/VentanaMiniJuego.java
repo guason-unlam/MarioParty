@@ -33,14 +33,14 @@ import juego.ventana.VentanaAdministracionSala;
 public class VentanaMiniJuego extends JFrame {
 
 	private JLabel icono;
-	private Usuario usuario = new Usuario("juan", "perez");
 
 	private static final long serialVersionUID = 9099821102113802071L;
 	private Musica musica;
 	private JButton tirarDadosButton;
 
-	public VentanaMiniJuego(ArrayList<Jugador> arrJugadores, VentanaAdministracionSala ventanaAdministracionSala,
-			Musica musica) {
+	private Usuario usuario;
+
+	public VentanaMiniJuego(VentanaAdministracionSala ventanaAdministracionSala, Musica musica) {
 		if (musica == null) {
 			musica = new Musica(Constantes.MUSICA_LOGIN);
 			musica.loop();
