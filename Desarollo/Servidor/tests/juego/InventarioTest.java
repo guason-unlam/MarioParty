@@ -7,7 +7,6 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import graphics.ObjectId;
 import juego.item.Inventario;
 import juego.item.Item;
 import juego.item.ModificadorDado;
@@ -25,7 +24,7 @@ public class InventarioTest {
 	private Usuario usuario2 = new Usuario("asd", "asd");
 	ArrayList<Usuario> vec = new ArrayList<Usuario>();
 	private Tablero tablero;
-	Partida partida = new Partida(vec, 0);
+	Partida partida = new Partida(vec, "MONEDAS", "chico", 1);
 	Jugador jugador2;
 	private Casillero casillero = new Casillero(1);
 
@@ -72,7 +71,7 @@ public class InventarioTest {
 
 	@Test
 	public void seSumaItemAInventarioTest() {
-		Jugador jugador1 = new Jugador(casillero, 1, ObjectId.Player);
+		Jugador jugador1 = new Jugador(usuario, tablero, partida);
 		Item item;
 		item = new ModificadorDado();
 		int cantidadItems = jugador1.getInventario().getCantItems();
@@ -82,7 +81,7 @@ public class InventarioTest {
 
 	@Test
 	public void capacidadMaximaInventarioTest() {
-		Jugador jugador1 = new Jugador(casillero, 1, ObjectId.Player);
+		Jugador jugador1 = new Jugador(usuario, tablero, partida);
 		Item item;
 		item = new ModificadorDado();
 		for (int i = 0; i < 200; i++) {
@@ -93,7 +92,7 @@ public class InventarioTest {
 
 	@Test
 	public void seRestaItemDeInventarioTest() {
-		Jugador jugador1 = new Jugador(casillero, 1, ObjectId.Player);
+		Jugador jugador1 = new Jugador(usuario, tablero, partida);
 		Item item;
 		item = new ModificadorDado();
 		item.darRecompensa(jugador1);

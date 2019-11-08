@@ -32,7 +32,7 @@ public class CasilleroTest {
 		usuarios.add(user1);
 		usuarios.add(user2);
 		// 1 Ronda
-		partida = new Partida(usuarios, 1);
+		partida = new Partida(usuarios, "MONEDAS", "chico", 1);
 		jugador1 = user1.getJugador();
 		jugador2 = user2.getJugador();
 	}

@@ -54,10 +54,6 @@ public class SalaTest {
 		Usuario usuarioCreador = new Usuario("prueba", "1234");
 		Sala sala = new Sala("Sala 1", 10, usuarioCreador);
 		sala.sacarUsuarioDeSala(usuarioCreador);
-		Assert.assertEquals(null, usuarioCreador.getSala());
-		usuarioParticipante1.conectarseALaSala(sala);
-		Assert.assertTrue(sala.sacarUsuarioDeSala(usuarioParticipante1));
-		Assert.assertFalse(sala.sacarUsuarioDeSala(usuarioParticipante1));
-		Assert.assertTrue(sala.getCapacidadActual() == 0);
+		Assert.assertEquals(sala.getCapacidadActual(), 0);
 	}
 }

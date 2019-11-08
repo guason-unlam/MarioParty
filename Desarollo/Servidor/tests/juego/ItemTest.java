@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import org.junit.Assert;
 import org.junit.Test;
 
-import graphics.ObjectId;
 import juego.item.Item;
 import juego.item.ItemRobar;
 import juego.item.ModificadorDado;
@@ -23,14 +22,14 @@ public class ItemTest {
 	private Usuario usuario2 = new Usuario("asd", "asd");
 	ArrayList<Usuario> vec = new ArrayList<Usuario>();
 	private Tablero tablero;
-	Partida partida = new Partida(vec, 0);
+	Partida partida = new Partida(vec, "MONEDAS", "chico", 1);
 	Jugador jugador2;// = new Jugador(usuario, tablero, partida);
 	private Casillero casillero = new Casillero(1);
 
 	@Test
 	public void aumentoDeMonedasCorrecto() throws FileNotFoundException, ExcepcionArchivos {
-		Jugador jugador2 = new Jugador(casillero, 1, ObjectId.Player);
-		Jugador jugador1 = new Jugador(casillero, 2, ObjectId.Player);
+		Jugador jugador2 = new Jugador(usuario2, tablero, partida);
+		Jugador jugador1 = new Jugador(usuario, tablero, partida);
 		Item item;
 		item = new ItemRobar();
 		item.darRecompensa(jugador1);
@@ -42,8 +41,8 @@ public class ItemTest {
 
 	@Test
 	public void restoDeMonedasCorrecto() {
-		Jugador jugador2 = new Jugador(casillero, 1, ObjectId.Player);
-		Jugador jugador1 = new Jugador(casillero, 2, ObjectId.Player);
+		Jugador jugador2 = new Jugador(usuario2, tablero, partida);
+		Jugador jugador1 = new Jugador(usuario, tablero, partida);
 		Item item;
 		item = new ItemRobar();
 		item.darRecompensa(jugador1);
@@ -57,7 +56,7 @@ public class ItemTest {
 	public void aumentaEnUnoElTamanioDado() {
 		Item item;
 		item = new ModificadorDado();
-		Jugador jugador = new Jugador(casillero, 1, ObjectId.Player);
+		Jugador jugador = new Jugador(usuario, tablero, partida);
 		item.darRecompensa(jugador);
 		int cantidadCaras = item.getDuenio().getDado().getCantidadCaras();
 		item.activarItem(jugador);
