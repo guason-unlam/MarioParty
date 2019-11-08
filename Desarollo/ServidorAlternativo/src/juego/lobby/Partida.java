@@ -93,22 +93,18 @@ public class Partida {
 		 * victoria, y en caso de que sea como en el juego por estrellas, hay que ver si
 		 * considerarlas como items o de alguna otra forma.
 		 */
-		if (this.partidaEnCurso == true) {
-			numeroRonda++;
-			rondaEnCurso = new Ronda(jugadoresEnPartida, this.tablero);
-			this.iniciarJuego();
-			rondasJugadas.add(rondaEnCurso);
-			System.out.println("");
-		} while (this.ganador == null && this.partidaEnCurso == true);
-
+		while (this.ganador == null && this.partidaEnCurso == true) {
+			if (this.partidaEnCurso == true) {
+				numeroRonda++;
+				rondaEnCurso = new Ronda(jugadoresEnPartida, this.tablero);
+				this.iniciarJuego();
+				rondasJugadas.add(rondaEnCurso);
+				System.out.println("");
 			}
 			this.partidaEnCurso = false;
-		} while (this.ganador == null && this.partidaEnCurso == true);
-
+			System.out.println("Con un total de $" + this.ganador.getPesos() + " el ganador es .... "
+					+ this.ganador.getNombre() + "!!!");
 		}
-		this.partidaEnCurso = false;
-		System.out.println("Con un total de $" + this.ganador.getPesos() + " el ganador es .... "
-				+ this.ganador.getNombre() + "!!!");
 		return 0;
 	}
 

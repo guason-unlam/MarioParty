@@ -79,7 +79,13 @@ public class ConexionServidor extends Thread {
 						|| tipoDeMensaje.equals(Constantes.JOIN_ROOM_SV_REQUEST)) {
 					actualizarClientesSalaUnica(entradaJson);
 				}
-
+				
+				if (tipoDeMensaje.equals(Constantes.NOTICE_ARRANCAR_JUEGO)) {
+					/* llamo a funcion para empezar el juego en el sv */
+					arrancarJuego(entradaJson);
+					
+				}
+				
 			} catch (IOException ex) {
 				System.out.println(ex.getMessage() + "[ConexionServidor] Cliente con la IP "
 						+ socket.getInetAddress().getHostAddress() + " desconectado.");
@@ -95,6 +101,24 @@ public class ConexionServidor extends Thread {
 		}
 
 		Servidor.desconectarServidor(this);
+	}
+
+	private void arrancarJuego(JsonObject entradaJson) {
+		
+		Sala salaAArrancar = Servidor.getSalaPorNombre(entradaJson.getString("sala"));
+		JsonObject paqueteAEnviar =  Json.createObjectBuilder().add("type", Constantes.ARRANCAR_JUEGO_SV)
+				.add(Constantes.MAPA, entradaJson.getString(Constantes.MAPA)).build();
+		
+		for (ConexionServidor c : Servidor.getServidoresConectados()) {
+			try {
+				if (usuarioEstaEnLaSala(c.getUsuario(), salaAArrancar)) {
+					c.salida.writeUTF(paqueteAEnviar.toString());
+				}
+			} catch (IOException e) {
+				System.out.println("Fallo la escritura de datos de actualizar parametros sala");
+			}
+		}
+		
 	}
 
 	public void actualizarClientesSalaUnica(JsonObject entradaJson) {
