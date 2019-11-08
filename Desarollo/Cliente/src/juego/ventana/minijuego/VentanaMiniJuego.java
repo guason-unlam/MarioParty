@@ -17,8 +17,10 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
 
 import cliente.Cliente;
 import cliente.Musica;
@@ -34,8 +36,8 @@ public class VentanaMiniJuego extends JFrame {
 	private Usuario usuario = new Usuario("juan", "perez");
 
 	private static final long serialVersionUID = 9099821102113802071L;
-	private JButton btnEntrarEnSala;
 	private Musica musica;
+	private JButton tirarDadosButton;
 
 	public VentanaMiniJuego(ArrayList<Jugador> arrJugadores, VentanaAdministracionSala ventanaAdministracionSala,
 			Musica musica) {
@@ -48,7 +50,7 @@ public class VentanaMiniJuego extends JFrame {
 
 		// Obtengo el usuario!
 		usuario = Cliente.getConexionInterna().getUsuario();
-
+		this.setBounds(0, 0, 600, 400);
 		this.setResizable(false);
 		this.setLocationRelativeTo(null);
 		this.getContentPane().setLayout(null);
@@ -57,21 +59,21 @@ public class VentanaMiniJuego extends JFrame {
 		Icon icon = new ImageIcon(Constantes.ASSETS_PATH + Constantes.IMAGEN_PATH + "tirarDados.gif");
 		icono = new JLabel(icon);
 		icono.setHorizontalAlignment(SwingConstants.LEFT);
-		icono.setBounds(new Rectangle(58, 127, 100, 100));
+		icono.setBounds(new Rectangle(10, 95, 336, 241));
 		getContentPane().add(icono);
 
-		JButton tirarDadosButton = new JButton("Tirar dados!");
+		tirarDadosButton = new JButton("Tirar dados!");
 		tirarDadosButton.setBounds(new Rectangle(220, 133, 186, 62));
 		tirarDadosButton.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		tirarDadosButton.setForeground(Color.BLACK);
 		tirarDadosButton.setBackground(Color.GREEN);
-		tirarDadosButton.setBounds(294, 171, 120, 58);
+		tirarDadosButton.setBounds(371, 191, 213, 58);
 		tirarDadosButton.setFocusPainted(false);
 
 		getContentPane().add(tirarDadosButton);
 
 		JTextArea instrucciones = new JTextArea();
-		instrucciones.setLocation(34, 0);
+		instrucciones.setLocation(70, 11);
 		instrucciones.setFont(new Font("Dialog", Font.PLAIN, 22));
 		instrucciones.setText(
 				"El juego consta de varios jugadores,los cuales tirar\u00E1n 10 veces un dado y se realizar\u00E1 la suma de todos los tiros.");
@@ -100,7 +102,7 @@ public class VentanaMiniJuego extends JFrame {
 			}
 		});
 
-		btnEntrarEnSala.addActionListener(new ActionListener() {
+		tirarDadosButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 

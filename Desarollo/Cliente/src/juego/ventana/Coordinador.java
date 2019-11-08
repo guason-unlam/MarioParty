@@ -45,10 +45,9 @@ public class Coordinador extends Thread {
 					}
 					break;
 				case Constantes.PUNTOS_MINIJUEGO:
-
 					datosDeMinijuego = entradaJson.getJsonArray("datosDeMinijuego");
 
-					if (ventanaElegirSala != null) {
+					if (ventanaResultadosMiniJuego != null) {
 						ventanaResultadosMiniJuego.refrescarPuntaje(datosDeMinijuego);
 					}
 					break;
@@ -56,7 +55,7 @@ public class Coordinador extends Thread {
 
 					datosDeFinMinijuego = entradaJson.getJsonArray("datosDeFinMinijuego");
 
-					if (ventanaElegirSala != null) {
+					if (ventanaResultadosMiniJuego != null) {
 						ventanaResultadosMiniJuego.mostrarPantallaFinal(datosDeFinMinijuego);
 					}
 					break;

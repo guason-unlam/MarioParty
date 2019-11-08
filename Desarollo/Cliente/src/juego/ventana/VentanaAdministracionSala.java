@@ -469,7 +469,8 @@ public class VentanaAdministracionSala extends JFrame {
 		ArrayList<Jugador> arrJugadores = new ArrayList<Jugador>();
 		arrJugadores.add(new Jugador(new Casillero(0), 1, ObjectId.Player));
 		arrJugadores.add(new Jugador(new Casillero(1), 2, ObjectId.Player));
-		new VentanaMiniJuego(arrJugadores, this, this.musica);
+		VentanaMiniJuego ventanaMiniJuego = new VentanaMiniJuego(arrJugadores, this, this.musica);
+		ventanaMiniJuego.setVisible(true);
 		this.setVisible(false);
 	}
 

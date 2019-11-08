@@ -213,7 +213,8 @@ public class ConexionInterna extends Thread {
 	public String tirarDado(String usuario) {
 
 		try {
-			String request = Json.createObjectBuilder().add("username", usuario).build().toString();
+			String request = Json.createObjectBuilder().add("sala", this.getUsuario().getSala().getNombre())
+					.add("usuario", usuario).build().toString();
 
 			this.salidaDatos.writeUTF(new Message(Constantes.TIRAR_DADO_REQUEST, request).toJson());
 

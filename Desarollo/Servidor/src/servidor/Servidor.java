@@ -241,7 +241,7 @@ public class Servidor {
 
 				// Por cada uno ,le agrego su puntaje
 				for (String cliente : minijuego.keySet()) {
-					oSala.add("nombre", cliente).add("puntos", minijuego.get("cliente"));
+					oSala.add("nombre", cliente).add("puntos", minijuego.get(cliente));
 				}
 
 				datosMinijuego.add(oSala.build());

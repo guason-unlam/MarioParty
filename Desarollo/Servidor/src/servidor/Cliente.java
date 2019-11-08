@@ -143,26 +143,7 @@ public class Cliente extends Thread {
 						Servidor.informarSalaTermina(sala);
 
 					}
-					break;
-				case Constantes.TIRAR_DADO_REQUEST:
-					// Sala, usuario
-					ArrayList<String> datosSala = (ArrayList<String>) message.getData();
-
-					sala = Servidor.getSalaPorNombre(datosSala.get(0));
-					Usuario user = Servidor.getUsuarioPorNombre(datosSala.get(1));
-					Servidor.tirarDado(sala, user);
-					for (Usuario usuarioEnServer : Servidor.getUsuariosActivos()) {
-						if (usuario != null && usuarioEnServer.getId() == usuario.getId()
-								&& usuario.getSala().equals(sala)) {
-							this.salida.flush();
-							// Le mando a todos los puntajes
-							this.salida.writeUTF(
-									new Message(Constantes.PUNTOS_MINIJUEGO, Servidor.informarTiradaDados(sala))
-											.toJson());
-							break;
-						}
-					}
-					break;
+					break;					
 				case Constantes.JOIN_ROOM_REQUEST:
 					sala = Servidor.getSalaPorNombre((String) message.getData());
 					if (sala.getCapacidadActual() + 1 <= sala.getCapacidadMaxima()) {

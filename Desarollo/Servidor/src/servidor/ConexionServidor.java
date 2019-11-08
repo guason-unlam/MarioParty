@@ -5,6 +5,7 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.StringReader;
 import java.net.Socket;
+import java.util.ArrayList;
 
 import javax.json.Json;
 import javax.json.JsonArray;
@@ -79,8 +80,8 @@ public class ConexionServidor extends Thread {
 						|| tipoDeMensaje.equals(Constantes.JOIN_ROOM_SV_REQUEST)) {
 					actualizarClientesSalaUnica(entradaJson);
 				}
-				
-				if (tipoDeMensaje.equals(Constantes.RESPONSE_TIRAR_DADO)) {
+
+				if (tipoDeMensaje.equals(Constantes.TIRAR_DADO_REQUEST)) {
 					actualizarJugadoresMinijuego(entradaJson);
 				}
 			} catch (IOException ex) {
@@ -101,8 +102,27 @@ public class ConexionServidor extends Thread {
 	}
 
 	private void actualizarJugadoresMinijuego(JsonObject entradaJson) {
-		// TODO Auto-generated method stub
-		
+
+		// Sala, usuario
+		Usuario user = Servidor.getUsuarioPorNombre(entradaJson.getString("usuario"));
+		Sala sala = user.getSala();
+		Servidor.tirarDado(sala, user);
+
+		JsonArray datosMinijuego = Servidor.informarTiradaDados(sala);
+		JsonObjectBuilder paqueteMinijuego = Json.createObjectBuilder();
+		String cadenaSalida = paqueteMinijuego.add("type", Constantes.PUNTOS_MINIJUEGO)
+				.add("datosDeMinijuego", datosMinijuego).build().toString();
+
+		for (ConexionServidor conexion : Servidor.getServidoresConectados()) {
+			if (conexion.getUsuario().getSala().equals(sala)) {
+				try {
+					this.salida.flush();
+					conexion.salida.writeUTF(cadenaSalida);
+				} catch (IOException e) {
+					System.out.println("[ENVIO SALA] Error al enviar las salas");
+				}
+			}
+		}
 	}
 
 	public void actualizarClientesSalaUnica(JsonObject entradaJson) {
