@@ -80,6 +80,9 @@ public class ConexionServidor extends Thread {
 					actualizarClientesSalaUnica(entradaJson);
 				}
 
+				if (tipoDeMensaje.equals(Constantes.NOTICE_ARRANCAR_JUEGO)) {
+					enviarEmpezarJuegoAClientesDeUnaSalaParticular(entradaJson);
+				}
 			} catch (IOException ex) {
 				System.out.println(ex.getMessage() + "[ConexionServidor] Cliente con la IP "
 						+ socket.getInetAddress().getHostAddress() + " desconectado.");
@@ -95,6 +98,23 @@ public class ConexionServidor extends Thread {
 		}
 
 		Servidor.desconectarServidor(this);
+	}
+
+	private void enviarEmpezarJuegoAClientesDeUnaSalaParticular(JsonObject entradaJson) {
+		Sala salaARefrescar = Servidor.getSalaPorNombre(entradaJson.getString("sala"));
+
+		JsonObject paqueteAEnviar;
+		paqueteAEnviar = Json.createObjectBuilder().add("type", Constantes.NOTICE_EMPEZA_JUEGO_CLIENTE).build();
+
+		for (ConexionServidor c : Servidor.getServidoresConectados()) {
+			try {
+				if (usuarioEstaEnLaSala(c.getUsuario(), salaARefrescar)) {
+					c.salida.writeUTF(paqueteAEnviar.toString());
+				}
+			} catch (IOException e) {
+				System.out.println("[ENVIAR PARTIDA A LOS JUGADORES] ERROR" + e.getMessage());
+			}
+		}
 	}
 
 	public void actualizarClientesSalaUnica(JsonObject entradaJson) {

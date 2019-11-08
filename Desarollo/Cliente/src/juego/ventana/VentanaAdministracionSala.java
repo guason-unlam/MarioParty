@@ -460,16 +460,13 @@ public class VentanaAdministracionSala extends JFrame {
 			System.out.println("Error al crear el juego");
 			return;
 		}
-		nuevoJuego();
+		JsonObject paquetePedirMinijuego = Json.createObjectBuilder().add("type", Constantes.NOTICE_ARRANCAR_JUEGO)
+				.add("sala", nombreSala).build();
+
+		// Le aviso al sv que estoy listo para jugar
+		Cliente.getConexionServidor().enviarAlServidor(paquetePedirMinijuego);
 	}
 
-	public void nuevoJuego() {
-
-		game = new Game();
-		new GameWindow(800, 600, "Mario Party Prototipo", game);
-		this.setVisible(false);
-	}
-	
 	protected void validacionBotonJugar() {
 		if (comboMapa.getSelectedIndex() != 0 && comboCantRondas.getSelectedIndex() != 0
 		/*
@@ -546,6 +543,12 @@ public class VentanaAdministracionSala extends JFrame {
 			}
 		}
 
+	}
+
+	public void prepararArranqueJuego() {
+		game = new Game();
+		new GameWindow(800, 600, "Mario Party Prototipo", game);
+		this.setVisible(false);
 	}
 
 }
