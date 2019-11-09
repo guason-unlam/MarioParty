@@ -21,6 +21,10 @@ public class Tablero {
 		crearCasillerosYCrearTablero(arch);
 	}
 
+	public Tablero(Map<Integer, Casillero> casilleros) {
+		this.casilleros = casilleros;
+	}
+
 	private void crearCasillerosYCrearTablero(String arch) throws ExcepcionArchivos, FileNotFoundException {
 		// Por ahora voy a usar un .txt para levantar los casilleros
 		LectorEscritor le = new LectorEscritor();

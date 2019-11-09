@@ -83,9 +83,10 @@ public class Tablero {
 	}
 
 	private JsonObject convertirAJson(Casillero casillero) {
-		return Json.createObjectBuilder().add("x", casillero.getPosicionX()).add("y", casillero.getPosicionY())
-				.add("primeraVez", casillero.isPrimeraVez()).add("tieneArbolito", casillero.isTieneArbolito())
-				.add("tieneRecompensa", casillero.isTieneRecompensa()).build();
+		return Json.createObjectBuilder().add("id", casillero.getId()).add("x", casillero.getPosicionX())
+				.add("y", casillero.getPosicionY()).add("primeraVez", casillero.isPrimeraVez())
+				.add("tieneArbolito", casillero.isTieneArbolito()).add("tieneRecompensa", casillero.isTieneRecompensa())
+				.build();
 
 	}
 

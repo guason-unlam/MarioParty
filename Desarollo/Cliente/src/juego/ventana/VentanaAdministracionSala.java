@@ -18,6 +18,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.ListIterator;
+import java.util.Map;
+import java.util.TreeMap;
 
 import javax.imageio.ImageIO;
 import javax.json.Json;
@@ -44,6 +46,8 @@ import graphics.Game;
 import graphics.GameWindow;
 import juego.Constantes;
 import juego.lobby.TipoCondicionVictoria;
+import juego.tablero.Tablero;
+import juego.tablero.casillero.Casillero;
 
 public class VentanaAdministracionSala extends JFrame {
 
@@ -551,9 +555,18 @@ public class VentanaAdministracionSala extends JFrame {
 
 	public void prepararArranqueJuego(JsonObject entradaJson) {
 		System.out.println(entradaJson.toString());
-		JsonArray arrayUsuariosConectados = entradaJson.getJsonArray("tablero");
+		Map<Integer, Casillero> casilleros = new TreeMap<Integer, Casillero>();
+		JsonArray arrayCasilleros = entradaJson.getJsonArray("tablero");
+		for (int i = 0; i < arrayCasilleros.size(); i++) {
+			JsonObject jsonValue = arrayCasilleros.getJsonObject(i);
+			Casillero casillero = new Casillero(jsonValue.getInt("id"), jsonValue.getInt("x"), jsonValue.getInt("y"),
+					jsonValue.getBoolean("primeraVez"), jsonValue.getBoolean("tieneArbolito"),
+					jsonValue.getBoolean("tieneRecompensa"));
+			casilleros.put(jsonValue.getInt("id"), casillero);
+		}
+		Tablero tablero = new Tablero(casilleros);
 //Aca voy a meter el tablero, que recibo via json
-		// game = new Game(this.lobby.getUsuario(), tablero);
+		game = new Game(this.lobby.getUsuario(), tablero);
 		new GameWindow(800, 600, "Mario Party Prototipo", game);
 		this.setVisible(false);
 	}

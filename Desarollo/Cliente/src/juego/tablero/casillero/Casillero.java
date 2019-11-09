@@ -16,6 +16,7 @@ public class Casillero {
 	private int id;
 	// Color del casillero
 	private Color color;
+
 	// Posicion fisica en el tablero
 	private int posicionX;
 	private int posicionY;
@@ -51,6 +52,15 @@ public class Casillero {
 		if (id != 0) {// el 0 es la posicion inicial, no va a tener recompensa
 			ponerRecompensa();
 		}
+	}
+
+	public Casillero(int id, int x, int y, boolean primeraVez, boolean tieneArbolito, boolean tieneRecompensa) {
+		this.id = id;
+		this.posicionX = x;
+		this.posicionY = y;
+		this.primeraVez = primeraVez;
+		this.tieneArbolito = tieneArbolito;
+		this.tieneRecompensa = tieneRecompensa;
 	}
 
 	private void ponerRecompensa() {
