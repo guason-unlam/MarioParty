@@ -61,6 +61,11 @@ public class Casillero {
 		this.primeraVez = primeraVez;
 		this.tieneArbolito = tieneArbolito;
 		this.tieneRecompensa = tieneRecompensa;
+		if (this.tieneRecompensa) {
+			this.color = Color.YELLOW;
+		} else {
+			this.color = Color.GREEN;
+		}
 	}
 
 	private void ponerRecompensa() {
@@ -127,12 +132,12 @@ public class Casillero {
 		this.siguientes = siguiente;
 	}
 
-	public ArrayList<Casillero> getAnteriores() {
-		return anteriores;
-	}
-
 	public void setAnterior(ArrayList<Casillero> anteriores) {
 		this.anteriores = anteriores;
+	}
+
+	public ArrayList<Casillero> getAnteriores() {
+		return anteriores;
 	}
 
 	public int getId() {

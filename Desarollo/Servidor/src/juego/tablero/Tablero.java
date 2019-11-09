@@ -7,8 +7,8 @@ import java.util.TreeMap;
 import javax.json.Json;
 import javax.json.JsonArrayBuilder;
 import javax.json.JsonObject;
-import javax.json.JsonObjectBuilder;
-import javax.json.JsonValue;
+
+import com.google.gson.Gson;
 
 import juego.misc.ExcepcionArchivos;
 import juego.misc.LectorEscritor;
@@ -76,7 +76,7 @@ public class Tablero {
 		JsonArrayBuilder casilleros = Json.createArrayBuilder();
 
 		for (Integer u : this.casilleros.keySet()) {
-			casilleros.add(convertirAJson(this.casilleros.get(u)));
+			casilleros.add(convertirAJsonSigAnt(this.casilleros.get(u)));
 		}
 
 		return casilleros;
@@ -87,7 +87,23 @@ public class Tablero {
 				.add("y", casillero.getPosicionY()).add("primeraVez", casillero.isPrimeraVez())
 				.add("tieneArbolito", casillero.isTieneArbolito()).add("tieneRecompensa", casillero.isTieneRecompensa())
 				.build();
+	}
 
+	private JsonObject convertirAJsonSigAnt(Casillero casillero) {
+		JsonArrayBuilder casillerosSiguientes = Json.createArrayBuilder();
+		for (Casillero casilleroSiguiente : casillero.getSiguiente()) {
+			casillerosSiguientes.add(convertirAJson(casilleroSiguiente));
+		}
+
+		JsonArrayBuilder casillerosAnteriores = Json.createArrayBuilder();
+		for (Casillero casillerosAnterior : casillero.getAnteriores()) {
+			casillerosAnteriores.add(convertirAJson(casillerosAnterior));
+		}
+
+		return Json.createObjectBuilder().add("id", casillero.getId()).add("x", casillero.getPosicionX())
+				.add("y", casillero.getPosicionY()).add("primeraVez", casillero.isPrimeraVez())
+				.add("tieneArbolito", casillero.isTieneArbolito()).add("tieneRecompensa", casillero.isTieneRecompensa())
+				.add("anteriores", casillerosAnteriores).add("siguientes", casillerosSiguientes).build();
 	}
 
 	/*

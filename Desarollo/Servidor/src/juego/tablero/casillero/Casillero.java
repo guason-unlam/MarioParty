@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Set;
 import java.util.TreeSet;
 
+import com.google.gson.annotations.Expose;
+
 import juego.item.ItemRobar;
 import juego.item.ModificadorDado;
 import juego.item.Pesos;
@@ -12,22 +14,30 @@ import juego.item.Recompensa;
 import juego.personas.Jugador;
 
 public class Casillero {
+	@Expose
 	// Id interno
 	private int id;
 	// Color del casillero
 	private Color color;
 	// Posicion fisica en el tablero
+	@Expose
 	private int posicionX;
+	@Expose
 	private int posicionY;
 	// En caso de ser verdadero, le da las recompensas
+	@Expose
 	private boolean primeraVez;
 
 	// Para saber si la estrella esta en este casillero
+	@Expose
 	private boolean tieneArbolito;
+	@Expose
 	private boolean tieneRecompensa;
 
 	// Para el movimiento
+	@Expose
 	private ArrayList<Casillero> siguientes;
+	@Expose
 	private ArrayList<Casillero> anteriores;
 	boolean caminoIzquierda, caminoDerecha, caminoArriba, caminoAbajo;
 	// Personajes actualmente en el casillero
