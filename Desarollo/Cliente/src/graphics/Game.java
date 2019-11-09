@@ -182,19 +182,6 @@ public class Game extends Canvas implements Runnable {
 //	}
 
 	public void leerTablero(Tablero tab) {
-		for (Integer elemento : tab.getCasilleros().keySet()) {
-			Casillero act = tab.getCasilleros().get(elemento);
-			System.out.println("Casillero " + act.getId());
-			System.out.println("Anteriores: ");
-			for (Casillero cas : act.getAnteriores()) {
-				System.out.print(cas.getId() + " ");
-			}
-			System.out.println("Siguientes: ");
-			for (Casillero cas : act.getSiguiente()) {
-				System.out.print(cas.getId() + " ");
-			}
-
-		}
 		// System.out.println(tab.getCasilleros().keySet());
 		for (Integer elemento : tab.getCasilleros().keySet()) {
 
@@ -219,7 +206,6 @@ public class Game extends Canvas implements Runnable {
 						x += 32;
 						casilleroActual.setCaminoDerecha(true);
 					}
-					System.out.println("Va uno nuevo" + sig.getPosicionX());
 
 					handler.addObject(new Road(x, y, 0, ObjectId.Road));
 					matrizMapa[x / 32][y / 32] = 1;
