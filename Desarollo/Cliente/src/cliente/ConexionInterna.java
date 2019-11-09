@@ -7,13 +7,16 @@ import java.net.Socket;
 import java.util.ArrayList;
 
 import javax.json.Json;
+import javax.json.JsonObjectBuilder;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonSyntaxException;
 
 import juego.Constantes;
 import juego.lobby.TipoCondicionVictoria;
 import juego.lobby.Usuario;
+import juego.ventana.Coordinador;
 import servidor.Message;
 import servidor.Seguridad;
 
@@ -207,7 +210,21 @@ public class ConexionInterna extends Thread {
 			e.printStackTrace();
 		}
 
-		return true;
+		while (true) {
+			// Leo lo enviado por el sv
+			try {
+				this.message = new Gson().fromJson(entradaDatos.readUTF(), Message.class);
+				// Depende el tipo de la respuesta
+				switch (this.message.getType()) {
+				case Constantes.NOTICE_EMPEZA_JUEGO_CLIENTE:
+					Coordinador.ventanaAdministracionSala.prepararArranqueJuego(((JsonObjectBuilder) this.message.getData()).build());
+				}
+			} catch (JsonSyntaxException | IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+		}
 	}
 
 }

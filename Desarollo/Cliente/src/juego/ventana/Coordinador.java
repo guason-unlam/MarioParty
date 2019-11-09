@@ -15,7 +15,7 @@ public class Coordinador extends Thread {
 
 	private static VentanaElegirSala ventanaElegirSala;
 	private static JsonArray datosDeSalasDisponibles;
-	private static VentanaAdministracionSala ventanaAdministracionSala;
+	public static VentanaAdministracionSala ventanaAdministracionSala;
 
 	public Coordinador() {
 		this.start();
@@ -59,7 +59,7 @@ public class Coordinador extends Thread {
 					ventanaElegirSala.setVisible(true);
 					break;
 				case Constantes.NOTICE_EMPEZA_JUEGO_CLIENTE:
-					Coordinador.ventanaAdministracionSala.prepararArranqueJuego();
+					Coordinador.ventanaAdministracionSala.prepararArranqueJuego(entradaJson);
 					break;
 				default:
 					break;

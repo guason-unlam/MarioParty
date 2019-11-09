@@ -4,6 +4,12 @@ import java.io.FileNotFoundException;
 import java.util.Map;
 import java.util.TreeMap;
 
+import javax.json.Json;
+import javax.json.JsonArrayBuilder;
+import javax.json.JsonObject;
+import javax.json.JsonObjectBuilder;
+import javax.json.JsonValue;
+
 import juego.misc.ExcepcionArchivos;
 import juego.misc.LectorEscritor;
 import juego.tablero.casillero.Casillero;
@@ -63,6 +69,23 @@ public class Tablero {
 	public void actualizar() {
 		// TODO ACA IRIA TODA LA LOGICA PARA REFRESCAR EL MAPA, HAY QUE VER COMO SACARLO
 		// DEL CLIENTE
+
+	}
+
+	public JsonArrayBuilder toJson() {
+		JsonArrayBuilder casilleros = Json.createArrayBuilder();
+
+		for (Integer u : this.casilleros.keySet()) {
+			casilleros.add(convertirAJson(this.casilleros.get(u)));
+		}
+
+		return casilleros;
+	}
+
+	private JsonObject convertirAJson(Casillero casillero) {
+		return Json.createObjectBuilder().add("x", casillero.getPosicionX()).add("y", casillero.getPosicionY())
+				.add("primeraVez", casillero.isPrimeraVez()).add("tieneArbolito", casillero.isTieneArbolito())
+				.add("tieneRecompensa", casillero.isTieneRecompensa()).build();
 
 	}
 

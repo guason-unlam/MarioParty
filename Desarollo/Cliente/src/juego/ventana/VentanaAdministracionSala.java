@@ -456,16 +456,19 @@ public class VentanaAdministracionSala extends JFrame {
 		 */
 
 		// LE AVISO AL SERVER QUE VA A ARRANCAR
-		/*
-		 * if (Cliente.getConexionInterna().comenzarJuego(totalBots, totalRondas,
-		 * condicion, mapa) == false) { System.out.println("Error al crear el juego");
-		 * return; }
-		 */
-		JsonObject paquetePedirMinijuego = Json.createObjectBuilder().add("type", Constantes.NOTICE_ARRANCAR_JUEGO)
-				.add("sala", nombreSala).build();
 
-		// Le aviso al sv que estoy listo para jugar
-		Cliente.getConexionServidor().enviarAlServidor(paquetePedirMinijuego);
+		if (Cliente.getConexionInterna().comenzarJuego(totalBots, totalRondas, condicion, mapa) == false) {
+			System.out.println("Error al crear el juego");
+			return;
+		}
+
+		/*
+		 * JsonObject paquetePedirMinijuego = Json.createObjectBuilder().add("type",
+		 * Constantes.NOTICE_ARRANCAR_JUEGO) .add("sala", nombreSala).build();
+		 * 
+		 * // Le aviso al sv que estoy listo para jugar
+		 * Cliente.getConexionServidor().enviarAlServidor(paquetePedirMinijuego);
+		 */
 	}
 
 	protected void validacionBotonJugar() {
@@ -547,6 +550,7 @@ public class VentanaAdministracionSala extends JFrame {
 	}
 
 	public void prepararArranqueJuego(JsonObject entradaJson) {
+		System.out.println(entradaJson.toString());
 		JsonArray arrayUsuariosConectados = entradaJson.getJsonArray("tablero");
 //Aca voy a meter el tablero, que recibo via json
 		// game = new Game(this.lobby.getUsuario(), tablero);

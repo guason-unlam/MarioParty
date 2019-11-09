@@ -180,7 +180,7 @@ public class Cliente extends Thread {
 					}
 					this.salida.writeUTF(new Message(Constantes.NOTICE_TODOS_EN_SALA, todosEnSala).toJson());
 					break;
-				/*case Constantes.NOTICE_ARRANCAR_JUEGO:
+				case Constantes.NOTICE_ARRANCAR_JUEGO:
 					properties = new Gson().fromJson((String) message.getData(), Properties.class);
 
 					int cantidadBots = Integer.valueOf(properties.getProperty(Constantes.CANTIDAD_BOTS));
@@ -203,7 +203,7 @@ public class Cliente extends Thread {
 						sala.getPartidaActual().agregarBotAPartida(new Bot());
 					}
 					sala.comenzarPartida();
-					break;*/
+					break;
 				default:
 					break;
 				}

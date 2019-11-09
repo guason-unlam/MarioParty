@@ -47,7 +47,6 @@ public class PanelJugador extends JPanel {
 				// juego.continuar();
 				// System.out.println(juego.jugadorActual.getId());
 				juego.avanzarJugador(juego.jugadorActual.tirarDado());
-				juego.continuar();
 			}
 		});
 		btnLanzarDado.setBounds(10, 36, 106, 23);
