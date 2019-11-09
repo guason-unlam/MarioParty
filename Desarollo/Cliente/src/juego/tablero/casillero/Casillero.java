@@ -54,6 +54,23 @@ public class Casillero {
 		}
 	}
 
+	public Casillero(int id, int x, int y, boolean primeraVez, boolean tieneArbolito, boolean tieneRecompensa,
+			ArrayList<Casillero> anteriores, ArrayList<Casillero> siguientes) {
+		this.id = id;
+		this.posicionX = x;
+		this.posicionY = y;
+		this.primeraVez = primeraVez;
+		this.tieneArbolito = tieneArbolito;
+		this.tieneRecompensa = tieneRecompensa;
+		if (this.tieneRecompensa) {
+			this.color = Color.YELLOW;
+		} else {
+			this.color = Color.GREEN;
+		}
+		this.anteriores = anteriores;
+		this.siguientes = siguientes;
+	}
+
 	public Casillero(int id, int x, int y, boolean primeraVez, boolean tieneArbolito, boolean tieneRecompensa) {
 		this.id = id;
 		this.posicionX = x;

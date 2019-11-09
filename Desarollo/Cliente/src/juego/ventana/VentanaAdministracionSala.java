@@ -559,9 +559,25 @@ public class VentanaAdministracionSala extends JFrame {
 		JsonArray arrayCasilleros = entradaJson.getJsonArray("tablero");
 		for (int i = 0; i < arrayCasilleros.size(); i++) {
 			JsonObject jsonValue = arrayCasilleros.getJsonObject(i);
+			JsonArray arrayAnteriores = jsonValue.getJsonArray("anteriores");
+			ArrayList<Casillero> anteriores = new ArrayList<Casillero>();
+			for (int j = 0; j < arrayAnteriores.size(); j++) {
+				Casillero casilleroAnterior = new Casillero(jsonValue.getInt("id"), jsonValue.getInt("x"),
+						jsonValue.getInt("y"), jsonValue.getBoolean("primeraVez"),
+						jsonValue.getBoolean("tieneArbolito"), jsonValue.getBoolean("tieneRecompensa"));
+				anteriores.add(casilleroAnterior);
+			}
+			JsonArray arraySiguientes = jsonValue.getJsonArray("siguientes");
+			ArrayList<Casillero> siguientes = new ArrayList<Casillero>();
+			for (int j = 0; j < arraySiguientes.size(); j++) {
+				Casillero casilleroSiguiente = new Casillero(jsonValue.getInt("id"), jsonValue.getInt("x"),
+						jsonValue.getInt("y"), jsonValue.getBoolean("primeraVez"),
+						jsonValue.getBoolean("tieneArbolito"), jsonValue.getBoolean("tieneRecompensa"));
+				anteriores.add(casilleroSiguiente);
+			}
 			Casillero casillero = new Casillero(jsonValue.getInt("id"), jsonValue.getInt("x"), jsonValue.getInt("y"),
 					jsonValue.getBoolean("primeraVez"), jsonValue.getBoolean("tieneArbolito"),
-					jsonValue.getBoolean("tieneRecompensa"));
+					jsonValue.getBoolean("tieneRecompensa"), anteriores, siguientes);
 			casilleros.put(jsonValue.getInt("id"), casillero);
 		}
 		Tablero tablero = new Tablero(casilleros);
