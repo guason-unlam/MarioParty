@@ -182,10 +182,23 @@ public class Game extends Canvas implements Runnable {
 //	}
 
 	public void leerTablero(Tablero tab) {
-		// System.out.println(tab.getCasilleros().keySet());
-		for (Entry<Integer, Casillero> elemento : tab.getCasilleros().entrySet()) {
+		for (Integer elemento : tab.getCasilleros().keySet()) {
+			Casillero act = tab.getCasilleros().get(elemento);
+			System.out.println("Casillero " + act.getId());
+			System.out.println("Anteriores: ");
+			for (Casillero cas : act.getAnteriores()) {
+				System.out.print(cas.getId() + " ");
+			}
+			System.out.println("Siguientes: ");
+			for (Casillero cas : act.getSiguiente()) {
+				System.out.print(cas.getId() + " ");
+			}
 
-			Casillero casilleroActual = elemento.getValue();
+		}
+		// System.out.println(tab.getCasilleros().keySet());
+		for (Integer elemento : tab.getCasilleros().keySet()) {
+
+			Casillero casilleroActual = tab.getCasilleros().get(elemento);
 			handler.addObject(new Spot(casilleroActual.getPosicionX(), casilleroActual.getPosicionY(), 0, ObjectId.Spot,
 					casilleroActual));
 			// System.out.println("x - " + casilleroActual.getPosicionX() + " - " +
@@ -193,12 +206,11 @@ public class Game extends Canvas implements Runnable {
 			// System.out.println("y - " + casilleroActual.getPosicionY() + " - " +
 			// casilleroActual.getPosicionY() / 32);
 			matrizMapa[casilleroActual.getPosicionX() / 32][casilleroActual.getPosicionY() / 32] = 1;
-
 			/* Caminos */
 			for (Casillero sig : casilleroActual.getSiguiente()) {
+
 				int x = casilleroActual.getPosicionX();
 				int y = casilleroActual.getPosicionY();
-
 				while (x != sig.getPosicionX()) {
 					if (x > sig.getPosicionX()) {
 						x -= 32;
@@ -207,6 +219,8 @@ public class Game extends Canvas implements Runnable {
 						x += 32;
 						casilleroActual.setCaminoDerecha(true);
 					}
+					System.out.println("Va uno nuevo" + sig.getPosicionX());
+
 					handler.addObject(new Road(x, y, 0, ObjectId.Road));
 					matrizMapa[x / 32][y / 32] = 1;
 

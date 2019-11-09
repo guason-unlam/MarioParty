@@ -35,7 +35,7 @@ public class Handler {
 	/* Carga un objeto a la lista de objetos a mostrar */
 	public void addObject(GameObject object) {
 		this.object.add(object);
-		System.out.println("Ahora tengo");
+		System.out.println(object.toString());
 
 
 	}

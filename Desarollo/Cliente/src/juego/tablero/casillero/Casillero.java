@@ -67,6 +67,8 @@ public class Casillero {
 		} else {
 			this.color = Color.GREEN;
 		}
+		System.out.println("ANT "+anteriores.size());
+		System.out.println("SIG "+siguientes.size());
 		this.anteriores = anteriores;
 		this.siguientes = siguientes;
 	}

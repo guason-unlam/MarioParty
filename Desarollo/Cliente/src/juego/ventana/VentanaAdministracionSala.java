@@ -562,22 +562,35 @@ public class VentanaAdministracionSala extends JFrame {
 			JsonArray arrayAnteriores = jsonValue.getJsonArray("anteriores");
 			ArrayList<Casillero> anteriores = new ArrayList<Casillero>();
 			for (int j = 0; j < arrayAnteriores.size(); j++) {
-				Casillero casilleroAnterior = new Casillero(jsonValue.getInt("id"), jsonValue.getInt("x"),
-						jsonValue.getInt("y"), jsonValue.getBoolean("primeraVez"),
-						jsonValue.getBoolean("tieneArbolito"), jsonValue.getBoolean("tieneRecompensa"));
+				JsonObject jsonValueAnt = arrayAnteriores.getJsonObject(j);
+
+				Casillero casilleroAnterior = new Casillero(jsonValueAnt.getInt("id"), jsonValueAnt.getInt("x"),
+						jsonValueAnt.getInt("y"), jsonValueAnt.getBoolean("primeraVez"),
+						jsonValueAnt.getBoolean("tieneArbolito"), jsonValueAnt.getBoolean("tieneRecompensa"));
 				anteriores.add(casilleroAnterior);
 			}
 			JsonArray arraySiguientes = jsonValue.getJsonArray("siguientes");
 			ArrayList<Casillero> siguientes = new ArrayList<Casillero>();
 			for (int j = 0; j < arraySiguientes.size(); j++) {
-				Casillero casilleroSiguiente = new Casillero(jsonValue.getInt("id"), jsonValue.getInt("x"),
-						jsonValue.getInt("y"), jsonValue.getBoolean("primeraVez"),
-						jsonValue.getBoolean("tieneArbolito"), jsonValue.getBoolean("tieneRecompensa"));
-				anteriores.add(casilleroSiguiente);
+				JsonObject jsonValueSig = arraySiguientes.getJsonObject(j);
+				Casillero casilleroSiguiente = new Casillero(jsonValueSig.getInt("id"), jsonValueSig.getInt("x"),
+						jsonValueSig.getInt("y"), jsonValueSig.getBoolean("primeraVez"),
+						jsonValueSig.getBoolean("tieneArbolito"), jsonValueSig.getBoolean("tieneRecompensa"));
+				siguientes.add(casilleroSiguiente);
 			}
 			Casillero casillero = new Casillero(jsonValue.getInt("id"), jsonValue.getInt("x"), jsonValue.getInt("y"),
 					jsonValue.getBoolean("primeraVez"), jsonValue.getBoolean("tieneArbolito"),
 					jsonValue.getBoolean("tieneRecompensa"), anteriores, siguientes);
+			Casillero act = casillero;
+			System.out.println("Casillero " + act.getId());
+			System.out.println("Anteriores: ");
+			for (Casillero cas : act.getAnteriores()) {
+				System.out.print(cas.getId() + " ");
+			}
+			System.out.println("Siguientes: ");
+			for (Casillero cas : act.getSiguiente()) {
+				System.out.print(cas.getId() + " ");
+			}
 			casilleros.put(jsonValue.getInt("id"), casillero);
 		}
 		Tablero tablero = new Tablero(casilleros);
