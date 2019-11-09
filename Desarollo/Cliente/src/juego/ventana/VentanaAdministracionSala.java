@@ -51,7 +51,7 @@ public class VentanaAdministracionSala extends JFrame {
 	 * 
 	 */
 	private static final long serialVersionUID = -3071454957161090149L;
-	private JFrame lobby;
+	private VentanaLobby lobby;
 	private JPanel panel;
 	private JButton btnJoin;
 	private JButton btnVolver;
@@ -86,7 +86,7 @@ public class VentanaAdministracionSala extends JFrame {
 	private boolean esAdmin;
 	private Game game;
 
-	public VentanaAdministracionSala(JFrame ventanaLobby, String nombreSala, boolean esAdmin) {
+	public VentanaAdministracionSala(VentanaLobby ventanaLobby, String nombreSala, boolean esAdmin) {
 		this.esAdmin = esAdmin;
 		// Me guardo la referencia para hacerlo visible, etc
 		this.lobby = ventanaLobby;
@@ -449,17 +449,18 @@ public class VentanaAdministracionSala extends JFrame {
 		TipoCondicionVictoria condicion = (TipoCondicionVictoria) condicionVictoria.getSelectedItem();
 		String mapa = (String) comboMapa.getSelectedItem();
 
-		/* if (!Cliente.getConexionInterna().usuariosEnSala()) {
-			JOptionPane.showMessageDialog(this, "Hay usuarios aun en la partida", "Atencion!",
-					JOptionPane.INFORMATION_MESSAGE);
-			return;
-		}*/
+		/*
+		 * if (!Cliente.getConexionInterna().usuariosEnSala()) {
+		 * JOptionPane.showMessageDialog(this, "Hay usuarios aun en la partida",
+		 * "Atencion!", JOptionPane.INFORMATION_MESSAGE); return; }
+		 */
 
 		// LE AVISO AL SERVER QUE VA A ARRANCAR
-		/*if (Cliente.getConexionInterna().comenzarJuego(totalBots, totalRondas, condicion, mapa) == false) {
-			System.out.println("Error al crear el juego");
-			return;
-		}*/
+		/*
+		 * if (Cliente.getConexionInterna().comenzarJuego(totalBots, totalRondas,
+		 * condicion, mapa) == false) { System.out.println("Error al crear el juego");
+		 * return; }
+		 */
 		JsonObject paquetePedirMinijuego = Json.createObjectBuilder().add("type", Constantes.NOTICE_ARRANCAR_JUEGO)
 				.add("sala", nombreSala).build();
 
@@ -545,8 +546,10 @@ public class VentanaAdministracionSala extends JFrame {
 
 	}
 
-	public void prepararArranqueJuego() {
-		game = new Game();
+	public void prepararArranqueJuego(JsonObject entradaJson) {
+		JsonArray arrayUsuariosConectados = entradaJson.getJsonArray("tablero");
+//Aca voy a meter el tablero, que recibo via json
+		// game = new Game(this.lobby.getUsuario(), tablero);
 		new GameWindow(800, 600, "Mario Party Prototipo", game);
 		this.setVisible(false);
 	}

@@ -26,7 +26,7 @@ public class VentanaLobby extends JFrame implements ActionListener {
 	private static final long serialVersionUID = 9099821102113802071L;
 	private JButton btnEntrarEnSala;
 	private JButton btnCrearSala;
-	private JFrame ventanaLobby;
+	private VentanaLobby ventanaLobby;
 	private Usuario usuario;
 	private JButton btnHistorial;
 	private Musica musica;
@@ -181,5 +181,33 @@ public class VentanaLobby extends JFrame implements ActionListener {
 		}
 
 		System.out.println(comStr + " Selected");
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
+	public JButton getBtnEntrarEnSala() {
+		return btnEntrarEnSala;
+	}
+
+	public JButton getBtnCrearSala() {
+		return btnCrearSala;
+	}
+
+	public JFrame getVentanaLobby() {
+		return ventanaLobby;
+	}
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public JButton getBtnHistorial() {
+		return btnHistorial;
+	}
+
+	public Musica getMusica() {
+		return musica;
 	}
 }
