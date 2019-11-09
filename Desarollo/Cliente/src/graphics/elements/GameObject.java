@@ -6,7 +6,13 @@ import java.util.LinkedList;
 
 public abstract class GameObject {
 
-//	posicion de los objetos
+@Override
+	public String toString() {
+		return "GameObject [x=" + x + ", y=" + y + ", id=" + id + ", velX=" + velX + ", velY=" + velY
+				+ ", enMovimientoX=" + enMovimientoX + ", enMovimientoY=" + enMovimientoY + "]";
+	}
+
+	//	posicion de los objetos
 	protected float x, y;
 	protected ObjectId id;
 	protected float velX = 0, velY = 0;

@@ -52,7 +52,6 @@ public class Game extends Canvas implements Runnable {
 	public Game(Usuario usuario, Tablero tablero) {
 		this.usuario = usuario;
 		this.tab = tablero;
-		this.jugadorActual = this.usuario.getJugador();
 	}
 
 	public void init() {
@@ -77,6 +76,18 @@ public class Game extends Canvas implements Runnable {
 				matrizMapa[i][j] = 0;
 
 		leerTablero(tab);
+		Jugador jugador;
+
+		jugador = new Jugador(tab.getCasilleros().get(0), 0, ObjectId.Player);
+		// Lo seteo al primer casillero
+		jugador.setPosicion(tab.getCasilleros().get(0));
+		// Aca se estan creando los personajes, hardcodeado todos los jugadores con el
+		// mismo personaje
+		jugador.setPersonaje(0);
+		jugador.setNombre(usuario.getUsername());
+		jugador.setPosicion(tab.getCasilleros().get(0)); // pongo los personajes en el primer casillero
+		usuario.setJugador(jugador);
+		this.jugadorActual = jugador;
 		handler.addObject(jugadorActual);
 
 	}
