@@ -86,12 +86,15 @@ public class VentanaAdministracionSala extends JFrame {
 	private JLabel labelCondicionVictoria;
 	private int totalRondas;
 	private Musica musica;
-	private String nombreSala;
-	private boolean esAdmin;
-	private Game game;
+    private String nombreSala;
+    private boolean esAdmin;
+    private Game game;
+    private JComboBox<Object> comboBoxEstilo;
+    private JLabel lblEstilo;
+    private JLabel labelEstilo;
 
-	public VentanaAdministracionSala(VentanaLobby ventanaLobby, String nombreSala, boolean esAdmin) {
-		this.esAdmin = esAdmin;
+    public VentanaAdministracionSala(VentanaLobby ventanaLobby, String nombreSala, boolean esAdmin) {
+        this.esAdmin = esAdmin;
 		// Me guardo la referencia para hacerlo visible, etc
 		this.lobby = ventanaLobby;
 		this.musica = new Musica(Constantes.MUSICA_SELECT);
@@ -123,29 +126,29 @@ public class VentanaAdministracionSala extends JFrame {
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 30));
 		lblNewLabel.setBounds(10, 0, 430, 46);
 
-		panel.add(lblNewLabel);
-		panel2 = new JPanel();
-		panel2.setLocation(144, 214);
-		panel2.setSize(50, 50);
+        panel.add(lblNewLabel);
+        panel2 = new JPanel();
+        panel2.setLocation(143, 234);
+        panel2.setSize(50, 50);
 
-		labelLeft = new JLabel("");
-		labelLeft.setIcon(new ImageIcon(
-				new ImageIcon(Constantes.ARROW_LEFT).getImage().getScaledInstance(32, 32, Image.SCALE_DEFAULT)));
-		labelLeft.setFont(new Font("Tahoma", Font.BOLD, 17));
-		labelLeft.setBounds(110, 224, 32, 32);
+        labelLeft = new JLabel("");
+        labelLeft.setIcon(new ImageIcon(
+                new ImageIcon(Constantes.ARROW_LEFT).getImage().getScaledInstance(32, 32, Image.SCALE_DEFAULT)));
+        labelLeft.setFont(new Font("Tahoma", Font.BOLD, 17));
+        labelLeft.setBounds(109, 244, 32, 32);
 
-		getContentPane().add(panel2);
-		getContentPane().add(labelLeft);
+        getContentPane().add(panel2);
+        getContentPane().add(labelLeft);
 
 		labelRight = new JLabel("");
 		labelRight.setFont(new Font("Tahoma", Font.BOLD, 17));
-		labelRight.setIcon(new ImageIcon(
-				new ImageIcon(Constantes.ARROW_RIGHT).getImage().getScaledInstance(32, 32, Image.SCALE_DEFAULT)));
-		labelRight.setFont(new Font("Tahoma", Font.BOLD, 17));
-		labelRight.setBounds(196, 224, 32, 32);
-		panel.add(labelRight);
+        labelRight.setIcon(new ImageIcon(
+                new ImageIcon(Constantes.ARROW_RIGHT).getImage().getScaledInstance(32, 32, Image.SCALE_DEFAULT)));
+        labelRight.setFont(new Font("Tahoma", Font.BOLD, 17));
+        labelRight.setBounds(195, 244, 32, 32);
+        panel.add(labelRight);
 
-		labelsIconos = new ArrayList<JLabel>();
+        labelsIconos = new ArrayList<JLabel>();
 
 		try {
 			imageSheet = ImageIO
@@ -177,12 +180,12 @@ public class VentanaAdministracionSala extends JFrame {
 		lblUsuariosConectados.setSize(lblUsuariosConectados.getPreferredSize());
 		getContentPane().add(lblUsuariosConectados);
 
-		lblPersonaje = new JLabel("Personaje");
-		lblPersonaje.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblPersonaje.setBounds(11, 221, 64, 32);
-		panel.add(lblPersonaje);
+        lblPersonaje = new JLabel("Personaje");
+        lblPersonaje.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        lblPersonaje.setBounds(10, 239, 64, 32);
+        panel.add(lblPersonaje);
 
-		JLabel labelMapa = new JLabel("Mapa");
+        JLabel labelMapa = new JLabel("Mapa");
 		labelMapa.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		labelMapa.setBounds(10, 132, 98, 20);
 		panel.add(labelMapa);
@@ -258,12 +261,27 @@ public class VentanaAdministracionSala extends JFrame {
 		JLabel lblCondicin = new JLabel();
 		lblCondicin.setText("Condici\u00F3n");
 		lblCondicin.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblCondicin.setBounds(10, 57, 151, 20);
-		panel.add(lblCondicin);
+        lblCondicin.setBounds(10, 57, 151, 20);
+        panel.add(lblCondicin);
+        
+        comboBoxEstilo = new JComboBox<Object>();
+        comboBoxEstilo.setToolTipText("Debe seleccionar cantidad de bots");
+        comboBoxEstilo.setBounds(109, 203, 130, 20);
+        panel.add(comboBoxEstilo);
+        
+        lblEstilo = new JLabel();
+        lblEstilo.setText("Estilo");
+        lblEstilo.setFont(new Font("Tahoma", Font.PLAIN, 14));
+        lblEstilo.setBounds(10, 203, 151, 20);
+        panel.add(lblEstilo);
+        
+        labelEstilo = new JLabel("-");
+        labelEstilo.setBounds(109, 203, 130, 20);
+        panel.add(labelEstilo);
 
-		// Si es admin, le muestro algunas cosas, si no otras
-		if (esAdmin) {
-			comboMapa.setEnabled(true);
+        // Si es admin, le muestro algunas cosas, si no otras
+        if (esAdmin) {
+            comboMapa.setEnabled(true);
 			comboCantRondas.setEnabled(true);
 			mapaParaNoAdmin.setVisible(false);
 			cantidadDeBotsLabel.setVisible(false);
