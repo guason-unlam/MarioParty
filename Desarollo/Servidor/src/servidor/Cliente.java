@@ -156,6 +156,27 @@ public class Cliente extends Thread {
 						this.salida.writeUTF(new Message(Constantes.JOIN_ROOM_INCORRECT, false).toJson());
 					}
 					break;
+				case Constantes.JOIN_ROOM_REQUEST_PASSWORD:
+					properties = new Gson().fromJson((String) message.getData(), Properties.class);
+
+					String nombreSala = properties.getProperty("sala");
+					String pw = properties.getProperty("password");
+
+					sala = Servidor.getSalaPorNombre(nombreSala);
+					if (sala.getPassword().equals(pw)) {
+						if (sala.getCapacidadActual() + 1 <= sala.getCapacidadMaxima()) {
+							usuario.setSala(sala);
+
+							this.salida.writeUTF(
+									new Message(Constantes.JOIN_ROOM_CORRECT, sala.agregarUsuario(usuario)).toJson());
+						} else {
+
+							this.salida.writeUTF(new Message(Constantes.JOIN_ROOM_INCORRECT, false).toJson());
+						}
+					} else {
+						this.salida.writeUTF(new Message(Constantes.INCORRECT_PW, false).toJson());
+					}
+					break;
 				case Constantes.LOGOUT_REQUEST:
 					usuario = new Gson().fromJson((String) message.getData(), Usuario.class);
 					for (Usuario usuarioEnServer : Servidor.getUsuariosActivos()) {

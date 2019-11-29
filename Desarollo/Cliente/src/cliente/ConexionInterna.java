@@ -217,7 +217,8 @@ public class ConexionInterna extends Thread {
 				// Depende el tipo de la respuesta
 				switch (this.message.getType()) {
 				case Constantes.NOTICE_EMPEZA_JUEGO_CLIENTE:
-					Coordinador.ventanaAdministracionSala.prepararArranqueJuego(((JsonObjectBuilder) this.message.getData()).build());
+					Coordinador.ventanaAdministracionSala
+							.prepararArranqueJuego(((JsonObjectBuilder) this.message.getData()).build());
 				}
 			} catch (JsonSyntaxException | IOException e) {
 				// TODO Auto-generated catch block
@@ -225,6 +226,32 @@ public class ConexionInterna extends Thread {
 			}
 
 		}
+	}
+
+	public int unirseASala(String sala, String pw) {
+		try {
+			String request = Json.createObjectBuilder().add("sala", sala).add("password", pw).build().toString();
+
+			this.salidaDatos.writeUTF(new Message(Constantes.JOIN_ROOM_REQUEST_PASSWORD, request).toJson());
+			while (true) {
+				// Leo lo enviado por el sv
+				this.message = new Gson().fromJson(entradaDatos.readUTF(), Message.class);
+				System.out.println(this.message.getType());
+				// Depende el tipo de la respuesta
+				switch (this.message.getType()) {
+				case Constantes.JOIN_ROOM_CORRECT:
+					return 1;
+				case Constantes.JOIN_ROOM_INCORRECT:
+					return -1;
+				case Constantes.INCORRECT_PW:
+					return -2;
+				}
+			}
+
+		} catch (Exception ex) {
+			System.out.println("[INGRESAR A SALA] " + ex.getMessage());
+		}
+		return -1;
 	}
 
 }

@@ -100,5 +100,7 @@ public abstract class Constantes {
 	public static final String CONDICION_VICTORIA = "condicionVictoria";
 	public static final String CANTIDAD_BOTS = "cantidadBots";
 	public static final String NOTICE_EMPEZA_JUEGO_CLIENTE = "arrancaLaPartidaaaaaa";
+	public static final String JOIN_ROOM_REQUEST_PASSWORD = "JoinRoomPW";
+	public static final String INCORRECT_PW = "pwIncorrecta";
 	public static int NUMERO_DE_BOT = 1;
 }
