@@ -185,7 +185,7 @@ public class VentanaAdministracionSala extends JFrame {
         lblPersonaje.setBounds(10, 239, 64, 32);
         panel.add(lblPersonaje);
 
-        JLabel labelMapa = new JLabel("Mapa");
+        JLabel labelMapa = new JLabel("Tam mapa");
 		labelMapa.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		labelMapa.setBounds(10, 132, 98, 20);
 		panel.add(labelMapa);
@@ -270,7 +270,7 @@ public class VentanaAdministracionSala extends JFrame {
         panel.add(comboBoxEstilo);
         
         lblEstilo = new JLabel();
-        lblEstilo.setText("Estilo");
+        lblEstilo.setText("Estilo mapa");
         lblEstilo.setFont(new Font("Tahoma", Font.PLAIN, 14));
         lblEstilo.setBounds(10, 203, 151, 20);
         panel.add(lblEstilo);
@@ -286,6 +286,7 @@ public class VentanaAdministracionSala extends JFrame {
 			mapaParaNoAdmin.setVisible(false);
 			cantidadDeBotsLabel.setVisible(false);
 			labelCondicionVictoria.setVisible(false);
+			labelEstilo.setVisible(false);
 		} else {
 			comboMapa.setVisible(false);
 			// Solo el admin puede arrancar la partida
@@ -297,6 +298,8 @@ public class VentanaAdministracionSala extends JFrame {
 			cantidadDeBotsComboBox.setVisible(false);
 			condicionVictoria.setVisible(false);
 			labelCondicionVictoria.setVisible(true);
+			labelEstilo.setVisible(true);
+			comboBoxEstilo.setVisible(false);
 
 		}
 		modelUsuariosLista.addElement(VentanaLogin.nombreUser);

@@ -6,6 +6,11 @@ import java.util.List;
 
 import javax.json.Json;
 import javax.json.JsonObject;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 import juego.personas.Jugador;
 import juego.tablero.MiniJuego;
@@ -26,8 +31,12 @@ public class Ronda implements Serializable {
 	private int numeroRonda = 0;
 
 //	Falta la referencia al minijuego, pero como aun no esta creado no lo pongo, pero deber�a ser un
-//	ArrayList de minijuegos, y elejis uno al azar que no haya salido
+//	ArrayList de minijuegos, y elejis uno al azar que no haya salido	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Basic
 	private int id;
+	@Column(name = "minigame")
 	private MiniJuego minijuego;
 	private List<Jugador> jugadoresEnPartida;
 	private int jugadoresRestantes;

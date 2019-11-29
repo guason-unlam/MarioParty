@@ -2,20 +2,39 @@ package juego.lobby;
 
 import java.util.ArrayList;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+
 import com.google.gson.JsonObject;
 
 import juego.personas.Jugador;
 
+@Table(name = "USER", uniqueConstraints = { @UniqueConstraint(columnNames = "ID") })
 public class Usuario {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "ID", unique = true, nullable = false)
 	private int id;
 	private String username;
 	private String password;
+	// ACA HAGO EL N A N
+	@ManyToMany(cascade = CascadeType.ALL)
+	@JoinTable(name = "partida", joinColumns = { @JoinColumn(referencedColumnName = "ID") }, inverseJoinColumns = {
+			@JoinColumn(referencedColumnName = "ID") })
 	private ArrayList<Partida> partidasJugadas;
 	private int puntaje;
 	private Sala sala;
 	private Jugador jugador;
 	private boolean estaJugando = false;
-	
+
 	public boolean isEstaJugando() {
 		return estaJugando;
 	}

@@ -2,15 +2,30 @@
 <!DOCTYPE hibernate-configuration PUBLIC
 "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
- 
+
 <hibernate-configuration>
 	<session-factory>
 		<property name="hibernate.connection.driver_class">org.sqlite.JDBC</property>
 		<property name="hibernate.connection.url">jdbc:sqlite:../../db/usuarios.sqlite</property>
 		<property name="hibernate.dialect">com.enigmabridge.hibernate.dialect.SQLiteDialect</property>
-		<property name="show_sql">false</property>
+		<property name="hibernate.hbm2ddl.auto">create</property>
+		<property name="show_sql">true</property>
 		<property name="format_sql">true</property>
+		
 		<mapping resource="juego/lobby/usuario.hbm.xml" />
-		<mapping class="juego.lobby.Usuario" package="juego.lobby" resource="/juego.lobby.Usuario.hbm.xml"/>
+		<mapping class="juego.lobby.Usuario" package="juego.lobby"
+			resource="/juego.lobby.Usuario.hbm.xml" />
+			
+		<mapping resource="juego/lobby/partida.hbm.xml" />
+		<mapping class="juego.lobby.Partida" package="juego.lobby"
+			resource="/juego.lobby.Partida.hbm.xml" />
+			
+		<mapping resource="juego/lobby/ronda.hbm.xml" />
+		<mapping class="juego.lobby.Ronda" package="juego.lobby"
+			resource="/juego.lobby.Ronda.hbm.xml" />
+			
+		<mapping resource="juego/tablero/MiniJuego.hbm.xml" />
+		<mapping class="juego.tablero.MiniJuego"
+			package="juego.tablero" resource="/juego.tablero.MiniJuego.hbm.xml" />
 	</session-factory>
 </hibernate-configuration>
