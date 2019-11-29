@@ -3,11 +3,11 @@
 <hibernate-mapping>
 	<class name="juego.lobby.Partida" table="Partida">
 		<id column="id" name="id" type="int" />
-		<property column="map" name="map" type="string" />
-		<property column="winner" name="winner" type="string" />
-		<property column="rounds" name="rounds" type="int" />
-		<property column="win_condition" name="win_condition"
+		<property column="map" name="tipoMapa" type="string" />
+		<property column="winner" name="ganador" type="string" />
+		<property column="rounds" name="cantidadDeRondasAJugar" type="int" />
+		<property column="win_condition" name="condicionVictoria"
 			type="string" />
-		<property column="highscore" name="highscore" type="int" />
+		<property column="highscore" name="puntajeMaximo" type="int" />
 	</class>
 </hibernate-mapping>

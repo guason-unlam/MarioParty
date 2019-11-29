@@ -117,7 +117,7 @@ public class Partida {
 		 */
 		if (this.partidaEnCurso == true) {
 			numeroRonda++;
-			rondaEnCurso = new Ronda(jugadoresEnPartida, this.tablero);
+			rondaEnCurso = new Ronda(this, jugadoresEnPartida, this.tablero);
 			this.iniciarJuego();
 			rondasJugadas.add(rondaEnCurso);
 			System.out.println("");

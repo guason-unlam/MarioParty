@@ -41,9 +41,10 @@ public class Ronda implements Serializable {
 	private List<Jugador> jugadoresEnPartida;
 	private int jugadoresRestantes;
 	private boolean jugando = false;
+	private int partida;
 
-	public Ronda(ArrayList<Jugador> jugadoresEnPartida, Tablero tablero) {
-
+	public Ronda(Partida partida, ArrayList<Jugador> jugadoresEnPartida, Tablero tablero) {
+		this.partida = partida.getId();
 		this.jugadoresEnPartida = jugadoresEnPartida;
 		this.jugadoresRestantes = jugadoresEnPartida.size();
 		this.tablero = tablero;
@@ -170,6 +171,50 @@ public class Ronda implements Serializable {
 ////			resultadosDados.values().
 //		}
 //	}
+
+	public Tablero getTablero() {
+		return tablero;
+	}
+
+	public void setTablero(Tablero tablero) {
+		this.tablero = tablero;
+	}
+
+	public int getSegundosTranscurridos() {
+		return segundosTranscurridos;
+	}
+
+	public void setSegundosTranscurridos(int segundosTranscurridos) {
+		this.segundosTranscurridos = segundosTranscurridos;
+	}
+
+	public long getCurrentTimeMillis() {
+		return currentTimeMillis;
+	}
+
+	public void setCurrentTimeMillis(long currentTimeMillis) {
+		this.currentTimeMillis = currentTimeMillis;
+	}
+
+	public int getNumeroRonda() {
+		return numeroRonda;
+	}
+
+	public void setNumeroRonda(int numeroRonda) {
+		this.numeroRonda = numeroRonda;
+	}
+
+	public int getPartida() {
+		return partida;
+	}
+
+	public void setPartida(int partida) {
+		this.partida = partida;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
 
 //	public class resultadoLanzamiento implements Comparable<resultadoLanzamiento>{
 //		Jugador jugador;
