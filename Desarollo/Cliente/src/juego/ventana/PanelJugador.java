@@ -3,6 +3,8 @@ package juego.ventana;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -72,7 +74,38 @@ public class PanelJugador extends JPanel {
 		});
 		add(btnPasar);
 
+		btnLanzarDado.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				if (e.getKeyCode() == VentanaConfiguracion.getLanzarDadoId()) {
+					juego.avanzarJugador(juego.jugadorActual.tirarDado());
+				}
+			}
+		});
+		
+		
+		btnPasar.addKeyListener(new KeyAdapter(){
+			@Override
+			public void keyReleased(KeyEvent e){
+				if(e.getKeyCode() == VentanaConfiguracion.getPasarId()){
+					
+				}
+			}
+		});
+		
+		btnUsarItem.addKeyListener(new KeyAdapter(){
+			@Override
+			public void keyReleased(KeyEvent e){
+				if(e.getKeyCode() == VentanaConfiguracion.getUsarItemId()){
+					
+				}
+			}
+		});
 	}
+	
+	
+	
+	
 
 	public synchronized static void desactivarBotones() {
 		btnLanzarDado.setEnabled(false);
