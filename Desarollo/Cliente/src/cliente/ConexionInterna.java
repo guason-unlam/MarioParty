@@ -217,8 +217,7 @@ public class ConexionInterna extends Thread {
 				// Depende el tipo de la respuesta
 				switch (this.message.getType()) {
 				case Constantes.NOTICE_EMPEZA_JUEGO_CLIENTE:
-					Coordinador.ventanaAdministracionSala
-							.prepararArranqueJuego(((JsonObjectBuilder) this.message.getData()).build());
+					return true;
 				}
 			} catch (JsonSyntaxException | IOException e) {
 				// TODO Auto-generated catch block
@@ -236,7 +235,7 @@ public class ConexionInterna extends Thread {
 			while (true) {
 				// Leo lo enviado por el sv
 				this.message = new Gson().fromJson(entradaDatos.readUTF(), Message.class);
- 				// Depende el tipo de la respuesta
+				// Depende el tipo de la respuesta
 				switch (this.message.getType()) {
 				case Constantes.JOIN_ROOM_CORRECT:
 					return 1;

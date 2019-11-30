@@ -55,7 +55,7 @@ public class VentanaAdministracionSala extends JFrame {
 	 * 
 	 */
 	private static final long serialVersionUID = -3071454957161090149L;
-	private VentanaLobby lobby;
+	private JFrame lobby;
 	private JPanel panel;
 	private JButton btnJoin;
 	private JButton btnVolver;
@@ -86,15 +86,15 @@ public class VentanaAdministracionSala extends JFrame {
 	private JLabel labelCondicionVictoria;
 	private int totalRondas;
 	private Musica musica;
-    private String nombreSala;
-    private boolean esAdmin;
-    private Game game;
-    private JComboBox<Object> comboBoxEstilo;
-    private JLabel lblEstilo;
-    private JLabel labelEstilo;
+	private String nombreSala;
+	private boolean esAdmin;
+	private Game game;
+	private JComboBox<Object> comboBoxEstilo;
+	private JLabel lblEstilo;
+	private JLabel labelEstilo;
 
-    public VentanaAdministracionSala(VentanaLobby ventanaLobby, String nombreSala, boolean esAdmin) {
-        this.esAdmin = esAdmin;
+	public VentanaAdministracionSala(JFrame ventanaLobby, String nombreSala, boolean esAdmin) {
+		this.esAdmin = esAdmin;
 		// Me guardo la referencia para hacerlo visible, etc
 		this.lobby = ventanaLobby;
 		this.musica = new Musica(Constantes.MUSICA_SELECT);
@@ -126,29 +126,29 @@ public class VentanaAdministracionSala extends JFrame {
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 30));
 		lblNewLabel.setBounds(10, 0, 430, 46);
 
-        panel.add(lblNewLabel);
-        panel2 = new JPanel();
-        panel2.setLocation(143, 234);
-        panel2.setSize(50, 50);
+		panel.add(lblNewLabel);
+		panel2 = new JPanel();
+		panel2.setLocation(143, 234);
+		panel2.setSize(50, 50);
 
-        labelLeft = new JLabel("");
-        labelLeft.setIcon(new ImageIcon(
-                new ImageIcon(Constantes.ARROW_LEFT).getImage().getScaledInstance(32, 32, Image.SCALE_DEFAULT)));
-        labelLeft.setFont(new Font("Tahoma", Font.BOLD, 17));
-        labelLeft.setBounds(109, 244, 32, 32);
+		labelLeft = new JLabel("");
+		labelLeft.setIcon(new ImageIcon(
+				new ImageIcon(Constantes.ARROW_LEFT).getImage().getScaledInstance(32, 32, Image.SCALE_DEFAULT)));
+		labelLeft.setFont(new Font("Tahoma", Font.BOLD, 17));
+		labelLeft.setBounds(109, 244, 32, 32);
 
-        getContentPane().add(panel2);
-        getContentPane().add(labelLeft);
+		getContentPane().add(panel2);
+		getContentPane().add(labelLeft);
 
 		labelRight = new JLabel("");
 		labelRight.setFont(new Font("Tahoma", Font.BOLD, 17));
-        labelRight.setIcon(new ImageIcon(
-                new ImageIcon(Constantes.ARROW_RIGHT).getImage().getScaledInstance(32, 32, Image.SCALE_DEFAULT)));
-        labelRight.setFont(new Font("Tahoma", Font.BOLD, 17));
-        labelRight.setBounds(195, 244, 32, 32);
-        panel.add(labelRight);
+		labelRight.setIcon(new ImageIcon(
+				new ImageIcon(Constantes.ARROW_RIGHT).getImage().getScaledInstance(32, 32, Image.SCALE_DEFAULT)));
+		labelRight.setFont(new Font("Tahoma", Font.BOLD, 17));
+		labelRight.setBounds(195, 244, 32, 32);
+		panel.add(labelRight);
 
-        labelsIconos = new ArrayList<JLabel>();
+		labelsIconos = new ArrayList<JLabel>();
 
 		try {
 			imageSheet = ImageIO
@@ -180,12 +180,12 @@ public class VentanaAdministracionSala extends JFrame {
 		lblUsuariosConectados.setSize(lblUsuariosConectados.getPreferredSize());
 		getContentPane().add(lblUsuariosConectados);
 
-        lblPersonaje = new JLabel("Personaje");
-        lblPersonaje.setFont(new Font("Tahoma", Font.PLAIN, 15));
-        lblPersonaje.setBounds(10, 239, 64, 32);
-        panel.add(lblPersonaje);
+		lblPersonaje = new JLabel("Personaje");
+		lblPersonaje.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblPersonaje.setBounds(10, 239, 64, 32);
+		panel.add(lblPersonaje);
 
-        JLabel labelMapa = new JLabel("Tam mapa");
+		JLabel labelMapa = new JLabel("Tam mapa");
 		labelMapa.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		labelMapa.setBounds(10, 132, 98, 20);
 		panel.add(labelMapa);
@@ -261,27 +261,42 @@ public class VentanaAdministracionSala extends JFrame {
 		JLabel lblCondicin = new JLabel();
 		lblCondicin.setText("Condici\u00F3n");
 		lblCondicin.setFont(new Font("Tahoma", Font.PLAIN, 14));
-        lblCondicin.setBounds(10, 57, 151, 20);
-        panel.add(lblCondicin);
-        
-        comboBoxEstilo = new JComboBox<Object>();
-        comboBoxEstilo.setToolTipText("Debe seleccionar cantidad de bots");
-        comboBoxEstilo.setBounds(109, 203, 130, 20);
-        panel.add(comboBoxEstilo);
-        
-        lblEstilo = new JLabel();
-        lblEstilo.setText("Estilo mapa");
-        lblEstilo.setFont(new Font("Tahoma", Font.PLAIN, 14));
-        lblEstilo.setBounds(10, 203, 151, 20);
-        panel.add(lblEstilo);
-        
-        labelEstilo = new JLabel("-");
-        labelEstilo.setBounds(109, 203, 130, 20);
-        panel.add(labelEstilo);
+		lblCondicin.setBounds(10, 57, 151, 20);
+		panel.add(lblCondicin);
 
-        // Si es admin, le muestro algunas cosas, si no otras
-        if (esAdmin) {
-            comboMapa.setEnabled(true);
+		comboBoxEstilo = new JComboBox<Object>();
+		comboBoxEstilo.setToolTipText("Debe seleccionar cantidad de bots");
+		comboBoxEstilo.setBounds(109, 203, 130, 20);
+		panel.add(comboBoxEstilo);
+
+		lblEstilo = new JLabel();
+		lblEstilo.setText("Estilo mapa");
+		lblEstilo.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblEstilo.setBounds(10, 203, 151, 20);
+		panel.add(lblEstilo);
+
+		labelEstilo = new JLabel("-");
+		labelEstilo.setBounds(109, 203, 130, 20);
+		panel.add(labelEstilo);
+
+		comboBoxEstilo = new JComboBox<Object>();
+		comboBoxEstilo.setToolTipText("Debe seleccionar cantidad de bots");
+		comboBoxEstilo.setBounds(109, 203, 130, 20);
+		panel.add(comboBoxEstilo);
+
+		lblEstilo = new JLabel();
+		lblEstilo.setText("Estilo mapa");
+		lblEstilo.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblEstilo.setBounds(10, 203, 151, 20);
+		panel.add(lblEstilo);
+
+		labelEstilo = new JLabel("-");
+		labelEstilo.setBounds(109, 203, 130, 20);
+		panel.add(labelEstilo);
+
+		// Si es admin, le muestro algunas cosas, si no otras
+		if (esAdmin) {
+			comboMapa.setEnabled(true);
 			comboCantRondas.setEnabled(true);
 			mapaParaNoAdmin.setVisible(false);
 			cantidadDeBotsLabel.setVisible(false);
@@ -308,24 +323,26 @@ public class VentanaAdministracionSala extends JFrame {
 
 	private void addListener() {
 		// Cosas internas
-		btnJoin.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-
-				switch (actual) {
-				case 1:
-					System.out.println("Elegiste Mario!");
-					break;
-				case 2:
-					System.out.println("Elegiste Luigi!");
-					break;
-				case 3:
-					System.out.println("Elegiste Yoshi!");
-					break;
-				}
-			}
-		});
-		// Listener que se encarga de mostrar u ocultar la contraseï¿½a
+//		btnJoin.addActionListener(new ActionListener() {
+//			@Override
+//			public void actionPerformed(ActionEvent arg0) {
+//
+//				switch (actual) {
+//				case 1:
+//					System.out.println("Elegiste Mario!");
+//					break;
+//				case 2:
+//					System.out.println("Elegiste Luigi!");
+//					break;
+//				case 3:
+//					System.out.println("Elegiste Yoshi!");
+//					break;
+//				}
+//				
+//
+//			}
+//		});
+		// Listener que se encarga de mostrar u ocultar la contrase�a
 		labelLeft.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -481,27 +498,28 @@ public class VentanaAdministracionSala extends JFrame {
 		 */
 
 		// LE AVISO AL SERVER QUE VA A ARRANCAR
-
-		if (Cliente.getConexionInterna().comenzarJuego(totalBots, totalRondas, condicion, mapa) == false) {
-			System.out.println("Error al crear el juego");
-			return;
-		}
-
-		/*
-		 * JsonObject paquetePedirMinijuego = Json.createObjectBuilder().add("type",
-		 * Constantes.NOTICE_ARRANCAR_JUEGO) .add("sala", nombreSala).build();
-		 * 
-		 * // Le aviso al sv que estoy listo para jugar
-		 * Cliente.getConexionServidor().enviarAlServidor(paquetePedirMinijuego);
-		 */
+//		/* if ( */Cliente.getConexionInterna().comenzarJuego(totalBots, totalRondas, condicion, mapa);/* == false) { */
+//			System.out.println("Error al crear el juego");
+//			return;
+//		} else {
+		// Si no creo el thread, no funciona porque queda "colgado"
+		new Thread(() -> {
+			Cliente.getConexionInterna().comenzarJuego(totalBots, totalRondas, condicion, mapa);
+		}).start();
+		Coordinador.ventanaAdministracionSala.prepararArranqueJuego();
+//		}
+//		JsonObject paquetePedirMinijuego = Json.createObjectBuilder().add("type", Constantes.NOTICE_ARRANCAR_JUEGO)
+//				.add("sala", nombreSala).build();
+//
+//		// Le aviso al sv que estoy listo para jugar
+//		Cliente.getConexionServidor().enviarAlServidor(paquetePedirMinijuego);
 	}
 
 	protected void validacionBotonJugar() {
 		if (comboMapa.getSelectedIndex() != 0 && comboCantRondas.getSelectedIndex() != 0
-		/*
-		 * && (this.listUsuarios.getModel().getSize() >= 2 ||
-		 * this.cantidadDeBotsComboBox.getSelectedIndex() != 0)
-		 */) {
+
+				&& (this.listUsuarios.getModel().getSize() >= 2
+						|| this.cantidadDeBotsComboBox.getSelectedIndex() != 0)) {
 			btnJoin.setEnabled(true);
 		} else {
 			btnJoin.setEnabled(false);
@@ -574,49 +592,8 @@ public class VentanaAdministracionSala extends JFrame {
 
 	}
 
-	public void prepararArranqueJuego(JsonObject entradaJson) {
-		System.out.println(entradaJson.toString());
-		Map<Integer, Casillero> casilleros = new TreeMap<Integer, Casillero>();
-		JsonArray arrayCasilleros = entradaJson.getJsonArray("tablero");
-		for (int i = 0; i < arrayCasilleros.size(); i++) {
-			JsonObject jsonValue = arrayCasilleros.getJsonObject(i);
-			JsonArray arrayAnteriores = jsonValue.getJsonArray("anteriores");
-			ArrayList<Casillero> anteriores = new ArrayList<Casillero>();
-			for (int j = 0; j < arrayAnteriores.size(); j++) {
-				JsonObject jsonValueAnt = arrayAnteriores.getJsonObject(j);
-
-				Casillero casilleroAnterior = new Casillero(jsonValueAnt.getInt("id"), jsonValueAnt.getInt("x"),
-						jsonValueAnt.getInt("y"), jsonValueAnt.getBoolean("primeraVez"),
-						jsonValueAnt.getBoolean("tieneArbolito"), jsonValueAnt.getBoolean("tieneRecompensa"));
-				anteriores.add(casilleroAnterior);
-			}
-			JsonArray arraySiguientes = jsonValue.getJsonArray("siguientes");
-			ArrayList<Casillero> siguientes = new ArrayList<Casillero>();
-			for (int j = 0; j < arraySiguientes.size(); j++) {
-				JsonObject jsonValueSig = arraySiguientes.getJsonObject(j);
-				Casillero casilleroSiguiente = new Casillero(jsonValueSig.getInt("id"), jsonValueSig.getInt("x"),
-						jsonValueSig.getInt("y"), jsonValueSig.getBoolean("primeraVez"),
-						jsonValueSig.getBoolean("tieneArbolito"), jsonValueSig.getBoolean("tieneRecompensa"));
-				siguientes.add(casilleroSiguiente);
-			}
-			Casillero casillero = new Casillero(jsonValue.getInt("id"), jsonValue.getInt("x"), jsonValue.getInt("y"),
-					jsonValue.getBoolean("primeraVez"), jsonValue.getBoolean("tieneArbolito"),
-					jsonValue.getBoolean("tieneRecompensa"), anteriores, siguientes);
-			Casillero act = casillero;
-			System.out.println("Casillero " + act.getId());
-			System.out.println("Anteriores: ");
-			for (Casillero cas : act.getAnteriores()) {
-				System.out.print(cas.getId() + " ");
-			}
-			System.out.println("Siguientes: ");
-			for (Casillero cas : act.getSiguiente()) {
-				System.out.print(cas.getId() + " ");
-			}
-			casilleros.put(jsonValue.getInt("id"), casillero);
-		}
-		Tablero tablero = new Tablero(casilleros);
-//Aca voy a meter el tablero, que recibo via json
-		game = new Game(this.lobby.getUsuario(), tablero);
+	public void prepararArranqueJuego() {
+		game = new Game();
 		new GameWindow(800, 600, "Mario Party Prototipo", game);
 		this.setVisible(false);
 	}

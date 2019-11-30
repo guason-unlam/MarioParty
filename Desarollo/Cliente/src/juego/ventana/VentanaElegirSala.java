@@ -26,7 +26,7 @@ public class VentanaElegirSala extends JFrame {
 	 * 
 	 */
 	private static final long serialVersionUID = -8985049683108599509L;
-	private VentanaLobby lobby;
+	private JFrame lobby;
 	private JPanel panel;
 	private JButton btnJoin;
 	private JButton btnVolver;
@@ -36,7 +36,7 @@ public class VentanaElegirSala extends JFrame {
 	private ModelTableRooms modelTableRooms = new ModelTableRooms();
 	private VentanaElegirSala ventana;
 
-	public VentanaElegirSala(VentanaLobby ventanaLobby) {
+	public VentanaElegirSala(JFrame ventanaLobby) {
 		// Me guardo la referencia para hacerlo visible, etc
 		this.lobby = ventanaLobby;
 

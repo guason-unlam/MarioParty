@@ -59,7 +59,7 @@ public class Coordinador extends Thread {
 					ventanaElegirSala.setVisible(true);
 					break;
 				case Constantes.NOTICE_EMPEZA_JUEGO_CLIENTE:
-					Coordinador.ventanaAdministracionSala.prepararArranqueJuego(entradaJson);
+					Coordinador.ventanaAdministracionSala.prepararArranqueJuego();
 					break;
 				default:
 					break;

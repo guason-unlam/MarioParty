@@ -49,7 +49,7 @@ public class Cliente extends Thread {
 			try {
 				String cadena = this.entrada.readUTF();
 				Message message = new Gson().fromJson(cadena, Message.class);
-				System.out.println("RECIBIDO" + message.getType());
+				System.out.println("RECIBIDO " + message.getType());
 				switch (message.getType()) {
 				// LOGIN
 				case Constantes.LOGIN_REQUEST:
