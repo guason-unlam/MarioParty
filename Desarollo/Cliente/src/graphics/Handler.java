@@ -24,7 +24,6 @@ public class Handler {
 	public void render(Graphics g) {
 
 		for (int i = 0; i < object.size(); i++) {
-
 			tempObject = object.get(i);
 
 			tempObject.render(g);
@@ -36,6 +35,7 @@ public class Handler {
 	/* Carga un objeto a la lista de objetos a mostrar */
 	public void addObject(GameObject object) {
 		this.object.add(object);
+
 	}
 
 	/* Saca un objeto a la lista de objetos a mostrar */

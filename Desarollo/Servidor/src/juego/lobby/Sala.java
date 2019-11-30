@@ -192,8 +192,8 @@ public class Sala {
 			for (Usuario userActivo : this.usuariosActivos) {
 				for (ConexionServidor cs : Servidor.getServidoresConectados()) {
 					if (cs.getUsuario().equals(userActivo)) {
-						cs.escribirSalida(
-								Json.createObjectBuilder().add("type", Constantes.NOTICE_EMPEZA_JUEGO_CLIENTE).build());
+						cs.escribirSalida(Json.createObjectBuilder().add("type", Constantes.NOTICE_EMPEZA_JUEGO_CLIENTE)
+								.add("tablero", this.partidaActual.getTablero().toJson()).build());
 					}
 				}
 			}

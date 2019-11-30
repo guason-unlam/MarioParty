@@ -4,15 +4,24 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.StringReader;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.json.Json;
+import javax.json.JsonArray;
 import javax.json.JsonObject;
+import javax.json.JsonReader;
+import javax.json.JsonString;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import cliente.Cliente;
 import cliente.Musica;
@@ -77,11 +86,11 @@ public class VentanaLobby extends JFrame implements ActionListener {
 			}
 		});
 		btnHistorial.setForeground(Color.BLACK);
+		btnHistorial.setBackground(Color.GREEN);
 		btnHistorial.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		btnHistorial.setBackground(Color.LIGHT_GRAY);
+
 		btnHistorial.setBounds(34, 171, 120, 58);
 		btnHistorial.setFocusPainted(false);
-		btnHistorial.setEnabled(false);
 		getContentPane().add(btnHistorial);
 
 		JLabel lblBienvenida = new JLabel("Hola " + usuario.getUsername() + "!");
@@ -131,14 +140,28 @@ public class VentanaLobby extends JFrame implements ActionListener {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				VentanaHistorial ventanaHistorial = new VentanaHistorial(ventanaLobby);
+				String datosEstadisticos = Cliente.getConexionInterna().obtenerEstadisticas(usuario.getUsername());
+				String datosTabla = Cliente.getConexionInterna().obtenerEstadisticasTabla(usuario.getUsername());
 
-				// Muestro la ventana de historial
-				ventanaHistorial.setVisible(true);
+				if (datosEstadisticos != null && datosTabla != null) {
+					Map<String, Object> estadisticas = new Gson().fromJson(datosEstadisticos,
+							new TypeToken<HashMap<String, Object>>() {
+							}.getType());
+					JsonReader jsonReader = Json.createReader(new StringReader(datosTabla));
+					JsonObject entradaJson = jsonReader.readObject();
+					JsonArray datosTablaFormateados = entradaJson.getJsonArray("datosHistorial");
+					VentanaHistorial ventanaHistorial = new VentanaHistorial(estadisticas, datosTablaFormateados,
+							ventanaLobby);
 
-				// Oculto la sala actual
-				ventanaLobby.setVisible(false);
+					// Muestro la ventana de historial
+					ventanaHistorial.setVisible(true);
 
+					// Oculto la sala actual
+					ventanaLobby.setVisible(false);
+				} else {
+					JOptionPane.showMessageDialog(null, "Ocurrio un error, por favor intentelo nuevamente.", "Error",
+							JOptionPane.ERROR_MESSAGE);
+				}
 			}
 		});
 

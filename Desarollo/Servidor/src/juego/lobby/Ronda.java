@@ -6,6 +6,11 @@ import java.util.List;
 
 import javax.json.Json;
 import javax.json.JsonObject;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 import juego.personas.Jugador;
 import juego.tablero.MiniJuego;
@@ -26,15 +31,20 @@ public class Ronda implements Serializable {
 	private int numeroRonda = 0;
 
 //	Falta la referencia al minijuego, pero como aun no esta creado no lo pongo, pero deber�a ser un
-//	ArrayList de minijuegos, y elejis uno al azar que no haya salido
+//	ArrayList de minijuegos, y elejis uno al azar que no haya salido	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Basic
 	private int id;
+	@Column(name = "minigame")
 	private MiniJuego minijuego;
 	private List<Jugador> jugadoresEnPartida;
 	private int jugadoresRestantes;
 	private boolean jugando = false;
+	private int partida;
 
-	public Ronda(ArrayList<Jugador> jugadoresEnPartida, Tablero tablero) {
-
+	public Ronda(Partida partida, ArrayList<Jugador> jugadoresEnPartida, Tablero tablero) {
+		this.partida = partida.getId();
 		this.jugadoresEnPartida = jugadoresEnPartida;
 		this.jugadoresRestantes = jugadoresEnPartida.size();
 		this.tablero = tablero;
@@ -161,6 +171,50 @@ public class Ronda implements Serializable {
 ////			resultadosDados.values().
 //		}
 //	}
+
+	public Tablero getTablero() {
+		return tablero;
+	}
+
+	public void setTablero(Tablero tablero) {
+		this.tablero = tablero;
+	}
+
+	public int getSegundosTranscurridos() {
+		return segundosTranscurridos;
+	}
+
+	public void setSegundosTranscurridos(int segundosTranscurridos) {
+		this.segundosTranscurridos = segundosTranscurridos;
+	}
+
+	public long getCurrentTimeMillis() {
+		return currentTimeMillis;
+	}
+
+	public void setCurrentTimeMillis(long currentTimeMillis) {
+		this.currentTimeMillis = currentTimeMillis;
+	}
+
+	public int getNumeroRonda() {
+		return numeroRonda;
+	}
+
+	public void setNumeroRonda(int numeroRonda) {
+		this.numeroRonda = numeroRonda;
+	}
+
+	public int getPartida() {
+		return partida;
+	}
+
+	public void setPartida(int partida) {
+		this.partida = partida;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
 
 //	public class resultadoLanzamiento implements Comparable<resultadoLanzamiento>{
 //		Jugador jugador;

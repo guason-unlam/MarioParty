@@ -5,7 +5,13 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.Properties;
+
+import javax.json.Json;
+import javax.json.JsonArrayBuilder;
+import javax.json.JsonObject;
+import javax.json.JsonObjectBuilder;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
@@ -43,7 +49,7 @@ public class Cliente extends Thread {
 			try {
 				String cadena = this.entrada.readUTF();
 				Message message = new Gson().fromJson(cadena, Message.class);
-				System.out.println("RECIBIDO" + message.getType());
+				System.out.println("RECIBIDO " + message.getType());
 				switch (message.getType()) {
 				// LOGIN
 				case Constantes.LOGIN_REQUEST:
@@ -156,6 +162,27 @@ public class Cliente extends Thread {
 						this.salida.writeUTF(new Message(Constantes.JOIN_ROOM_INCORRECT, false).toJson());
 					}
 					break;
+				case Constantes.JOIN_ROOM_REQUEST_PASSWORD:
+					properties = new Gson().fromJson((String) message.getData(), Properties.class);
+
+					String nombreSala = properties.getProperty("sala");
+					String pw = properties.getProperty("password");
+
+					sala = Servidor.getSalaPorNombre(nombreSala);
+					if (sala.getPassword().equals(pw)) {
+						if (sala.getCapacidadActual() + 1 <= sala.getCapacidadMaxima()) {
+							usuario.setSala(sala);
+
+							this.salida.writeUTF(
+									new Message(Constantes.JOIN_ROOM_CORRECT, sala.agregarUsuario(usuario)).toJson());
+						} else {
+
+							this.salida.writeUTF(new Message(Constantes.JOIN_ROOM_INCORRECT, false).toJson());
+						}
+					} else {
+						this.salida.writeUTF(new Message(Constantes.INCORRECT_PW, false).toJson());
+					}
+					break;
 				case Constantes.LOGOUT_REQUEST:
 					usuario = new Gson().fromJson((String) message.getData(), Usuario.class);
 					for (Usuario usuarioEnServer : Servidor.getUsuariosActivos()) {
@@ -180,7 +207,7 @@ public class Cliente extends Thread {
 					}
 					this.salida.writeUTF(new Message(Constantes.NOTICE_TODOS_EN_SALA, todosEnSala).toJson());
 					break;
-				/*case Constantes.NOTICE_ARRANCAR_JUEGO:
+				case Constantes.NOTICE_ARRANCAR_JUEGO:
 					properties = new Gson().fromJson((String) message.getData(), Properties.class);
 
 					int cantidadBots = Integer.valueOf(properties.getProperty(Constantes.CANTIDAD_BOTS));
@@ -203,7 +230,49 @@ public class Cliente extends Thread {
 						sala.getPartidaActual().agregarBotAPartida(new Bot());
 					}
 					sala.comenzarPartida();
-					break;*/
+					break;
+				// HISTORIAL
+				case Constantes.HISTORIAL:
+					properties = new Gson().fromJson((String) message.getData(), Properties.class);
+
+					Map<String, Object> estadisticas = UsuarioDAO
+							.obtenerEstadisticas(properties.getProperty("username"));
+
+					if (estadisticas == null) {
+						this.salida.flush();
+						this.salida.writeUTF(new Message(Constantes.INCORRECT_HISTORIAL, null).toJson());
+						System.out.println("[ESTADISTICAS] El usuario " + properties.getProperty("username")
+								+ " fallo al solicitar las estadisticas.");
+					} else {
+
+						this.salida.flush();
+						this.salida.writeUTF(
+								new Message(Constantes.CORRECT_HISTORIAL, new Gson().toJson(estadisticas)).toJson());
+						System.out.println("[ESTADISTICAS] El usuario " + properties.getProperty("username")
+								+ " solicito estadisticas.");
+					}
+					break;
+				case Constantes.SOLICITUD_TABLA_PARTIDAS:
+
+					properties = new Gson().fromJson((String) message.getData(), Properties.class);
+
+					JsonArrayBuilder datosHistorial = UsuarioDAO
+							.obtenerEstadisticasHistorial(properties.getProperty("username"));
+					JsonObjectBuilder paqueteActualizacionDeSalas = Json.createObjectBuilder();
+					if (datosHistorial == null) {
+						this.salida.flush();
+						this.salida.writeUTF(new Message(Constantes.INCORRECT_TABLA_PARTIDA, null).toJson());
+						System.out.println("[TABLA PARTIDA] El usuario " + properties.getProperty("username")
+								+ " fallo al solicitar las estadisticas.");
+					} else {
+						String cadenaSalida = paqueteActualizacionDeSalas.add("type", Constantes.TABLA_PARTIDAS)
+								.add("datosHistorial", datosHistorial).build().toString();
+						this.salida.flush();
+						this.salida.writeUTF(new Message(Constantes.TABLA_PARTIDAS, cadenaSalida).toJson());
+						System.out.println("[TABLA PARTIDA] El usuario " + properties.getProperty("username")
+								+ " solicito estadisticas.");
+					}
+					break;
 				default:
 					break;
 				}
@@ -237,6 +306,7 @@ public class Cliente extends Thread {
 			}
 		}
 		Servidor.desconectar(this);
+
 	}
 
 	public DataOutputStream getSalida() {

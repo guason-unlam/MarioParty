@@ -15,7 +15,7 @@ public class Coordinador extends Thread {
 
 	private static VentanaElegirSala ventanaElegirSala;
 	private static JsonArray datosDeSalasDisponibles;
-	private static VentanaAdministracionSala ventanaAdministracionSala;
+	public static VentanaAdministracionSala ventanaAdministracionSala;
 
 	public Coordinador() {
 		this.start();

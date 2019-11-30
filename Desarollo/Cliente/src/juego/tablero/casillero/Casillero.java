@@ -16,6 +16,7 @@ public class Casillero {
 	private int id;
 	// Color del casillero
 	private Color color;
+
 	// Posicion fisica en el tablero
 	private int posicionX;
 	private int posicionY;
@@ -50,6 +51,37 @@ public class Casillero {
 		this.color = Color.GREEN;
 		if (id != 0) {// el 0 es la posicion inicial, no va a tener recompensa
 			ponerRecompensa();
+		}
+	}
+
+	public Casillero(int id, int x, int y, boolean primeraVez, boolean tieneArbolito, boolean tieneRecompensa,
+			ArrayList<Casillero> anteriores, ArrayList<Casillero> siguientes) {
+		this.id = id;
+		this.posicionX = x;
+		this.posicionY = y;
+		this.primeraVez = primeraVez;
+		this.tieneArbolito = tieneArbolito;
+		this.tieneRecompensa = tieneRecompensa;
+		if (this.tieneRecompensa) {
+			this.color = Color.YELLOW;
+		} else {
+			this.color = Color.GREEN;
+		}
+		this.anteriores = anteriores;
+		this.siguientes = siguientes;
+	}
+
+	public Casillero(int id, int x, int y, boolean primeraVez, boolean tieneArbolito, boolean tieneRecompensa) {
+		this.id = id;
+		this.posicionX = x;
+		this.posicionY = y;
+		this.primeraVez = primeraVez;
+		this.tieneArbolito = tieneArbolito;
+		this.tieneRecompensa = tieneRecompensa;
+		if (this.tieneRecompensa) {
+			this.color = Color.YELLOW;
+		} else {
+			this.color = Color.GREEN;
 		}
 	}
 
@@ -117,12 +149,12 @@ public class Casillero {
 		this.siguientes = siguiente;
 	}
 
-	public ArrayList<Casillero> getAnteriores() {
-		return anteriores;
-	}
-
 	public void setAnterior(ArrayList<Casillero> anteriores) {
 		this.anteriores = anteriores;
+	}
+
+	public ArrayList<Casillero> getAnteriores() {
+		return anteriores;
 	}
 
 	public int getId() {

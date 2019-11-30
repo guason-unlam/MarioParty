@@ -32,7 +32,9 @@ public class VentanaElegirSala extends JFrame {
 	private JButton btnVolver;
 	private JTable tableSalas;
 	private String sala;
+	private String esSalaPrivada;
 	private ModelTableRooms modelTableRooms = new ModelTableRooms();
+	private VentanaElegirSala ventana;
 
 	public VentanaElegirSala(JFrame ventanaLobby) {
 		// Me guardo la referencia para hacerlo visible, etc
@@ -68,6 +70,7 @@ public class VentanaElegirSala extends JFrame {
 		scrollPane.setViewportView(tableSalas);
 
 		this.addListener();
+		this.ventana = this;
 	}
 
 	private void addListener() {
@@ -76,7 +79,14 @@ public class VentanaElegirSala extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 
 				if (!(sala == null)) {
-					entrarEnSala(sala);
+					System.out.println("ESTOY ACA " + esSalaPrivada);
+					if (esSalaPrivada.equals("Si")) {
+						VentanaSalaPrivada ventanaSalaPrivada = new VentanaSalaPrivada(ventana, sala);
+						ventanaSalaPrivada.setVisible(true);
+						ventana.setVisible(false);
+					} else {
+						entrarEnSala(sala);
+					}
 				} else {
 					JOptionPane.showMessageDialog(null, "Seleccione una sala", "Error", JOptionPane.ERROR_MESSAGE);
 				}
@@ -89,7 +99,14 @@ public class VentanaElegirSala extends JFrame {
 				// El doble click
 				if (event.getClickCount() == 2) {
 					if (!(sala == null)) {
-						entrarEnSala(sala);
+						System.out.println("ESTOY ACA " + esSalaPrivada);
+						if (esSalaPrivada.equals("Si")) {
+							VentanaSalaPrivada ventanaSalaPrivada = new VentanaSalaPrivada(ventana, sala);
+							ventanaSalaPrivada.setVisible(true);
+							ventana.setVisible(false);
+						} else {
+							entrarEnSala(sala);
+						}
 					} else {
 						JOptionPane.showMessageDialog(null, "Seleccione una sala", "Sala no seleccionada",
 								JOptionPane.ERROR_MESSAGE);
@@ -97,7 +114,8 @@ public class VentanaElegirSala extends JFrame {
 				} else {
 					int fila = tableSalas.rowAtPoint(event.getPoint());
 					sala = (String) tableSalas.getValueAt(fila, 0);
-
+					// Obtengo si la sala es privada
+					esSalaPrivada = (String) tableSalas.getValueAt(fila, 3);
 				}
 			}
 
@@ -124,6 +142,7 @@ public class VentanaElegirSala extends JFrame {
 	}
 
 	private void entrarEnSala(String sala) {
+
 		if (Cliente.getConexionInterna().unirseASala(sala)) {
 			VentanaAdministracionSala ventanaSala = new VentanaAdministracionSala(lobby, sala, false);
 			Coordinador.setVentanaAdministracionSala(ventanaSala);
@@ -139,6 +158,39 @@ public class VentanaElegirSala extends JFrame {
 			JOptionPane.showMessageDialog(null, "Sala llena o con partida en curso, por favor seleccione otra.",
 					"Error al ingresar", JOptionPane.WARNING_MESSAGE);
 		}
+
+	}
+
+	/**
+	 * METODO PARA ENTRAR A SALAS PRIVADAS
+	 * 
+	 * @param sala
+	 * @param pw
+	 */
+	private void entrarEnSala(String sala, String pw) {
+		int resp = Cliente.getConexionInterna().unirseASala(sala, pw);
+		if (resp == 1) {
+			VentanaAdministracionSala ventanaSala = new VentanaAdministracionSala(lobby, sala, false);
+			Coordinador.setVentanaAdministracionSala(ventanaSala);
+
+			JsonObject joinRoomRequest = Json.createObjectBuilder().add("type", Constantes.JOIN_ROOM_SV_REQUEST)
+					.add("sala", sala).build();
+
+			Cliente.getConexionServidor().enviarAlServidor(joinRoomRequest);
+
+			this.setVisible(false);
+			ventanaSala.setVisible(true);
+		} else if (resp == -1) {
+			ventana.setVisible(true);
+			JOptionPane.showMessageDialog(null, "Sala llena o con partida en curso, por favor seleccione otra.",
+					"Error al ingresar", JOptionPane.WARNING_MESSAGE);
+		} else {
+			ventana.setVisible(true);
+
+			JOptionPane.showMessageDialog(null, "La contraseña suministrada no es correcta.", "Error al ingresar",
+					JOptionPane.WARNING_MESSAGE);
+		}
+
 	}
 
 	public void indexSalas(JsonArray datosDeSalasDisponibles) {
@@ -164,4 +216,7 @@ public class VentanaElegirSala extends JFrame {
 		this.tableSalas.setModel(this.modelTableRooms);
 	}
 
+	public void setearPw(String sala, String pw) {
+		entrarEnSala(this.sala, pw);
+	}
 }

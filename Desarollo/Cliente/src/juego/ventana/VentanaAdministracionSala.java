@@ -18,6 +18,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.ListIterator;
+import java.util.Map;
+import java.util.TreeMap;
 
 import javax.imageio.ImageIO;
 import javax.json.Json;
@@ -44,6 +46,8 @@ import graphics.Game;
 import graphics.GameWindow;
 import juego.Constantes;
 import juego.lobby.TipoCondicionVictoria;
+import juego.tablero.Tablero;
+import juego.tablero.casillero.Casillero;
 
 public class VentanaAdministracionSala extends JFrame {
 
@@ -85,6 +89,9 @@ public class VentanaAdministracionSala extends JFrame {
 	private String nombreSala;
 	private boolean esAdmin;
 	private Game game;
+	private JComboBox<Object> comboBoxEstilo;
+	private JLabel lblEstilo;
+	private JLabel labelEstilo;
 
 	public VentanaAdministracionSala(JFrame ventanaLobby, String nombreSala, boolean esAdmin) {
 		this.esAdmin = esAdmin;
@@ -121,14 +128,14 @@ public class VentanaAdministracionSala extends JFrame {
 
 		panel.add(lblNewLabel);
 		panel2 = new JPanel();
-		panel2.setLocation(144, 214);
+		panel2.setLocation(143, 234);
 		panel2.setSize(50, 50);
 
 		labelLeft = new JLabel("");
 		labelLeft.setIcon(new ImageIcon(
 				new ImageIcon(Constantes.ARROW_LEFT).getImage().getScaledInstance(32, 32, Image.SCALE_DEFAULT)));
 		labelLeft.setFont(new Font("Tahoma", Font.BOLD, 17));
-		labelLeft.setBounds(110, 224, 32, 32);
+		labelLeft.setBounds(109, 244, 32, 32);
 
 		getContentPane().add(panel2);
 		getContentPane().add(labelLeft);
@@ -138,7 +145,7 @@ public class VentanaAdministracionSala extends JFrame {
 		labelRight.setIcon(new ImageIcon(
 				new ImageIcon(Constantes.ARROW_RIGHT).getImage().getScaledInstance(32, 32, Image.SCALE_DEFAULT)));
 		labelRight.setFont(new Font("Tahoma", Font.BOLD, 17));
-		labelRight.setBounds(196, 224, 32, 32);
+		labelRight.setBounds(195, 244, 32, 32);
 		panel.add(labelRight);
 
 		labelsIconos = new ArrayList<JLabel>();
@@ -175,10 +182,10 @@ public class VentanaAdministracionSala extends JFrame {
 
 		lblPersonaje = new JLabel("Personaje");
 		lblPersonaje.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblPersonaje.setBounds(11, 221, 64, 32);
+		lblPersonaje.setBounds(10, 239, 64, 32);
 		panel.add(lblPersonaje);
 
-		JLabel labelMapa = new JLabel("Mapa");
+		JLabel labelMapa = new JLabel("Tam mapa");
 		labelMapa.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		labelMapa.setBounds(10, 132, 98, 20);
 		panel.add(labelMapa);
@@ -257,6 +264,21 @@ public class VentanaAdministracionSala extends JFrame {
 		lblCondicin.setBounds(10, 57, 151, 20);
 		panel.add(lblCondicin);
 
+		comboBoxEstilo = new JComboBox<Object>();
+		comboBoxEstilo.setToolTipText("Debe seleccionar cantidad de bots");
+		comboBoxEstilo.setBounds(109, 203, 130, 20);
+		panel.add(comboBoxEstilo);
+
+		lblEstilo = new JLabel();
+		lblEstilo.setText("Estilo mapa");
+		lblEstilo.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblEstilo.setBounds(10, 203, 151, 20);
+		panel.add(lblEstilo);
+
+		labelEstilo = new JLabel("-");
+		labelEstilo.setBounds(109, 203, 130, 20);
+		panel.add(labelEstilo);
+
 		// Si es admin, le muestro algunas cosas, si no otras
 		if (esAdmin) {
 			comboMapa.setEnabled(true);
@@ -264,6 +286,7 @@ public class VentanaAdministracionSala extends JFrame {
 			mapaParaNoAdmin.setVisible(false);
 			cantidadDeBotsLabel.setVisible(false);
 			labelCondicionVictoria.setVisible(false);
+			labelEstilo.setVisible(false);
 		} else {
 			comboMapa.setVisible(false);
 			// Solo el admin puede arrancar la partida
@@ -275,6 +298,8 @@ public class VentanaAdministracionSala extends JFrame {
 			cantidadDeBotsComboBox.setVisible(false);
 			condicionVictoria.setVisible(false);
 			labelCondicionVictoria.setVisible(true);
+			labelEstilo.setVisible(true);
+			comboBoxEstilo.setVisible(false);
 
 		}
 		modelUsuariosLista.addElement(VentanaLogin.nombreUser);
@@ -283,23 +308,25 @@ public class VentanaAdministracionSala extends JFrame {
 
 	private void addListener() {
 		// Cosas internas
-		btnJoin.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-
-				switch (actual) {
-				case 1:
-					System.out.println("Elegiste Mario!");
-					break;
-				case 2:
-					System.out.println("Elegiste Luigi!");
-					break;
-				case 3:
-					System.out.println("Elegiste Yoshi!");
-					break;
-				}
-			}
-		});
+//		btnJoin.addActionListener(new ActionListener() {
+//			@Override
+//			public void actionPerformed(ActionEvent arg0) {
+//
+//				switch (actual) {
+//				case 1:
+//					System.out.println("Elegiste Mario!");
+//					break;
+//				case 2:
+//					System.out.println("Elegiste Luigi!");
+//					break;
+//				case 3:
+//					System.out.println("Elegiste Yoshi!");
+//					break;
+//				}
+//				
+//
+//			}
+//		});
 		// Listener que se encarga de mostrar u ocultar la contrase�a
 		labelLeft.addMouseListener(new MouseAdapter() {
 			@Override
@@ -449,22 +476,28 @@ public class VentanaAdministracionSala extends JFrame {
 		TipoCondicionVictoria condicion = (TipoCondicionVictoria) condicionVictoria.getSelectedItem();
 		String mapa = (String) comboMapa.getSelectedItem();
 
-		/* if (!Cliente.getConexionInterna().usuariosEnSala()) {
-			JOptionPane.showMessageDialog(this, "Hay usuarios aun en la partida", "Atencion!",
-					JOptionPane.INFORMATION_MESSAGE);
-			return;
-		}*/
+		/*
+		 * if (!Cliente.getConexionInterna().usuariosEnSala()) {
+		 * JOptionPane.showMessageDialog(this, "Hay usuarios aun en la partida",
+		 * "Atencion!", JOptionPane.INFORMATION_MESSAGE); return; }
+		 */
 
 		// LE AVISO AL SERVER QUE VA A ARRANCAR
-		/*if (Cliente.getConexionInterna().comenzarJuego(totalBots, totalRondas, condicion, mapa) == false) {
-			System.out.println("Error al crear el juego");
-			return;
-		}*/
-		JsonObject paquetePedirMinijuego = Json.createObjectBuilder().add("type", Constantes.NOTICE_ARRANCAR_JUEGO)
-				.add("sala", nombreSala).build();
-
-		// Le aviso al sv que estoy listo para jugar
-		Cliente.getConexionServidor().enviarAlServidor(paquetePedirMinijuego);
+//		/* if ( */Cliente.getConexionInterna().comenzarJuego(totalBots, totalRondas, condicion, mapa);/* == false) { */
+//			System.out.println("Error al crear el juego");
+//			return;
+//		} else {
+		// Si no creo el thread, no funciona porque queda "colgado"
+		new Thread(() -> {
+			Cliente.getConexionInterna().comenzarJuego(totalBots, totalRondas, condicion, mapa);
+		}).start();
+		Coordinador.ventanaAdministracionSala.prepararArranqueJuego();
+//		}
+//		JsonObject paquetePedirMinijuego = Json.createObjectBuilder().add("type", Constantes.NOTICE_ARRANCAR_JUEGO)
+//				.add("sala", nombreSala).build();
+//
+//		// Le aviso al sv que estoy listo para jugar
+//		Cliente.getConexionServidor().enviarAlServidor(paquetePedirMinijuego);
 	}
 
 	protected void validacionBotonJugar() {
