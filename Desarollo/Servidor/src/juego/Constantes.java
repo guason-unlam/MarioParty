@@ -1,7 +1,5 @@
 package juego;
 
-import javax.json.JsonValue;
-
 public abstract class Constantes {
 	public static final String ASSETS_PATH = "assets/";
 	public static final String IMAGEN_PATH = "img/";
@@ -10,7 +8,7 @@ public abstract class Constantes {
 	public static final String MUSICA_SELECT = ASSETS_PATH + SOUND_PATH + "sala.wav";
 
 	// SERVIDOR
-	public static final String IP = "0.0.0.0";
+	public static final String IP = "192.168.1.10";
 	public static final int MAXIMAS_CONEXIONES_SIMULTANEAS = 10;
 
 	// PAR CLIENTE->SERVIDOR
