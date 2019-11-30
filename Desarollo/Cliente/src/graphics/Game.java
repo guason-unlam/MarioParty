@@ -38,22 +38,19 @@ public class Game extends Canvas implements Runnable {
 
 	static Texture tex;
 
+	private Partida partida;
+
 	private GameWindow ventana;
 
 	private Tablero tab;
-
-	private Usuario usuario;
+	
+	
 	public Jugador jugadorActual; // el personaje q esta jugando actualmente
 	private int numeroJugadorActual = 0;
 	private static int[][] matrizMapa = new int[25][18];
-
+	
+	
 	private static final long serialVersionUID = 7245467516827418593L;
-
-	public Game(Usuario usuario, Tablero tablero) {
-		this.usuario = usuario;
-		this.tab = tablero;
-		this.jugadorActual = this.usuario.getJugador();
-	}
 
 	public void init() {
 
@@ -70,15 +67,19 @@ public class Game extends Canvas implements Runnable {
 
 //		loadImageMap(map);
 //		Tablero tab;
-
-		// Inicializo el array
+		List<Usuario> usuarios = new ArrayList<Usuario>(); // creo los usuarios aca, temporalmente
+		usuarios.add(new Usuario("nombre1", "contrasenia"));
+		usuarios.add(new Usuario("nombre2", "contrasenia"));
+		partida = new Partida(usuarios, 10);
 		for (int i = 0; i < 25; i++)
 			for (int j = 0; j < 18; j++)
 				matrizMapa[i][j] = 0;
-
+		tab = partida.getTablero();
 		leerTablero(tab);
-		handler.addObject(jugadorActual);
-
+		for (Jugador jugador : partida.getJugadoresEnPartida()) {
+			handler.addObject(jugador);
+		}
+		jugadorActual = partida.getJugadoresEnPartida().get(0);
 	}
 
 	public synchronized void start() {
@@ -229,7 +230,7 @@ public class Game extends Canvas implements Runnable {
 			if (jugadorActual.caminosDisponibles() == 1) {
 
 				jugadorActual.avanzarUnCasillero();
-
+				
 			} else {
 				String[] caminos = new String[jugadorActual.caminosDisponibles()];
 				for (int j = 0; j < jugadorActual.caminosDisponibles(); j++) {
@@ -269,6 +270,22 @@ public class Game extends Canvas implements Runnable {
 			jugadorActual.getPosicion().setRecompensa(null);
 			jugadorActual.getPosicion().setTieneRecompensa(false);
 		}
+	}
+
+	public void continuar() {
+		siguienteJugador();
+	}
+
+	private void siguienteJugador() {
+		numeroJugadorActual++;
+
+		if (numeroJugadorActual >= partida.getJugadoresEnPartida().size()) {// aca termino la ronda, se lanzaria el
+																			// minijuego
+			numeroJugadorActual = 0;
+		}
+		jugadorActual = partida.getJugadoresEnPartida().get(numeroJugadorActual);
+		ventana.getPanelJugador().setNombreJugador("Turno de " + jugadorActual.getNombre());
+		ventana.getPanelConsola().agregarTexto("Comienza turno de " + jugadorActual.getNombre());
 	}
 
 	public static int hayCamino(double d, double e) {

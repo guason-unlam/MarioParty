@@ -166,7 +166,7 @@ public class VentanaCrearSala extends JFrame {
 				}
 			}
 		});
-		// Listener que se encarga de mostrar u ocultar la contraseña
+		// Listener que se encarga de mostrar u ocultar la contraseï¿½a
 		lb.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -203,19 +203,19 @@ public class VentanaCrearSala extends JFrame {
 	private void crearSala() {
 		// Primero hago todas las validaciones correspondientes
 		if (this.textFieldName.getText().isEmpty()) {
-			JOptionPane.showMessageDialog(null, "Inserte un nombre de sala", "Atención", JOptionPane.WARNING_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Inserte un nombre de sala", "Atenciï¿½n", JOptionPane.WARNING_MESSAGE);
 			return;
 		}
 
 		if (this.textFieldSlots.getText().isEmpty()) {
-			JOptionPane.showMessageDialog(null, "La cantidad de usuarios no puede ser nula", "Atención",
+			JOptionPane.showMessageDialog(null, "La cantidad de usuarios no puede ser nula", "Atenciï¿½n",
 					JOptionPane.WARNING_MESSAGE);
 			return;
 		}
 
 		if (!this.textFieldSlots.getText().matches("[0-9]+") || (Integer.valueOf(this.textFieldSlots.getText()) < 2
 				|| Integer.valueOf(this.textFieldSlots.getText()) > 100)) {
-			JOptionPane.showMessageDialog(null, "La capacidad debe ser entre 2 y 100", "Atención",
+			JOptionPane.showMessageDialog(null, "La capacidad debe ser entre 2 y 100", "Atenciï¿½n",
 					JOptionPane.WARNING_MESSAGE);
 			// Reseteo el campo
 			this.textFieldSlots.setText("");
@@ -223,7 +223,7 @@ public class VentanaCrearSala extends JFrame {
 		}
 		if (this.textFieldPassword.getPassword().length > 0
 				&& !(String.valueOf(this.textFieldPassword.getPassword())).matches("[a-zA-Z0-9]+")) {
-			JOptionPane.showMessageDialog(null, "Ingrese una contraseña alfanumerica", "Atención",
+			JOptionPane.showMessageDialog(null, "Ingrese una contraseï¿½a alfanumerica", "Atenciï¿½n",
 					JOptionPane.WARNING_MESSAGE);
 			// Reseteo el campo
 			this.textFieldPassword.setText("");
@@ -261,7 +261,7 @@ public class VentanaCrearSala extends JFrame {
 
 		} else {
 			JOptionPane.showMessageDialog(null, "El nombre de la sala solamente puede contener letras y numeros.",
-					"Atención", JOptionPane.WARNING_MESSAGE);
+					"Atenciï¿½n", JOptionPane.WARNING_MESSAGE);
 
 			this.textFieldName.setText("");
 		}

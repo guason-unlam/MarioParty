@@ -103,7 +103,7 @@ public class VentanaLobby extends JFrame implements ActionListener {
 		this.addWindowListener(new java.awt.event.WindowAdapter() {
 			@Override
 			public void windowClosing(java.awt.event.WindowEvent windowEvent) {
-				int opcion = JOptionPane.showConfirmDialog(getContentPane(), "Desea cerrar la ventana?", "Atención!",
+				int opcion = JOptionPane.showConfirmDialog(getContentPane(), "Desea cerrar la ventana?", "Atenciï¿½n!",
 						JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 
 				if (opcion == JOptionPane.YES_OPTION) {
@@ -172,7 +172,7 @@ public class VentanaLobby extends JFrame implements ActionListener {
 		String comStr = ae.getActionCommand();
 
 		if (comStr == "Salir") {
-			int opcion = JOptionPane.showConfirmDialog(getContentPane(), "Desea cerrar la ventana?", "Atención!",
+			int opcion = JOptionPane.showConfirmDialog(getContentPane(), "Desea cerrar la ventana?", "Atenciï¿½n!",
 					JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 			System.out.println(opcion);
 			if (opcion == JOptionPane.YES_OPTION) {
