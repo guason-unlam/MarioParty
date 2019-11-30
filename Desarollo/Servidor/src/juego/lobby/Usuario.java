@@ -169,6 +169,43 @@ public class Usuario {
 		return null;
 	}
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + (estaJugando ? 1231 : 1237);
+		result = prime * result + id;
+		result = prime * result + ((sala == null) ? 0 : sala.hashCode());
+		result = prime * result + ((username == null) ? 0 : username.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Usuario other = (Usuario) obj;
+		if (estaJugando != other.estaJugando)
+			return false;
+		if (id != other.id)
+			return false;
+		if (sala == null) {
+			if (other.sala != null)
+				return false;
+		} else if (!sala.equals(other.sala))
+			return false;
+		if (username == null) {
+			if (other.username != null)
+				return false;
+		} else if (!username.equals(other.username))
+			return false;
+		return true;
+	}
+
 	public void setJugador(Jugador jugador) {
 		this.jugador = jugador;
 	}

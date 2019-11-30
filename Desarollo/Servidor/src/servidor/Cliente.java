@@ -223,7 +223,7 @@ public class Cliente extends Thread {
 					String nombreMapa = "tablero03.txt";
 
 					// CREO LA PARTIDA
-					sala.crearPartida(cantidadBots, condicionVictoria, nombreMapa, cantidadTotalRondas);
+					sala.crearPartida(this.sala.getUsuarioCreador(), cantidadBots, condicionVictoria, nombreMapa, cantidadTotalRondas);
 
 					// SI TENGO BOTS, LOS AGREGO
 					for (int i = 0; i < cantidadBots; i++) {

@@ -184,14 +184,15 @@ public class Sala {
 	 * 
 	 * @return Boolean
 	 */
-	public boolean crearPartida(int cantidadBots, String condicionVictoria, String mapa, int cantidadTotalRondas) {
+	public boolean crearPartida(Usuario creador, int cantidadBots, String condicionVictoria, String mapa,
+			int cantidadTotalRondas) {
 		if (this.partidaActual == null || this.partidaActual.isPartidaEnCurso() == false) {
 			this.partidaActual = new Partida(this.usuariosActivos, condicionVictoria, mapa, cantidadTotalRondas);
 
 			// Preparo a todos los usuarios
 			for (Usuario userActivo : this.usuariosActivos) {
 				for (ConexionServidor cs : Servidor.getServidoresConectados()) {
-					if (cs.getUsuario().equals(userActivo)) {
+					if (cs.getUsuario().equals(userActivo) && !cs.getUsuario().equals(creador)) {
 						cs.escribirSalida(Json.createObjectBuilder().add("type", Constantes.NOTICE_EMPEZA_JUEGO_CLIENTE)
 								.add("tablero", this.partidaActual.getTablero().toJson()).build());
 					}
