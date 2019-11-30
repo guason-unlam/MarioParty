@@ -214,6 +214,7 @@ public class VentanaAdministracionSala extends JFrame {
 		panel.add(comboCantRondas);
 
 		cantidadDeBotsComboBox = new JComboBox<Object>();
+		cantidadDeBotsComboBox.setEnabled(false);
 		cantidadDeBotsComboBox.setToolTipText("Debe seleccionar cantidad de bots");
 		cantidadDeBotsComboBox
 				.setModel(new DefaultComboBoxModel<Object>(new String[] { "0", "1", "2", "3", "4", "5" }));
@@ -227,12 +228,14 @@ public class VentanaAdministracionSala extends JFrame {
 		panel.add(cantidadLabel);
 
 		lblCantBots = new JLabel();
+		lblCantBots.setEnabled(false);
 		lblCantBots.setText("Cant. Bots");
 		lblCantBots.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblCantBots.setBounds(10, 172, 151, 20);
 		panel.add(lblCantBots);
 
 		cantidadDeBotsLabel = new JLabel("-");
+		cantidadDeBotsLabel.setEnabled(false);
 		cantidadDeBotsLabel.setBounds(109, 172, 130, 20);
 		panel.add(cantidadDeBotsLabel);
 
@@ -265,26 +268,13 @@ public class VentanaAdministracionSala extends JFrame {
 		panel.add(lblCondicin);
 
 		comboBoxEstilo = new JComboBox<Object>();
+		comboBoxEstilo.setEnabled(false);
 		comboBoxEstilo.setToolTipText("Debe seleccionar cantidad de bots");
 		comboBoxEstilo.setBounds(109, 203, 130, 20);
 		panel.add(comboBoxEstilo);
 
 		lblEstilo = new JLabel();
-		lblEstilo.setText("Estilo mapa");
-		lblEstilo.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblEstilo.setBounds(10, 203, 151, 20);
-		panel.add(lblEstilo);
-
-		labelEstilo = new JLabel("-");
-		labelEstilo.setBounds(109, 203, 130, 20);
-		panel.add(labelEstilo);
-
-		comboBoxEstilo = new JComboBox<Object>();
-		comboBoxEstilo.setToolTipText("Debe seleccionar cantidad de bots");
-		comboBoxEstilo.setBounds(109, 203, 130, 20);
-		panel.add(comboBoxEstilo);
-
-		lblEstilo = new JLabel();
+		lblEstilo.setEnabled(false);
 		lblEstilo.setText("Estilo mapa");
 		lblEstilo.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblEstilo.setBounds(10, 203, 151, 20);
@@ -301,6 +291,7 @@ public class VentanaAdministracionSala extends JFrame {
 			mapaParaNoAdmin.setVisible(false);
 			cantidadDeBotsLabel.setVisible(false);
 			labelCondicionVictoria.setVisible(false);
+			comboBoxEstilo.setVisible(true);
 			labelEstilo.setVisible(false);
 		} else {
 			comboMapa.setVisible(false);
