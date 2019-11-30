@@ -1,0 +1,149 @@
+package jpanel;
+
+import java.awt.BorderLayout;
+import java.awt.EventQueue;
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.util.Scanner;
+
+import javax.management.StringValueExp;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.KeyStroke;
+import javax.swing.border.EmptyBorder;
+
+public class VentanaConfiguracion extends JFrame {
+	
+	private char tecla;
+	 private JTextField textTirarDado;
+	 private static int tirarDadoId;
+	 private JTextField textUsarItem;
+	 private JTextField textPasar;
+	 private JButton tirarDado;
+	 private JButton usarItem;
+	 private JButton pasar;
+	 
+	 private static int pasarId;
+	 private static int usarItemId;
+	
+	
+	
+	
+
+	private JPanel contentPane;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					VentanaConfiguracion frame = new VentanaConfiguracion();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public VentanaConfiguracion() {
+		/*setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 450, 300);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(150, 175, 75, 75));
+		contentPane.setLayout(new BorderLayout(0, 0));
+		setContentPane(contentPane);
+		JButton boton = new JButton(String.valueOf(tecla));
+		//boton = new JButton("Salir\r\n");
+		boton.setFont(new Font("Tahoma", Font.PLAIN, 19));
+		//boton.setBounds(10, 314, 111, 46);
+		boton.setSize(10,10);
+		add(boton);
+		boton.setBounds(10, 314, 111, 46);*/
+		setTitle("JButtonTextChange Test");
+	      setLayout(new FlowLayout());
+		textTirarDado = new JTextField(2);
+		tirarDado = new JButton("Tirar Dado");
+		tirarDado.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent ae) {
+				if (!textTirarDado.getText().equals("")){
+					tirarDado.setText(textTirarDado.getText());
+					String aux = textTirarDado.getText();
+					KeyStroke ks = KeyStroke.getKeyStroke(aux.charAt(0));
+					tirarDadoId = ks.getKeyCode();
+				}
+			}
+		});
+		add(textTirarDado);
+	      add(tirarDado);
+	     
+	      
+	      
+	  	textPasar = new JTextField(2);
+		pasar = new JButton("Pasar");
+		pasar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent ae) {
+				if (!textPasar.getText().equals("")){
+					pasar.setText(textPasar.getText());
+					String aux = textPasar.getText();
+					KeyStroke ks = KeyStroke.getKeyStroke(aux.charAt(0));
+					pasarId = ks.getKeyCode();
+				}
+			}
+		});
+		add(textPasar);
+	      add(pasar);
+	      
+	      
+	      
+	    textUsarItem = new JTextField(2);
+		usarItem = new JButton("Usar Item");
+		usarItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent ae) {
+				if (!textUsarItem.getText().equals("")){
+					usarItem.setText(textUsarItem.getText());
+					String aux = textUsarItem.getText();
+					KeyStroke ks = KeyStroke.getKeyStroke(aux.charAt(0));
+					usarItemId = ks.getKeyCode();
+				}
+			}
+		});
+		add(textUsarItem);
+	      add(usarItem);
+
+		setSize(400, 300);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setLocationRelativeTo(null);
+		setVisible(true);
+		
+		
+		}
+	
+	public static int getIdLanzarDado(){
+		return tirarDadoId;
+	}
+  
+		public static int getPasarId() {
+		return pasarId;
+	}
+
+	public static int getUsarItemId() {
+		return usarItemId;
+	}
+}
+
+	
+	
+	
