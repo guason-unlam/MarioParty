@@ -16,6 +16,7 @@ import javax.json.JsonReader;
 import juego.Constantes;
 import juego.lobby.Sala;
 import juego.lobby.Usuario;
+import juego.lobby.UsuarioDAO;
 
 public class ConexionServidor extends Thread {
 
@@ -95,8 +96,6 @@ public class ConexionServidor extends Thread {
 
 		Servidor.desconectarServidor(this);
 	}
-
-
 
 	public void actualizarClientesSalaUnica(JsonObject entradaJson) {
 
@@ -185,6 +184,7 @@ public class ConexionServidor extends Thread {
 			}
 		}
 	}
+
 
 	private JsonObject armarPaqueteParamSala(JsonObject entradaJson) {
 		return Json.createObjectBuilder().add("type", Constantes.REFRESH_PARAM_ROOM)

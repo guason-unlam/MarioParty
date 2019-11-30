@@ -7,7 +7,9 @@ import java.net.Socket;
 import java.util.ArrayList;
 
 import javax.json.Json;
+import javax.json.JsonObject;
 import javax.json.JsonObjectBuilder;
+import javax.json.JsonString;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -52,8 +54,7 @@ public class ConexionInterna extends Thread {
 			this.salidaDatos.writeUTF(new Message(Constantes.LOGIN_REQUEST, request).toJson());
 
 			this.message = new Gson().fromJson(entradaDatos.readUTF(), Message.class);
-			System.out.println(message.getType());
-			System.out.println(message.getData());
+
 			switch (this.message.getType()) {
 			case Constantes.CORRECT_LOGIN:
 				this.usuario = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().setPrettyPrinting().create()
@@ -117,7 +118,6 @@ public class ConexionInterna extends Thread {
 			while (true) {
 				// Leo lo enviado por el sv
 				this.message = new Gson().fromJson(entradaDatos.readUTF(), Message.class);
-				System.out.println(this.message.getType());
 				// Depende el tipo de la respuesta
 				switch (this.message.getType()) {
 				case Constantes.JOIN_ROOM_CORRECT:
@@ -236,8 +236,7 @@ public class ConexionInterna extends Thread {
 			while (true) {
 				// Leo lo enviado por el sv
 				this.message = new Gson().fromJson(entradaDatos.readUTF(), Message.class);
-				System.out.println(this.message.getType());
-				// Depende el tipo de la respuesta
+ 				// Depende el tipo de la respuesta
 				switch (this.message.getType()) {
 				case Constantes.JOIN_ROOM_CORRECT:
 					return 1;
@@ -254,4 +253,49 @@ public class ConexionInterna extends Thread {
 		return -1;
 	}
 
+	public String obtenerEstadisticasTabla(String username) {
+		try {
+			String request = Json.createObjectBuilder().add("username", username).build().toString();
+
+			this.salidaDatos.writeUTF(new Message(Constantes.SOLICITUD_TABLA_PARTIDAS, request).toJson());
+			while (true) {
+				// Leo lo enviado por el sv
+				this.message = new Gson().fromJson(entradaDatos.readUTF(), Message.class);
+				// Depende el tipo de la respuesta
+				switch (this.message.getType()) {
+				case Constantes.TABLA_PARTIDAS:
+					return (String) this.message.getData();
+				case Constantes.INCORRECT_TABLA_PARTIDA:
+					return null;
+				}
+			}
+
+		} catch (Exception ex) {
+			System.out.println("[HISTORIAL TABLA] " + ex.getMessage());
+		}
+		return null;
+	}
+
+	public String obtenerEstadisticas(String username) {
+		try {
+			String request = Json.createObjectBuilder().add("username", username).build().toString();
+
+			this.salidaDatos.writeUTF(new Message(Constantes.HISTORIAL, request).toJson());
+			while (true) {
+				// Leo lo enviado por el sv
+				this.message = new Gson().fromJson(entradaDatos.readUTF(), Message.class);
+				// Depende el tipo de la respuesta
+				switch (this.message.getType()) {
+				case Constantes.CORRECT_HISTORIAL:
+					return (String) this.message.getData();
+				case Constantes.INCORRECT_HISTORIAL:
+					return null;
+				}
+			}
+
+		} catch (Exception ex) {
+			System.out.println("[HISTORIAL] " + ex.getMessage());
+		}
+		return null;
+	}
 }
