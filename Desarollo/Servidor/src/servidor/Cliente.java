@@ -5,7 +5,13 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.Properties;
+
+import javax.json.Json;
+import javax.json.JsonArrayBuilder;
+import javax.json.JsonObject;
+import javax.json.JsonObjectBuilder;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
@@ -225,6 +231,48 @@ public class Cliente extends Thread {
 					}
 					sala.comenzarPartida();
 					break;
+				// HISTORIAL
+				case Constantes.HISTORIAL:
+					properties = new Gson().fromJson((String) message.getData(), Properties.class);
+
+					Map<String, Object> estadisticas = UsuarioDAO
+							.obtenerEstadisticas(properties.getProperty("username"));
+
+					if (estadisticas == null) {
+						this.salida.flush();
+						this.salida.writeUTF(new Message(Constantes.INCORRECT_HISTORIAL, null).toJson());
+						System.out.println("[ESTADISTICAS] El usuario " + properties.getProperty("username")
+								+ " fallo al solicitar las estadisticas.");
+					} else {
+
+						this.salida.flush();
+						this.salida.writeUTF(
+								new Message(Constantes.CORRECT_HISTORIAL, new Gson().toJson(estadisticas)).toJson());
+						System.out.println("[ESTADISTICAS] El usuario " + properties.getProperty("username")
+								+ " solicito estadisticas.");
+					}
+					break;
+				case Constantes.SOLICITUD_TABLA_PARTIDAS:
+
+					properties = new Gson().fromJson((String) message.getData(), Properties.class);
+
+					JsonArrayBuilder datosHistorial = UsuarioDAO
+							.obtenerEstadisticasHistorial(properties.getProperty("username"));
+					JsonObjectBuilder paqueteActualizacionDeSalas = Json.createObjectBuilder();
+					if (datosHistorial == null) {
+						this.salida.flush();
+						this.salida.writeUTF(new Message(Constantes.INCORRECT_TABLA_PARTIDA, null).toJson());
+						System.out.println("[TABLA PARTIDA] El usuario " + properties.getProperty("username")
+								+ " fallo al solicitar las estadisticas.");
+					} else {
+						String cadenaSalida = paqueteActualizacionDeSalas.add("type", Constantes.TABLA_PARTIDAS)
+								.add("datosHistorial", datosHistorial).build().toString();
+						this.salida.flush();
+						this.salida.writeUTF(new Message(Constantes.TABLA_PARTIDAS, cadenaSalida).toJson());
+						System.out.println("[TABLA PARTIDA] El usuario " + properties.getProperty("username")
+								+ " solicito estadisticas.");
+					}
+					break;
 				default:
 					break;
 				}
@@ -258,6 +306,7 @@ public class Cliente extends Thread {
 			}
 		}
 		Servidor.desconectar(this);
+
 	}
 
 	public DataOutputStream getSalida() {

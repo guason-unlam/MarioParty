@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-mapping>
+	<class name="juego.lobby.Partida" table="Partida">
+		<id column="id" name="id" type="int" />
+		<property column="map" name="tipoMapa" type="string" />
+		<property column="winner" name="ganador" type="string" />
+		<property column="rounds" name="cantidadDeRondasAJugar" type="int" />
+		<property column="win_condition" name="condicionVictoria"
+			type="string" />
+		<property column="highscore" name="puntajeMaximo" type="int" />
+	</class>
+</hibernate-mapping>

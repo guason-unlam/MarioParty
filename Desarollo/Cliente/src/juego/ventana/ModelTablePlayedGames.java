@@ -2,13 +2,13 @@ package juego.ventana;
 
 import javax.swing.table.AbstractTableModel;
 
-public class ModelTableRooms extends AbstractTableModel {
+public class ModelTablePlayedGames extends AbstractTableModel {
 	// https://stackoverflow.com/questions/23511143/dynamic-jtable-extending-abstracttablemodel
 	private static final long serialVersionUID = -2954569124563189244L;
-	private String[] columnNames = { "Partida", "Mapa", "Ganador", "Puntaje" };
+	private String[] columnNames = { "Sala", "Disponibilidad", "Admin", "Sala privada" };
 	private String[][] data;
 
-	public ModelTableRooms() {
+	public ModelTablePlayedGames() {
 
 	}
 

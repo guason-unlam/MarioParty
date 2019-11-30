@@ -102,5 +102,11 @@ public abstract class Constantes {
 	public static final String NOTICE_EMPEZA_JUEGO_CLIENTE = "arrancaLaPartidaaaaaa";
 	public static final String JOIN_ROOM_REQUEST_PASSWORD = "JoinRoomPW";
 	public static final String INCORRECT_PW = "pwIncorrecta";
+	public static final String HISTORIAL = "historial";
+	public static final String CORRECT_HISTORIAL = "historialOK";
+	public static final String INCORRECT_HISTORIAL = "historialFail";
+	public static final String TABLA_PARTIDAS = "TABLA_PARTIDAS_OK";
+	public static final String SOLICITUD_TABLA_PARTIDAS = "solicitudTablaPartidas";
+	public static final String INCORRECT_TABLA_PARTIDA = "tablaPartida";
 	public static int NUMERO_DE_BOT = 1;
 }

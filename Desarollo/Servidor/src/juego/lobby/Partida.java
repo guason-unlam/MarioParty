@@ -3,30 +3,52 @@ package juego.lobby;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+
 import juego.misc.ExcepcionArchivos;
 import juego.personas.Jugador;
 import juego.tablero.Tablero;
 import juego.tablero.casillero.Casillero;
 import servidor.Bot;
 
+@Table(name = "PARTIDA", uniqueConstraints = { @UniqueConstraint(columnNames = "ID") })
+
 public class Partida {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "ID", unique = true, nullable = false)
+	private int id;
 	// Cambiar por el estado
 	private boolean partidaEnCurso = false;
+
 	private ArrayList<Ronda> rondasJugadas = new ArrayList<Ronda>();
 	private ArrayList<Jugador> jugadoresEnPartida = new ArrayList<Jugador>();
 	private Ronda rondaEnCurso;
 	private int numeroRonda = 0;
+	@ManyToMany(mappedBy = "partidasJugadas")
 	private ArrayList<Usuario> usuariosActivosEnSala;
 	private Tablero tablero;
+	@Column(name = "tipoMapa")
 	private int tipoMapa;
+	@Column(name = "winner")
 	private Jugador ganador;
+	@Column(name = "highscore")
 	private int puntajeMaximo;
+	@Column(name = "rounds")
 	private int cantidadDeRondasAJugar;
 	private int precioDolar = 60;
 	// Los dolares son las estrellas del mario party, el q mas dolares tiene gana la
 	// partida, de momento hardcodeo el precio aca
 
 //	Para saber cuando termin� una Partida, por defecto, es por estrellas, a cinco.
+	@Column(name = "win_condition")
 	private TipoCondicionVictoria condicionVictoria;
 
 	public Partida(ArrayList<Usuario> usuariosActivosEnSala, String sCondicionVictoria, String mapa,
@@ -95,7 +117,7 @@ public class Partida {
 		 */
 		if (this.partidaEnCurso == true) {
 			numeroRonda++;
-			rondaEnCurso = new Ronda(jugadoresEnPartida, this.tablero);
+			rondaEnCurso = new Ronda(this, jugadoresEnPartida, this.tablero);
 			this.iniciarJuego();
 			rondasJugadas.add(rondaEnCurso);
 			System.out.println("");
@@ -316,6 +338,30 @@ public class Partida {
 		this.partidaEnCurso = false;
 		this.rondaEnCurso.setJugando(false);
 		this.rondaEnCurso = null;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public TipoCondicionVictoria getCondicionVictoria() {
+		return condicionVictoria;
+	}
+
+	public void setCondicionVictoria(TipoCondicionVictoria condicionVictoria) {
+		this.condicionVictoria = condicionVictoria;
+	}
+
+	public void setGanador(Jugador ganador) {
+		this.ganador = ganador;
+	}
+
+	public void setPrecioDolar(int precioDolar) {
+		this.precioDolar = precioDolar;
 	}
 
 }

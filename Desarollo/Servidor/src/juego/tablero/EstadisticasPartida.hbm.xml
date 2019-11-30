@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-mapping>
+	<class name="juego.tablero.EstadisticasPartida"
+		table="EstadisticasPartida">
+		<id column="id" name="id" type="int" />
+		<property column="usuario" name="usuario" type="int" />
+		<property column="partida" name="partida" type="int" />
+		<property column="cantidad_monedas" name="cantidadMonedas" type="int" />
+		<property column="cantidad_dolares" name="cantidadDolares" type="int" />
+		<property column="minijuegos_ganados" name="minijuegosGanados" type="int" />
+		<property column="puntos_totales" name="puntosTotales" type="int" />
+	</class>
+</hibernate-mapping>
