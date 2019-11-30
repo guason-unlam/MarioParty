@@ -55,7 +55,13 @@ public class UsuarioDAO {
 
 				Query queryMaxID = Servidor.getSessionHibernate().createQuery("SELECT max(u.id) FROM Usuario u");
 				List<Integer> id = queryMaxID.getResultList();
-				Usuario registrar = new Usuario(id.get(0).intValue() + 1, username, hashPassword);
+				Usuario registrar = null;
+
+				if (id.size() == 1 && id.get(0) == null) {
+					registrar = new Usuario(1, username, hashPassword);
+				} else {
+					registrar = new Usuario(id.get(0).intValue() + 1, username, hashPassword);
+				}
 				Servidor.getSessionHibernate().save(registrar);
 				return 0;
 			}
